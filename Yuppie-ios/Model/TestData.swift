@@ -8,9 +8,6 @@
 import UIKit
 
 
-import UIKit
-
-
 enum TestData {
     
     static let cards = [
