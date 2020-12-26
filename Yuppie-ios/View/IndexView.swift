@@ -11,20 +11,34 @@ import Mapbox
 
 
 /// Selected index view
+
+struct HotAnnotation{
+    var body: some View{
+        ZStack{
+            Circle().fill(Color.red.opacity(0.25)).frame(width:350, height:350)
+        }
+    }
+}
 struct IndexView: View {
+    var building: Building
     
     @State var annotations: [MGLPointAnnotation] = [
-        MGLPointAnnotation(title: "Mapbox", coordinate: .init(latitude: 37.791434, longitude: -122.396267))
+        MGLPointAnnotation(title: "Mapbox", coordinate: .init(latitude: 37.791439, longitude: -122.396267)),
+        
+        MGLPointAnnotation(title: "Mapbox", coordinate: .init(latitude: 37.792134, longitude: -122.394217)),
+        
+        MGLPointAnnotation(title: "Mapbox", coordinate: .init(latitude: 37.793134, longitude: -122.393217)),
+        
+       
     ]
     
     
     
-    private var count: Int = 0
+    var count: Int = 0
     
     
     
     // MARK: - Animatable
-    
     var selectedIndex: Int = 0
     var animatableData: Int {
         get { return selectedIndex }
@@ -43,9 +57,7 @@ struct IndexView: View {
         
         return
             MapView(annotations: $annotations).centerCoordinate(.init(latitude: 37.791293, longitude: -122.396324)).zoomLevel(15)
-            
-       
-    }
+           }
     
     
     // MARK: - Modifiers
@@ -55,12 +67,13 @@ struct IndexView: View {
         indexView.selectedIndex = index
         indexView.count = count
         return indexView
+        
     }
     
 }
 
 
-private struct IndexViewPreview: View {
+struct IndexViewPreview: View {
     
     let count = 4
     
@@ -109,15 +122,8 @@ private struct IndexViewPreview: View {
                 Spacer()
             }
             
-            IndexView() .select(at: index, in: count)
+            IndexView(building: TestData.buildings.first!) .select(at: index, in: count)
         }
-    }
-}
-
-
-struct IndexViewPreview_Previews: PreviewProvider {
-    static var previews: some View {
-        IndexViewPreview()
     }
 }
 

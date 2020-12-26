@@ -1,3 +1,10 @@
+//
+//  PropertyManagerForm.swift
+//  Yuppie-ios
+//
+//  Created by Mickey Friedman on 29/09/1399 AP.
+//
+
 import SwiftUI
 
 struct PropertyManagerForm : View {
@@ -21,7 +28,7 @@ struct PropertyManagerForm : View {
         self.covidPolicies = false
         self.Apartment = 0
     }
-    var userName = "Ryan"
+    var userName = "Mickey"
     var Apartments = ["5E", "7C", "11B", "8D"]
     func dateFormat(date : Date) -> String {
         let dateFormatter = DateFormatter()

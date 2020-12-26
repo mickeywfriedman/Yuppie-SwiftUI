@@ -10,33 +10,17 @@ import UIKit
 
 enum TestData {
     
-    static let cards = [
-        Card(balance: 395,
-         cardNumber: "EnV Chicago",
-         cardHolderName: "161 W Kinzie St, Chicago, IL 60654",
-         serviceLogo: UIImage(named: "bozuttologo")!,
-         color: UIImage(named: "bozutto3")!),
-        
-    Card(balance: 2000,
-         cardNumber: "Essex on Park",
-         cardHolderName: "808 S. Michigan Ave. Chicago, IL 60605",
-         serviceLogo: UIImage(named: "bozuttologo")!,
-         color: UIImage(named: "bozutto2")!),
     
-    Card(balance: 4500,
-         cardNumber: "Atwater Apartments",
-         cardHolderName: "355 East Ohio Street Chicago, IL 60611",
-         serviceLogo: UIImage(named: "bozuttologo")!,
-         color: UIImage(named: "bozutto1")!)
-    ]
     static let buildings = [
         Building(
             id: "395",
             name: "The Atellier",
-            images: ["bozutto1", "bozutto2"],
+            images: ["atelier", "atelier1", "atelier2", "atelier3"],
             description: "Live life in luxary in one of the best apartment buildings in the city. 60 story Hudson Yards skyscraper just minutes away fro the mid-town.",
-            address: "635 W 42nd Street, New York, NY, 10036",
+            address: "635 W 42nd Street",
             amenities: ["Pool", "Gym"],
+            latitude: 41.87148975,
+            longitude: -87.6247186,
             units: [
                 Unit(
                     id: "1",
@@ -50,11 +34,14 @@ enum TestData {
             ),
         Building(
             id: "396",
-            name: "The Atellie",
+            name: "15 Bank Apartments",
             images: ["bozutto1", "bozutto2"],
             description: "Live life in luxary in one of the best apartment buildings in the city. 60 story Hudson Yards skyscraper just minutes away fro the mid-town.",
-            address: "635 W 42nd Street, New York, NY, 10036",
+            address: "15 Bank Street Suite 100",
             amenities: ["Pool", "Gym"],
+            latitude: 41.87148975,
+            longitude: -87.6247186,
+            
             units: [
                 Unit(
                     id: "1",
@@ -71,8 +58,10 @@ enum TestData {
             name: "The Atelli",
             images: ["bozutto1", "bozutto2"],
             description: "Live life in luxary in one of the best apartment buildings in the city. 60 story Hudson Yards skyscraper just minutes away fro the mid-town.",
-            address: "635 W 42nd Street, New York, NY, 10036",
+            address: "635 W 42nd Street",
             amenities: ["Pool", "Gym"],
+            latitude: 41.87148975,
+            longitude: -87.6247186, 
             units: [
                 Unit(
                     id: "1",

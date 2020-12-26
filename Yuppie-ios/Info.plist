@@ -44,7 +44,7 @@
 	<key>UILaunchScreen</key>
 	<dict/>
 	<key>MGLMapboxAccessToken</key>
-	<string>pk.eyJ1IjoiY2VwaGFsb3BvZDAwNCIsImEiOiJjazRzdXdkbXUzODV5M2Vuc3pkN29ndW8zIn0.o1uHif91IUi0m_X-Gtdh2w</string>
+	<string>pk.eyJ1IjoiYXNjYXJpeCIsImEiOiJjajQ4OGV0bXEwNW5iMzJwY2RpYmpzam5mIn0.V1p4AFPhf7Rhf3qW0jeovg</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

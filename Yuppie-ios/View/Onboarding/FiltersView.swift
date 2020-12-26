@@ -1,3 +1,10 @@
+//
+//  FiltersView.swift
+//  Yuppie-ios
+//
+//  Created by Mickey Friedman on 29/09/1399 AP.
+//
+
 import SwiftUI
 
 struct FiltersView: View {
