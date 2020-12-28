@@ -7,6 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21A77FF2258DDDA500DD6F70 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A77FF1258DDDA500DD6F70 /* MapAnnotation.swift */; };
+		21A7801F258E0A4A00DD6F70 /* PulseLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7801E258E0A4A00DD6F70 /* PulseLayer.swift */; };
+		21A78027258E0A6D00DD6F70 /* Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A78026258E0A6D00DD6F70 /* Pulse.swift */; };
+		21A7802C258E0A9000DD6F70 /* AnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7802B258E0A9000DD6F70 /* AnimationDelegate.swift */; };
+		21A78031258E0AA800DD6F70 /* ApplicationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A78030258E0AA800DD6F70 /* ApplicationObserver.swift */; };
+		21A78036258E0AC300DD6F70 /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A78035258E0AC300DD6F70 /* CALayer+Extensions.swift */; };
+		21A78041258E0EFF00DD6F70 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A78040258E0EFF00DD6F70 /* Messages.swift */; };
+		21A78046258E10CD00DD6F70 /* BuildingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A78045258E10CD00DD6F70 /* BuildingView.swift */; };
+		21A7804B258E110500DD6F70 /* PropertyManagerForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7804A258E110500DD6F70 /* PropertyManagerForm.swift */; };
+		21A78050258E112100DD6F70 /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7804F258E112100DD6F70 /* FiltersView.swift */; };
+		21A78055258E114700DD6F70 /* BuildingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A78054258E114700DD6F70 /* BuildingModel.swift */; };
+		21A78060258E11A100DD6F70 /* testScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7805F258E11A100DD6F70 /* testScroll.swift */; };
+		21A78077258E204A00DD6F70 /* Chat_Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A78076258E204A00DD6F70 /* Chat_Interface.swift */; };
+		21A78098258E82D500DD6F70 /* Signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A78097258E82D500DD6F70 /* Signup.swift */; };
+		21A780A625906F9500DD6F70 /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A780A525906F9500DD6F70 /* Picker.swift */; };
+		21C10C74259290500049531E /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10C73259290500049531E /* TabBar.swift */; };
+		21C10C7C2592906D0049531E /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10C7B2592906D0049531E /* TabButton.swift */; };
+		21C10C81259290900049531E /* CustomCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10C80259290900049531E /* CustomCorner.swift */; };
+		21C10C8F2593AA6F0049531E /* Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10C8E2593AA6F0049531E /* Inbox.swift */; };
+		21C10C9D25943B250049531E /* UniversityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10C9C25943B250049531E /* UniversityModel.swift */; };
+		21C10CA225943B7E0049531E /* University.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CA125943B7E0049531E /* University.swift */; };
+		21C10CA7259440A90049531E /* CustomShapeOnboardin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CA6259440A90049531E /* CustomShapeOnboardin.swift */; };
+		21C10CAC259497F60049531E /* FirstLastName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CAB259497F50049531E /* FirstLastName.swift */; };
+		21C10CB125957BEE0049531E /* CardViewOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CB025957BED0049531E /* CardViewOnboarding.swift */; };
+		21C10CB625957C660049531E /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CB525957C660049531E /* BlurView.swift */; };
+		21C10CBE25957C930049531E /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CBD25957C920049531E /* BottomSheet.swift */; };
+		21C10CC325957D380049531E /* CustomCornerOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CC225957D380049531E /* CustomCornerOnboarding.swift */; };
+		21C10CC825957D4B0049531E /* PhoneAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CC725957D4B0049531E /* PhoneAuth.swift */; };
+		21C10CE225957E3D0049531E /* Verification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CE125957E3D0049531E /* Verification.swift */; };
+		21C10CE725957E650049531E /* Birthday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CE625957E650049531E /* Birthday.swift */; };
+		21C10CEC25957E830049531E /* ProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CEB25957E830049531E /* ProfilePicture.swift */; };
+		21C10CF125957EA20049531E /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CF025957EA20049531E /* ImagePicker.swift */; };
+		21C9B9B32596545C00ABF426 /* SelectUniversity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C9B9B22596545C00ABF426 /* SelectUniversity.swift */; };
 		21CCF0632572B9B100B22A75 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF0622572B9B100B22A75 /* ContentView.swift */; };
 		21CCF0652572B9B500B22A75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21CCF0642572B9B500B22A75 /* Assets.xcassets */; };
 		21CCF0682572B9B500B22A75 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21CCF0672572B9B500B22A75 /* Preview Assets.xcassets */; };
@@ -15,13 +48,12 @@
 		21CCF0A02572BB7700B22A75 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF09F2572BB7700B22A75 /* MapView.swift */; };
 		21CCF0AB2572BBB600B22A75 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF0AA2572BBB600B22A75 /* Card.swift */; };
 		21CCF0BB2572BBDF00B22A75 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF0BA2572BBDF00B22A75 /* TestData.swift */; };
-		21CCF0C12572BC0000B22A75 /* CardMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF0C02572BC0000B22A75 /* CardMenu.swift */; };
 		21CCF0C92572BC1400B22A75 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF0C82572BC1300B22A75 /* CardView.swift */; };
 		21CCF0CE2572BC2600B22A75 /* IndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF0CD2572BC2600B22A75 /* IndexView.swift */; };
 		21CCF0FD2572BE4100B22A75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF0FC2572BE4100B22A75 /* AppDelegate.swift */; };
 		21CCF10A2572BE8300B22A75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF1092572BE8300B22A75 /* SceneDelegate.swift */; };
-		2B34570186D54A244F1DDF6A /* Pods_Yuppie_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D806A01473862CF1559F45DE /* Pods_Yuppie_iosTests.framework */; };
-		CEE420DE9604CED1406981CD /* Pods_Yuppie_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3087704E1EFAD0D902EC227D /* Pods_Yuppie_ios.framework */; };
+		363DD9B869B0CEB162D02138 /* Pods_Yuppie_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99F83670E0F2DABA87D28533 /* Pods_Yuppie_iosTests.framework */; };
+		B970C2E054123DFCFDA91335 /* Pods_Yuppie_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB1B7BACC158DB592E7994 /* Pods_Yuppie_ios.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +74,40 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F58E1E3230A7656E830254D /* Pods-Yuppie-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-ios.release.xcconfig"; path = "Target Support Files/Pods-Yuppie-ios/Pods-Yuppie-ios.release.xcconfig"; sourceTree = "<group>"; };
+		21A77FF1258DDDA500DD6F70 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
+		21A7801E258E0A4A00DD6F70 /* PulseLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseLayer.swift; sourceTree = "<group>"; };
+		21A78026258E0A6D00DD6F70 /* Pulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pulse.swift; sourceTree = "<group>"; };
+		21A7802B258E0A9000DD6F70 /* AnimationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationDelegate.swift; sourceTree = "<group>"; };
+		21A78030258E0AA800DD6F70 /* ApplicationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationObserver.swift; sourceTree = "<group>"; };
+		21A78035258E0AC300DD6F70 /* CALayer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extensions.swift"; sourceTree = "<group>"; };
+		21A78040258E0EFF00DD6F70 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
+		21A78045258E10CD00DD6F70 /* BuildingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingView.swift; sourceTree = "<group>"; };
+		21A7804A258E110500DD6F70 /* PropertyManagerForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyManagerForm.swift; sourceTree = "<group>"; };
+		21A7804F258E112100DD6F70 /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
+		21A78054258E114700DD6F70 /* BuildingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingModel.swift; sourceTree = "<group>"; };
+		21A7805F258E11A100DD6F70 /* testScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testScroll.swift; sourceTree = "<group>"; };
+		21A78076258E204A00DD6F70 /* Chat_Interface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat_Interface.swift; sourceTree = "<group>"; };
+		21A78097258E82D500DD6F70 /* Signup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup.swift; sourceTree = "<group>"; };
+		21A780A525906F9500DD6F70 /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
+		21C10C73259290500049531E /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		21C10C7B2592906D0049531E /* TabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
+		21C10C80259290900049531E /* CustomCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorner.swift; sourceTree = "<group>"; };
+		21C10C8E2593AA6F0049531E /* Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inbox.swift; sourceTree = "<group>"; };
+		21C10C9C25943B250049531E /* UniversityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversityModel.swift; sourceTree = "<group>"; };
+		21C10CA125943B7E0049531E /* University.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = University.swift; sourceTree = "<group>"; };
+		21C10CA6259440A90049531E /* CustomShapeOnboardin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomShapeOnboardin.swift; sourceTree = "<group>"; };
+		21C10CAB259497F50049531E /* FirstLastName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLastName.swift; sourceTree = "<group>"; };
+		21C10CB025957BED0049531E /* CardViewOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewOnboarding.swift; sourceTree = "<group>"; };
+		21C10CB525957C660049531E /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		21C10CBD25957C920049531E /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
+		21C10CC225957D380049531E /* CustomCornerOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCornerOnboarding.swift; sourceTree = "<group>"; };
+		21C10CC725957D4B0049531E /* PhoneAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuth.swift; sourceTree = "<group>"; };
+		21C10CE125957E3D0049531E /* Verification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verification.swift; sourceTree = "<group>"; };
+		21C10CE625957E650049531E /* Birthday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Birthday.swift; sourceTree = "<group>"; };
+		21C10CEB25957E830049531E /* ProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicture.swift; sourceTree = "<group>"; };
+		21C10CF025957EA20049531E /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		21C9B9B22596545C00ABF426 /* SelectUniversity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUniversity.swift; sourceTree = "<group>"; };
 		21CCF05D2572B9B100B22A75 /* Yuppie-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Yuppie-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21CCF0622572B9B100B22A75 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		21CCF0642572B9B500B22A75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -56,17 +122,15 @@
 		21CCF09F2572BB7700B22A75 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		21CCF0AA2572BBB600B22A75 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		21CCF0BA2572BBDF00B22A75 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
-		21CCF0C02572BC0000B22A75 /* CardMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardMenu.swift; sourceTree = "<group>"; };
 		21CCF0C82572BC1300B22A75 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		21CCF0CD2572BC2600B22A75 /* IndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexView.swift; sourceTree = "<group>"; };
 		21CCF0FC2572BE4100B22A75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		21CCF1092572BE8300B22A75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		302B43ECC65E2C7F3C9A05D8 /* Pods-Yuppie-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-ios.release.xcconfig"; path = "Target Support Files/Pods-Yuppie-ios/Pods-Yuppie-ios.release.xcconfig"; sourceTree = "<group>"; };
-		3087704E1EFAD0D902EC227D /* Pods_Yuppie_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Yuppie_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		940714E97B0A616F29B80202 /* Pods-Yuppie-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-ios.debug.xcconfig"; path = "Target Support Files/Pods-Yuppie-ios/Pods-Yuppie-ios.debug.xcconfig"; sourceTree = "<group>"; };
-		B45C58E3438D0D41A12E9300 /* Pods-Yuppie-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-iosTests.debug.xcconfig"; path = "Target Support Files/Pods-Yuppie-iosTests/Pods-Yuppie-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
-		BB7689B11DBF07732E5D8AB7 /* Pods-Yuppie-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-iosTests.release.xcconfig"; path = "Target Support Files/Pods-Yuppie-iosTests/Pods-Yuppie-iosTests.release.xcconfig"; sourceTree = "<group>"; };
-		D806A01473862CF1559F45DE /* Pods_Yuppie_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Yuppie_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		37E5267FE1BB51E0E6092311 /* Pods-Yuppie-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-ios.debug.xcconfig"; path = "Target Support Files/Pods-Yuppie-ios/Pods-Yuppie-ios.debug.xcconfig"; sourceTree = "<group>"; };
+		7C4EF42C6F27A086805D57F2 /* Pods-Yuppie-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-iosTests.release.xcconfig"; path = "Target Support Files/Pods-Yuppie-iosTests/Pods-Yuppie-iosTests.release.xcconfig"; sourceTree = "<group>"; };
+		8673E826B6F245D7EFB96610 /* Pods-Yuppie-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-iosTests.debug.xcconfig"; path = "Target Support Files/Pods-Yuppie-iosTests/Pods-Yuppie-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8BDB1B7BACC158DB592E7994 /* Pods_Yuppie_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Yuppie_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		99F83670E0F2DABA87D28533 /* Pods_Yuppie_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Yuppie_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEE420DE9604CED1406981CD /* Pods_Yuppie_ios.framework in Frameworks */,
+				B970C2E054123DFCFDA91335 /* Pods_Yuppie_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B34570186D54A244F1DDF6A /* Pods_Yuppie_iosTests.framework in Frameworks */,
+				363DD9B869B0CEB162D02138 /* Pods_Yuppie_iosTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +160,88 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0930234632DD33358B52AFAA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				37E5267FE1BB51E0E6092311 /* Pods-Yuppie-ios.debug.xcconfig */,
+				0F58E1E3230A7656E830254D /* Pods-Yuppie-ios.release.xcconfig */,
+				8673E826B6F245D7EFB96610 /* Pods-Yuppie-iosTests.debug.xcconfig */,
+				7C4EF42C6F27A086805D57F2 /* Pods-Yuppie-iosTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		21A7801D258E0A3B00DD6F70 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				21A7801E258E0A4A00DD6F70 /* PulseLayer.swift */,
+				21A78026258E0A6D00DD6F70 /* Pulse.swift */,
+				21A7802B258E0A9000DD6F70 /* AnimationDelegate.swift */,
+				21A78030258E0AA800DD6F70 /* ApplicationObserver.swift */,
+				21A78035258E0AC300DD6F70 /* CALayer+Extensions.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
+		21A78070258E1FFC00DD6F70 /* Horizontal Scroll */ = {
+			isa = PBXGroup;
+			children = (
+				21A7805F258E11A100DD6F70 /* testScroll.swift */,
+				21CCF0C82572BC1300B22A75 /* CardView.swift */,
+			);
+			path = "Horizontal Scroll";
+			sourceTree = "<group>";
+		};
+		21A78074258E201B00DD6F70 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				21A78040258E0EFF00DD6F70 /* Messages.swift */,
+				21A78076258E204A00DD6F70 /* Chat_Interface.swift */,
+				21C10C8E2593AA6F0049531E /* Inbox.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		21A78075258E202400DD6F70 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				21CCF09F2572BB7700B22A75 /* MapView.swift */,
+				21A77FF1258DDDA500DD6F70 /* MapAnnotation.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		21A78096258E82CA00DD6F70 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				21A78097258E82D500DD6F70 /* Signup.swift */,
+				21C10CA6259440A90049531E /* CustomShapeOnboardin.swift */,
+				21A7804F258E112100DD6F70 /* FiltersView.swift */,
+				21C10CAB259497F50049531E /* FirstLastName.swift */,
+				21C10CB525957C660049531E /* BlurView.swift */,
+				21C10CB025957BED0049531E /* CardViewOnboarding.swift */,
+				21C10CBD25957C920049531E /* BottomSheet.swift */,
+				21C10CC225957D380049531E /* CustomCornerOnboarding.swift */,
+				21C10CC725957D4B0049531E /* PhoneAuth.swift */,
+				21C10CE125957E3D0049531E /* Verification.swift */,
+				21C10CE625957E650049531E /* Birthday.swift */,
+				21C10CEB25957E830049531E /* ProfilePicture.swift */,
+				21C10CF025957EA20049531E /* ImagePicker.swift */,
+				21C9B9B22596545C00ABF426 /* SelectUniversity.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		21C10C72259290180049531E /* Tab Bar */ = {
+			isa = PBXGroup;
+			children = (
+				21C10C73259290500049531E /* TabBar.swift */,
+				21C10C7B2592906D0049531E /* TabButton.swift */,
+				21C10C80259290900049531E /* CustomCorner.swift */,
+			);
+			path = "Tab Bar";
+			sourceTree = "<group>";
+		};
 		21CCF0542572B9B100B22A75 = {
 			isa = PBXGroup;
 			children = (
@@ -103,8 +249,8 @@
 				21CCF0712572B9B600B22A75 /* Yuppie-iosTests */,
 				21CCF07C2572B9B600B22A75 /* Yuppie-iosUITests */,
 				21CCF05E2572B9B100B22A75 /* Products */,
-				AC7EF5638A6F7807B3181FB7 /* Frameworks */,
-				6CFD54BE44296C43695467D4 /* Pods */,
+				0930234632DD33358B52AFAA /* Pods */,
+				BE128756A457E01474E39134 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -121,13 +267,14 @@
 		21CCF05F2572B9B100B22A75 /* Yuppie-ios */ = {
 			isa = PBXGroup;
 			children = (
+				21C10C72259290180049531E /* Tab Bar */,
+				21A7801D258E0A3B00DD6F70 /* Animations */,
 				21CCF0BF2572BBEF00B22A75 /* View */,
 				21CCF0A92572BBA900B22A75 /* Model */,
 				21CCF0622572B9B100B22A75 /* ContentView.swift */,
 				21CCF0642572B9B500B22A75 /* Assets.xcassets */,
 				21CCF0692572B9B500B22A75 /* Info.plist */,
 				21CCF0662572B9B500B22A75 /* Preview Content */,
-				21CCF09F2572BB7700B22A75 /* MapView.swift */,
 				21CCF0FC2572BE4100B22A75 /* AppDelegate.swift */,
 				21CCF1092572BE8300B22A75 /* SceneDelegate.swift */,
 			);
@@ -164,7 +311,10 @@
 			isa = PBXGroup;
 			children = (
 				21CCF0AA2572BBB600B22A75 /* Card.swift */,
+				21A78054258E114700DD6F70 /* BuildingModel.swift */,
 				21CCF0BA2572BBDF00B22A75 /* TestData.swift */,
+				21C10C9C25943B250049531E /* UniversityModel.swift */,
+				21C10CA125943B7E0049531E /* University.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -172,30 +322,23 @@
 		21CCF0BF2572BBEF00B22A75 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				21CCF0C02572BC0000B22A75 /* CardMenu.swift */,
-				21CCF0C82572BC1300B22A75 /* CardView.swift */,
+				21A78096258E82CA00DD6F70 /* Onboarding */,
+				21A78075258E202400DD6F70 /* Map */,
+				21A78074258E201B00DD6F70 /* Chat */,
+				21A78070258E1FFC00DD6F70 /* Horizontal Scroll */,
 				21CCF0CD2572BC2600B22A75 /* IndexView.swift */,
+				21A78045258E10CD00DD6F70 /* BuildingView.swift */,
+				21A7804A258E110500DD6F70 /* PropertyManagerForm.swift */,
+				21A780A525906F9500DD6F70 /* Picker.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		6CFD54BE44296C43695467D4 /* Pods */ = {
+		BE128756A457E01474E39134 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				940714E97B0A616F29B80202 /* Pods-Yuppie-ios.debug.xcconfig */,
-				302B43ECC65E2C7F3C9A05D8 /* Pods-Yuppie-ios.release.xcconfig */,
-				B45C58E3438D0D41A12E9300 /* Pods-Yuppie-iosTests.debug.xcconfig */,
-				BB7689B11DBF07732E5D8AB7 /* Pods-Yuppie-iosTests.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		AC7EF5638A6F7807B3181FB7 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3087704E1EFAD0D902EC227D /* Pods_Yuppie_ios.framework */,
-				D806A01473862CF1559F45DE /* Pods_Yuppie_iosTests.framework */,
+				8BDB1B7BACC158DB592E7994 /* Pods_Yuppie_ios.framework */,
+				99F83670E0F2DABA87D28533 /* Pods_Yuppie_iosTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -207,11 +350,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 21CCF0822572B9B600B22A75 /* Build configuration list for PBXNativeTarget "Yuppie-ios" */;
 			buildPhases = (
-				89F2B7B7365897CAF35AD66E /* [CP] Check Pods Manifest.lock */,
+				46333E2FB4CC07CB8EC5EDEE /* [CP] Check Pods Manifest.lock */,
 				21CCF0592572B9B100B22A75 /* Sources */,
 				21CCF05A2572B9B100B22A75 /* Frameworks */,
 				21CCF05B2572B9B100B22A75 /* Resources */,
-				F658EB792DA14F89B068E6F2 /* [CP] Embed Pods Frameworks */,
+				7C9509A7730905A4BA6FC2EA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -226,7 +369,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 21CCF0852572B9B600B22A75 /* Build configuration list for PBXNativeTarget "Yuppie-iosTests" */;
 			buildPhases = (
-				030B6B4FEAD917572790B47A /* [CP] Check Pods Manifest.lock */,
+				46A6975EE236788D80DB84B5 /* [CP] Check Pods Manifest.lock */,
 				21CCF06A2572B9B600B22A75 /* Sources */,
 				21CCF06B2572B9B600B22A75 /* Frameworks */,
 				21CCF06C2572B9B600B22A75 /* Resources */,
@@ -328,29 +471,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		030B6B4FEAD917572790B47A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Yuppie-iosTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		89F2B7B7365897CAF35AD66E /* [CP] Check Pods Manifest.lock */ = {
+		46333E2FB4CC07CB8EC5EDEE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -372,7 +493,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F658EB792DA14F89B068E6F2 /* [CP] Embed Pods Frameworks */ = {
+		46A6975EE236788D80DB84B5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Yuppie-iosTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7C9509A7730905A4BA6FC2EA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -397,13 +540,45 @@
 			buildActionMask = 2147483647;
 			files = (
 				21CCF0FD2572BE4100B22A75 /* AppDelegate.swift in Sources */,
-				21CCF0C12572BC0000B22A75 /* CardMenu.swift in Sources */,
+				21A78041258E0EFF00DD6F70 /* Messages.swift in Sources */,
+				21A780A625906F9500DD6F70 /* Picker.swift in Sources */,
+				21C10C8F2593AA6F0049531E /* Inbox.swift in Sources */,
+				21C10C74259290500049531E /* TabBar.swift in Sources */,
+				21A7804B258E110500DD6F70 /* PropertyManagerForm.swift in Sources */,
+				21C10CE225957E3D0049531E /* Verification.swift in Sources */,
+				21A77FF2258DDDA500DD6F70 /* MapAnnotation.swift in Sources */,
+				21C10CA7259440A90049531E /* CustomShapeOnboardin.swift in Sources */,
+				21A78027258E0A6D00DD6F70 /* Pulse.swift in Sources */,
+				21A78060258E11A100DD6F70 /* testScroll.swift in Sources */,
+				21C9B9B32596545C00ABF426 /* SelectUniversity.swift in Sources */,
+				21A7801F258E0A4A00DD6F70 /* PulseLayer.swift in Sources */,
+				21C10CC325957D380049531E /* CustomCornerOnboarding.swift in Sources */,
+				21C10CB125957BEE0049531E /* CardViewOnboarding.swift in Sources */,
 				21CCF10A2572BE8300B22A75 /* SceneDelegate.swift in Sources */,
+				21C10CC825957D4B0049531E /* PhoneAuth.swift in Sources */,
 				21CCF0C92572BC1400B22A75 /* CardView.swift in Sources */,
 				21CCF0CE2572BC2600B22A75 /* IndexView.swift in Sources */,
+				21A78077258E204A00DD6F70 /* Chat_Interface.swift in Sources */,
+				21A78050258E112100DD6F70 /* FiltersView.swift in Sources */,
+				21A78031258E0AA800DD6F70 /* ApplicationObserver.swift in Sources */,
+				21C10CBE25957C930049531E /* BottomSheet.swift in Sources */,
+				21C10C81259290900049531E /* CustomCorner.swift in Sources */,
 				21CCF0AB2572BBB600B22A75 /* Card.swift in Sources */,
+				21A78055258E114700DD6F70 /* BuildingModel.swift in Sources */,
+				21C10CEC25957E830049531E /* ProfilePicture.swift in Sources */,
+				21C10C9D25943B250049531E /* UniversityModel.swift in Sources */,
 				21CCF0A02572BB7700B22A75 /* MapView.swift in Sources */,
+				21C10C7C2592906D0049531E /* TabButton.swift in Sources */,
+				21C10CE725957E650049531E /* Birthday.swift in Sources */,
+				21C10CA225943B7E0049531E /* University.swift in Sources */,
 				21CCF0632572B9B100B22A75 /* ContentView.swift in Sources */,
+				21C10CB625957C660049531E /* BlurView.swift in Sources */,
+				21A78036258E0AC300DD6F70 /* CALayer+Extensions.swift in Sources */,
+				21A7802C258E0A9000DD6F70 /* AnimationDelegate.swift in Sources */,
+				21C10CAC259497F60049531E /* FirstLastName.swift in Sources */,
+				21A78098258E82D500DD6F70 /* Signup.swift in Sources */,
+				21C10CF125957EA20049531E /* ImagePicker.swift in Sources */,
+				21A78046258E10CD00DD6F70 /* BuildingView.swift in Sources */,
 				21CCF0BB2572BBDF00B22A75 /* TestData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -558,7 +733,7 @@
 		};
 		21CCF0832572B9B600B22A75 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 940714E97B0A616F29B80202 /* Pods-Yuppie-ios.debug.xcconfig */;
+			baseConfigurationReference = 37E5267FE1BB51E0E6092311 /* Pods-Yuppie-ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -581,7 +756,7 @@
 		};
 		21CCF0842572B9B600B22A75 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 302B43ECC65E2C7F3C9A05D8 /* Pods-Yuppie-ios.release.xcconfig */;
+			baseConfigurationReference = 0F58E1E3230A7656E830254D /* Pods-Yuppie-ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -604,7 +779,7 @@
 		};
 		21CCF0862572B9B600B22A75 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B45C58E3438D0D41A12E9300 /* Pods-Yuppie-iosTests.debug.xcconfig */;
+			baseConfigurationReference = 8673E826B6F245D7EFB96610 /* Pods-Yuppie-iosTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -626,7 +801,7 @@
 		};
 		21CCF0872572B9B600B22A75 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BB7689B11DBF07732E5D8AB7 /* Pods-Yuppie-iosTests.release.xcconfig */;
+			baseConfigurationReference = 7C4EF42C6F27A086805D57F2 /* Pods-Yuppie-iosTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
