@@ -40,7 +40,7 @@ struct FiltersView: View {
                 Spacer()
             }
             Picker(selection: $Bedroom, label:
-                Text(Bedrooms[Bedroom]).foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                    Text(Bedrooms[Bedroom]).foregroundColor(.purple)
                         .background(Color.white)
             ) {
                 ForEach(0 ..< Bedrooms.count) {
@@ -54,7 +54,7 @@ struct FiltersView: View {
                 Spacer()
             }
             Picker(selection: $Bathroom, label:
-                Text(Bathrooms[Bathroom]).foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                    Text(Bathrooms[Bathroom]).foregroundColor(.purple)
                         .background(Color.white)
             ) {
                 ForEach(0 ..< Bathrooms.count) {
@@ -81,7 +81,7 @@ struct FiltersView: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.blue)
+                        .background(Color.purple)
                         .cornerRadius(30.0)
                 }
                 }
@@ -104,7 +104,7 @@ struct FiltersView: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.blue)
+                        .background(Color.purple)
                         .cornerRadius(30.0)
                 }
                 }
@@ -129,7 +129,7 @@ struct FiltersView: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.blue)
+                        .background(Color.purple)
                         .cornerRadius(30.0)
                 }
                 }
@@ -152,7 +152,7 @@ struct FiltersView: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.blue)
+                        .background(Color.purple)
                         .cornerRadius(30.0)
                 }
                 }
@@ -176,7 +176,7 @@ struct FiltersView: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.blue)
+                        .background(Color.purple)
                         .cornerRadius(30.0)
                 }
                 }
@@ -199,7 +199,7 @@ struct FiltersView: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.blue)
+                        .background(Color.purple)
                         .cornerRadius(30.0)
                 }
                 }

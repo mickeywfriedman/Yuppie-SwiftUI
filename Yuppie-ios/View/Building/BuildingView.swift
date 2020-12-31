@@ -19,15 +19,8 @@ struct BuildingImages: View{
         ImageSlider(images: building.images, isFavorite: $isFavorite)
             .frame(height: 250)
             .clipShape(CustomShape(corner: .bottomLeft, radii: self.height > 800 ? 65: 60))
-            
-        
-        
         HStack{
-            
-           
-            
             Spacer()
-            
             Button(action: {
                 self.showForm.toggle()
                 
@@ -55,8 +48,20 @@ struct BuildingImages: View{
 }
 
 struct BuildingView: View {
+    func convertBedrooms(bedrooms: Int) -> Int {
+        if (bedrooms > 3){
+            return 3
+        }
+        else{
+            return bedrooms
+        }
+    }
     @State var showForm = false
     @State var isFavorite = true
+    var Bedrooms = ["Studio", "1", "2", "3+"]
+    @State private var Bedroom = 0
+    @State private var showPopUp = false
+    @State private var floorplanURL = ""
     @State var height = UIScreen.main.bounds.height
     @State var width = UIScreen.main.bounds.width
     @Binding var showCard: Bool
@@ -64,6 +69,7 @@ struct BuildingView: View {
     @State var value : CGFloat = 200
     var building: Building
     var body: some View {
+        ZStack{
         VStack{
             BuildingImages(building: building)
         ScrollView(showsIndicators: false){
@@ -71,7 +77,7 @@ struct BuildingView: View {
                 
                 Text(building.name).font(.largeTitle)
                     .foregroundColor(Color.gray)
-                Text(building.address).multilineTextAlignment(.center)
+                Text(building.address.streetAddress).multilineTextAlignment(.center)
                 Spacer()
                 Spacer()
                 Text("Message Our Tenants").fontWeight(.heavy).padding(.top,4)
@@ -193,244 +199,84 @@ struct BuildingView: View {
                     Spacer()
                     Spacer()
                     VStack(alignment: .leading){
-                        Text("Select Unit Size").fontWeight(.heavy).padding(.top,4).padding(.bottom, 15).foregroundColor(Color.gray).offset(x: -8)
-                        
-                        HStack(spacing: 0){
-                            
-                            Button(action: {
-                                
-                                self.index = 0
-                                
-                            }) {
-                                
-                                Text("1 🛏️")
-                                    .foregroundColor(self.index == 0 ? .white : Color.black.opacity(0.6))
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal, 25)
-                                    .background(self.index == 0 ? Color("Chat_color") : Color.white)
-                                    .cornerRadius(8)
-                                    .shadow(color: Color.purple.opacity(0.2), radius: 5, x: -5, y: -5)
-                                    .shadow(color: Color.gray.opacity(0.7), radius: 5, x: 5, y: 5)
+                        Text("Units").fontWeight(.heavy).padding(.top,4)
+                            .foregroundColor(Color.gray)
+                        Picker(selection: $Bedroom, label:
+                            Text(Bedrooms[Bedroom]).foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                                    .background(Color.white)
+                        ) {
+                            ForEach(0 ..< Bedrooms.count) {
+                                Text(self.Bedrooms[$0])
                             }
-                            Spacer()
-                            
-                            Button(action: {
-                                
-                                self.index = 1
-                                
-                            }) {
-                                
-                                Text("2 🛏️")
-                                    .foregroundColor(self.index == 1 ? .white : Color.black.opacity(0.6))
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal, 25)
-                                    .background(self.index == 1 ? Color("Chat_color") : Color.white)
-                                    .cornerRadius(8)
-                                    .shadow(color: Color.purple.opacity(0.2), radius: 5, x: -5, y: -5)
-                                    .shadow(color: Color.gray.opacity(0.7), radius: 5, x: 5, y: 5)
+                            .padding(1.0)
+                            }.pickerStyle(SegmentedPickerStyle())
+                        ForEach(building.units, id:\.number){unit in
+                            if (convertBedrooms(bedrooms:unit.bedrooms) == Bedroom) {
+                                Button(action: {
+                                    self.showPopUp = true
+                                    self.floorplanURL = unit.floorPlan
+                                    }, label: {
+                                        HStack{
+                                            Text("\(unit.number)")
+                                            Spacer()
+                                            HStack{
+                                            Text("\(unit.bedrooms)")
+                                                Image("Bed").resizable().frame(width: 25, height: 25)
+                                            }
+                                            Spacer()
+                                            HStack{
+                                            Text("\(unit.bathrooms)")
+                                                Image("Bath").resizable().frame(width: 35, height: 35)
+                                            }
+                                            Spacer()
+                                            HStack{
+                                            Text("\(unit.squareFeet)")
+                                                Image("Square").resizable().frame(width: 25, height: 20)
+                                            }
+                                            Spacer()
+                                            Text("$\(Int(unit.price))")
+                                        }.padding(.horizontal)
+                                    }).foregroundColor(.black)
                             }
-                            Spacer()
-                            
-                            Button(action: {
-                                
-                                self.index = 2
-                                
-                            }) {
-                                
-                                Text("3 🛏️")
-                                    .foregroundColor(self.index == 2 ? .white : Color.black.opacity(0.6))
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal, 25)
-                                    .background(self.index == 2 ? Color("Chat_color") : Color.white)
-                                    .cornerRadius(8)
-                                    .shadow(color: Color.purple.opacity(0.2), radius: 5, x: -5, y: -5)
-                                    .shadow(color: Color.gray.opacity(0.7), radius: 5, x: 5, y: 5)                            }
-                            
-                            Spacer()
                         }
-
-                        
-                        if self.index == 0{
-                            
-                            HStack(spacing: 20){
-                                
-                                VStack(alignment: .leading){
-                                    
-                                    Text("#0502")
-                                        .foregroundColor(Color.purple.opacity(0.8))
-                                    
-                                    Text("#0409")
-
-                                        .foregroundColor(Color.purple.opacity(0.8))
-                                }
-                                Spacer()
-                                
-                                VStack(alignment: .leading){
-                                    
-                                    Text("$2,075")
-                                        .foregroundColor(Color.black.opacity(0.4))
-                                    
-                                    Text("$2,195")
-                                        .foregroundColor(Color.black.opacity(0.4))
-                                }
-                                
-                                Spacer()
-                                
-                                VStack(alignment: .leading){
-                                    
-                                    Text("1🛀")
-
-                                        .foregroundColor(Color.black.opacity(0.4))
-                                    
-                                    Text("1🛀")
-                                        .foregroundColor(Color.black.opacity(0.4))
-                                }
-                                Spacer()
-                                
-                                VStack(spacing: 12){
-                                    
-                                    Text("718 sqft")
-                                       
-                                        .foregroundColor(Color.black.opacity(0.4))
-                                        .background(Color.white)
-                                    .cornerRadius(2)
-                                        .shadow(color: Color.gray.opacity(0.3), radius: 1, x: -1, y: -1)
-                                        .shadow(color: Color.gray.opacity(0.3), radius: 1, x: 1, y: 1)
-                                    
-                                    Text("767 sqft")
-                                        .foregroundColor(Color.black.opacity(0.4))
-                                        .background(Color.white)
-                                    .cornerRadius(2)
-                                        .shadow(color: Color.gray.opacity(0.3), radius: 1, x: -1, y: -1)
-                                        .shadow(color: Color.gray.opacity(0.3), radius: 1, x: 1, y: 1)
-                                }
-
-                            }
-                            .padding(.top)
-                        }
-                        else{
-                            
-                            HStack(spacing: 20){
-                                
-                                VStack(alignment: .leading){
-                                    
-                                    Text("#1521")
-                                        .foregroundColor(Color.purple.opacity(0.8))
-                                    
-                                    Text("#1009")
-
-                                        .foregroundColor(Color.purple.opacity(0.8))
-                                }
-                                Spacer()
-                                
-                                VStack(alignment: .leading){
-                                    
-                                    Text("$3,875")
-                                        .foregroundColor(Color.black.opacity(0.4))
-                                    
-                                    Text("$4,182")
-                                        .foregroundColor(Color.black.opacity(0.4))
-                                }
-                                
-                                Spacer()
-                                
-                                VStack(alignment: .leading){
-                                    
-                                    Text("2🛀")
-
-                                        .foregroundColor(Color.black.opacity(0.4))
-                                    
-                                    Text("2🛀")
-                                        .foregroundColor(Color.black.opacity(0.4))
-                                }
-                                Spacer()
-                                
-                                VStack(spacing: 12){
-                                    
-                                    Text("1182 sqft")
-                                       
-                                        .foregroundColor(Color.black.opacity(0.4))
-                                        .background(Color.white)
-                                    .cornerRadius(2)
-                                        .shadow(color: Color.gray.opacity(0.3), radius: 1, x: -1, y: -1)
-                                        .shadow(color: Color.gray.opacity(0.3), radius: 1, x: 1, y: 1)
-                                    
-                                    Text("2142 sqft")
-                                        .foregroundColor(Color.black.opacity(0.4))
-                                        .background(Color.white)
-                                    .cornerRadius(2)
-                                    .shadow(color: Color.gray.opacity(0.3), radius: 1, x: -1, y: -1)
-                                    .shadow(color: Color.gray.opacity(0.3), radius: 1, x: 1, y: 1)
-                                }
-                                
-                            }
-                            .padding(.top)
-                        }
-
-                        
-                    }
-                    .padding(.horizontal, 25)
+                    }.padding(.horizontal)
                     .offset(y: -90)
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                  
-                    
                 }
+                BuildingMapView(address:building.address).frame(width: UIScreen.main.bounds.width-20, height: 200).padding(.leading,10).offset(y: -90)
                 
-                
-                BuildingMapView(address:building.address).frame(width: UIScreen.main.bounds.width-20, height: 200).padding(.leading,10)
             }
         }.background(Color(.white))
-        
         Button(action: {
                 self.showCard.toggle()
             }) {
                
         }.offset(x:-170,y:290)
         }.edgesIgnoringSafeArea([.top, .bottom])
-    }
-}
-
-
-struct unitView : View {
-var units: [Unit]
-var body : some View {
-    VStack{
-        
-        
-
-        ForEach(units){ unit in
-            HStack{
-                Text("\(unit.name)")
-                Spacer()
-                HStack{
-                Text("\(unit.bedrooms)")
-                    Image("Bed").resizable().frame(width: 25, height: 25)
+            if $showPopUp.wrappedValue {
+                ZStack {
+                    Color.white
+                    VStack {
+                        if (floorplanURL != ""){
+                            Text("Floorplan")
+                            URLImage(url: floorplanURL)
+                        }
+                        else {
+                            Text("No floorplan available")
+                        }
+                        Spacer()
+                        Button(action: {
+                            self.showPopUp = false
+                        }, label: {
+                            Text("Close")
+                        })
+                    }.padding()
                 }
-                Spacer()
-                HStack{
-                Text("\(unit.bathrooms)")
-                    Image("Bath").resizable().frame(width: 35, height: 35)
-                }
-                Spacer()
-                HStack{
-                Text("\(unit.sqft)")
-                    Image("Square").resizable().frame(width: 25, height: 20)
-                }
-                Spacer()
-                Text("$\(unit.price)")
+                .frame(width: 300, height: 200)
+                .cornerRadius(20).shadow(radius: 20)
             }
-        }
     }
-}
-}
+    }}
+
 
 struct CircleImage: View {
     var image: Image
@@ -449,8 +295,7 @@ struct ImageSlider: View {
         ZStack{
         TabView {
                 ForEach(images, id: \.self) {image in
-                    Image(image)
-                        .resizable()
+                    URLImage(url: image)
                         .frame(width:UIScreen.main.bounds.width, height: 250)
                 }
             }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -474,7 +319,7 @@ struct CustomShape : Shape {
 
 
 struct BuildingMapView: UIViewRepresentable {
-    var address : String
+    var address : Address
     func coordinates(forAddress address: String, completion: @escaping (CLLocationCoordinate2D?) -> Void) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) {
@@ -494,7 +339,7 @@ struct BuildingMapView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        coordinates(forAddress: address) {
+        coordinates(forAddress: "\(address.streetAddress), \(address.city), \(address.state), \(address.zipCode)") {
             (location) in
             guard let location = location else {
                 return

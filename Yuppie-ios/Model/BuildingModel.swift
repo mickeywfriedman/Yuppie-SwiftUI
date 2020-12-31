@@ -6,26 +6,39 @@
 //
 
 import SwiftUI
+import Foundation
 
-
-struct Building: Hashable, Codable, Identifiable {
-    var id: String
+struct Building: Hashable, Decodable{
     var name: String
     var images: [String]
     var description: String
-    var address: String
+    var address: Address
     var amenities: [String]
-    var latitude: Float
-    var longitude: Float
+    var propertyManager: propertyManager
     var units: [Unit]
-    
 }
 
-struct Unit: Hashable, Codable, Identifiable {
-    var id: String
-    var name: String
-    var bedrooms: String
-    var bathrooms: String
-    var price: String
-    var sqft: String
+struct Unit: Hashable, Decodable{
+    var number: String
+    var bedrooms: Int
+    var bathrooms: Int
+    var price: Double
+    var squareFeet: Int
+    var dateAvailable: String
+    var floorPlan: String
 }
+
+struct Address: Hashable, Decodable{
+    var streetAddress: String
+    var city: String
+    var state: String
+    var zipCode: Int
+}
+
+struct propertyManager: Hashable, Codable{
+    var email: String
+}
+struct Response: Decodable {
+    var data : [Building]
+}
+

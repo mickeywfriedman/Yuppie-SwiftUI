@@ -39,9 +39,9 @@ struct PropertyManagerForm : View {
         let message = "Hello my name is \(userName) and I am interested in Unit \(Apartments[Apartment]) and would like to move in around \(dateFormat(date: MoveIn)). Can you tell me more about: \n\(self.amenityHours ? "-Amenity Hours\n": "")\(self.petPolicy ? "-Pet Policy\n": "")\(self.additionalCharges ? "-Additional Charges\n": "")\(self.localActivites ? "-Local Activities\n": "")\(self.covidPolicies ? "-Covid Policies\n": "")\(self.Parking ? "-Parking\n": "")"
         VStack(alignment: .center){
             Text("Contact Property").fontWeight(.heavy).font(.largeTitle)
-                .padding(.vertical)
+                .padding(.vertical).foregroundColor(.black)
             HStack{
-                Text("Ask About:")
+                Text("Ask About:").foregroundColor(.black)
             Spacer()
             }
             HStack{
@@ -53,7 +53,7 @@ struct PropertyManagerForm : View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.blue)
+                        .background(Color.purple)
                         .cornerRadius(30.0)
                 }
                 }
@@ -78,7 +78,7 @@ struct PropertyManagerForm : View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.blue)
+                        .background(Color.purple)
                         .cornerRadius(30.0)
                 }
                 }
@@ -106,7 +106,7 @@ struct PropertyManagerForm : View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.blue)
+                        .background(Color.purple)
                         .cornerRadius(30.0)
                 }
                 }
@@ -131,7 +131,7 @@ struct PropertyManagerForm : View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.blue)
+                        .background(Color.purple)
                         .cornerRadius(30.0)
                 }
                 }
@@ -156,7 +156,7 @@ struct PropertyManagerForm : View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.blue)
+                        .background(Color.purple)
                         .cornerRadius(30.0)
                 }
                 }
@@ -181,7 +181,7 @@ struct PropertyManagerForm : View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.blue)
+                        .background(Color.purple)
                         .cornerRadius(30.0)
                 }
                 }
@@ -199,10 +199,10 @@ struct PropertyManagerForm : View {
             }
             
             HStack{
-                Text("Select Apartment")
+                Text("Select Apartment").foregroundColor(.black)
                 Spacer()
                 Picker(selection: $Apartment, label:
-                Text(Apartments[Apartment]).foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                        Text(Apartments[Apartment]).foregroundColor(.blue)
                         .background(Color.white)
             ) {
                 ForEach(0 ..< Apartments.count) {
@@ -217,11 +217,12 @@ struct PropertyManagerForm : View {
             }
             
             DatePicker("Move In Date", selection: $MoveIn, displayedComponents: .date)
+                .foregroundColor(.black)
+                .background(Color.white)
                 .datePickerStyle(CompactDatePickerStyle())
                 .onReceive([self.MoveIn].publisher.first()) { value in
                     self.Message = message
                  }
-            
             TextEditor(text:$Message)
                 .border(Color.black, width: 2)
                 .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealWidth: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight:300, maxHeight: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)

@@ -22,7 +22,27 @@ struct ContentView: View {
     @State private var didLogin: Bool = false
     @State private var needsAccount: Bool = true
     @State private var random: Bool = false
+    @State private var buildingsData = TestData.buildings
+    func loadData() {
+            guard let url = URL(string: "http://18.218.78.71:8080/buildings") else {
+                print("Your API end point is Invalid")
+                return
+            }
+            let request = URLRequest(url: url)
 
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let data = data {
+                    if let response = try? JSONDecoder().decode(Response.self, from: data) {
+                        print(response)
+                        DispatchQueue.main.async {
+                            self.buildingsData = response.data
+                        }
+                        return
+                    }
+                    print(response)
+                }
+            }.resume()
+        }
     
     // MARK: - Helper
     
@@ -34,8 +54,7 @@ struct ContentView: View {
     var body: some View {
         
         
-        
-        var visibleCard =  testScroll(buildings:TestData.buildings)
+        var visibleCard =  testScroll(buildings:buildingsData)
         
         return
             
@@ -86,7 +105,7 @@ struct ContentView: View {
                         
                         
                 }
-              
+            .onAppear(perform: loadData)
             .edgesIgnoringSafeArea(.all)
             
         }

@@ -14,7 +14,7 @@ struct testScroll: View {
         ZStack{
     
             TabView {
-                ForEach(buildings) {building in
+                ForEach(buildings, id:\.name) {building in
                     CardView(building:building)
                 }
             }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))

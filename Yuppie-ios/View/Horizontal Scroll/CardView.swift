@@ -29,7 +29,7 @@ struct CardView: View {
                                 HStack{
                                     VStack{
                                         Text(building.name).fontWeight(.heavy)
-                                        Text(building.address)}
+                                        Text(building.address.streetAddress)}
                                         
                                     
                                         
@@ -50,8 +50,7 @@ struct CardView: View {
                 ZStack{
                 TabView {
                         ForEach(building.images, id: \.self) {image in
-                            Image(image)
-                                .resizable()
+                            URLImage(url:image)
                         }
                     }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 .frame(width:UIScreen.main.bounds.width-100, height: 200)

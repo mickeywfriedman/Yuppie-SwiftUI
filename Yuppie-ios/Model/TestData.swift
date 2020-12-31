@@ -13,66 +13,132 @@ enum TestData {
     
     static let buildings = [
         Building(
-            id: "395",
             name: "The Atellier",
-            images: ["atelier", "atelier1", "atelier2", "atelier3"],
+            images: ["http://18.218.78.71:8080/images/5fdbefceae921a507c9785de","http://18.218.78.71:8080/images/5fdbefceae921a507c9785dd"],
             description: "Live life in luxary in one of the best apartment buildings in the city. 60 story Hudson Yards skyscraper just minutes away fro the mid-town.",
-            address: "635 W 42nd Street",
+            address: Address(
+                streetAddress: "15 Bank Street",
+                city: "New York City",
+                state: "NY",
+                zipCode: 10036
+            ),
             amenities: ["Pool", "Gym"],
-            latitude: 41.87148975,
-            longitude: -87.6247186,
+            propertyManager: propertyManager(email: "propertyManager1@gmail.com"),
             units: [
                 Unit(
-                    id: "1",
-                    name: "40H",
-                    bedrooms: "2",
-                    bathrooms: "2",
-                    price: "3000",
-                    sqft: "2000"
+                    number: "40H",
+                    bedrooms: 2,
+                    bathrooms: 2,
+                    price: 3000,
+                    squareFeet: 2000,
+                    dateAvailable: "Today",
+                    floorPlan: "http://18.218.78.71:8080/images/5fdb99bcae921a507c9785cc"
                 )
             ]
             ),
         Building(
-            id: "396",
-            name: "15 Bank Apartments",
-            images: ["bozutto1", "bozutto2"],
+            name: "The Atellie",
+            images: ["http://18.218.78.71:8080/images/5fdbefceae921a507c9785de","http://18.218.78.71:8080/images/5fdbefceae921a507c9785dd"],
             description: "Live life in luxary in one of the best apartment buildings in the city. 60 story Hudson Yards skyscraper just minutes away fro the mid-town.",
-            address: "15 Bank Street Suite 100",
+            address: Address(
+                streetAddress: "15 Bank Street",
+                city: "New York City",
+                state: "NY",
+                zipCode: 10036
+            ),
             amenities: ["Pool", "Gym"],
-            latitude: 41.87148975,
-            longitude: -87.6247186,
-            
+            propertyManager: propertyManager(email: "propertyManager1@gmail.com"),
             units: [
                 Unit(
-                    id: "1",
-                    name: "40H",
-                    bedrooms: "2",
-                    bathrooms: "2",
-                    price: "3000",
-                    sqft: "2000"
+                    number: "40H",
+                    bedrooms: 2,
+                    bathrooms: 2,
+                    price: 3000,
+                    squareFeet: 2000,
+                    dateAvailable: "Today",
+                    floorPlan: ""
                 )
             ]
             ),
         Building(
-            id: "397",
             name: "The Atelli",
-            images: ["bozutto1", "bozutto2"],
+            images: ["http://18.218.78.71:8080/images/5fdbefceae921a507c9785de","http://18.218.78.71:8080/images/5fdbefceae921a507c9785dd"],
             description: "Live life in luxary in one of the best apartment buildings in the city. 60 story Hudson Yards skyscraper just minutes away fro the mid-town.",
-            address: "635 W 42nd Street",
+            address: Address(
+                streetAddress: "15 Bank Street",
+                city: "New York City",
+                state: "NY",
+                zipCode: 10036
+            ),
             amenities: ["Pool", "Gym"],
-            latitude: 41.87148975,
-            longitude: -87.6247186, 
+            propertyManager: propertyManager(email: "propertyManager1@gmail.com"),
             units: [
                 Unit(
-                    id: "1",
-                    name: "40H",
-                    bedrooms: "2",
-                    bathrooms: "2",
-                    price: "3000",
-                    sqft: "2000"
+                    number: "40H",
+                    bedrooms: 2,
+                    bathrooms: 2,
+                    price: 3000,
+                    squareFeet: 2000,
+                    dateAvailable: "Today",
+                    floorPlan: ""
                 )
             ]
             ),
+    ]
+}
+
+enum InitialData {
+    
+    
+    static let buildings = [
+        Building(
+            name: " ",
+            images: ["http://18.218.78.71:8080/images/5fdbefceae921a507c9785de"],
+            description: " ",
+            address: Address(
+                streetAddress: " ",
+                city: " ",
+                state: " ",
+                zipCode: 0
+            ),
+            amenities: [],
+            propertyManager: propertyManager(email: "propertyManager1@gmail.com"),
+            units: [
+                Unit(
+                    number: " ",
+                    bedrooms: 0,
+                    bathrooms: 0,
+                    price: 0,
+                    squareFeet: 0,
+                    dateAvailable: " ",
+                    floorPlan: ""
+                )
+            ]
+            ),
+        Building(
+            name: " ",
+            images: ["http://18.218.78.71:8080/images/5fdbefceae921a507c9785de"],
+            description: " ",
+            address: Address(
+                streetAddress: " ",
+                city: " ",
+                state: " ",
+                zipCode: 0
+            ),
+            amenities: [],
+            propertyManager: propertyManager(email: "propertyManager1@gmail.com"),
+            units: [
+                Unit(
+                    number: " ",
+                    bedrooms: 0,
+                    bathrooms: 0,
+                    price: 0,
+                    squareFeet: 0,
+                    dateAvailable: " ",
+                    floorPlan: ""
+                )
+            ]
+            )
         
     ]
 }
