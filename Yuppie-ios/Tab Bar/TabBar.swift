@@ -39,10 +39,6 @@ struct TabBar: View {
                     .tag(tabs[2])
                     .background(Color("bg").ignoresSafeArea())
                 
-                FiltersView()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .tag(tabs[3])
-                    .background(Color("bg").ignoresSafeArea())
             }
             
             // Custom Tab Bar....
@@ -67,4 +63,4 @@ struct TabBar: View {
     }
 }
 
-var tabs = ["house","person","suit.heart","gear"]
+var tabs = ["house","person","suit.heart"]

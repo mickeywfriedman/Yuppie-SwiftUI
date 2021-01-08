@@ -190,6 +190,7 @@
 			children = (
 				21A7805F258E11A100DD6F70 /* testScroll.swift */,
 				21CCF0C82572BC1300B22A75 /* CardView.swift */,
+				21A7804F258E112100DD6F70 /* FiltersView.swift */,
 			);
 			path = "Horizontal Scroll";
 			sourceTree = "<group>";
@@ -218,7 +219,6 @@
 			children = (
 				21A78097258E82D500DD6F70 /* Signup.swift */,
 				21C10CA6259440A90049531E /* CustomShapeOnboardin.swift */,
-				21A7804F258E112100DD6F70 /* FiltersView.swift */,
 				21C10CAB259497F50049531E /* FirstLastName.swift */,
 				21C10CB525957C660049531E /* BlurView.swift */,
 				21C10CB025957BED0049531E /* CardViewOnboarding.swift */,
@@ -751,7 +751,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Yuppie-ios/Preview Content\"";
-				DEVELOPMENT_TEAM = HZUB2QW2AG;
+				DEVELOPMENT_TEAM = 39QK36JNAM;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Yuppie-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -774,7 +774,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Yuppie-ios/Preview Content\"";
-				DEVELOPMENT_TEAM = HZUB2QW2AG;
+				DEVELOPMENT_TEAM = 39QK36JNAM;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Yuppie-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;

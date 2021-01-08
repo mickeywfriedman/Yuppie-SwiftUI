@@ -4,14 +4,28 @@ import SwiftUI
 /// Credit card view
 struct CardView: View {
     var building: Building
+    var minBedrooms: Int
+    var minBathrooms: Int
+    func unitFilter(unit: Unit, minBathrooms: Int, minBedrooms: Int) -> Bool{
+        if (unit.bedrooms >= minBedrooms && unit.bathrooms >= minBathrooms){
+            return true
+        }
+        return false
+    }
+    func minPrice (building: Building, minBedrooms: Int, minBathrooms: Int) -> Int {
+        var minPrice = 100000
+        for unit in building.units.filter({unitFilter(unit:$0, minBathrooms:minBathrooms,minBedrooms:minBedrooms)}) {
+            if (Int(unit.price) < minPrice){
+                minPrice = Int(unit.price)
+            }
+        }
+        return minPrice
+    }
     @State var isFavorite = true
     @State var showCard = false
     var body: some View {
             ZStack{
                 VStack{
-                Button(action: {
-                                    self.showCard.toggle()
-                            }) {
                     VStack{
                         Text("   ")
                         Text("   ")
@@ -21,7 +35,7 @@ struct CardView: View {
                                 
                                 
                                 VStack{
-                                    Text("$4200+").fontWeight(.heavy)
+                                    Text("\(minPrice(building:building, minBedrooms:minBedrooms, minBathrooms:minBathrooms))+").fontWeight(.heavy)
                                     Text("3 Beds  2 Bath")
                                     
                                 }.foregroundColor(.gray)
@@ -42,9 +56,8 @@ struct CardView: View {
                         .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
                         .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                     }
-                }
                 }.sheet(isPresented: $showCard) {
-                    BuildingView(showCard:self.$showCard, building:building)
+                    BuildingView(Bedroom: minBedrooms, showCard:self.$showCard, building:building)
                 }
                 
                 ZStack{
@@ -58,7 +71,7 @@ struct CardView: View {
                 .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
                 .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                     
-                    Button(action: {}, label: {
+                    Button(action: {self.showCard.toggle()}, label: {
                         
                         Image(systemName: "arrow.up")
                             .font(.system(size: 14, weight: .bold))
@@ -84,7 +97,7 @@ struct CardView: View {
                             }
                     }.offset(x:115, y: -80)
                 }.offset(y:-40)
-            }
+    }
         }
     }
 
@@ -93,7 +106,7 @@ struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack{
             Color.purple
-            CardView(building: TestData.buildings.first!)
+            CardView(building: TestData.buildings.first!, minBedrooms: 1, minBathrooms: 1)
         }
     }
 }

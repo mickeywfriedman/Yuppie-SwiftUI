@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct FiltersView: View {
+    @Binding var showFilters: Bool
+    @Binding var Bedroom : Int
+    @Binding var Bathroom : Int
+    @Binding var MaxPrice : Double
     var Bedrooms = ["Studio", "1", "2", "3+"]
     var Bathrooms = ["1", "2", "3"]
-    @State var MaxPrice = 0
-    @State var Bedroom = 0
-    @State var Price : Double = 0
-    @State var Bathroom = 0
     @State var animals = false
     @State var gym = false
     @State var rooftop = false
@@ -64,10 +64,10 @@ struct FiltersView: View {
             }.pickerStyle(SegmentedPickerStyle())
             
             HStack{
-                Text("The most I can pay is $\(priceFormat(price:Price))").fontWeight(.heavy)
+                Text("The most I can pay is $\(priceFormat(price:MaxPrice))").fontWeight(.heavy)
                 Spacer()
             }
-            Slider(value: $Price, in: 0...10000)
+            Slider(value: $MaxPrice, in: 1000...10000)
             
             HStack{
                 Text("I can't live without").fontWeight(.heavy)
@@ -219,11 +219,5 @@ struct FiltersView: View {
             
             Spacer()
         }.padding()
-    }
-}
-
-struct FiltersView_Previews: PreviewProvider {
-    static var previews: some View {
-        FiltersView()
     }
 }

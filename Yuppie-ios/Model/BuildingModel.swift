@@ -37,8 +37,18 @@ struct Address: Hashable, Decodable{
 
 struct propertyManager: Hashable, Codable{
     var email: String
+    var id: String
 }
 struct Response: Decodable {
     var data : [Building]
+}
+
+struct Lead: Codable {
+    var message: String
+    var user: String
+    var propertyManager: String
+    var propertyName: String
+    var unitEnquired: String
+    var moveInDate: String
 }
 

@@ -6,29 +6,52 @@
 //
 
 import SwiftUI
+import Combine
 
 struct PropertyManagerForm : View {
-    @Binding var showForm: Bool
-    @State var MoveIn = Date()
-    @State var Apartment = 0
-    @State var Message = ""
-    @State var amenityHours = false
-    @State var petPolicy = false
-    @State var additionalCharges = false
-    @State var localActivites = false
-    @State var Parking = false
-    @State var covidPolicies = false
-    @State var askString = ""
-    func sendEmail (Message: String, Apartment: String, userName: String, amenityHours: Bool, petPolicy: Bool, additionalCharges: Bool, localActivites: Bool, Parking: Bool, covidPolicies: Bool){
-        self.amenityHours = false
-        self.petPolicy = false
-        self.additionalCharges = false
-        self.localActivites = false
-        self.Parking = false
-        self.covidPolicies = false
-        self.Apartment = 0
-    }
+    var building: Building
     var userName = "Mickey"
+    var userID = "5fee30617e4ab8e3cdfd13f8"
+    var userToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDk0NDU0NzMsIm5iZiI6MTYwOTQ0NTQ3MywianRpIjoiOTE1YjhmYmQtOWNiNy00Njk4LThkZTYtZjM3YmVkNTVkNDM0IiwiaWRlbnRpdHkiOiI1ZmVlMzA2MTdlNGFiOGUzY2RmZDEzZjgiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.0LOt6bsQHxYtQNQRE9cpRe2YfpBidVVS1hXscWFHHYY"
+    @Binding var showForm: Bool
+    @State private var MoveIn = Date()
+    @State private var Apartment = 0
+    @State private var Message = ""
+    @State private var showPopUp = false
+    @State private var amenityHours = false
+    @State private var petPolicy = false
+    @State private var additionalCharges = false
+    @State private var localActivites = false
+    @State private var Parking = false
+    @State private var covidPolicies = false
+    @State private var askString = ""
+    func sendEmail (Message: String, Apartment: String, userID: String, building: Building, moveIn:Date){
+        let lead = Lead(
+            message: Message,
+            user: userID,
+            propertyManager: building.propertyManager.id,
+            propertyName: building.name,
+            unitEnquired: Apartment,
+            moveInDate: dateFormat(date: MoveIn)
+        )
+        guard let encoded = try? JSONEncoder().encode(lead) else {
+            print("Failed to encode order")
+            return
+        }
+        guard let url = URL(string: "http://18.218.78.71:8080/leads") else {
+            print("Your API end point is Invalid")
+            return
+        }
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.setValue(userToken, forHTTPHeaderField: "Authorization")
+        request.httpBody = encoded
+        print(request)
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            print(response)
+        }.resume()
+    }
     var Apartments = ["5E", "7C", "11B", "8D"]
     func dateFormat(date : Date) -> String {
         let dateFormatter = DateFormatter()
@@ -226,11 +249,9 @@ struct PropertyManagerForm : View {
             TextEditor(text:$Message)
                 .border(Color.black, width: 2)
                 .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealWidth: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight:300, maxHeight: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                
-        
             Button(action: {
-                self.showForm.toggle()
-                sendEmail(Message: Message, Apartment: Apartments[Apartment], userName: userName, amenityHours: amenityHours, petPolicy: petPolicy, additionalCharges: additionalCharges, localActivites: localActivites, Parking: Parking, covidPolicies: covidPolicies)
+                self.showPopUp = true
+                sendEmail(Message: Message, Apartment: Apartments[Apartment], userID: userID, building: building, moveIn: MoveIn)
             }) {
                 Text("Send Message").font(.headline)
                     .foregroundColor(.white)
@@ -239,7 +260,13 @@ struct PropertyManagerForm : View {
                     .background(Color.blue)
                     .cornerRadius(15.0)
             }
-        }.padding()
+        }.padding().edgesIgnoringSafeArea([.top, .bottom])
+        if $showPopUp.wrappedValue {
+                VStack(alignment: .center) {
+                    Text("Message sent").foregroundColor(.black).fontWeight(.heavy)
+                    Text("The Property manager should reach out to you shortly.").foregroundColor(.black)
+                }
+        }
     }
 }
 
@@ -248,6 +275,6 @@ struct PropertyManagerForm : View {
 struct PropertyManagerForm_Previews: PreviewProvider {
 
     static var previews: some View {
-        PropertyManagerForm(showForm:.constant(true))
+        PropertyManagerForm(building: TestData.buildings.first!, showForm:.constant(true))
     }
 }

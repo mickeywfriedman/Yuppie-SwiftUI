@@ -1,6 +1,0 @@
-framework module Pods_Yuppie_iosTests {
-  umbrella header "Pods-Yuppie-iosTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

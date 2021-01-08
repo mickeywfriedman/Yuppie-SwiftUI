@@ -23,7 +23,10 @@ enum TestData {
                 zipCode: 10036
             ),
             amenities: ["Pool", "Gym"],
-            propertyManager: propertyManager(email: "propertyManager1@gmail.com"),
+            propertyManager: propertyManager(
+                email: "propertyManager1@gmail.com",
+                id: "5fd002a21ed3e413beb713d4"
+            ),
             units: [
                 Unit(
                     number: "40H",
@@ -47,7 +50,10 @@ enum TestData {
                 zipCode: 10036
             ),
             amenities: ["Pool", "Gym"],
-            propertyManager: propertyManager(email: "propertyManager1@gmail.com"),
+            propertyManager: propertyManager(
+                email: "propertyManager1@gmail.com",
+                id: "5fd002a21ed3e413beb713d4"
+            ),
             units: [
                 Unit(
                     number: "40H",
@@ -71,7 +77,10 @@ enum TestData {
                 zipCode: 10036
             ),
             amenities: ["Pool", "Gym"],
-            propertyManager: propertyManager(email: "propertyManager1@gmail.com"),
+            propertyManager: propertyManager(
+                email: "propertyManager1@gmail.com",
+                id: "5fd002a21ed3e413beb713d4"
+            ),
             units: [
                 Unit(
                     number: "40H",
@@ -102,7 +111,10 @@ enum InitialData {
                 zipCode: 0
             ),
             amenities: [],
-            propertyManager: propertyManager(email: "propertyManager1@gmail.com"),
+            propertyManager: propertyManager(
+                email: "propertyManager1@gmail.com",
+                id: "5fd002a21ed3e413beb713d4"
+            ),
             units: [
                 Unit(
                     number: " ",
@@ -126,7 +138,10 @@ enum InitialData {
                 zipCode: 0
             ),
             amenities: [],
-            propertyManager: propertyManager(email: "propertyManager1@gmail.com"),
+            propertyManager: propertyManager(
+                email: "propertyManager1@gmail.com",
+                id: "5fd002a21ed3e413beb713d4"
+            ),
             units: [
                 Unit(
                     number: " ",

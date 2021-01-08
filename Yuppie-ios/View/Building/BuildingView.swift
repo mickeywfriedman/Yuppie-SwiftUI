@@ -32,7 +32,7 @@ struct BuildingImages: View{
                     .padding(.bottom, 15)
                     .foregroundColor(.white)
                     .sheet(isPresented: $showForm) {
-                        PropertyManagerForm(showForm:self.$showForm)
+                        PropertyManagerForm(building: building, showForm:self.$showForm)
                 }
             }
             .padding(.horizontal, 10)
@@ -59,14 +59,14 @@ struct BuildingView: View {
     @State var showForm = false
     @State var isFavorite = true
     var Bedrooms = ["Studio", "1", "2", "3+"]
-    @State private var Bedroom = 0
+    @State var Bedroom : Int
     @State private var showPopUp = false
     @State private var floorplanURL = ""
-    @State var height = UIScreen.main.bounds.height
-    @State var width = UIScreen.main.bounds.width
+    @State private var height = UIScreen.main.bounds.height
+    @State private var width = UIScreen.main.bounds.width
     @Binding var showCard: Bool
-    @State var index = 0
-    @State var value : CGFloat = 200
+    @State private var index = 0
+    @State private var value : CGFloat = 200
     var building: Building
     var body: some View {
         ZStack{
@@ -359,7 +359,7 @@ struct BuildingMapView: UIViewRepresentable {
 
 struct BuildingView_Previews: PreviewProvider {
     static var previews: some View {
-        BuildingView(showCard:.constant(true), building: TestData.buildings.first!)
+        BuildingView(Bedroom: 1, showCard:.constant(true), building: TestData.buildings.first!)
     }
 }
 
