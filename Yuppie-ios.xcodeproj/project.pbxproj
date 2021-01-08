@@ -53,7 +53,7 @@
 		21CCF0FD2572BE4100B22A75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF0FC2572BE4100B22A75 /* AppDelegate.swift */; };
 		21CCF10A2572BE8300B22A75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF1092572BE8300B22A75 /* SceneDelegate.swift */; };
 		363DD9B869B0CEB162D02138 /* Pods_Yuppie_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99F83670E0F2DABA87D28533 /* Pods_Yuppie_iosTests.framework */; };
-		37E06551259C668300AE00F8 /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E06550259C668300AE00F8 /* URLImage.swift */; };
+		370E680725A7F9FE00EA597C /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370E680625A7F9FE00EA597C /* URLImage.swift */; };
 		B970C2E054123DFCFDA91335 /* Pods_Yuppie_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB1B7BACC158DB592E7994 /* Pods_Yuppie_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -127,7 +127,7 @@
 		21CCF0CD2572BC2600B22A75 /* IndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexView.swift; sourceTree = "<group>"; };
 		21CCF0FC2572BE4100B22A75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		21CCF1092572BE8300B22A75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		37E06550259C668300AE00F8 /* URLImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLImage.swift; path = "../../../Yuppie-SwiftUI1/Yuppie-ios/View/URLImage.swift"; sourceTree = "<group>"; };
+		370E680625A7F9FE00EA597C /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
 		37E5267FE1BB51E0E6092311 /* Pods-Yuppie-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-ios.debug.xcconfig"; path = "Target Support Files/Pods-Yuppie-ios/Pods-Yuppie-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		7C4EF42C6F27A086805D57F2 /* Pods-Yuppie-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-iosTests.release.xcconfig"; path = "Target Support Files/Pods-Yuppie-iosTests/Pods-Yuppie-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 		8673E826B6F245D7EFB96610 /* Pods-Yuppie-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-iosTests.debug.xcconfig"; path = "Target Support Files/Pods-Yuppie-iosTests/Pods-Yuppie-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -330,8 +330,8 @@
 				21A78074258E201B00DD6F70 /* Chat */,
 				21A78070258E1FFC00DD6F70 /* Horizontal Scroll */,
 				21CCF0CD2572BC2600B22A75 /* IndexView.swift */,
-				37E06550259C668300AE00F8 /* URLImage.swift */,
 				21A780A525906F9500DD6F70 /* Picker.swift */,
+				370E680625A7F9FE00EA597C /* URLImage.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -557,7 +557,7 @@
 				21C10C74259290500049531E /* TabBar.swift in Sources */,
 				21A7804B258E110500DD6F70 /* PropertyManagerForm.swift in Sources */,
 				21C10CE225957E3D0049531E /* Verification.swift in Sources */,
-				37E06551259C668300AE00F8 /* URLImage.swift in Sources */,
+				370E680725A7F9FE00EA597C /* URLImage.swift in Sources */,
 				21A77FF2258DDDA500DD6F70 /* MapAnnotation.swift in Sources */,
 				21C10CA7259440A90049531E /* CustomShapeOnboardin.swift in Sources */,
 				21A78027258E0A6D00DD6F70 /* Pulse.swift in Sources */,
