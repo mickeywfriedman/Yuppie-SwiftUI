@@ -44,9 +44,6 @@ struct CardView: View {
                                     VStack{
                                         Text(building.name).fontWeight(.heavy)
                                         Text(building.address.streetAddress)}
-                                        
-                                    
-                                        
                                     }.foregroundColor(.gray)
                             }.padding(.top, 160)
                             .padding()
@@ -61,11 +58,7 @@ struct CardView: View {
                 }
                 
                 ZStack{
-                TabView {
-                        ForEach(building.images, id: \.self) {image in
-                            URLImage(url:image)
-                        }
-                    }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                    ImageScroll(images: building.images)
                 .frame(width:UIScreen.main.bounds.width-100, height: 200)
                     .cornerRadius(20)
                 .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
@@ -101,6 +94,43 @@ struct CardView: View {
         }
     }
 
+struct ImageScroll: View {
+    @GestureState private var translation: CGFloat = 0
+    @State var index: Int = 0
+    var images: [String]
+    var body: some View {
+        GeometryReader { geometry in
+            HStack (spacing: 0){
+                ForEach(images, id: \.self) {image in
+                    URLImage(url:image)
+                        .frame(width:UIScreen.main.bounds.width-100, height: 200)
+                            .cornerRadius(20)
+                }
+            }
+           .frame(width: geometry.size.width, alignment: .leading)
+           .offset(x: -CGFloat(self.index) * geometry.size.width)
+           .animation(.interactiveSpring())
+           .gesture(
+              DragGesture()
+                 .updating(self.$translation) { gestureValue, gestureState, _ in
+                           gestureState = gestureValue.translation.width
+                  }
+                 .onEnded { value in
+                    var weakGesture : CGFloat = 0
+                         if value.translation.width < 0 {
+                            weakGesture = -100
+                         } else {
+                            weakGesture = 100
+                         }
+                    let offset = (value.translation.width + weakGesture) / geometry.size.width
+                            let newIndex = (CGFloat(self.index) - offset).rounded()
+                            self.index = min(max(Int(newIndex), 0), self.images.count - 1)
+                 }
+           )
+        }
+        
+    }
+}
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
