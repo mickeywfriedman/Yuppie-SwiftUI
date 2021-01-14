@@ -24,13 +24,7 @@ struct PhoneAuth: View {
     
     @StateObject var universityData = UniversityModel()
     
-    func printUserId() {
-        
-        print(self.user_id+"bip")
-        print(self.token+"bipolololol")
-        
-    }
-    
+ 
     
       func cleanStr(str: String) -> String {
           return str.replacingOccurrences(of: "[.#$\\[/\\]];}", with: ",", options: [.regularExpression])
@@ -42,7 +36,7 @@ struct PhoneAuth: View {
       
      public func send(_ sender: Any) {
       
-        printUserId()
+ 
         let parameters: [String: String] = ["phone": self.number]
           
         let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/users/"+self.user_id+"/request")! as URL)
@@ -173,7 +167,6 @@ struct PhoneAuth: View {
                         .offset(y: 30)
                         Button(action: {
                             self.send((Any).self)
-                            printUserId()
                             self.didLogin = false
                             self.needsAccount = true
                             self.showVerification.toggle()

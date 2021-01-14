@@ -26,12 +26,7 @@ struct Verification: View {
     
     @StateObject var serverData = UniversityModel()
     
-    func printUserId() {
-        
-        print(self.user_id+"bip")
-        print(self.token+"bipolololol")
-        
-    }
+
     
     
       func cleanStr(str: String) -> String {
@@ -44,7 +39,6 @@ struct Verification: View {
       
      public func send(_ sender: Any) {
       
-        printUserId()
         let parameters: [String: String] = ["passcode": self.code]
           
         let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/users/"+self.user_id+"/verify")! as URL)
@@ -165,7 +159,6 @@ struct Verification: View {
                         .offset(y: 30)
                         Button(action: {
                             self.send((Any).self)
-                            printUserId()
                             self.didLogin = false
                             self.needsAccount = true
                             self.showBirthday.toggle()

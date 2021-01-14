@@ -32,13 +32,7 @@ struct AddressView: View {
     
    
     
-    func printUserId() {
-        
-        print(self.user_id+"bip")
-        print(self.token+"AUTHTOKEN")
-        print(self.didLogin)
-        
-    }
+
     
     
       func cleanStr(str: String) -> String {
@@ -50,8 +44,7 @@ struct AddressView: View {
       }
       
      public func send(_ sender: Any) {
-      
-        printUserId()
+
         let parameters: [String: String] = ["user" : self.user_id]
           
         let request = NSMutableURLRequest(url: NSURL(string: "buildings/5fdae6afedf9ef3d1f7c215c/tenants")! as URL)
@@ -258,13 +251,7 @@ struct AddressView: View {
         @Binding var needsAccount: Bool
         @Binding var user_id: String
         
-        func printUserId() {
-            
-            print(self.user_id+"bip")
-            print(self.token,"AUTHTOKEN")
-            print(self.didLogin)
-            
-        }
+
 
         func cleanStr(str: String) -> String {
             return str.replacingOccurrences(of: "[.#$\\[/\\]];}", with: ",", options: [.regularExpression])
@@ -275,7 +262,7 @@ struct AddressView: View {
         }
         public func send(_ sender: Any) {
             
-            printUserId()
+
             
         
             let parameters: [String: String] = ["user" : self.user_id]

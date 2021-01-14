@@ -23,15 +23,9 @@ struct CentralHomeView: View {
     @Binding var user_id: String
     @State private var buildingsData = TestData.buildings
     
-    func printUserId() {
-        
-        print(self.user_id+"bip")
-        print(self.token+"AUTHPAST")
-        print(self.didLogin)
-        
-    }
+
         func loadData() {
-            printUserId()
+
                 guard let url = URL(string: "http://18.218.78.71:8080/buildings") else {
                     print("Your API end point is Invalid")
                     return

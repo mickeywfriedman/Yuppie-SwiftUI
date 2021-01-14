@@ -26,14 +26,7 @@ struct FirstLastName: View {
     
     @StateObject var serverData = UniversityModel()
     
-    func printUserId() {
-        
-        print(self.user_id+"bip")
-        print(self.token+"bipolololol")
-        
-    }
-    
-    
+
       func cleanStr(str: String) -> String {
           return str.replacingOccurrences(of: "[.#$\\[/\\]];}", with: ",", options: [.regularExpression])
       }
@@ -49,7 +42,6 @@ struct FirstLastName: View {
       
      public func send(_ sender: Any) {
       
-        printUserId()
    let parameters: [String: String] = ["firstName": self.firstName, "lastName": self.lastName /*, "password2": self.password2*/]
           
         let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/users/"+self.user_id)! as URL)

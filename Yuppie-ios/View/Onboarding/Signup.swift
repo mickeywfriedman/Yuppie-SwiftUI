@@ -42,18 +42,13 @@ struct SignupView: View {
       return String(describing: value ?? "")
     }
     
-    func printUserId() {
-        
-        print(self.user_id+"bip")
-        print(self.token+"bip")
-        
-    }
+   
 
     
     
     
    public func send(_ sender: Any) {
-    printUserId()
+  
         
  let parameters: [String: String] = ["email": self.email, "password": self.password/*, "password2": self.password2*/]
         
