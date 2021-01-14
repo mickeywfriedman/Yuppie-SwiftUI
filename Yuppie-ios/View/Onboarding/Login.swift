@@ -14,15 +14,15 @@
 
 import SwiftUI
 
-struct SignupView: View {
+struct LoginView: View {
     
     @State var username: String = ""
     @State var password: String = ""
     @State var password2: String = ""
     @State var email: String = ""
     @Binding var user_id: String
-    @State var showFirstLastName = false
-    @State var showLogin = false
+    @State var showCentralHomeView = false
+    @State var showSignupView = false
     @Binding var didLogin: Bool
     @State private var authToken: String = UserDefaults.standard.string(forKey: "Token") ?? ""
     @Binding var needsAccount: Bool
@@ -57,7 +57,7 @@ struct SignupView: View {
         
  let parameters: [String: String] = ["email": self.email, "password": self.password/*, "password2": self.password2*/]
         
-    let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/authentication/signup")! as URL)
+    let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/authentication/login")! as URL)
         request.httpMethod = "POST"
     
 //    self.username = "\(self.username)"
@@ -173,11 +173,12 @@ struct SignupView: View {
         ZStack{
            
            
-            NavigationLink(destination: FirstLastName(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showFirstLastName) {
+            NavigationLink(destination: CentralHomeView(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showCentralHomeView) {
                 
                 Text("")
             }
-            NavigationLink(destination: LoginView(user_id: $user_id, didLogin: $didLogin, needsAccount: $needsAccount, token: $token), isActive: self.$showLogin) {
+            
+            NavigationLink(destination: SignupView(user_id: $user_id, didLogin: $didLogin, needsAccount: $needsAccount, token: $token), isActive: self.$showSignupView) {
                 
                 Text("")
             }
@@ -228,7 +229,7 @@ struct SignupView: View {
                         .padding(.bottom,-65)
                         
                         
-                        Text("Welcome to Yuppie").fontWeight(.heavy).font(.largeTitle)
+                        Text("Login to Yuppie").fontWeight(.heavy).font(.largeTitle)
                             .foregroundColor(Color.white)
                        
                         HStack(spacing: 15){
@@ -266,9 +267,9 @@ struct SignupView: View {
                             self.send((Any).self)
                             
                             
-                            self.didLogin = false
-                            self.needsAccount = true
-                            self.showFirstLastName.toggle()
+                            self.didLogin = true
+                            self.needsAccount = false
+                            self.showCentralHomeView.toggle()
                             
                         }) {
                             
@@ -288,11 +289,11 @@ struct SignupView: View {
                         
                         Button(action: {
                             self.needsAccount = true
-                            self.showLogin.toggle()
+                            self.showSignupView.toggle()
                             
                         }) {
                             
-                            Text("Already a member?")
+                            Text("Not yet a member?")
                                 .foregroundColor(.white)
                         
                         }

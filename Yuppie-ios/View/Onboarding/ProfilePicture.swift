@@ -13,18 +13,18 @@ struct ProfilePicture: View {
     @State var countryCode = ""
     @State var number = ""
     @State var MoveIn = Date()
-    @State var showVerification = false
+    @State var showAddress = false
     @State var showsDatePicker = false
-    @State var images : [Data] = [Data(),Data(),Data(),Data()]
-    @State var imagePicker = true
+    @State var images : [Data] = [Data()]
+    @State var imagePicker = false
     @State var index = 0
     @State var showProfile = false
+    @Binding var token: String
+    @Binding var didLogin: Bool
+    @Binding var needsAccount: Bool
+    @Binding var user_id: String
     
-    let dateFormatter: DateFormatter = {
-            let df = DateFormatter()
-            df.dateStyle = .medium
-            return df
-        }()
+    
     
     var gradient1 = [Color("gradient2"),Color("gradient3"),Color("gradient4")]
     
@@ -32,9 +32,80 @@ struct ProfilePicture: View {
     
     @StateObject var serverData = UniversityModel()
     
+    
+      func cleanStr(str: String) -> String {
+          return str.replacingOccurrences(of: "[.#$\\[/\\]];}", with: ",", options: [.regularExpression])
+      }
+      
+      func toString(_ value: Any?) -> String {
+        return String(describing: value ?? "")
+      }
+      
+     public func send(_ sender: Any) {
+
+        let profile = UIImage(data: self.images[0])!
+        let imageData: Data = profile.jpegData(compressionQuality: 0.1) ?? Data()
+        let imageStr: String = imageData.base64EncodedString()
+        let paramStr: String = "images2=\(imageStr)"
+        let paramData: Data = paramStr.data(using: .utf8) ?? Data()
+        let parameters: [String: String] = ["image": imageStr]
+          
+        let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/images2")! as URL)
+          request.httpMethod = "POST"
+        
+        
+        request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+            
+        print(imageStr+"THIS IS IMAGESTR")
+
+           } catch let error {
+               print(error)
+           }
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest) {
+            data, response, error in
+            
+              guard error == nil else {
+                      return
+                  }
+
+                  guard let data = data else {
+                      return
+                  }
+
+                  do {
+                      //create json object from data
+                      if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] {
+                         print(json)
+                       
+                      }
+
+                     let responseString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+                           responseString as! String
+                  } catch let error {
+                      print(error)
+                  }
+        }
+        task.resume()
+
+            
+        }
+
+
+    
     var body: some View {
         
         ZStack{
+            
+            NavigationLink(destination: AddressView(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showAddress) {
+                
+                Text("")
+            }
             
             VStack(spacing: 35){
                 
@@ -52,11 +123,13 @@ struct ProfilePicture: View {
                     
                     VStack{
                         
+                        if self.images[0].count == 0{
+                        
                         Button(action: {serverData.isConnected.toggle()}, label: {
                             
                             VStack(spacing: 45){
                                 
-                                Image(systemName: "calendar")
+                                Image(systemName: "camera")
                                     .font(.system(size: 70))
                                     .foregroundColor(serverData.isConnected ? Color.red.opacity(0.6) : Color("power"))
                                     .frame(height: UIScreen.main.bounds.height / 9)
@@ -77,50 +150,71 @@ struct ProfilePicture: View {
                         })
                         .offset(y: -65)
                         .padding(.bottom,-65)
+                            
+                        }else{
+                            
+                            Image(uiImage: UIImage(data: self.images[0])!)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(serverData.isConnected ? Color.red.opacity(0.6) : Color("power"))
+                                .frame(height: UIScreen.main.bounds.height / 4)
+                                .offset(y: -65)
+                                    .padding(.bottom,-65)
+                                        
+
+
+                        .clipShape(Circle())
+                        .padding(15)
+                        .clipShape(Circle())
+                        .padding(15)
+                        .background(Color("gradient2").opacity(0.7))
+                        .clipShape(Circle())
                         
+                    }
+                    
+                        
+                        Text("Choose a Profile Picture")
+                            .foregroundColor(Color.white)
                        
                         HStack(spacing: 15){
                             
-                            Button(action: {
+                            Button(action: {self.index = 0
+                                    self.imagePicker.toggle()}, label: {
                                 
-                                self.index = 0
-                                self.imagePicker.toggle()
-                                
-                            }) {
-                                
-                                ZStack{
+                                VStack(spacing: 45){
                                     
-                                    if self.images[0].count == 0{
-                                        
-                                        RoundedRectangle(cornerRadius: 10)
-                                        .fill(Color("Color1"))
-                                        
-                                        Image(systemName: "plus")
-                                            .font(.system(size: 24, weight: .bold))
-                                    }
-                                    else{
-                                        
-                                        Image(uiImage: UIImage(data: self.images[0])!)
-                                        .resizable()
-                                        .renderingMode(.original)
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(height: 100)
-                                        .cornerRadius(10)
-                                    }
+                                    Image(systemName: "plus")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(serverData.isConnected ? Color.red.opacity(0.6) : Color("power"))
+                                        .frame(height: UIScreen.main.bounds.height / 16)
+
                                 }
-                                // Fixed Height...
-                                .frame(height: 100)
-                            }.sheet(isPresented: self.$imagePicker) {
+                                .background(
                                 
-                                ImagePickerOnboarding(showPicker: self.$imagePicker, imageData: self.$images[self.index])
-                            }
+                                    LinearGradient(gradient: .init(colors: [Color("pgradient1"),Color("pgradient2")]), startPoint: .top, endPoint: .bottom)
+                                )
+                                .clipShape(Circle())
+                                .padding(15)
+                                .background(Color("power1").opacity(0.7))
+                                .clipShape(Circle())
+                                .padding(15)
+                                .background(Color("gradient2").opacity(0.7))
+                                .clipShape(Circle())
+                            })
+                            .padding(.bottom,-65)
                             
+                        }.sheet(isPresented: self.$imagePicker) {
                             
+                            ImagePickerOnboarding(showPicker: self.$imagePicker, imageData: self.$images[self.index])
                         }
-                        .offset(x: -25, y: 30)
-                        Button(action: {
                             
-                            self.showVerification.toggle()
+                            
+                            
+                        Button(action: {
+                            self.send((Any).self)
+                            self.didLogin = false
+                            self.needsAccount = true
+                            self.showAddress.toggle()
                             
                         }) {
                             
@@ -180,8 +274,3 @@ struct ProfilePicture: View {
     }
 }
 
-struct ProfilePicture_Previews: PreviewProvider {
-    static var previews: some View {
-        Home()
-    }
-}

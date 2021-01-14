@@ -14,8 +14,10 @@ struct Building: Hashable, Decodable{
     var description: String
     var address: Address
     var amenities: [String]
+    var tenants: [tenant]
     var propertyManager: propertyManager
     var units: [Unit]
+
 }
 
 struct Unit: Hashable, Decodable{
@@ -34,6 +36,15 @@ struct Address: Hashable, Decodable{
     var state: String
     var zipCode: Int
 }
+
+
+struct tenant: Hashable, Decodable{
+    var email: String
+    var profilePicture: String
+    var id: String
+}
+
+
 
 struct propertyManager: Hashable, Codable{
     var email: String

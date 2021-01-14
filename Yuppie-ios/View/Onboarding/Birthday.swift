@@ -12,8 +12,13 @@ struct Birthday: View {
     @State var countryCode = ""
     @State var number = ""
     @State var MoveIn = Date()
-    @State var showVerification = false
+    @State var showProfilePicture = false
     @State var showsDatePicker = false
+    @Binding var token: String
+    @Binding var didLogin: Bool
+    @Binding var needsAccount: Bool
+    @Binding var user_id: String
+    
     
     let dateFormatter: DateFormatter = {
             let df = DateFormatter()
@@ -27,9 +32,79 @@ struct Birthday: View {
     
     @StateObject var serverData = UniversityModel()
     
+    func dateFormat(date : Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-DD"
+        return dateFormatter.string(from: date)
+    }
+    
+  
+    
+      func cleanStr(str: String) -> String {
+          return str.replacingOccurrences(of: "[.#$\\[/\\]];}", with: ",", options: [.regularExpression])
+      }
+      
+      func toString(_ value: Any?) -> String {
+        return String(describing: value ?? "")
+      }
+      
+     public func send(_ sender: Any) {
+        let parameters: [String: String] = ["birthDate": dateFormat(date: MoveIn)]
+        let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/users/"+self.user_id)! as URL)
+          request.httpMethod = "PATCH"
+        print(self.token)
+        request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+        print("http://18.218.78.71:8080/users/"+self.user_id)
+         do {
+             request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
+             print(dump(toString(request.httpBody)))
+
+            } catch let error {
+                print(error)
+            }
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+             let task = URLSession.shared.dataTask(with: request as URLRequest) {
+                 data, response, error in
+                 
+                   guard error == nil else {
+                           return
+                       }
+
+                       guard let data = data else {
+                           return
+                       }
+
+                       do {
+                           //create json object from data
+                           if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] {
+                              print(json)
+                            
+                           }
+
+                          let responseString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+                                responseString as! String
+                       } catch let error {
+                           print(error)
+                       }
+             }
+             task.resume()
+         
+
+      }
+
+    
     var body: some View {
         
         ZStack{
+            
+            NavigationLink(destination: ProfilePicture(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showProfilePicture)
+            
+            {
+                
+                Text("")
+            }
             
             VStack(spacing: 35){
                 
@@ -87,8 +162,10 @@ struct Birthday: View {
                         }
                         .offset(x: -25, y: 30)
                         Button(action: {
-                            
-                            self.showVerification.toggle()
+                            self.send((Any).self)
+                            self.didLogin = false
+                            self.needsAccount = true
+                            self.showProfilePicture.toggle()
                             
                         }) {
                             
@@ -131,8 +208,3 @@ struct Birthday: View {
     }
 }
 
-struct Birthday_Previews: PreviewProvider {
-    static var previews: some View {
-        Home()
-    }
-}

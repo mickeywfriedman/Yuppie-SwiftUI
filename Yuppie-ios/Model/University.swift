@@ -11,7 +11,7 @@ struct University: Identifiable {
 
     var id = UUID().uuidString
     var name: String
-    var flag: String
+    var logo: String
     
 }
 

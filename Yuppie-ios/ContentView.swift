@@ -19,9 +19,10 @@ struct ContentView: View {
     
     @State private var menuItemSize: CGFloat = 66
     @State private var authToken: String = UserDefaults.standard.string(forKey: "Token") ?? ""
-    @State private var didLogin: Bool = false
-    @State private var needsAccount: Bool = true
-    @State private var random: Bool = false
+    @State var didLogin: Bool = false
+    @State var needsAccount: Bool = true
+    @State var user_id: String = ""
+    @State var token: String = ""
     @State private var buildingsData = TestData.buildings
     func loadData() {
             guard let url = URL(string: "http://18.218.78.71:8080/buildings") else {
@@ -54,8 +55,6 @@ struct ContentView: View {
     var body: some View {
         
         
-        var visibleCard =  testScroll(buildings:buildingsData)
-        
         return
             
                 VStack {
@@ -68,26 +67,21 @@ struct ContentView: View {
                         
                         
                         // selected card index view
-                        self.indexView
-                        
-                        TabBar()
-                        Home()
-                        
-                       
-                            VStack{
-                               
-                                visibleCard
-                                
-                            }
+                      
                        // if self.authToken == "" {
                           //  NavigationView{LoginView(didLogin: $didLogin, needsAccount: $needsAccount, random: $random, token: $authToken)}
                       //  }
                         
-                      //  if self.needsAccount == true{
-                       //     NavigationView{
-                          //      SignupView(didLogin: $didLogin, needsAccount: $needsAccount, random: $random, token: $authToken)}
-                      // }
-                    
+                        
+                        
+                        if self.needsAccount == true{
+                            NavigationView{
+                                SignupView(user_id: $user_id, didLogin: $didLogin, needsAccount: $needsAccount, token: $authToken)}
+
+
+                        }else{
+                            CentralHomeView(token: $authToken, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id)
+                        }
                         
                         
                         

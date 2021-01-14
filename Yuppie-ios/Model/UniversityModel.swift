@@ -11,9 +11,7 @@ class UniversityModel: ObservableObject {
 
     @Published var universities = [
         
-        University(name: "University of Chicago", flag: "us"),
-        University(name: "University of Illinois", flag: "in"),
-        University(name: "Loyola University", flag: "uk"),
+        University( id: "5feb477f79adebb6cf4ea243", name: "University of Chicago", logo: "us")
       
     ]
     
@@ -21,5 +19,5 @@ class UniversityModel: ObservableObject {
     @Published var isConnected = false
     @Published var showSheet = false
     
-    @Published var currentUniversity = University(name: "University of Chicago", flag: "us")
+    @Published var currentUniversity = University(id: "5feb477f79adebb6cf4ea243", name: "University of Chicago", logo: "us")
 }

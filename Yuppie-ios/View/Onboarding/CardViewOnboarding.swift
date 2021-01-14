@@ -15,14 +15,14 @@ struct CardViewOnboarding: View {
         
         HStack(spacing: 15){
             
-            Image(University.flag)
+            Image(University.logo)
                 .resizable()
                 .frame(width: 45, height: 45)
             
-            VStack(alignment: .leading, spacing: 4, content: {
+            VStack(alignment: .leading, spacing: 3, content: {
                 
                 Text(University.name)
-                    .font(.system(size: 22))
+                    .font(.system(size: 18))
                     .foregroundColor(.black)
                 
                 if subTitle != ""{
@@ -38,7 +38,7 @@ struct CardViewOnboarding: View {
                 .font(.system(size: 24))
                 .foregroundColor(.black)
         }
-        .padding(.leading,10)
+        .padding(.leading,8)
         .padding(.trailing)
         .padding(.vertical)
     }

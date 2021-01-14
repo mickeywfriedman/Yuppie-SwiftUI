@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct testScroll: View {
+    @Binding var token: String
+    @Binding var user_id: String
     var buildings : [Building]
     @State var minBedrooms = 0
     @State var minBathrooms = 0
@@ -41,6 +43,11 @@ struct testScroll: View {
                     zipCode: 10036
                 ),
                 amenities: ["Pool", "Gym"],
+                tenants: [tenant(
+                    email: "mickey@gmail.com",
+                    profilePicture: "http://18.218.78.71:8080/images/5fdbefceae921a507c9785de",
+                    id: "5fd002a21ed3e413beb713d4"
+                )],
                 propertyManager: propertyManager(
                     email: "propertyManager1@gmail.com",
                     id: "5fd002a21ed3e413beb713d4"
@@ -72,7 +79,7 @@ struct testScroll: View {
                 .sheet(isPresented: $showFilters) {
                     FiltersView(showFilters: self.$showFilters, Bedroom : self.$minBedrooms, Bathroom: self.$minBathrooms, MaxPrice : self.$maxPrice)
                 }
-                Scroll(buildings:buildings.filter({filter(units: $0.units, maxPrice: maxPrice, minBathrooms: minBathrooms, minBedrooms: minBedrooms)}), minBedrooms: minBedrooms, minBathrooms: minBathrooms)
+                Scroll(token: $token, user_id: $user_id, buildings:buildings.filter({filter(units: $0.units, maxPrice: maxPrice, minBathrooms: minBathrooms, minBedrooms: minBedrooms)}), minBedrooms: minBedrooms, minBathrooms: minBathrooms)
                     .offset(y:400)
                 
             }.edgesIgnoringSafeArea([.top, .bottom])
@@ -83,6 +90,8 @@ struct testScroll: View {
 struct Scroll: View {
     @GestureState private var translation: CGFloat = 0
     @State var index: Int = 0
+    @Binding var token: String
+    @Binding var user_id: String
     var buildings: [Building]
     var minBedrooms: Int
     var minBathrooms: Int
@@ -90,7 +99,7 @@ struct Scroll: View {
         GeometryReader { geometry in
             HStack (spacing: 0){
                 ForEach(buildings, id:\.name) {building in
-                    CardView(building:building, minBedrooms: minBedrooms, minBathrooms: minBathrooms)
+                    CardView(token: $token, user_id: $user_id, building:building, minBedrooms: minBedrooms, minBathrooms: minBathrooms)
                         .padding(.horizontal, 20)
                 }
             }
@@ -120,8 +129,3 @@ struct Scroll: View {
 }
 
 
-struct testScroll_Previews: PreviewProvider {
-    static var previews: some View {
-        testScroll(buildings:TestData.buildings)
-    }
-}

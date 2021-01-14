@@ -9,6 +9,8 @@ import SwiftUI
 import MapKit
 
 struct BuildingImages: View{
+    @Binding var token: String
+    @Binding var user_id: String
     @State var isFavorite = true
     @State var showForm = false
     @State var height = UIScreen.main.bounds.height
@@ -32,7 +34,7 @@ struct BuildingImages: View{
                     .padding(.bottom, 15)
                     .foregroundColor(.white)
                     .sheet(isPresented: $showForm) {
-                        PropertyManagerForm(building: building, showForm:self.$showForm)
+                        PropertyManagerForm(token: $token, user_id: $user_id, building: building, showForm:self.$showForm)
                 }
             }
             .padding(.horizontal, 10)
@@ -56,6 +58,7 @@ struct BuildingView: View {
             return bedrooms
         }
     }
+    
     @State var showForm = false
     @State var isFavorite = true
     var Bedrooms = ["Studio", "1", "2", "3+"]
@@ -67,11 +70,13 @@ struct BuildingView: View {
     @Binding var showCard: Bool
     @State private var index = 0
     @State private var value : CGFloat = 200
+    @Binding var token: String
+    @Binding var user_id: String
     var building: Building
     var body: some View {
         ZStack{
         VStack{
-            BuildingImages(building: building)
+            BuildingImages(token: $token, user_id: $user_id, building: building)
         ScrollView(showsIndicators: false){
             VStack{
                 
@@ -357,9 +362,4 @@ struct BuildingMapView: UIViewRepresentable {
     }
 }
 
-struct BuildingView_Previews: PreviewProvider {
-    static var previews: some View {
-        BuildingView(Bedroom: 1, showCard:.constant(true), building: TestData.buildings.first!)
-    }
-}
 

@@ -12,6 +12,11 @@ struct PhoneAuth: View {
     @State var countryCode = ""
     @State var number = ""
     @State var showVerification = false
+    @Binding var token: String
+    @Binding var didLogin: Bool
+    @Binding var needsAccount: Bool
+    @Binding var user_id: String
+    
     
     var gradient1 = [Color("gradient2"),Color("gradient3"),Color("gradient4")]
     
@@ -19,11 +24,80 @@ struct PhoneAuth: View {
     
     @StateObject var universityData = UniversityModel()
     
+    func printUserId() {
+        
+        print(self.user_id+"bip")
+        print(self.token+"bipolololol")
+        
+    }
+    
+    
+      func cleanStr(str: String) -> String {
+          return str.replacingOccurrences(of: "[.#$\\[/\\]];}", with: ",", options: [.regularExpression])
+      }
+      
+      func toString(_ value: Any?) -> String {
+        return String(describing: value ?? "")
+      }
+      
+     public func send(_ sender: Any) {
+      
+        printUserId()
+        let parameters: [String: String] = ["phone": self.number]
+          
+        let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/users/"+self.user_id+"/request")! as URL)
+          request.httpMethod = "POST"
+        print(self.token)
+        request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+ 
+        
+        print("http://18.218.78.71:8080/users/"+self.user_id)
+      
+         do {
+             request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
+             print(dump(toString(request.httpBody)))
+
+            } catch let error {
+                print(error)
+            }
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+             let task = URLSession.shared.dataTask(with: request as URLRequest) {
+                 data, response, error in
+                 
+                   guard error == nil else {
+                           return
+                       }
+
+                       guard let data = data else {
+                           return
+                       }
+
+                       do {
+                           //create json object from data
+                           if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] {
+                              print(json)
+                            
+                           }
+
+                          let responseString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+                                responseString as! String
+                       } catch let error {
+                           print(error)
+                       }
+             }
+             task.resume()
+         
+
+      }
+
+    
     var body: some View {
         
         ZStack{
             
-            NavigationLink(destination: Verification(), isActive: self.$showVerification) {
+            NavigationLink(destination: Verification(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showVerification) {
                 
                 Text("")
             }
@@ -98,7 +172,10 @@ struct PhoneAuth: View {
                         }
                         .offset(y: 30)
                         Button(action: {
-                            
+                            self.send((Any).self)
+                            printUserId()
+                            self.didLogin = false
+                            self.needsAccount = true
                             self.showVerification.toggle()
                             
                         }) {
@@ -143,8 +220,3 @@ struct PhoneAuth: View {
     }
 }
 
-struct PhoneAuth_Previews: PreviewProvider {
-    static var previews: some View {
-        PhoneAuth()
-    }
-}

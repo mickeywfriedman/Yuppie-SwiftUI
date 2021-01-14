@@ -3,6 +3,8 @@ import SwiftUI
 
 /// Credit card view
 struct CardView: View {
+    @Binding var token: String
+    @Binding var user_id: String
     var building: Building
     var minBedrooms: Int
     var minBathrooms: Int
@@ -54,7 +56,7 @@ struct CardView: View {
                         .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                     }
                 }.sheet(isPresented: $showCard) {
-                    BuildingView(Bedroom: minBedrooms, showCard:self.$showCard, building:building)
+                    BuildingView(Bedroom: minBedrooms, showCard:self.$showCard, token: $token, user_id: $user_id, building:building)
                 }
                 
                 ZStack{
@@ -132,11 +134,4 @@ struct ImageScroll: View {
     }
 }
 
-struct CardView_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack{
-            Color.purple
-            CardView(building: TestData.buildings.first!, minBedrooms: 1, minBathrooms: 1)
-        }
-    }
-}
+
