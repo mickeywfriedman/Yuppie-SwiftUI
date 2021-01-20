@@ -6,7 +6,7 @@ target 'Yuppie-ios' do
   use_frameworks!
 
   # Pods for Yuppie-ios
-  pod 'Mapbox-iOS-SDK', '~> 5.3.0'
+  pod 'Mapbox-iOS-SDK', '~> 6.3.0'
 
   target 'Yuppie-iosTests' do
     inherit! :search_paths

@@ -59,7 +59,6 @@ struct LoginView: View {
     
        do {
            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
-           print(request.httpBody)
           } catch let error {
               print(error)
           }
@@ -81,7 +80,7 @@ struct LoginView: View {
                      do {
                          //create json object from data
                          if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] {
-                            print(json.values)
+
                             let values = json.values
                             
                             let stringDictionaries: [[String: String]] = json.map { dictionary in
@@ -118,12 +117,9 @@ struct LoginView: View {
                             let range_token = snippet.range(of: "access_token")
                              let my_access_token = snippet[(range_token?.lowerBound...)!].trimmingCharacters(in: .whitespaces)
                             
-                            print("fuck yea ma'am")
-                            print(my_access_token)
                             
                             
                             str = String(my_access_token.split(separator: ";")[0])
-                            print(str)
                             
                             let replace_slashes = str.replacingOccurrences(of: "\\", with: "")
                             
@@ -133,7 +129,8 @@ struct LoginView: View {
                             
                             self.token = replace_quotations.replacingOccurrences(of: "=", with: "")
                             
-                            print("this is it", self.token)
+
+                            
 
                             
                             //let modString_token = regex.stringByReplacingMatches(in: _token, options: [], range: range1, withTemplate: "XX")

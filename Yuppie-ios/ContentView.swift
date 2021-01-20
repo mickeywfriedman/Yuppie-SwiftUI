@@ -34,13 +34,11 @@ struct ContentView: View {
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let data = data {
                     if let response = try? JSONDecoder().decode(Response.self, from: data) {
-                        print(response)
                         DispatchQueue.main.async {
                             self.buildingsData = response.data
                         }
                         return
                     }
-                    print(response)
                 }
             }.resume()
         }

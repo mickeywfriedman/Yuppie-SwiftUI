@@ -21,33 +21,57 @@ struct CentralHomeView: View {
     @Binding var didLogin: Bool
     @Binding var needsAccount: Bool
     @Binding var user_id: String
+    @State var user = User(
+        id: "1",
+        firstName: "Test",
+        lastName: "User"
+    )
     @State private var buildingsData = TestData.buildings
-    
-
-        func loadData() {
-
-                guard let url = URL(string: "http://18.218.78.71:8080/buildings") else {
-                    print("Your API end point is Invalid")
-                    return
-                }
-                let request = URLRequest(url: url)
-
-                URLSession.shared.dataTask(with: request) { data, response, error in
-                    if let data = data {
-                        if let response = try? JSONDecoder().decode(Response.self, from: data) {
-                            print(response)
-                            DispatchQueue.main.async {
-                                self.buildingsData = response.data
-                                print(response.data)
-                            }
-                            return
-                        }
-                        print(response)
-                        
-                    }
-                }.resume()
+    func loadData() {
+            guard let url = URL(string: "http://18.218.78.71:8080/buildings") else {
+                print("Your API end point is Invalid")
+                return
             }
-        
+            var request = URLRequest(url: url)
+        print("hello")
+        print(token)
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let data = data {
+                    if let response = try? JSONDecoder().decode(Response.self, from: data) {
+                        DispatchQueue.main.async {
+                            self.buildingsData = response.data
+                        }
+                        return
+                    }
+                    
+                }
+            }.resume()
+        }
+    func loadUser() {
+        print("asdfhjjhklasdjkhfjdska")
+        print(user_id)
+        print(token)
+        guard let user_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)") else {
+                print("Your API end point is Invalid")
+                return
+            }
+            var user_request = URLRequest(url: user_url)
+            user_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            URLSession.shared.dataTask(with: user_request) { data, response, error in
+                if let data = data {
+                    if let urlresponse = try? JSONDecoder().decode(userResponse.self, from: data) {
+                        print("hello")
+                        DispatchQueue.main.async {
+                            self.user = urlresponse.data
+                            print(urlresponse.data)
+                        }
+                        return
+                    }
+                    
+                }
+            }.resume()
+        }
         // MARK: - Helper
         
         
@@ -119,6 +143,7 @@ struct CentralHomeView: View {
                         
                 }
             .onAppear(perform: loadData)
+            .onAppear(perform: loadUser)
             .edgesIgnoringSafeArea(.all)
             
         }
