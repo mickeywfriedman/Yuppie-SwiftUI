@@ -13,6 +13,7 @@ enum TestData {
     
     static let buildings = [
         Building(
+            id: "1",
             name: "The Atellier",
             images: ["http://18.218.78.71:8080/images/5fdbefceae921a507c9785de","http://18.218.78.71:8080/images/5fdbefceae921a507c9785dd"],
             description: "Live life in luxary in one of the best apartment buildings in the city. 60 story Hudson Yards skyscraper just minutes away fro the mid-town.",
@@ -53,6 +54,7 @@ enum InitialData {
     
     static let buildings = [
         Building(
+            id: "1",
             name: " ",
             images: ["http://18.218.78.71:8080/images/5fdbefceae921a507c9785de"],
             description: " ",
@@ -85,6 +87,7 @@ enum InitialData {
             ]
             ),
         Building(
+            id: "1",
             name: " ",
             images: ["http://18.218.78.71:8080/images/5fdbefceae921a507c9785de"],
             description: " ",

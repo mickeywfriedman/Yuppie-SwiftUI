@@ -54,6 +54,11 @@
 		21CCF10A2572BE8300B22A75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF1092572BE8300B22A75 /* SceneDelegate.swift */; };
 		363DD9B869B0CEB162D02138 /* Pods_Yuppie_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99F83670E0F2DABA87D28533 /* Pods_Yuppie_iosTests.framework */; };
 		370E680725A7F9FE00EA597C /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370E680625A7F9FE00EA597C /* URLImage.swift */; };
+		37BB945125B88DD300D1FC86 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945025B88DD300D1FC86 /* Login.swift */; };
+		37BB945625B88E2E00D1FC86 /* BottomSheet_building.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945525B88E2E00D1FC86 /* BottomSheet_building.swift */; };
+		37BB945B25B88E3700D1FC86 /* SelectAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945A25B88E3700D1FC86 /* SelectAddress.swift */; };
+		37BB946025B88E8900D1FC86 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945F25B88E8900D1FC86 /* AddressModel.swift */; };
+		37BB946525B88F3E00D1FC86 /* CentralHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB946425B88F3E00D1FC86 /* CentralHomeView.swift */; };
 		B970C2E054123DFCFDA91335 /* Pods_Yuppie_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB1B7BACC158DB592E7994 /* Pods_Yuppie_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -128,6 +133,11 @@
 		21CCF0FC2572BE4100B22A75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		21CCF1092572BE8300B22A75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		370E680625A7F9FE00EA597C /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
+		37BB945025B88DD300D1FC86 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		37BB945525B88E2E00D1FC86 /* BottomSheet_building.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheet_building.swift; sourceTree = "<group>"; };
+		37BB945A25B88E3700D1FC86 /* SelectAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectAddress.swift; sourceTree = "<group>"; };
+		37BB945F25B88E8900D1FC86 /* AddressModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
+		37BB946425B88F3E00D1FC86 /* CentralHomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CentralHomeView.swift; path = "Yuppie-ios/CentralHomeView.swift"; sourceTree = SOURCE_ROOT; };
 		37E5267FE1BB51E0E6092311 /* Pods-Yuppie-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-ios.debug.xcconfig"; path = "Target Support Files/Pods-Yuppie-ios/Pods-Yuppie-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		7C4EF42C6F27A086805D57F2 /* Pods-Yuppie-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-iosTests.release.xcconfig"; path = "Target Support Files/Pods-Yuppie-iosTests/Pods-Yuppie-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 		8673E826B6F245D7EFB96610 /* Pods-Yuppie-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-iosTests.debug.xcconfig"; path = "Target Support Files/Pods-Yuppie-iosTests/Pods-Yuppie-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -222,7 +232,10 @@
 				21C10CAB259497F50049531E /* FirstLastName.swift */,
 				21C10CB525957C660049531E /* BlurView.swift */,
 				21C10CB025957BED0049531E /* CardViewOnboarding.swift */,
+				37BB945525B88E2E00D1FC86 /* BottomSheet_building.swift */,
+				37BB945A25B88E3700D1FC86 /* SelectAddress.swift */,
 				21C10CBD25957C920049531E /* BottomSheet.swift */,
+				37BB945025B88DD300D1FC86 /* Login.swift */,
 				21C10CC225957D380049531E /* CustomCornerOnboarding.swift */,
 				21C10CC725957D4B0049531E /* PhoneAuth.swift */,
 				21C10CE125957E3D0049531E /* Verification.swift */,
@@ -274,6 +287,7 @@
 				21CCF0BF2572BBEF00B22A75 /* View */,
 				21CCF0A92572BBA900B22A75 /* Model */,
 				21CCF0622572B9B100B22A75 /* ContentView.swift */,
+				37BB946425B88F3E00D1FC86 /* CentralHomeView.swift */,
 				21CCF0642572B9B500B22A75 /* Assets.xcassets */,
 				21CCF0692572B9B500B22A75 /* Info.plist */,
 				21CCF0662572B9B500B22A75 /* Preview Content */,
@@ -315,6 +329,7 @@
 				21CCF0AA2572BBB600B22A75 /* Card.swift */,
 				21A78054258E114700DD6F70 /* BuildingModel.swift */,
 				21CCF0BA2572BBDF00B22A75 /* TestData.swift */,
+				37BB945F25B88E8900D1FC86 /* AddressModel.swift */,
 				21C10C9C25943B250049531E /* UniversityModel.swift */,
 				21C10CA125943B7E0049531E /* University.swift */,
 			);
@@ -552,19 +567,23 @@
 			files = (
 				21CCF0FD2572BE4100B22A75 /* AppDelegate.swift in Sources */,
 				21A78041258E0EFF00DD6F70 /* Messages.swift in Sources */,
+				37BB946025B88E8900D1FC86 /* AddressModel.swift in Sources */,
 				21A780A625906F9500DD6F70 /* Picker.swift in Sources */,
 				21C10C8F2593AA6F0049531E /* Inbox.swift in Sources */,
 				21C10C74259290500049531E /* TabBar.swift in Sources */,
 				21A7804B258E110500DD6F70 /* PropertyManagerForm.swift in Sources */,
 				21C10CE225957E3D0049531E /* Verification.swift in Sources */,
+				37BB945125B88DD300D1FC86 /* Login.swift in Sources */,
 				370E680725A7F9FE00EA597C /* URLImage.swift in Sources */,
 				21A77FF2258DDDA500DD6F70 /* MapAnnotation.swift in Sources */,
 				21C10CA7259440A90049531E /* CustomShapeOnboardin.swift in Sources */,
 				21A78027258E0A6D00DD6F70 /* Pulse.swift in Sources */,
+				37BB945625B88E2E00D1FC86 /* BottomSheet_building.swift in Sources */,
 				21A78060258E11A100DD6F70 /* testScroll.swift in Sources */,
 				21C9B9B32596545C00ABF426 /* SelectUniversity.swift in Sources */,
 				21A7801F258E0A4A00DD6F70 /* PulseLayer.swift in Sources */,
 				21C10CC325957D380049531E /* CustomCornerOnboarding.swift in Sources */,
+				37BB946525B88F3E00D1FC86 /* CentralHomeView.swift in Sources */,
 				21C10CB125957BEE0049531E /* CardViewOnboarding.swift in Sources */,
 				21CCF10A2572BE8300B22A75 /* SceneDelegate.swift in Sources */,
 				21C10CC825957D4B0049531E /* PhoneAuth.swift in Sources */,
@@ -585,6 +604,7 @@
 				21C10CA225943B7E0049531E /* University.swift in Sources */,
 				21CCF0632572B9B100B22A75 /* ContentView.swift in Sources */,
 				21C10CB625957C660049531E /* BlurView.swift in Sources */,
+				37BB945B25B88E3700D1FC86 /* SelectAddress.swift in Sources */,
 				21A78036258E0AC300DD6F70 /* CALayer+Extensions.swift in Sources */,
 				21A7802C258E0A9000DD6F70 /* AnimationDelegate.swift in Sources */,
 				21C10CAC259497F60049531E /* FirstLastName.swift in Sources */,

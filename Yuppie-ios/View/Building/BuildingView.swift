@@ -247,7 +247,7 @@ struct BuildingView: View {
                     }.padding(.horizontal)
                     .offset(y: -90)
                 }
-                BuildingMapView(address:building.address).frame(width: UIScreen.main.bounds.width-20, height: 200).padding(.leading,10).offset(y: -90)
+                BuildingMapView(address:building.address).frame(width: UIScreen.main.bounds.width-40, height: 200).offset(y: -90)
                 
             }
         }.background(Color(.white))

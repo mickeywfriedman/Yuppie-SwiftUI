@@ -28,6 +28,7 @@ struct PropertyManagerForm : View {
     func sendEmail (Message: String, Apartment: String, userID: String, building: Building, moveIn:Date){
         let lead = Lead(
             message: Message,
+            buildingId: building.id,
             user: user_id,
             propertyManager: building.propertyManager.id,
             propertyName: building.name,

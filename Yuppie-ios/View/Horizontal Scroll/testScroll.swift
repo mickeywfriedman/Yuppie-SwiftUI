@@ -14,25 +14,31 @@ struct testScroll: View {
     @State var minBedrooms = 0
     @State var minBathrooms = 0
     @State var maxPrice = 10000.0
+    @State var minDate = Date()
+    @State var maxDate = Date(timeInterval: 14*86400, since: Date())
     @State var isFavorite = true
     @State private var showFilters = false
-    func filter(units: [Unit], maxPrice: Double, minBathrooms: Int, minBedrooms: Int) -> Bool{
+    func filter(units: [Unit]) -> Bool{
         for unit in units{
-            if (unit.bedrooms >= minBedrooms && unit.bathrooms >= minBathrooms && unit.price <= maxPrice){
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let date_avail = dateFormatter.date(from: unit.dateAvailable)
+            if (unit.bedrooms >= minBedrooms && unit.bathrooms >= minBathrooms && unit.price <= maxPrice && date_avail ?? Date() < maxDate){
                 return true
             }
         }
         return false
     }
-    func filterBuildings (buildings: [Building], maxBedrooms: Int, maxBathrooms: Int, maxPrice: Double) -> [Building] {
+    func filterBuildings (buildings: [Building]) -> [Building] {
         var filteredBuildings = [Building]()
         for building in buildings{
-            if (filter(units: building.units, maxPrice: maxPrice, minBathrooms: minBathrooms, minBedrooms: minBedrooms)){
+            if (filter(units: building.units)){
                 filteredBuildings.append(building)
             }
         }
         if (filteredBuildings.count==0){
             return [Building(
+                id: "1",
                 name: "No Matches",
                 images: ["http://18.218.78.71:8080/images/5fdbefceae921a507c9785de","http://18.218.78.71:8080/images/5fdbefceae921a507c9785dd"],
                 description: "Live life in luxary in one of the best apartment buildings in the city. 60 story Hudson Yards skyscraper just minutes away fro the mid-town.",
@@ -77,9 +83,9 @@ struct testScroll: View {
                 }.offset(x:150, y:50)
                 
                 .sheet(isPresented: $showFilters) {
-                    FiltersView(showFilters: self.$showFilters, Bedroom : self.$minBedrooms, Bathroom: self.$minBathrooms, MaxPrice : self.$maxPrice)
+                    FiltersView(showFilters: self.$showFilters, Bedroom : self.$minBedrooms, Bathroom: self.$minBathrooms, MaxPrice : self.$maxPrice, MinDate: self.$minDate, MaxDate: self.$maxDate)
                 }
-                Scroll(token: $token, user_id: $user_id, buildings:buildings.filter({filter(units: $0.units, maxPrice: maxPrice, minBathrooms: minBathrooms, minBedrooms: minBedrooms)}), minBedrooms: minBedrooms, minBathrooms: minBathrooms)
+                Scroll(token: $token, user_id: $user_id, buildings:buildings.filter({filter(units: $0.units)}), minBedrooms: minBedrooms, minBathrooms: minBathrooms)
                     .offset(y:400)
                 
             }.edgesIgnoringSafeArea([.top, .bottom])

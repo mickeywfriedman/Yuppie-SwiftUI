@@ -12,6 +12,8 @@ struct FiltersView: View {
     @Binding var Bedroom : Int
     @Binding var Bathroom : Int
     @Binding var MaxPrice : Double
+    @Binding var MinDate : Date
+    @Binding var MaxDate : Date
     var Bedrooms = ["Studio", "1", "2", "3+"]
     var Bathrooms = ["1", "2", "3"]
     @State var animals = false
@@ -68,10 +70,24 @@ struct FiltersView: View {
                 Spacer()
             }
             Slider(value: $MaxPrice, in: 1000...10000)
-            
+            VStack{
+                HStack{
+                    Text("Anticipated Move In Date").fontWeight(.heavy)
+                    Spacer()
+                    
+                }
+                DatePicker("Earliest Move In", selection: $MinDate, displayedComponents: .date)
+                .foregroundColor(.black)
+                .background(Color.white)
+                .datePickerStyle(DefaultDatePickerStyle())
+            DatePicker("Latest Move In", selection: $MaxDate, displayedComponents: .date)
+                .foregroundColor(.black)
+                .background(Color.white)
+                .datePickerStyle(DefaultDatePickerStyle())
             HStack{
                 Text("I can't live without").fontWeight(.heavy)
                 Spacer()
+            }
             }
             HStack{
                 if self.animals { Button(action:{

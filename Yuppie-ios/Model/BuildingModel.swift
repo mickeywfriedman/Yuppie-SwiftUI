@@ -9,6 +9,7 @@ import SwiftUI
 import Foundation
 
 struct Building: Hashable, Decodable{
+    var id: String
     var name: String
     var images: [String]
     var description: String
@@ -56,6 +57,7 @@ struct Response: Decodable {
 
 struct Lead: Codable {
     var message: String
+    var buildingId: String
     var user: String
     var propertyManager: String
     var propertyName: String
