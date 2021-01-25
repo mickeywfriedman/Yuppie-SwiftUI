@@ -11,8 +11,9 @@ struct testScroll: View {
     @Binding var token: String
     @Binding var user_id: String
     var buildings : [Building]
-    @State var minBedrooms = 0
-    @State var minBathrooms = 0
+    @Binding var user : User
+    @Binding var minBedrooms : Int
+    @Binding var minBathrooms : Int
     @State var maxPrice = 10000.0
     @State var minDate = Date()
     @State var maxDate = Date(timeInterval: 14*86400, since: Date())
@@ -85,7 +86,7 @@ struct testScroll: View {
                 .sheet(isPresented: $showFilters) {
                     FiltersView(showFilters: self.$showFilters, Bedroom : self.$minBedrooms, Bathroom: self.$minBathrooms, MaxPrice : self.$maxPrice, MinDate: self.$minDate, MaxDate: self.$maxDate)
                 }
-                Scroll(token: $token, user_id: $user_id, buildings:buildings.filter({filter(units: $0.units)}), minBedrooms: minBedrooms, minBathrooms: minBathrooms)
+                Scroll(user: $user, token: $token, user_id: $user_id, buildings:buildings.filter({filter(units: $0.units)}), minBedrooms: minBedrooms, minBathrooms: minBathrooms)
                     .offset(y:400)
                 
             }.edgesIgnoringSafeArea([.top, .bottom])
@@ -96,6 +97,7 @@ struct testScroll: View {
 struct Scroll: View {
     @GestureState private var translation: CGFloat = 0
     @State var index: Int = 0
+    @Binding var user : User
     @Binding var token: String
     @Binding var user_id: String
     var buildings: [Building]
@@ -105,7 +107,7 @@ struct Scroll: View {
         GeometryReader { geometry in
             HStack (spacing: 0){
                 ForEach(buildings, id:\.name) {building in
-                    CardView(token: $token, user_id: $user_id, building:building, minBedrooms: minBedrooms, minBathrooms: minBathrooms)
+                    CardView(token: $token, user: $user, user_id: $user_id, building:building, minBedrooms: minBedrooms, minBathrooms: minBathrooms)
                         .padding(.horizontal, 20)
                 }
             }

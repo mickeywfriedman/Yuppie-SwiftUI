@@ -60,6 +60,7 @@
 		37BB946025B88E8900D1FC86 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945F25B88E8900D1FC86 /* AddressModel.swift */; };
 		37BB946525B88F3E00D1FC86 /* CentralHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB946425B88F3E00D1FC86 /* CentralHomeView.swift */; };
 		37BB947925B8A19200D1FC86 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB947825B8A19200D1FC86 /* User.swift */; };
+		37BB94A025BB4AF800D1FC86 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB949F25BB4AF800D1FC86 /* Favorites.swift */; };
 		B970C2E054123DFCFDA91335 /* Pods_Yuppie_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB1B7BACC158DB592E7994 /* Pods_Yuppie_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -140,6 +141,7 @@
 		37BB945F25B88E8900D1FC86 /* AddressModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
 		37BB946425B88F3E00D1FC86 /* CentralHomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CentralHomeView.swift; path = "Yuppie-ios/CentralHomeView.swift"; sourceTree = SOURCE_ROOT; };
 		37BB947825B8A19200D1FC86 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		37BB949F25BB4AF800D1FC86 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		37E5267FE1BB51E0E6092311 /* Pods-Yuppie-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-ios.debug.xcconfig"; path = "Target Support Files/Pods-Yuppie-ios/Pods-Yuppie-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		7C4EF42C6F27A086805D57F2 /* Pods-Yuppie-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-iosTests.release.xcconfig"; path = "Target Support Files/Pods-Yuppie-iosTests/Pods-Yuppie-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 		8673E826B6F245D7EFB96610 /* Pods-Yuppie-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-iosTests.debug.xcconfig"; path = "Target Support Files/Pods-Yuppie-iosTests/Pods-Yuppie-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 		21CCF0BF2572BBEF00B22A75 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				37BB948B25BB480C00D1FC86 /* Favorites */,
 				3795CF8E259D197400AB20F5 /* Building */,
 				21A78096258E82CA00DD6F70 /* Onboarding */,
 				21A78075258E202400DD6F70 /* Map */,
@@ -361,6 +364,14 @@
 				21A7804A258E110500DD6F70 /* PropertyManagerForm.swift */,
 			);
 			path = Building;
+			sourceTree = "<group>";
+		};
+		37BB948B25BB480C00D1FC86 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				37BB949F25BB4AF800D1FC86 /* Favorites.swift */,
+			);
+			path = Favorites;
 			sourceTree = "<group>";
 		};
 		BE128756A457E01474E39134 /* Frameworks */ = {
@@ -593,6 +604,7 @@
 				21C10CC825957D4B0049531E /* PhoneAuth.swift in Sources */,
 				21CCF0C92572BC1400B22A75 /* CardView.swift in Sources */,
 				21CCF0CE2572BC2600B22A75 /* IndexView.swift in Sources */,
+				37BB94A025BB4AF800D1FC86 /* Favorites.swift in Sources */,
 				21A78077258E204A00DD6F70 /* Chat_Interface.swift in Sources */,
 				21A78050258E112100DD6F70 /* FiltersView.swift in Sources */,
 				21A78031258E0AA800DD6F70 /* ApplicationObserver.swift in Sources */,

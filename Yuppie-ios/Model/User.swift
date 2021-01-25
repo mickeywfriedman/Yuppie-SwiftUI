@@ -2,11 +2,12 @@ import SwiftUI
 import Foundation
 
 struct User: Hashable, Decodable{
-    var id: String
     var firstName: String
     var lastName: String
+    var contacted: [String]
+    var favorites: [String]
 }
 
 struct userResponse: Decodable {
-    var data : User
+    var result : User
 }

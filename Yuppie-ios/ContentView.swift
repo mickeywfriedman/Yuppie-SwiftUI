@@ -24,24 +24,6 @@ struct ContentView: View {
     @State var user_id: String = ""
     @State var token: String = ""
     @State private var buildingsData = TestData.buildings
-    func loadData() {
-            guard let url = URL(string: "http://18.218.78.71:8080/buildings") else {
-                print("Your API end point is Invalid")
-                return
-            }
-            let request = URLRequest(url: url)
-
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let data = data {
-                    if let response = try? JSONDecoder().decode(Response.self, from: data) {
-                        DispatchQueue.main.async {
-                            self.buildingsData = response.data
-                        }
-                        return
-                    }
-                }
-            }.resume()
-        }
     
     // MARK: - Helper
     
@@ -72,7 +54,7 @@ struct ContentView: View {
                         
                         
                         
-                        if self.needsAccount == true{
+                        if self.user_id == ""{
                             NavigationView{
                                 SignupView(user_id: $user_id, didLogin: $didLogin, needsAccount: $needsAccount, token: $authToken)}
 
@@ -97,7 +79,6 @@ struct ContentView: View {
                         
                         
                 }
-            .onAppear(perform: loadData)
             .edgesIgnoringSafeArea(.all)
             
         }

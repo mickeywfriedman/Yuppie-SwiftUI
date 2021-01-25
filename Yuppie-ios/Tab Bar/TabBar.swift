@@ -10,12 +10,14 @@ import SwiftUI
 
 struct TabBar: View {
     @State var currentTab = "house"
+    @State var minBedrooms = 0
+    @State var minBathrooms = 0
+    @Binding var token: String
+    @Binding var user_id: String
+    @Binding var buildings : [Building]
+    @Binding var user : User
     @Namespace var animation
-    init() {
-        
-        // hiding default tab bar....
-        UITabBar.appearance().isHidden = true
-    }
+
     // safe area values...
     @State var safeArea = UIApplication.shared.windows.first?.safeAreaInsets
     var body: some View {
@@ -23,18 +25,19 @@ struct TabBar: View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
             
             TabView(selection: $currentTab){
-                
+                ZStack{
                 IndexView(building: TestData.buildings.first!)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .tag(tabs[0])
                     .background(Color("bg").ignoresSafeArea())
-                
+                    testScroll(token: $token, user_id: $user_id, buildings:buildings, user: $user, minBedrooms: $minBedrooms, minBathrooms: $minBathrooms)
+                }
                 Text("Edit Profile Page")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .tag(tabs[1])
                     .background(Color("bg").ignoresSafeArea())
                 
-                Text("Favourites")
+                Favorites(token: $token, user_id: $user_id, buildings:$buildings, user: $user, minBedrooms: $minBedrooms, minBathrooms: $minBathrooms)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .tag(tabs[2])
                     .background(Color("bg").ignoresSafeArea())

@@ -21,11 +21,7 @@ struct CentralHomeView: View {
     @Binding var didLogin: Bool
     @Binding var needsAccount: Bool
     @Binding var user_id: String
-    @State var user = User(
-        id: "1",
-        firstName: "Test",
-        lastName: "User"
-    )
+    @State private var user = TestData.user
     @State private var buildingsData = TestData.buildings
     func loadData() {
             guard let url = URL(string: "http://18.218.78.71:8080/buildings") else {
@@ -33,8 +29,6 @@ struct CentralHomeView: View {
                 return
             }
             var request = URLRequest(url: url)
-        print("hello")
-        print(token)
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let data = data {
@@ -49,9 +43,6 @@ struct CentralHomeView: View {
             }.resume()
         }
     func loadUser() {
-        print("asdfhjjhklasdjkhfjdska")
-        print(user_id)
-        print(token)
         guard let user_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)") else {
                 print("Your API end point is Invalid")
                 return
@@ -61,10 +52,10 @@ struct CentralHomeView: View {
             URLSession.shared.dataTask(with: user_request) { data, response, error in
                 if let data = data {
                     if let urlresponse = try? JSONDecoder().decode(userResponse.self, from: data) {
-                        print("hello")
                         DispatchQueue.main.async {
-                            self.user = urlresponse.data
-                            print(urlresponse.data)
+                            self.user = urlresponse.result
+                            print("success")
+                            print(self.user)
                         }
                         return
                     }
@@ -88,9 +79,6 @@ struct CentralHomeView: View {
     var body: some View {
         
         
-        
-        var visibleCard =  testScroll(token: $token, user_id: $user_id, buildings:buildingsData)
-        
         return
             
                 VStack {
@@ -105,15 +93,10 @@ struct CentralHomeView: View {
                         // selected card index view
                         self.indexView
                         
-                        TabBar()
+                        TabBar(token: $token, user_id: $user_id, buildings: $buildingsData, user: $user)
                         //Home(buildings:buildingsData)
                         
-                       
-                            VStack{
-                               
-                                visibleCard
-                                
-                            }
+
                        // if self.authToken == "" {
                           //  NavigationView{LoginView(didLogin: $didLogin, needsAccount: $needsAccount, random: $random, token: $authToken)}
                       //  }

@@ -11,8 +11,8 @@ import Combine
 struct PropertyManagerForm : View {
     @Binding var token: String
     @Binding var user_id: String
+    @Binding var user : User
     var building: Building
-    var userName = "Mickey"
     @Binding var showForm: Bool
     @State private var MoveIn = Date()
     @State private var Apartment = 0
@@ -60,7 +60,7 @@ struct PropertyManagerForm : View {
         return dateFormatter.string(from: date)
     }
     var body : some View{
-        let message = "Hello my name is \(userName) and I am interested in Unit \(Apartments[Apartment]) and would like to move in around \(dateFormat(date: MoveIn)). Can you tell me more about: \n\(self.amenityHours ? "-Amenity Hours\n": "")\(self.petPolicy ? "-Pet Policy\n": "")\(self.additionalCharges ? "-Additional Charges\n": "")\(self.localActivites ? "-Local Activities\n": "")\(self.covidPolicies ? "-Covid Policies\n": "")\(self.Parking ? "-Parking\n": "")"
+        let message = "Hello my name is \(user.firstName) and I am interested in Unit \(Apartments[Apartment]) and would like to move in around \(dateFormat(date: MoveIn)). Can you tell me more about: \n\(self.amenityHours ? "-Amenity Hours\n": "")\(self.petPolicy ? "-Pet Policy\n": "")\(self.additionalCharges ? "-Additional Charges\n": "")\(self.localActivites ? "-Local Activities\n": "")\(self.covidPolicies ? "-Covid Policies\n": "")\(self.Parking ? "-Parking\n": "")"
         VStack(alignment: .center){
             Text("Contact Property").fontWeight(.heavy).font(.largeTitle)
                 .padding(.vertical).foregroundColor(.black)

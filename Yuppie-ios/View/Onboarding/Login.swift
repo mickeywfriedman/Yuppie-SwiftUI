@@ -102,7 +102,7 @@ struct LoginView: View {
                                 
                             
                             let range = snippet.range(of: "user_id")
-                             let myString = snippet[(range?.upperBound...)!].trimmingCharacters(in: .whitespaces)
+                            let myString = snippet[(range?.upperBound...)!].trimmingCharacters(in: .whitespaces)
                            
                             var str = "_<$abc$>_"
                             let pattern = "[^A-Za-z0-9]+"

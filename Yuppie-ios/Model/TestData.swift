@@ -9,7 +9,12 @@ import UIKit
 
 
 enum TestData {
-    
+    static let user = User(
+        firstName: "Test",
+        lastName: "User",
+        contacted: [],
+        favorites: []
+    )
     
     static let buildings = [
         Building(

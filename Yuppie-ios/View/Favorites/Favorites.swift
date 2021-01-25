@@ -1,13 +1,80 @@
+//
+//  Favorites.swift
+//  Yuppie-ios
+//
+//  Created by Ryan Cao on 1/22/21.
+//
+
 import SwiftUI
 
-
-/// Credit card view
-struct CardView: View {
+struct Favorites: View {
     @Binding var token: String
+    @Binding var user_id: String
+    @Binding var buildings : [Building]
+    @Binding var user : User
+    @Binding var minBedrooms : Int
+    @Binding var minBathrooms : Int
+    var Tabs = ["Favorites", "Contacted"]
+    func findFavorites () -> [Building] {
+        var filteredBuildings = [Building]()
+        for building in buildings{
+            print(building.id)
+            print(user)
+            if (user.favorites.contains(building.id)){
+                filteredBuildings.append(building)
+            }
+        }
+        return filteredBuildings
+    }
+    func findContacted () -> [Building] {
+        var filteredBuildings = [Building]()
+        for building in buildings{
+            if (user.contacted.contains(building.id)){
+                filteredBuildings.append(building)
+            }
+        }
+        return filteredBuildings
+    }
+    @State var Tab = 0
+    var body: some View {
+        VStack{
+            Picker(selection: $Tab, label:
+                Text(Tabs[Tab])
+            ) {
+                ForEach(0 ..< Tabs.count) {
+                    Text(self.Tabs[$0])
+                }
+                }.pickerStyle(SegmentedPickerStyle())
+            .padding()
+            if (Tabs[Tab] == "Favorites") {
+                if (findFavorites().count>0){
+                    ForEach(findFavorites(), id:\.name) { building in
+                        BuildingRow(token: $token, user: $user, user_id: $user_id, building: building, minBedrooms: minBedrooms, minBathrooms: minBathrooms)
+                    }
+                } else {
+                    Text("You have not liked any buildings")
+                }
+                
+            } else {
+                if (findContacted().count>0){
+                    ForEach(findContacted(), id:\.name) { building in
+                        BuildingRow(token: $token, user: $user, user_id: $user_id, building: building, minBedrooms: minBedrooms, minBathrooms: minBathrooms)
+                    }
+                } else {
+                    Text("You have not contacted any buildings")
+                }
+            }
+            Spacer()
+        }
+    }
+}
+
+struct BuildingRow: View {
+    @Binding var token: String
+    var Bedrooms = ["Studios", "1 Br", "2 BR", "3+ Br"]
     @Binding var user : User
     @Binding var user_id: String
     var building: Building
-    var Bedrooms = ["Studios", "1 Br", "2 BR", "3+ Br"]
     var minBedrooms: Int
     var minBathrooms: Int
     func unitFilter(unit: Unit, minBathrooms: Int, minBedrooms: Int) -> Bool{
@@ -39,9 +106,9 @@ struct CardView: View {
                                 
                                 
                                 VStack{
-                                    
                                     Text("\(Bedrooms[minBedrooms]) starting from").fontWeight(.heavy)
                                     Text("$\(minPrice(building:building, minBedrooms:minBedrooms, minBathrooms:minBathrooms))")
+                                                                        
                                 }.foregroundColor(.gray)
                                 Spacer()
                                 HStack{
@@ -54,19 +121,15 @@ struct CardView: View {
                         }.background(Color("Color"))
                         .cornerRadius(14)
                         .frame(width:UIScreen.main.bounds.width-40)
-                        .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
-                        .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                     }
                 }.sheet(isPresented: $showCard) {
                     BuildingView(Bedroom: minBedrooms, user : $user, showCard:self.$showCard, token: $token, user_id: $user_id, building:building)
                 }
                 
                 ZStack{
-                    ImageScroll(building: building, user : $user, token: $token, user_id: $user_id)
-                .frame(width:UIScreen.main.bounds.width-100, height: 200)
+                    FavoritesImageScroll(building: building, user: $user, token: $token, user_id: $user_id)
+                .frame(width:UIScreen.main.bounds.width-40, height: 200)
                     .cornerRadius(20)
-                .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
-                .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                     
                     Button(action: {self.showCard.toggle()}, label: {
                         
@@ -84,7 +147,7 @@ struct CardView: View {
         }
     }
 
-struct ImageScroll: View {
+struct FavoritesImageScroll: View {
     func addFavorite() -> Void {
         self.user.favorites.append(building.id)
         guard let favorites_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)/favorites/\(building.id)") else {
@@ -146,7 +209,7 @@ struct ImageScroll: View {
             HStack (spacing: 0){
                 ForEach(building.images, id: \.self) {image in
                     URLImage(url:image)
-                        .frame(width:UIScreen.main.bounds.width-100, height: 200)
+                        .frame(width:UIScreen.main.bounds.width-40, height: 200)
                             .cornerRadius(20)
                 }
             }
@@ -181,9 +244,7 @@ struct ImageScroll: View {
                             Image(systemName: "heart")
                                 .foregroundColor(Color.gray)
                         }
-            }.offset(x: (-1*(UIScreen.main.bounds.width-100)/2)+25, y: -80)
+                }.offset(x: (-1*(UIScreen.main.bounds.width-40)/2)+20, y: -80)
     }
     }
 }
-
-

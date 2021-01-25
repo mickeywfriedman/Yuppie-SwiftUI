@@ -9,7 +9,57 @@ import SwiftUI
 import MapKit
 
 struct BuildingImages: View{
+    func addFavorite() -> Void {
+        self.user.favorites.append(building.id)
+        guard let favorites_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)/favorites/\(building.id)") else {
+                print("Your API end point is Invalid")
+                return
+            }
+            var favorites_request = URLRequest(url: favorites_url)
+            favorites_request.httpMethod = "POST"
+            favorites_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            URLSession.shared.dataTask(with: favorites_request) { data, response, error in
+                if let data = data {
+                    if let urlresponse = try? JSONDecoder().decode(userResponse.self, from: data) {
+                        DispatchQueue.main.async {
+                            print(urlresponse)
+                        }
+                        return
+                    }
+                    
+                }
+            }.resume()
+    }
+    func deleteFavorite() -> Void {
+        self.user.favorites = self.user.favorites.filter { $0 != building.id }
+        guard let delete_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)/favorites/\(building.id)") else {
+                print("Your API end point is Invalid")
+                return
+            }
+            var delete_request = URLRequest(url: delete_url)
+            delete_request.httpMethod = "DELETE"
+            delete_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            URLSession.shared.dataTask(with: delete_request) { data, response, error in
+                if let data = data {
+                    if let urlresponse = try? JSONDecoder().decode(userResponse.self, from: data) {
+                        DispatchQueue.main.async {
+                            print(urlresponse)
+                        }
+                        return
+                    }
+                    
+                }
+            }.resume()
+    }
+    func toggleFavorite() -> Void {
+        if (user.favorites.contains(building.id)) {
+            deleteFavorite()
+        } else{
+            addFavorite()
+        }
+    }
     @Binding var token: String
+    @Binding var user : User
     @Binding var user_id: String
     @State var isFavorite = true
     @State var showForm = false
@@ -21,6 +71,17 @@ struct BuildingImages: View{
         ImageSlider(images: building.images, isFavorite: $isFavorite)
             .frame(height: 250)
             .clipShape(CustomShape(corner: .bottomLeft, radii: self.height > 800 ? 65: 60))
+        Button(action: {
+                toggleFavorite()
+            }) {
+                if (user.favorites.contains(building.id)) {
+                    Image(systemName: "heart.fill")
+                        .foregroundColor(Color.yellow)
+                    } else {
+                        Image(systemName: "heart")
+                            .foregroundColor(Color.gray)
+                    }
+            }.offset(x: (-1*UIScreen.main.bounds.width/2)+25, y: -100)
         HStack{
             Spacer()
             Button(action: {
@@ -34,7 +95,7 @@ struct BuildingImages: View{
                     .padding(.bottom, 15)
                     .foregroundColor(.white)
                     .sheet(isPresented: $showForm) {
-                        PropertyManagerForm(token: $token, user_id: $user_id, building: building, showForm:self.$showForm)
+                        PropertyManagerForm(token: $token, user_id: $user_id, user : $user, building: building, showForm:self.$showForm)
                 }
             }
             .padding(.horizontal, 10)
@@ -63,6 +124,7 @@ struct BuildingView: View {
     @State var isFavorite = true
     var Bedrooms = ["Studio", "1", "2", "3+"]
     @State var Bedroom : Int
+    @Binding var user : User
     @State private var showPopUp = false
     @State private var floorplanURL = ""
     @State private var height = UIScreen.main.bounds.height
@@ -76,7 +138,7 @@ struct BuildingView: View {
     var body: some View {
         ZStack{
         VStack{
-            BuildingImages(token: $token, user_id: $user_id, building: building)
+            BuildingImages(token: $token, user : $user, user_id: $user_id, building: building)
         ScrollView(showsIndicators: false){
             VStack{
                 
