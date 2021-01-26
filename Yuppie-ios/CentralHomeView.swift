@@ -18,7 +18,6 @@ struct CentralHomeView: View {
     @State private var buildingsData = TestData.buildings
     func loadData() {
         if (token != "") {
-        print("hasdf")
             guard let url = URL(string: "http://18.218.78.71:8080/buildings") else {
                 print("Your API end point is Invalid")
                 return
