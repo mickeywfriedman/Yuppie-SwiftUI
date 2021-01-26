@@ -51,7 +51,6 @@ struct testScroll: View {
                 ),
                 amenities: ["Pool", "Gym"],
                 tenants: [tenant(
-                    email: "mickey@gmail.com",
                     profilePicture: "http://18.218.78.71:8080/images/5fdbefceae921a507c9785de",
                     id: "5fd002a21ed3e413beb713d4"
                 )],

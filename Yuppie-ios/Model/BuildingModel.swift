@@ -40,17 +40,15 @@ struct Address: Hashable, Decodable{
 
 
 struct tenant: Hashable, Decodable{
-    var email: String
     var profilePicture: String
     var id: String
 }
-
-
 
 struct propertyManager: Hashable, Codable{
     var email: String
     var id: String
 }
+
 struct Response: Decodable {
     var data : [Building]
 }

@@ -9,5 +9,5 @@ struct User: Hashable, Decodable{
 }
 
 struct userResponse: Decodable {
-    var result : User
+    var data : User
 }
