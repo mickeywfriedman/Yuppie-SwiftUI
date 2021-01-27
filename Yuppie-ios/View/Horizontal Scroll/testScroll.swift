@@ -12,16 +12,19 @@ struct testScroll: View {
     @Binding var user_id: String
     var buildings : [Building]
     @Binding var user : User
-    @State var minDate = Date()
-    @State var maxDate = Date(timeInterval: 14*86400, since: Date())
     @State var isFavorite = true
     @State private var showFilters = false
+    func dateFormat(string : String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: string) ?? Date()
+    }
     func filter(units: [Unit]) -> Bool{
         for unit in units{
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let date_avail = dateFormatter.date(from: unit.dateAvailable)
-            if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms >= user.preferences.bathrooms && Int(unit.price) <= Int(user.preferences.price) && date_avail ?? Date() < maxDate){
+            if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms >= user.preferences.bathrooms && Int(unit.price) <= Int(user.preferences.price) && date_avail ?? Date() < dateFormat(string: user.preferences.latestMoveInDate)){
                 return true
             }
         }
@@ -80,7 +83,7 @@ struct testScroll: View {
                 }.offset(x:150, y:50)
                 
                 .sheet(isPresented: $showFilters) {
-                    FiltersView(showFilters: self.$showFilters, token: $token, user: $user, user_id: $user_id, minDate: self.$minDate, maxDate: self.$maxDate)
+                    FiltersView(showFilters: self.$showFilters, token: $token, user: $user, user_id: $user_id, minDate: dateFormat(string: user.preferences.earliestMoveInDate), maxDate: dateFormat(string: user.preferences.latestMoveInDate))
                 }
                 Scroll(user: $user, token: $token, user_id: $user_id, buildings:buildings.filter({filter(units: $0.units)}))
                     .offset(y:400)

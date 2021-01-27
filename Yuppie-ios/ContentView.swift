@@ -23,7 +23,6 @@ struct ContentView: View {
     @State var needsAccount: Bool = true
     @State var user_id: String = ""
     @State var token: String = ""
-    @State private var buildingsData = TestData.buildings
     
     // MARK: - Helper
     
@@ -42,18 +41,42 @@ struct ContentView: View {
                     Spacer()
                     
                     ZStack(alignment: .leading) {
-
-                        if self.authToken == ""{
+                        
+                        
+                        
+                        
+                        // selected card index view
+                      
+                       // if self.authToken == "" {
+                          //  NavigationView{LoginView(didLogin: $didLogin, needsAccount: $needsAccount, random: $random, token: $authToken)}
+                      //  }
+                        
+                        
+                        
+                        if self.user_id == ""{
                             NavigationView{
                                 SignupView(user_id: $user_id, didLogin: $didLogin, needsAccount: $needsAccount, token: $authToken)}
 
 
-                        } else{
+                        }else{
                             CentralHomeView(token: $authToken, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id)
                         }
-
+                        
+                        
+                        
+                        
+                       // SignupView()
+                       // Registration()
+                        
                     }
-
+                    
+                    
+                       
+                        
+                    
+                   
+                        
+                        
                 }
             .edgesIgnoringSafeArea(.all)
             

@@ -75,54 +75,13 @@ struct CentralHomeView: View {
     // MARK: - Body
     
     var body: some View {
-        
-        
-        return
-            
-                VStack {
-                    
-                    Spacer()
-                    
-                    ZStack(alignment: .leading) {
-                        
-                        
-                        
-                        
-                        // selected card index view
-                        self.indexView
-                        
-                        TabBar(token: $token, user_id: $user_id, buildings: $buildingsData, user: $user)
-                        //Home(buildings:buildingsData)
-                        
+            VStack {
+                Spacer()
+                ZStack(alignment: .leading) {
 
-                       // if self.authToken == "" {
-                          //  NavigationView{LoginView(didLogin: $didLogin, needsAccount: $needsAccount, random: $random, token: $authToken)}
-                      //  }
-                        
-//                        if self.needsAccount == true && token == "" {
-//                            NavigationView{
-//                                SignupView(user_id: $user_id, didLogin: $didLogin, needsAccount: $needsAccount, token: $authToken)}
-//
-//
-//                       }
-//
-                        
-                        
-                        
-                        
-                       // SignupView()
-                       // Registration()
-                        
-                    }
-                    
-                    
-                       
-                        
-                    
-                   
-                        
-                        
+                    TabBar(token: $token, user_id: $user_id, buildings: $buildingsData, user: $user)
                 }
+            }
             .onAppear(perform: loadUser)
             .onAppear(perform: loadData)
             .edgesIgnoringSafeArea(.all)

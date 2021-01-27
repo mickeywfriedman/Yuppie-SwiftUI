@@ -13,8 +13,8 @@ struct FiltersView: View {
     @Binding var token: String
     @Binding var user : User
     @Binding var user_id: String
-    @Binding var minDate: Date
-    @Binding var maxDate: Date
+    @State var minDate: Date
+    @State var maxDate: Date
     var Bathrooms = ["1", "2", "3"]
     @State var animals = false
     @State var gym = false
@@ -22,7 +22,14 @@ struct FiltersView: View {
     @State var balcony = false
     @State var airConditioning = false
     @State var doorman = false
+    func dateFormat(date : Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: date)
+    }
     func updateFilters() -> Void {
+        self.user.preferences.earliestMoveInDate = "\(dateFormat(date: minDate))"
+        self.user.preferences.latestMoveInDate = "\(dateFormat(date: maxDate))"
         guard let filter_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)") else {
             print("Your API end point is Invalid")
             return

@@ -21,12 +21,18 @@ struct TabBar: View {
     // safe area values...
     @State var safeArea = UIApplication.shared.windows.first?.safeAreaInsets
     var body: some View {
-        
+        if (buildings[0].name == "Test"){
+            VStack{
+                Spacer()
+                Text("Loading").background(Color(.white))
+                ActivityIndicator(isAnimating: .constant(true), style: .large)
+                Spacer()
+            }
+        } else {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
-            
             TabView(selection: $currentTab){
                 ZStack{
-                IndexView(building: TestData.buildings.first!)
+                IndexView(building: buildings[0])
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .tag(tabs[0])
                     .background(Color("bg").ignoresSafeArea())
@@ -43,9 +49,6 @@ struct TabBar: View {
                     .background(Color("bg").ignoresSafeArea())
                 
             }
-            
-            // Custom Tab Bar....
-            
             HStack(spacing: 35){
                 
                 ForEach(tabs,id: \.self){image in
@@ -57,13 +60,25 @@ struct TabBar: View {
             .padding(.top)
             .padding(.bottom,safeArea?.bottom != 0 ? safeArea?.bottom : 15)
             .background(
-            
                 LinearGradient(gradient: .init(colors: [Color("Color"), Color("Chat_color")]), startPoint: .top, endPoint: .bottom)
                     .clipShape(CustomCorner(corners: [.topLeft,.topRight]))
             )
         }
-       
-    }
+        }}
 }
 
 var tabs = ["house","person","suit.heart"]
+
+struct ActivityIndicator: UIViewRepresentable {
+
+    @Binding var isAnimating: Bool
+    let style: UIActivityIndicatorView.Style
+
+    func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
+        return UIActivityIndicatorView(style: style)
+    }
+
+    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
+        isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
+    }
+}
