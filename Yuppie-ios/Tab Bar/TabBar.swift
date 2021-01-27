@@ -21,22 +21,18 @@ struct TabBar: View {
     // safe area values...
     @State var safeArea = UIApplication.shared.windows.first?.safeAreaInsets
     var body: some View {
-        if (buildings[0].name == "Test"){
-            VStack{
-                Spacer()
-                Text("Loading").background(Color(.white))
-                ActivityIndicator(isAnimating: .constant(true), style: .large)
-                Spacer()
-            }
-        } else {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
             TabView(selection: $currentTab){
                 ZStack{
-                IndexView(building: buildings[0])
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .tag(tabs[0])
-                    .background(Color("bg").ignoresSafeArea())
+                    IndexView(building: buildings[0])
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .tag(tabs[0])
+                        .background(Color("bg").ignoresSafeArea())
+                    if (buildings[0].name == "Test"){
+                        LoadingScreen()
+                    } else {
                     testScroll(token: $token, user_id: $user_id, buildings:buildings, user: $user)
+                    }
                 }
                 Text("Edit Profile Page")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -64,7 +60,7 @@ struct TabBar: View {
                     .clipShape(CustomCorner(corners: [.topLeft,.topRight]))
             )
         }
-        }}
+        }
 }
 
 var tabs = ["house","person","suit.heart"]
@@ -80,5 +76,20 @@ struct ActivityIndicator: UIViewRepresentable {
 
     func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
         isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
+    }
+}
+
+struct LoadingScreen: View {
+    var body: some View {
+        VStack{
+            Spacer()
+            HStack{
+                Spacer()
+                Text("Loading")
+                Spacer()
+            }
+            ActivityIndicator(isAnimating: .constant(true), style: .large)
+            Spacer()
+        }.background(Color.white)
     }
 }
