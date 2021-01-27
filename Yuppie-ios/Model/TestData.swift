@@ -13,7 +13,8 @@ enum TestData {
         firstName: "Test",
         lastName: "User",
         contacted: [],
-        favorites: []
+        favorites: [],
+        preferences: preferences(bedrooms: 0, bathrooms: 0, price: 10000.0, amenities: [], earliestMoveInDate: "2020-01-26", latestMoveInDate: "2021-01-26")
     )
     
     static let buildings = [

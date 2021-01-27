@@ -8,18 +8,16 @@ struct CardView: View {
     @Binding var user_id: String
     var building: Building
     var Bedrooms = ["Studios", "1 Br", "2 BR", "3+ Br"]
-    var minBedrooms: Int
-    var minBathrooms: Int
-    func unitFilter(unit: Unit, minBathrooms: Int, minBedrooms: Int) -> Bool{
-        if (unit.bedrooms >= minBedrooms && unit.bathrooms >= minBathrooms){
+    func unitFilter(unit: Unit) -> Bool{
+        if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms >= user.preferences.bathrooms){
             return true
         }
         return false
     }
-    func minPrice (building: Building, minBedrooms: Int, minBathrooms: Int) -> Int {
+    func minPrice (building: Building) -> Int {
         var minPrice = 100000
-        for unit in building.units.filter({unitFilter(unit:$0, minBathrooms:minBathrooms,minBedrooms:minBedrooms)}) {
-            if (Int(unit.price) < minPrice){
+        for unit in building.units.filter({unitFilter(unit:$0)}) {
+            if (Int(unit.price) < Int(user.preferences.price)){
                 minPrice = Int(unit.price)
             }
         }
@@ -40,8 +38,8 @@ struct CardView: View {
                                 
                                 VStack{
                                     
-                                    Text("\(Bedrooms[minBedrooms]) starting from").fontWeight(.heavy)
-                                    Text("$\(minPrice(building:building, minBedrooms:minBedrooms, minBathrooms:minBathrooms))")
+                                    Text("\(Bedrooms[user.preferences.bedrooms]) starting from").fontWeight(.heavy)
+                                    Text("$\(minPrice(building:building))")
                                 }.foregroundColor(.gray)
                                 Spacer()
                                 HStack{
@@ -58,7 +56,7 @@ struct CardView: View {
                         .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                     }
                 }.sheet(isPresented: $showCard) {
-                    BuildingView(Bedroom: minBedrooms, user : $user, showCard:self.$showCard, token: $token, user_id: $user_id, building:building)
+                    BuildingView(Bedroom: user.preferences.bedrooms, user : $user, showCard:self.$showCard, token: $token, user_id: $user_id, building:building)
                 }
                 
                 ZStack{
@@ -95,15 +93,7 @@ struct ImageScroll: View {
             favorites_request.httpMethod = "POST"
             favorites_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             URLSession.shared.dataTask(with: favorites_request) { data, response, error in
-                if let data = data {
-                    if let urlresponse = try? JSONDecoder().decode(userResponse.self, from: data) {
-                        DispatchQueue.main.async {
-                            print(urlresponse)
-                        }
-                        return
-                    }
-                    
-                }
+                return
             }.resume()
     }
     func deleteFavorite() -> Void {
@@ -116,15 +106,7 @@ struct ImageScroll: View {
             delete_request.httpMethod = "DELETE"
             delete_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             URLSession.shared.dataTask(with: delete_request) { data, response, error in
-                if let data = data {
-                    if let urlresponse = try? JSONDecoder().decode(userResponse.self, from: data) {
-                        DispatchQueue.main.async {
-                            print(urlresponse)
-                        }
-                        return
-                    }
-                    
-                }
+                return
             }.resume()
     }
     func toggleFavorite() -> Void {

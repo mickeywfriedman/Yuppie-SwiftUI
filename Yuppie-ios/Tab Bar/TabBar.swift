@@ -30,7 +30,7 @@ struct TabBar: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .tag(tabs[0])
                     .background(Color("bg").ignoresSafeArea())
-                    testScroll(token: $token, user_id: $user_id, buildings:buildings, user: $user, minBedrooms: $minBedrooms, minBathrooms: $minBathrooms)
+                    testScroll(token: $token, user_id: $user_id, buildings:buildings, user: $user)
                 }
                 Text("Edit Profile Page")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)

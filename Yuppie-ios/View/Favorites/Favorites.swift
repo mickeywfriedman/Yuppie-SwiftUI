@@ -158,15 +158,7 @@ struct FavoritesImageScroll: View {
             favorites_request.httpMethod = "POST"
             favorites_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             URLSession.shared.dataTask(with: favorites_request) { data, response, error in
-                if let data = data {
-                    if let urlresponse = try? JSONDecoder().decode(userResponse.self, from: data) {
-                        DispatchQueue.main.async {
-                            print(urlresponse)
-                        }
-                        return
-                    }
-                    
-                }
+                return
             }.resume()
     }
     func deleteFavorite() -> Void {
@@ -179,15 +171,7 @@ struct FavoritesImageScroll: View {
             delete_request.httpMethod = "DELETE"
             delete_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             URLSession.shared.dataTask(with: delete_request) { data, response, error in
-                if let data = data {
-                    if let urlresponse = try? JSONDecoder().decode(userResponse.self, from: data) {
-                        DispatchQueue.main.async {
-                            print(urlresponse)
-                        }
-                        return
-                    }
-                    
-                }
+                return
             }.resume()
     }
     func toggleFavorite() -> Void {

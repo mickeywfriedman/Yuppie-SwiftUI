@@ -9,12 +9,12 @@ import SwiftUI
 
 struct FiltersView: View {
     @Binding var showFilters: Bool
-    @Binding var Bedroom : Int
-    @Binding var Bathroom : Int
-    @Binding var MaxPrice : Double
-    @Binding var MinDate : Date
-    @Binding var MaxDate : Date
     var Bedrooms = ["Studio", "1", "2", "3+"]
+    @Binding var token: String
+    @Binding var user : User
+    @Binding var user_id: String
+    @Binding var minDate: Date
+    @Binding var maxDate: Date
     var Bathrooms = ["1", "2", "3"]
     @State var animals = false
     @State var gym = false
@@ -22,6 +22,27 @@ struct FiltersView: View {
     @State var balcony = false
     @State var airConditioning = false
     @State var doorman = false
+    func updateFilters() -> Void {
+        guard let filter_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)") else {
+            print("Your API end point is Invalid")
+            return
+        }
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        guard let data = try? encoder.encode(update(preferences: user.preferences)) else {
+            print("Failed to encode order")
+            return
+        }
+        var filter_request = URLRequest(url: filter_url)
+        filter_request.httpMethod = "PATCH"
+        filter_request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        filter_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        filter_request.httpBody = data
+        URLSession.shared.dataTask(with: filter_request) { data, response, error in
+            return
+            
+        }.resume()
+    }
     func priceFormat(price : Double) -> String {
         var result = ""
         if (price == 10000) {
@@ -41,8 +62,8 @@ struct FiltersView: View {
                 Text("Min Bedrooms").fontWeight(.heavy)
                 Spacer()
             }
-            Picker(selection: $Bedroom, label:
-                    Text(Bedrooms[Bedroom]).foregroundColor(.purple)
+            Picker(selection: $user.preferences.bedrooms, label:
+                    Text(Bedrooms[user.preferences.bedrooms]).foregroundColor(.purple)
                         .background(Color.white)
             ) {
                 ForEach(0 ..< Bedrooms.count) {
@@ -55,8 +76,8 @@ struct FiltersView: View {
                 Text("Min Bathrooms").fontWeight(.heavy)
                 Spacer()
             }
-            Picker(selection: $Bathroom, label:
-                    Text(Bathrooms[Bathroom]).foregroundColor(.purple)
+            Picker(selection: $user.preferences.bathrooms, label:
+                    Text(Bathrooms[user.preferences.bathrooms]).foregroundColor(.purple)
                         .background(Color.white)
             ) {
                 ForEach(0 ..< Bathrooms.count) {
@@ -66,21 +87,21 @@ struct FiltersView: View {
             }.pickerStyle(SegmentedPickerStyle())
             
             HStack{
-                Text("The most I can pay is $\(priceFormat(price:MaxPrice))").fontWeight(.heavy)
+                Text("The most I can pay is $\(priceFormat(price:user.preferences.price))").fontWeight(.heavy)
                 Spacer()
             }
-            Slider(value: $MaxPrice, in: 1000...10000)
+            Slider(value: $user.preferences.price, in: 1000...10000)
             VStack{
                 HStack{
                     Text("Anticipated Move In Date").fontWeight(.heavy)
                     Spacer()
                     
                 }
-                DatePicker("Earliest Move In", selection: $MinDate, displayedComponents: .date)
+                DatePicker("Earliest Move In", selection: $minDate, displayedComponents: .date)
                 .foregroundColor(.black)
                 .background(Color.white)
                 .datePickerStyle(DefaultDatePickerStyle())
-            DatePicker("Latest Move In", selection: $MaxDate, displayedComponents: .date)
+            DatePicker("Latest Move In", selection: $maxDate, displayedComponents: .date)
                 .foregroundColor(.black)
                 .background(Color.white)
                 .datePickerStyle(DefaultDatePickerStyle())
@@ -235,5 +256,6 @@ struct FiltersView: View {
             
             Spacer()
         }.padding()
+        .onDisappear(perform: updateFilters)
     }
 }

@@ -29,11 +29,11 @@ struct CentralHomeView: View {
                     if let response = try? JSONDecoder().decode(Response.self, from: data) {
                         DispatchQueue.main.async {
                             self.buildingsData = response.data
-                            print(self.buildingsData)
+                            print("hello")
+                            print(user_id)
                         }
                         return
                     }
-                    
                 }
             }.resume()
         }

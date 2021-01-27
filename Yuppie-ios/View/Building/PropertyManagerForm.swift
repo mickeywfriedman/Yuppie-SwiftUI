@@ -26,6 +26,7 @@ struct PropertyManagerForm : View {
     @State private var covidPolicies = false
     @State private var askString = ""
     func sendEmail (Message: String, Apartment: String, userID: String, building: Building, moveIn:Date){
+        self.user.contacted.append(building.id)
         let lead = Lead(
             message: Message,
             buildingId: building.id,

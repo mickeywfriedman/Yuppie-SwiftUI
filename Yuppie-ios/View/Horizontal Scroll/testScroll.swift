@@ -12,9 +12,6 @@ struct testScroll: View {
     @Binding var user_id: String
     var buildings : [Building]
     @Binding var user : User
-    @Binding var minBedrooms : Int
-    @Binding var minBathrooms : Int
-    @State var maxPrice = 10000.0
     @State var minDate = Date()
     @State var maxDate = Date(timeInterval: 14*86400, since: Date())
     @State var isFavorite = true
@@ -24,7 +21,7 @@ struct testScroll: View {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let date_avail = dateFormatter.date(from: unit.dateAvailable)
-            if (unit.bedrooms >= minBedrooms && unit.bathrooms >= minBathrooms && unit.price <= maxPrice && date_avail ?? Date() < maxDate){
+            if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms >= user.preferences.bathrooms && Int(unit.price) <= Int(user.preferences.price) && date_avail ?? Date() < maxDate){
                 return true
             }
         }
@@ -83,9 +80,9 @@ struct testScroll: View {
                 }.offset(x:150, y:50)
                 
                 .sheet(isPresented: $showFilters) {
-                    FiltersView(showFilters: self.$showFilters, Bedroom : self.$minBedrooms, Bathroom: self.$minBathrooms, MaxPrice : self.$maxPrice, MinDate: self.$minDate, MaxDate: self.$maxDate)
+                    FiltersView(showFilters: self.$showFilters, token: $token, user: $user, user_id: $user_id, minDate: self.$minDate, maxDate: self.$maxDate)
                 }
-                Scroll(user: $user, token: $token, user_id: $user_id, buildings:buildings.filter({filter(units: $0.units)}), minBedrooms: minBedrooms, minBathrooms: minBathrooms)
+                Scroll(user: $user, token: $token, user_id: $user_id, buildings:buildings.filter({filter(units: $0.units)}))
                     .offset(y:400)
                 
             }.edgesIgnoringSafeArea([.top, .bottom])
@@ -100,13 +97,11 @@ struct Scroll: View {
     @Binding var token: String
     @Binding var user_id: String
     var buildings: [Building]
-    var minBedrooms: Int
-    var minBathrooms: Int
     var body: some View {
         GeometryReader { geometry in
             HStack (spacing: 0){
                 ForEach(buildings, id:\.name) {building in
-                    CardView(token: $token, user: $user, user_id: $user_id, building:building, minBedrooms: minBedrooms, minBathrooms: minBathrooms)
+                    CardView(token: $token, user: $user, user_id: $user_id, building:building)
                         .padding(.horizontal, 20)
                 }
             }
