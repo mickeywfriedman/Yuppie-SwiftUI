@@ -53,7 +53,7 @@ struct ContentView: View {
                         
                         
                         
-                        if self.user_id == ""{
+                        if (self.user_id == "" || self.needsAccount){
                             NavigationView{
                                 SignupView(user_id: $user_id, didLogin: $didLogin, needsAccount: $needsAccount, token: $authToken)}
 
