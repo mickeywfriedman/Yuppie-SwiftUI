@@ -13,10 +13,6 @@ struct ContentView: View {
    
     
     
-  
-    
-    @State private var indexView = IndexView(building: TestData.buildings.first!)
-    
     @State private var menuItemSize: CGFloat = 66
     @State private var authToken: String = UserDefaults.standard.string(forKey: "Token") ?? ""
     @State var didLogin: Bool = false
