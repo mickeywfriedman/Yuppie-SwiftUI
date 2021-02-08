@@ -153,18 +153,39 @@ struct ImageScroll: View {
                  }
            )
         }
-            Button(action: {
-                    toggleFavorite()
-                }) {
-                    if (user.favorites.contains(building.id)) {
-                        Image(systemName: "heart.fill")
-                            .foregroundColor(Color.yellow)
-                        } else {
-                            Image(systemName: "heart")
-                                .foregroundColor(Color.gray)
-                        }
-            }.offset(x: (-1*(UIScreen.main.bounds.width-100)/2)+25, y: -80)
+        
+            
     }
+        HStack{
+            
+            Spacer(minLength: 0)
+            
+            Button(action: {
+                toggleFavorite()
+            }) {
+                
+                Label(title: {
+                    Text("Save")
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundColor(.black)
+                    
+                }) {
+                    
+                    
+                    if (user.favorites.contains(building.id)) {
+                                            Image(systemName: "heart.fill")
+                                                .foregroundColor(Color("Chat_color"))
+                                            } else {
+                                                Image(systemName: "heart")
+                                                    .foregroundColor(Color.gray)
+                                            }
+                }
+                .padding(.vertical,8)
+                .padding(.horizontal,10)
+                .background(Color("pgradient2"))
+                .clipShape(Capsule())
+            }
+        }.offset(x: (-1*(UIScreen.main.bounds.width-100)/2)-75, y: -80)
     }
 }
 

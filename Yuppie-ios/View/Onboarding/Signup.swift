@@ -34,6 +34,14 @@ struct SignupView: View {
     
     @StateObject var serverData = UniversityModel()
     
+    func getDocumentsDirectory() -> URL {
+        // find all possible documents directories for this user
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+
+        // just send back the first one, which ought to be the only one
+        return paths[0]
+    }
+    
     func cleanStr(str: String) -> String {
         return str.replacingOccurrences(of: "[.#$\\[/\\]];}", with: ",", options: [.regularExpression])
     }
@@ -97,13 +105,6 @@ struct SignupView: View {
                             
                             let snippet = dump(toString(string_result))
                             
-                            
-                            
-                        
-                            
-                            
-                                
-                            
                             let range = snippet.range(of: "user_id")
                              let myString = snippet[(range?.upperBound...)!].trimmingCharacters(in: .whitespaces)
                            
@@ -116,6 +117,13 @@ struct SignupView: View {
                             let word = cleaned_user_id.replacingOccurrences(of: pattern, with: "", options: [.regularExpression])
                             
                             self.user_id = String(word.dropLast())
+                            let filename = getDocumentsDirectory().appendingPathComponent("index.txt")
+                            do {
+                                try (("userID:")+self.user_id).write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+                                
+                            } catch {
+                                // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
+                            }
                             
                             let range_token = snippet.range(of: "access_token")
                              let my_access_token = snippet[(range_token?.lowerBound...)!].trimmingCharacters(in: .whitespaces)
@@ -135,7 +143,14 @@ struct SignupView: View {
                             
                             self.token = replace_quotations.replacingOccurrences(of: "=", with: "")
                             
-                            print("this is it", self.token)
+                           
+                            
+                            do {
+                                try (self.user_id+self.user_id+("token_id:")+self.token ).write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+                                
+                            } catch {
+                                // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
+                            }
 
                             
                             //let modString_token = regex.stringByReplacingMatches(in: _token, options: [], range: range1, withTemplate: "XX")
@@ -259,8 +274,6 @@ struct SignupView: View {
                        
                         Button(action: {
                             self.send((Any).self)
-                            
-                            
                             self.didLogin = false
                             self.needsAccount = true
                             self.showFirstLastName.toggle()

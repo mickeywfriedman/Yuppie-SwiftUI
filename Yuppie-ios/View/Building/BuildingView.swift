@@ -49,6 +49,8 @@ struct BuildingImages: View{
     @State var showForm = false
     @State var height = UIScreen.main.bounds.height
     @State var width = UIScreen.main.bounds.width
+    @State var index: Int = 0
+    @State var expand = false
     var building: Building
     var body: some View{
         ZStack{
@@ -84,7 +86,7 @@ struct BuildingImages: View{
             }
             .padding(.horizontal, 10)
             //.padding(.vertical, self.height > 800 ? 15 : 10)
-            .background(LinearGradient(gradient: .init(colors: [Color("lightpurple"),Color("pink"),Color("orange")]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
+                .background(LinearGradient(gradient: .init(colors: [Color("pgradient1"),Color("Chat_color")]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
             
             .clipShape(CustomShape(corner: .bottomLeft, radii: self.height > 800 ? 35 : 30))
         }
@@ -103,7 +105,7 @@ struct BuildingView: View {
             return bedrooms
         }
     }
-    
+    @State var show = false
     @State var showForm = false
     @State var isFavorite = true
     var Bedrooms = ["Studio", "1", "2", "3+"]
@@ -118,7 +120,11 @@ struct BuildingView: View {
     @State private var value : CGFloat = 200
     @Binding var token: String
     @Binding var user_id: String
+    @State var expand = false
     var building: Building
+    
+   
+    
     var body: some View {
         ZStack{
         VStack{
@@ -136,11 +142,18 @@ struct BuildingView: View {
                 VStack(alignment: .leading){
                     VStack(alignment: .leading){
                         
+                        Loader(show: self.$show)
+                        
                         HStack{
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
                            
-                            Home()
-                        }
-                    }.offset(y:-95)
+                            Chats(token: $token, user_id: $user_id, building:building, expand: self.$expand)
+                                .offset(y:-100)
+                                .padding(.top, 15)
+                            }}.padding(.horizontal, -15)
+                    }.offset(y:0)
+                    
                     
                     VStack(alignment: .leading){
                         Text("Description").fontWeight(.heavy).padding(.top,4)
@@ -152,97 +165,7 @@ struct BuildingView: View {
                     }.padding(.horizontal)
                     .offset(y:-115)
                     VStack(alignment: .leading){
-                        Text("Building Amenities").foregroundColor(Color.gray).fontWeight(.heavy).padding(.bottom,-5).offset(y: 20)
-                        HStack(spacing: 0){
-                            
-                            HStack(spacing: 15){
-                                
-                                Image("s3")
-                                    .frame(width: 60, height: 60)
-                                    .background(Color.white)
-                                    .cornerRadius(10)
-                                    .shadow(color: Color.purple.opacity(0.2), radius: 5, x: -5, y: -5)
-                                    .shadow(color: Color.gray.opacity(0.7), radius: 5, x: 5, y: 5)
-                                
-                                VStack(alignment: .center){
-                                    
-                                    Text("Gym")
-                                        .foregroundColor(.purple)
-                                    
-                                    Text("Weekends")
-                                        .foregroundColor(.gray)
-                                }
-                            }
-                            
-                            Spacer(minLength: 0)
-                            
-                            HStack(spacing: 15){
-                                
-                                Image("s2")
-                                .frame(width: 60, height: 60)
-                                    .background(Color.white)
-                                .cornerRadius(10)
-                                .shadow(color: Color.purple.opacity(0.2), radius: 5, x: -5, y: -5)
-                                .shadow(color: Color.gray.opacity(0.7), radius: 5, x: 5, y: 5)
-                                
-                                VStack(alignment: .center){
-                                    
-                                    Text("Pool")
-                                        .foregroundColor(.purple)
-                                    
-                                    Text("6AM-11PM")
-                                        .foregroundColor(.gray)
-                                }
-                            }
-                        }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical)
-                        .offset(y:20)
-                        HStack(spacing: 0){
-                            
-                            HStack(spacing: 15){
-                                
-                                Image("s1")
-                                    .frame(width: 60, height: 60)
-                                    .background(Color.white)
-                                    .cornerRadius(10)
-                                    .shadow(color: Color.purple.opacity(0.2), radius: 5, x: -5, y: -5)
-                                    .shadow(color: Color.gray.opacity(0.7), radius: 5, x: 5, y: 5)
-                                
-                                VStack(alignment: .center){
-                                    
-                                    Text("Game Nights")
-                                        .foregroundColor(.purple)
-                                    
-                                    Text("Weekends")
-                                        .foregroundColor(.gray)
-                                }
-                            }
-                            
-                            Spacer(minLength: 0)
-                            
-                            HStack(spacing: 15){
-                                
-                                Image("s4")
-                                .frame(width: 60, height: 60)
-                                    .background(Color.white)
-                                .cornerRadius(10)
-                                .shadow(color: Color.purple.opacity(0.2), radius: 5, x: -5, y: -5)
-                                .shadow(color: Color.gray.opacity(0.7), radius: 5, x: 5, y: 5)
-                                
-                                VStack(alignment: .leading){
-                                    
-                                    Text("Wifi")
-                                        .foregroundColor(.purple)
-                                    
-                                    Text("6AM-11PM")
-                                        .foregroundColor(.gray)
-                                }
-                            }
-                        }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical)
-                        .offset(y:20)
+                        BottomView().padding(.top, 10)
                        
                         
                     }.padding(.horizontal)
@@ -272,17 +195,17 @@ struct BuildingView: View {
                                             Spacer()
                                             HStack{
                                             Text("\(unit.bedrooms)")
-                                                Image("Bed").resizable().frame(width: 25, height: 25)
+                                                Image("Bed").resizable().frame(width: 25, height: 25).foregroundColor(.purple)
                                             }
                                             Spacer()
                                             HStack{
                                             Text("\(unit.bathrooms)")
-                                                Image("Bath").resizable().frame(width: 35, height: 35)
+                                                Image("Bath").resizable().frame(width: 35, height: 35).foregroundColor(.purple)
                                             }
                                             Spacer()
                                             HStack{
                                             Text("\(unit.squareFeet)")
-                                                Image("Square").resizable().frame(width: 25, height: 20)
+                                                Image("Square").resizable().frame(width: 25, height: 20).foregroundColor(.purple)
                                             }
                                             Spacer()
                                             Text("$\(Int(unit.price))")
@@ -355,6 +278,44 @@ struct ImageSlider: View {
         }
 }
 
+struct Loader : View {
+    
+    @State var width : CGFloat = 100
+    @Binding var show : Bool
+    var time = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+    @State var secs : CGFloat = 0
+    
+    var body : some View{
+        
+        ZStack(alignment: .leading){
+            
+            Rectangle()
+                .fill(Color.white.opacity(0.6))
+                .frame(height: 3)
+            
+            Rectangle()
+                .fill(Color.white)
+                .frame(width: self.width, height: 3)
+        }
+        .onReceive(self.time) { (_) in
+            
+            self.secs += 0.1
+            
+            if self.secs <= 6{//6 seconds.....
+                
+                let screenWidth = UIScreen.main.bounds.width
+                
+                self.width = screenWidth * (self.secs / 6)
+            }
+            else{
+                
+                self.show = false
+            }
+
+        }
+    }
+}
+
 struct CustomShape : Shape {
     
     var corner : UIRectCorner
@@ -408,4 +369,118 @@ struct BuildingMapView: UIViewRepresentable {
     }
 }
 
-
+struct BottomView : View {
+    
+    var body : some View{
+        
+        VStack{
+            
+            HStack{
+                
+                Text("Building Amenities").fontWeight(.heavy).foregroundColor(.gray)
+                
+                Spacer()
+                
+                Button(action: {
+                    
+                }) {
+                    
+                    Text("View all").foregroundColor(.gray)
+                }
+                
+            }
+            
+            ScrollView(.horizontal, showsIndicators: true) {
+                
+                HStack(alignment: .top){
+                    
+                    Button(action: {
+                            
+                    }) {
+                            
+                        VStack(spacing: 8){
+                            VStack{
+                                Image("mcard1").renderingMode(.original)}
+                                .frame(width: 60, height: 60)
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .padding(.top, 25)
+                                .shadow(color: Color.purple.opacity(0.2), radius: 5, x: -5, y: -5)
+                                .shadow(color: Color.gray.opacity(0.7), radius: 5, x: 5, y: 5)
+                            Text("Clean Energy")
+                            //.frame(width: 55)
+                            .font(.caption)
+                            .foregroundColor(Color.black.opacity(0.5))
+                            .multilineTextAlignment(.center)
+                        }
+                    }
+                    Spacer(minLength: 20)
+                    
+                    Button(action: {
+                            
+                    }) {
+                            
+                        VStack(spacing: 8){
+                            VStack{
+                                Image("mcard2").renderingMode(.original)}
+                            .frame(width: 60, height: 60)
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .padding(.top, 25)
+                                .shadow(color: Color.purple.opacity(0.2), radius: 5, x: -5, y: -5)
+                                .shadow(color: Color.gray.opacity(0.7), radius: 5, x: 5, y: 5)
+                            Text("Dry Cleaning")
+                          //  .frame(width: 55)
+                            .font(.caption)
+                            .foregroundColor(Color.black.opacity(0.5))
+                            .multilineTextAlignment(.center)
+                        }
+                    }
+                    Spacer(minLength: 20)
+                    Button(action: {
+                            
+                    }) {
+                            
+                        VStack(spacing: 8){
+                            VStack{
+                                Image("mcard3").renderingMode(.original)}
+                                .frame(width: 60, height: 60)
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .padding(.top, 25)
+                                .shadow(color: Color.purple.opacity(0.2), radius: 5, x: -5, y: -5)
+                                .shadow(color: Color.gray.opacity(0.7), radius: 5, x: 5, y: 5)
+                            Text("Theater")
+                            //.frame(width: 55)
+                            .font(.caption)
+                            .foregroundColor(Color.black.opacity(0.5))
+                            .multilineTextAlignment(.center)
+                        }
+                    }
+                    Spacer(minLength: 20)
+                    Button(action: {
+                            
+                    }) {
+                            
+                        VStack(spacing: 8){
+                            VStack{
+                                Image("mcard4").renderingMode(.original)}
+                                .frame(width: 60, height: 60)
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .padding(.top, 25)
+                                .shadow(color: Color.purple.opacity(0.2), radius: 5, x: -5, y: -5)
+                                .shadow(color: Color.gray.opacity(0.7), radius: 5, x: 5, y: 5)
+                            Text("Something")
+                            //.frame(width: 55)
+                            .font(.caption)
+                            .foregroundColor(Color.black.opacity(0.5))
+                            .multilineTextAlignment(.center)
+                        }
+                    }
+                }
+            }.padding(.leading, 20)
+            .padding(.bottom, 15)
+        }
+    }
+}

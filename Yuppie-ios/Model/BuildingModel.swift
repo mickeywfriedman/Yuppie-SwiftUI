@@ -21,6 +21,10 @@ struct Building: Hashable, Decodable{
 
 }
 
+struct BuildingResponse: Decodable {
+    var data : Building
+}
+
 struct Unit: Hashable, Decodable{
     var number: String
     var bedrooms: Int
@@ -42,6 +46,7 @@ struct Address: Hashable, Decodable{
 struct tenant: Hashable, Decodable{
     var profilePicture: String
     var id: String
+    var firstName: String
 }
 
 struct propertyManager: Hashable, Codable{

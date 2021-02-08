@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import Mapbox
 struct testScroll: View {
     @Binding var token: String
     @Binding var user_id: String
@@ -52,7 +52,8 @@ struct testScroll: View {
                 amenities: ["Pool", "Gym"],
                 tenants: [tenant(
                     profilePicture: "http://18.218.78.71:8080/images/5fdbefceae921a507c9785de",
-                    id: "5fd002a21ed3e413beb713d4"
+                    id: "5fd002a21ed3e413beb713d4",
+                    firstName: "Leon"
                 )],
                 propertyManager: propertyManager(
                     email: "propertyManager1@gmail.com",
@@ -96,16 +97,50 @@ struct testScroll: View {
 struct Scroll: View {
     @GestureState private var translation: CGFloat = 0
     @State var index: Int = 0
+    @State var expand = false
     @Binding var user : User
     @Binding var token: String
     @Binding var user_id: String
     var buildings: [Building]
+    @State var annotations: [MGLPointAnnotation] = [
+        MGLPointAnnotation(title: "Mapbox", coordinate: .init(latitude: 37.791439, longitude: -122.396267))
+        ,
+        
+        MGLPointAnnotation(title: "Mapbox", coordinate: .init(latitude: 37.792134, longitude: -122.394217)),
+        
+        MGLPointAnnotation(title: "Mapbox", coordinate: .init(latitude: 37.793134, longitude: -122.393217)),
+        
+       
+    ]
+    
     var body: some View {
         GeometryReader { geometry in
             HStack (spacing: 0){
                 ForEach(buildings, id:\.name) {building in
-                    CardView(token: $token, user: $user, user_id: $user_id, building:building)
-                        .padding(.horizontal, 20)
+                    VStack{
+                        Chats(token: $token, user_id: $user_id, building:building, expand: self.$expand)
+                            .offset(y:-450)
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                        
+                        CardView(token: $token, user: $user, user_id: $user_id, building:building)
+                            .padding(.horizontal, 20)
+                       // .padding(.horizontal, 20)
+                        .offset(y:-490)
+                        
+//
+//                        let currentCamera = mapView.camera
+//                                    let camera = MGLMapCamera(lookingAtCenter: CLLocationCoordinate2D(latitude: 40.7411, longitude: -73.9897), acrossDistance: currentCamera.viewingDistance, pitch: currentCamera.pitch, heading: currentCamera.heading)
+//                                    mapView.fly(to: camera, withDuration: 4, peakAltitude: 3000, completionHandler: nil)
+                      
+                                                // Animate the camera movement over 5 seconds.
+
+                        
+                        
+                        
+                        
+                    
+                    }
+                    
                 }
             }
            .frame(width: geometry.size.width, alignment: .leading)

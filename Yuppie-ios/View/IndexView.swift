@@ -20,15 +20,15 @@ struct HotAnnotation{
     }
 }
 struct IndexView: View {
-    var building: Building
+    @Binding var buildings : [Building]
     
     @State var annotations: [MGLPointAnnotation] = [
-        MGLPointAnnotation(title: "Mapbox", coordinate: .init(latitude: 37.791439, longitude: -122.396267)),
+        MGLPointAnnotation(title: "$13", coordinate: .init(latitude: 40.761360, longitude: -73.999222))
+        ,
         
-        MGLPointAnnotation(title: "Mapbox", coordinate: .init(latitude: 37.792134, longitude: -122.394217)),
+        MGLPointAnnotation(title: "$2000", coordinate: .init(latitude: 40.737140, longitude: -73.998140)),
         
-        MGLPointAnnotation(title: "Mapbox", coordinate: .init(latitude: 37.793134, longitude: -122.393217)),
-        
+
        
     ]
     
@@ -56,8 +56,17 @@ struct IndexView: View {
         let selectedScaleFactor: CGFloat = 2.5
         
         return
-            MapView(annotations: $annotations).centerCoordinate(.init(latitude: 37.791293, longitude: -122.396324)).zoomLevel(15)
+            
+            ZStack{
+               
+            MapView(annotations: $annotations).centerCoordinate(.init(latitude: 40.761360, longitude: -73.999222)).zoomLevel(15)
+                Image("topgradient")
+                               .resizable()
+                               .aspectRatio(contentMode: .fit)
+                               .frame(width: UIScreen.main.bounds.width)
+                    .offset(y: -150)
            }
+    }
     
     
     // MARK: - Modifiers
@@ -72,58 +81,4 @@ struct IndexView: View {
     
 }
 
-
-struct IndexViewPreview: View {
-    
-    let count = 4
-    
-    @State var index = 0
-    
-    var body: some View {
-        
-        
-        ZStack(alignment: .leading) {
-            Color(#colorLiteral(red: 0.1529411765, green: 0.1725490196, blue: 0.2078431373, alpha: 1)).edgesIgnoringSafeArea(.all)
-            VStack {
-                
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        withAnimation {
-                            self.index = (self.index + self.count - 1) % self.count
-                        }
-                    }) {
-                        Text("PREV")
-                    }
-                    .padding(.horizontal, 32)
-                    .padding(.vertical, 12)
-                    .background(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.1)))
-                    .cornerRadius(4)
-                    Button(action: {
-                        withAnimation {
-                            self.index = (self.index + 1) % self.count
-                        }
-                    }) {
-                        Text("NEXT")
-                    }
-                    .padding(.horizontal, 32)
-                    .padding(.vertical, 12)
-                    .background(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.1)))
-                    .cornerRadius(4)
-                    
-                    Spacer()
-                }
-                .padding()
-                
-                Text("\(index)")
-                    .foregroundColor(Color.white)
-                    .font(.title)
-                    .padding()
-                Spacer()
-            }
-            
-            IndexView(building: TestData.buildings.first!) .select(at: index, in: count)
-        }
-    }
-}
 

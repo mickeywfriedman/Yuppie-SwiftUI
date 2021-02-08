@@ -8,62 +8,7 @@
 
 import SwiftUI
 
-struct TabBar: View {
-    @State var currentTab = "house"
-    @State var minBedrooms = 0
-    @State var minBathrooms = 0
-    @Binding var token: String
-    @Binding var user_id: String
-    @Binding var buildings : [Building]
-    @Binding var user : User
-    @Namespace var animation
 
-    // safe area values...
-    @State var safeArea = UIApplication.shared.windows.first?.safeAreaInsets
-    var body: some View {
-        ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
-            TabView(selection: $currentTab){
-                ZStack{
-                    IndexView(building: buildings[0])
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .tag(tabs[0])
-                        .background(Color("bg").ignoresSafeArea())
-                    if (buildings[0].name == "Test"){
-                        LoadingScreen()
-                    } else {
-                    testScroll(token: $token, user_id: $user_id, buildings:buildings, user: $user)
-                    }
-                }
-                Text("Edit Profile Page")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .tag(tabs[1])
-                    .background(Color("bg").ignoresSafeArea())
-                
-                Favorites(token: $token, user_id: $user_id, buildings:$buildings, user: $user, minBedrooms: $minBedrooms, minBathrooms: $minBathrooms)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .tag(tabs[2])
-                    .background(Color("bg").ignoresSafeArea())
-                
-            }
-            HStack(spacing: 35){
-                
-                ForEach(tabs,id: \.self){image in
-                    
-                    TabButton(image: image, selected: $currentTab, animation: animation)
-                }
-            }
-            .padding(.horizontal,35)
-            .padding(.top)
-            .padding(.bottom,safeArea?.bottom != 0 ? safeArea?.bottom : 15)
-            .background(
-                LinearGradient(gradient: .init(colors: [Color("Color"), Color("Chat_color")]), startPoint: .top, endPoint: .bottom)
-                    .clipShape(CustomCorner(corners: [.topLeft,.topRight]))
-            )
-        }
-        }
-}
-
-var tabs = ["house","person","suit.heart"]
 
 struct ActivityIndicator: UIViewRepresentable {
 
@@ -91,5 +36,84 @@ struct LoadingScreen: View {
             ActivityIndicator(isAnimating: .constant(true), style: .large)
             Spacer()
         }.background(Color.white)
+        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
     }
 }
+
+import SwiftUI
+
+struct TabBar: View {
+    @State var currentTab = "house"
+    @State var minBedrooms = 0
+    @State var minBathrooms = 0
+    @Binding var token: String
+    @Binding var user_id: String
+    @Binding var buildings : [Building]
+    @Binding var user : User
+    @Namespace var animation
+    @State var current = "Home"
+    
+    var tabs = ["house","person","suit.heart"]
+    var body: some View {
+        
+        ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
+            
+            TabView(selection: $current){
+                
+                ZStack{
+                    IndexView(buildings: $buildings)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .tag(tabs[0])
+                        .background(Color("bg").ignoresSafeArea())
+                    if (buildings[0].name == "Test"){
+                        LoadingScreen()
+                    } else {
+                    testScroll(token: $token, user_id: $user_id, buildings:buildings, user: $user)
+                    }
+                }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).tag("Home")
+                ZStack{
+                UserProfile(token: $token, user_id: $user_id, buildings:$buildings, user: $user, minBedrooms: $minBedrooms, minBathrooms: $minBathrooms)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .tag(tabs[1])
+                    .background(Color("bg").ignoresSafeArea())}.tag("Profile")
+                ZStack{
+                Favorites(token: $token, user_id: $user_id, buildings:$buildings, user: $user, minBedrooms: $minBedrooms, minBathrooms: $minBathrooms)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .tag(tabs[2])
+                    .background(Color("bg").ignoresSafeArea())}.tag("Saved")
+            }
+            
+            HStack(spacing: 0){
+                
+                // TabButton...
+                
+                
+                TabButton(title: "Profile", image: "user", selected: $current)
+                
+                Spacer(minLength: 0)
+                
+                TabButton(title: "Home", image: "home", selected: $current)
+                
+                Spacer(minLength: 0)
+                
+                
+                TabButton(title: "Saved", image: "heart-1", selected: $current)
+            }
+            .padding(.vertical,12)
+            .padding(.horizontal)
+            
+            .padding(.horizontal,25)
+            .frame(width:UIScreen.main.bounds.width-40)
+            .background(LinearGradient(gradient: .init(colors: [Color("pgradient1"),Color("pgradient2")]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
+            .clipShape(Capsule())
+            .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
+            .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
+        
+        }
+    }
+
+}
+
+
+
+

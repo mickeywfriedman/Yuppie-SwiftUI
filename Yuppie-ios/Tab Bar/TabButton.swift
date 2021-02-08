@@ -8,38 +8,37 @@
 import SwiftUI
 
 struct TabButton: View {
+    var title: String
     var image: String
+    
     @Binding var selected : String
-    var animation: Namespace.ID
+    
     var body: some View {
         
         Button(action: {
-            // changing tab...
-            withAnimation(.spring()){selected = image}
+            withAnimation(.spring()){selected = title}
         }) {
             
-            VStack(spacing: 12){
+            HStack(spacing: 10){
                 
-                Image(systemName: image)
-                    .font(.system(size: 25))
-                    .foregroundColor(selected == image ? .white : .gray)
+                Image(image)
+                    .resizable()
+                    .renderingMode(.template)
+                    .frame(width: 25, height: 25)
+                    .foregroundColor(.white)
                 
-                ZStack{
+                if selected == title{
                     
-                    Circle()
-                        .fill(Color.clear)
-                        .frame(width: 8, height: 8)
-                    
-                    if selected == image{
-                        
-                        Circle()
-                            .fill(Color.white)
-                            // smooth slide animation....
-                            .matchedGeometryEffect(id: "Tab", in: animation)
-                            .frame(width: 8, height: 8)
-                    }
+                    Text(title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
                 }
             }
+            .padding(.vertical,10)
+            .padding(.horizontal)
+            .background(Color.blue.opacity(selected == title ? 0.08 : 0))
+            .clipShape(Capsule())
         }
     }
 }
+

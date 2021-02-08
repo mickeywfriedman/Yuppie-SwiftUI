@@ -15,6 +15,7 @@ struct Favorites: View {
     @Binding var minBedrooms : Int
     @Binding var minBathrooms : Int
     var Tabs = ["Favorites", "Contacted"]
+    var gradient = [Color("Color-3"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
     func findFavorites () -> [Building] {
         var filteredBuildings = [Building]()
         for building in buildings{
@@ -52,7 +53,16 @@ struct Favorites: View {
                         BuildingRow(token: $token, user: $user, user_id: $user_id, building: building, minBedrooms: minBedrooms, minBathrooms: minBathrooms)
                     }
                 } else {
+                    VStack{
+                        
                     Text("You have not liked any buildings")
+                        .foregroundColor(Color.white)
+                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        .offset(y: 50)
+                        
+                        Image("buildings")
+                                       .resizable()
+                            .aspectRatio(contentMode: .fit)}
                 }
                 
             } else {
@@ -65,7 +75,12 @@ struct Favorites: View {
                 }
             }
             Spacer()
-        }
+        }.background(
+            
+            LinearGradient(gradient: .init(colors: gradient), startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
+            
+        )
     }
 }
 
@@ -121,6 +136,8 @@ struct BuildingRow: View {
                         }.background(Color("Color"))
                         .cornerRadius(14)
                         .frame(width:UIScreen.main.bounds.width-40)
+                        .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
+                        .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                     }
                 }.sheet(isPresented: $showCard) {
                     BuildingView(Bedroom: minBedrooms, user : $user, showCard:self.$showCard, token: $token, user_id: $user_id, building:building)
@@ -224,6 +241,7 @@ struct FavoritesImageScroll: View {
                     if (user.favorites.contains(building.id)) {
                         Image(systemName: "heart.fill")
                             .foregroundColor(Color.yellow)
+                            .frame(width: 32.0, height: 32.0)
                         } else {
                             Image(systemName: "heart")
                                 .foregroundColor(Color.gray)

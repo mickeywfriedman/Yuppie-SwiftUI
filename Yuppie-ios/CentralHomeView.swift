@@ -7,7 +7,7 @@ import SwiftUI
 import Mapbox
 
 struct CentralHomeView: View {
-    @State private var indexView = IndexView(building: TestData.buildings.first!)
+
     @State private var menuItemSize: CGFloat = 66
     @State private var authToken: String = UserDefaults.standard.string(forKey: "Token") ?? ""
     @Binding var token: String
@@ -78,9 +78,9 @@ struct CentralHomeView: View {
             VStack {
                 Spacer()
                 ZStack(alignment: .leading) {
-
+                    
                     TabBar(token: $token, user_id: $user_id, buildings: $buildingsData, user: $user)
-                }
+                }.padding(.bottom, 35).edgesIgnoringSafeArea(.all)
             }
             .onAppear(perform: loadUser)
             .onAppear(perform: loadData)

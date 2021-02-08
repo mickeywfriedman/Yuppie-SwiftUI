@@ -9,6 +9,11 @@ import SwiftUI
 
 
 struct Home : View {
+    @Binding var token: String
+    @Binding var user_id: String
+    @Binding var building: Building
+    @State var tenant_id = ""
+    @State var tenant_prof = ""
     @State var showChatUI = false
     @State var showInbox = false
     @State var index = 0
@@ -18,11 +23,11 @@ struct Home : View {
         
         ZStack{
             
-            NavigationLink(destination: ChatUI(), isActive: self.$showChatUI) {
-                
-                Text("")
-            }
-            
+//            NavigationLink(destination: ChatUI(token: $token, user_id: $user_id, building:building, tenant_id: $tenant_id, tenant_prof: $tenant_prof), isActive: self.$showChatUI)  {
+//
+//                Text("")
+//            }
+//
             
             
             
@@ -35,7 +40,7 @@ struct Home : View {
                 
                 ZStack{
                     
-                    Chats(expand: self.$expand).opacity(self.index == 0 ? 1 : 0)
+                    Chats(token: $token, user_id: $user_id, building:building,expand: self.$expand).opacity(self.index == 0 ? 1 : 0)
                     
                 }
                 
@@ -48,32 +53,60 @@ struct Home : View {
 }
 
 struct Chats : View {
-
+    @Binding var token: String
+    @Binding var user_id: String
+    var building: Building
     @Binding var expand : Bool
     
     var body : some View{
         
         VStack(spacing: 0){
             
-            TopView(expand: self.$expand).zIndex(0)
+            TopView(token: $token, user_id: $user_id, building:building, expand: self.$expand).zIndex(0)
             
             Centerview(expand: self.$expand).offset(y: -1250)
-        }
+        }.frame(minWidth:(UIScreen.main.bounds.width-40), maxWidth: .infinity)
     }
 }
 
 
 struct TopView : View {
+    @Binding var token: String
+    @Binding var user_id: String
+    var building: Building
+    @State var tenant_id = ""
+    @State var tenant_prof = ""
+    @State var tenant_name = ""
     @State var showChatUI = false
     @State var search = ""
     @Binding var expand : Bool
     @State var showInbox = false
     
+    func getDocumentsDirectory1() -> URL {
+        // find all possible documents directories for this user
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+
+        // just send back the first one, which ought to be the only one
+        return paths[0]
+    }
+    
+    func writeTenant(){
+        let text = ""
+        
+        let filename = getDocumentsDirectory1().appendingPathComponent("index.txt")
+        do {
+            try text.write(to: filename, atomically: false, encoding: .utf8)
+            try (self.tenant_id+self.user_id+("token_id:")+self.token ).write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+            
+        } catch {
+            // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
+        }
+    }
+    
     var body : some View{
         
         ZStack{
-            
-            NavigationLink(destination: ChatUI(), isActive: self.$showChatUI) {
+            NavigationLink(destination: ChatUI(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, tenant_name: $tenant_name)){
                 
                 Text("")
             }
@@ -101,13 +134,19 @@ struct TopView : View {
                         .foregroundColor(Color.black.opacity(0.4))
                         
                     }
-                }.sheet(isPresented: $showChatUI) {
-                    ChatUI()
+                    
+                
+//                }.sheet(isPresented: $showChatUI) {
+//                    ChatUI(token: $token, user_id: $user_id, building:building)
                 }
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                     
                     HStack(spacing: 18){
+                        
+                        VStack{
+                            
+                            ZStack{
                         
                         Button(action: {
                             
@@ -117,35 +156,85 @@ struct TopView : View {
                             
                         }) {
                             
+                            
                             Image(systemName: "message")
                             .resizable()
                             .frame(width: 25, height: 25)
                                 .foregroundColor(Color.white)
                             .padding(18)
                             
+                            
+                           
+                            
                         }.sheet(isPresented: $showInbox) {
                             Inbox()}.background(Color("blueshadow").opacity(0.5))
                         .clipShape(Circle())
+                            
+                            Circle()
+                            .trim(from: 0, to: 1)
+                                .stroke(AngularGradient(gradient: .init(colors: [.purple,.blue,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [false ? 7 : 0]))
+                            .frame(width: 74, height: 74)
+                            .rotationEffect(.init(degrees: true ? 360 : 0))
+                                
+                            }
+                        
+                        Text("Inbox")
+                            .foregroundColor(Color("Color-3"))
+                            .lineLimit(1)
+                            
+                    }
                         
                         
-                        ForEach(1...7,id: \.self){i in
+                        ForEach(building.tenants,id: \.self){tenant in
                             
                             Button(action: {
                                 self.showChatUI.toggle()
+                                tenant_id = String(tenant.id)
+                                tenant_prof = String(tenant.profilePicture)
+                                tenant_name = String(tenant.firstName)
+                                print(tenant_id)
+                                print(self.token)
+                                writeTenant()
                                                         
                             }) {
                                 
-                                (Image("p\(i)")
-                                .resizable()
-                                .renderingMode(.original)
+                                VStack(spacing: 8){
+                                
+                                ZStack{
+                                
+                                URLImage(url: tenant.profilePicture)
+//                                .resizable()
+//                                .renderingMode(.original)
                                 .frame(width: 60, height: 60)
                                     .cornerRadius(30)
-                                    .overlay(
-
-                                            RoundedRectangle(cornerRadius: 30)
-                                                .stroke(Color.purple, lineWidth: 2)))
+//                                    .overlay(
+//
+//                                            RoundedRectangle(cornerRadius: 30)
+//                                                .stroke(Color.purple, lineWidth: 2))
+                                //)
                                     .padding(.bottom, 10)
                                     .padding(.top, 10)
+                                    
+                                    
+                                    
+                                Circle()
+                                .trim(from: 0, to: 1)
+                                    .stroke(AngularGradient(gradient: .init(colors: [.purple,.orange,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [showChatUI ? 3 : 0]))
+                                .frame(width: 68, height: 68)
+                                .rotationEffect(.init(degrees: showChatUI ? 360 : 0))
+                                    
+                                }
+                                    
+                                    Text(tenant.firstName)
+                                        .foregroundColor(Color("Color-3"))
+                                        .lineLimit(1)
+                                    
+                                }
+                                    
+                                
+                                
+                                }.sheet(isPresented: $showChatUI) {
+                                    ChatUI(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, tenant_name: $tenant_name)
                                 }
                         }
                     }
@@ -201,7 +290,7 @@ struct Centerview : View {
 
 struct cellView : View {
     
-    var data : Msg
+    var data : Msge
     
     var body : some View{
         
@@ -228,7 +317,7 @@ struct shape : Shape {
 }
 
 
-struct Msg : Identifiable {
+struct Msge : Identifiable {
     
     var id : Int
     var name : String
@@ -239,17 +328,17 @@ struct Msg : Identifiable {
 
 var messageData = [
     
-    Msg(id: 0, name: "Emily", msg: "Hello!!!", date: "25/03/20",img: "p1"),
-    Msg(id: 1, name: "Jonh", msg: "How Are You ???", date: "22/03/20",img: "p2"),
-    Msg(id: 2, name: "Catherine", msg: "New Tutorial From Kavsoft", date: "20/03/20",img: "p3"),
-    Msg(id: 3, name: "Emma", msg: "Hey Everyone", date: "25/03/20",img: "p4"),
-    Msg(id: 4, name: "Lina", msg: "SwiftUI Tutorials", date: "25/03/20",img: "p5"),
-    Msg(id: 5, name: "Steve Jobs", msg: "New Apple iPhone", date: "15/03/20",img: "p6"),
-    Msg(id: 6, name: "Roy", msg: "Hey Guys!!!", date: "25/03/20",img: "p7"),
-    Msg(id: 7, name: "Julia", msg: "Hello!!!", date: "25/03/20",img: "p1"),
-    Msg(id: 8, name: "Watson", msg: "How Are You ???", date: "22/03/20",img: "p2"),
-    Msg(id: 9, name: "Kavuya", msg: "New Tutorial From Kavsoft", date: "20/03/20",img: "p3"),
-    Msg(id: 10, name: "Julie", msg: "Hey Everyone", date: "25/03/20",img: "p4"),
-    Msg(id: 11, name: "Lisa", msg: "SwiftUI Tutorials", date: "25/03/20",img: "p5"),
+    Msge(id: 0, name: "Emily", msg: "Hello!!!", date: "25/03/20",img: "p1"),
+    Msge(id: 1, name: "Jonh", msg: "How Are You ???", date: "22/03/20",img: "p2"),
+    Msge(id: 2, name: "Catherine", msg: "New Tutorial From Kavsoft", date: "20/03/20",img: "p3"),
+    Msge(id: 3, name: "Emma", msg: "Hey Everyone", date: "25/03/20",img: "p4"),
+    Msge(id: 4, name: "Lina", msg: "SwiftUI Tutorials", date: "25/03/20",img: "p5"),
+    Msge(id: 5, name: "Steve Jobs", msg: "New Apple iPhone", date: "15/03/20",img: "p6"),
+    Msge(id: 6, name: "Roy", msg: "Hey Guys!!!", date: "25/03/20",img: "p7"),
+    Msge(id: 7, name: "Julia", msg: "Hello!!!", date: "25/03/20",img: "p1"),
+    Msge(id: 8, name: "Watson", msg: "How Are You ???", date: "22/03/20",img: "p2"),
+    Msge(id: 9, name: "Kavuya", msg: "New Tutorial From Kavsoft", date: "20/03/20",img: "p3"),
+    Msge(id: 10, name: "Julie", msg: "Hey Everyone", date: "25/03/20",img: "p4"),
+    Msge(id: 11, name: "Lisa", msg: "SwiftUI Tutorials", date: "25/03/20",img: "p5"),
     
 ]

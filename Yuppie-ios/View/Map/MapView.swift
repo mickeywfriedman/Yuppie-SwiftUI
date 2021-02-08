@@ -20,7 +20,7 @@ extension MGLPointAnnotation {
 struct MapView: UIViewRepresentable {
     @Binding var annotations: [MGLPointAnnotation]
     
-    private let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/leonyuppie/ckiw5oe8u4ihm19np3z3qsy5b"))
+    private let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/cephalopod004/ckkqhhfrt01hw17qlfsq1gwt4"))
     
     // MARK: - Configuring UIViewRepresentable protocol
     
