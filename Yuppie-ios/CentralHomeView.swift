@@ -79,8 +79,8 @@ struct CentralHomeView: View {
                 Spacer()
                 ZStack(alignment: .leading) {
                     
-                    TabBar(token: $token, user_id: $user_id, buildings: $buildingsData, user: $user)
-                }.padding(.bottom, 35).edgesIgnoringSafeArea(.all)
+                    TabBar(token: $token, user_id: $user_id, buildings: $buildingsData, user: $user, profilePic: user.profilePicture)
+                }.edgesIgnoringSafeArea(.all)
             }
             .onAppear(perform: loadUser)
             .onAppear(perform: loadData)

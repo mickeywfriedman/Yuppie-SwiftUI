@@ -9,22 +9,16 @@ import SwiftUI
 
 struct BuildingGallery: View {
     @StateObject var jsonModel = UserViewModel()
-    
     var columns = Array(repeating: GridItem(.flexible(),spacing: 20), count: 2)
     var body: some View {
         
         ScrollView{
             
             VStack(spacing: 18){
-                
-               
-                
-                // Grid View Of Songs....
-                
                 LazyVGrid(columns: columns,spacing: 20){
                     
                     ForEach(jsonModel.building.images, id: \.self) {image in
-                        URLImage(url:image)
+                        ImageView(url:image)
                             .frame(width:UIScreen.main.bounds.width-100, height: 200)
                                 .cornerRadius(20)
                             .frame(width: (UIScreen.main.bounds.width - 50) / 2, height: 180)

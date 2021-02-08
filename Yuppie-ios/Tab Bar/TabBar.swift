@@ -52,19 +52,15 @@ struct TabBar: View {
     @Binding var user : User
     @Namespace var animation
     @State var current = "Home"
-    
+    var profilePic: String
     var tabs = ["house","person","suit.heart"]
     var body: some View {
-        
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
-            
             TabView(selection: $current){
-                
                 ZStack{
                     IndexView(buildings: $buildings)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .tag(tabs[0])
-                        .background(Color("bg").ignoresSafeArea())
                     if (buildings[0].name == "Test"){
                         LoadingScreen()
                     } else {
@@ -72,15 +68,15 @@ struct TabBar: View {
                     }
                 }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).tag("Home")
                 ZStack{
-                UserProfile(token: $token, user_id: $user_id, buildings:$buildings, user: $user, minBedrooms: $minBedrooms, minBathrooms: $minBathrooms)
+                    UserProfile(token: $token, user_id: $user_id, buildings:$buildings, user: $user, minBedrooms: $minBedrooms, minBathrooms: $minBathrooms, profilePic: profilePic)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .tag(tabs[1])
-                    .background(Color("bg").ignoresSafeArea())}.tag("Profile")
+                }.tag("Profile")
                 ZStack{
                 Favorites(token: $token, user_id: $user_id, buildings:$buildings, user: $user, minBedrooms: $minBedrooms, minBathrooms: $minBathrooms)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .tag(tabs[2])
-                    .background(Color("bg").ignoresSafeArea())}.tag("Saved")
+                }.tag("Saved")
             }
             
             HStack(spacing: 0){
@@ -99,13 +95,10 @@ struct TabBar: View {
                 
                 TabButton(title: "Saved", image: "heart-1", selected: $current)
             }
-            .padding(.vertical,12)
-            .padding(.horizontal)
-            
+            .padding(.top,10)
+            .padding(.bottom,30)
             .padding(.horizontal,25)
-            .frame(width:UIScreen.main.bounds.width-40)
             .background(LinearGradient(gradient: .init(colors: [Color("pgradient1"),Color("pgradient2")]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
-            .clipShape(Capsule())
             .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
             .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
         

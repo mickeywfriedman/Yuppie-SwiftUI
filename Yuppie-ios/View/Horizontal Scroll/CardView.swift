@@ -38,7 +38,7 @@ struct CardView: View {
                                 
                                 VStack{
                                     
-                                    Text("\(Bedrooms[user.preferences.bedrooms]) starting from").fontWeight(.heavy)
+                                    Text("\(Bedrooms[user.preferences.bedrooms]) from").fontWeight(.heavy)
                                     Text("$\(minPrice(building:building))")
                                 }.foregroundColor(.gray)
                                 Spacer()
