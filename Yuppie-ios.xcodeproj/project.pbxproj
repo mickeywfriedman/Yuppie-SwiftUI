@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2151A7A925D0CD88007C9F90 /* Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151A7A825D0CD88007C9F90 /* Inbox.swift */; };
+		2151A7AE25D0CDE1007C9F90 /* ChatRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151A7AD25D0CDE1007C9F90 /* ChatRow.swift */; };
+		2151A7B325D0CE1A007C9F90 /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151A7B225D0CE1A007C9F90 /* ChatBubble.swift */; };
+		2151A7B825D0CE49007C9F90 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151A7B725D0CE49007C9F90 /* ChatModel.swift */; };
+		2151A7BD25D0CE83007C9F90 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151A7BC25D0CE83007C9F90 /* MessageModel.swift */; };
 		21A77FF2258DDDA500DD6F70 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A77FF1258DDDA500DD6F70 /* MapAnnotation.swift */; };
 		21A7801F258E0A4A00DD6F70 /* PulseLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7801E258E0A4A00DD6F70 /* PulseLayer.swift */; };
 		21A78027258E0A6D00DD6F70 /* Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A78026258E0A6D00DD6F70 /* Pulse.swift */; };
@@ -25,7 +30,6 @@
 		21C10C74259290500049531E /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10C73259290500049531E /* TabBar.swift */; };
 		21C10C7C2592906D0049531E /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10C7B2592906D0049531E /* TabButton.swift */; };
 		21C10C81259290900049531E /* CustomCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10C80259290900049531E /* CustomCorner.swift */; };
-		21C10C8F2593AA6F0049531E /* Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10C8E2593AA6F0049531E /* Inbox.swift */; };
 		21C10C9D25943B250049531E /* UniversityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10C9C25943B250049531E /* UniversityModel.swift */; };
 		21C10CA225943B7E0049531E /* University.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CA125943B7E0049531E /* University.swift */; };
 		21C10CA7259440A90049531E /* CustomShapeOnboardin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CA6259440A90049531E /* CustomShapeOnboardin.swift */; };
@@ -52,6 +56,9 @@
 		21CCF0CE2572BC2600B22A75 /* IndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF0CD2572BC2600B22A75 /* IndexView.swift */; };
 		21CCF0FD2572BE4100B22A75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF0FC2572BE4100B22A75 /* AppDelegate.swift */; };
 		21CCF10A2572BE8300B22A75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF1092572BE8300B22A75 /* SceneDelegate.swift */; };
+		21F7A81025D0F0C100113DAE /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7A80F25D0F0C100113DAE /* UserViewModel.swift */; };
+		21F7A81825D0F0F800113DAE /* BuildingGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7A81725D0F0F800113DAE /* BuildingGallery.swift */; };
+		21F7A81D25D0F15200113DAE /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7A81C25D0F15200113DAE /* UserProfile.swift */; };
 		363DD9B869B0CEB162D02138 /* Pods_Yuppie_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99F83670E0F2DABA87D28533 /* Pods_Yuppie_iosTests.framework */; };
 		370E680725A7F9FE00EA597C /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370E680625A7F9FE00EA597C /* URLImage.swift */; };
 		37BB945125B88DD300D1FC86 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945025B88DD300D1FC86 /* Login.swift */; };
@@ -83,6 +90,11 @@
 
 /* Begin PBXFileReference section */
 		0F58E1E3230A7656E830254D /* Pods-Yuppie-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-ios.release.xcconfig"; path = "Target Support Files/Pods-Yuppie-ios/Pods-Yuppie-ios.release.xcconfig"; sourceTree = "<group>"; };
+		2151A7A825D0CD88007C9F90 /* Inbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Inbox.swift; path = "../../../../../Yuppie-SwiftUI/Yuppie-ios/View/Chat/Inbox.swift"; sourceTree = "<group>"; };
+		2151A7AD25D0CDE1007C9F90 /* ChatRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRow.swift; sourceTree = "<group>"; };
+		2151A7B225D0CE1A007C9F90 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
+		2151A7B725D0CE49007C9F90 /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
+		2151A7BC25D0CE83007C9F90 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		21A77FF1258DDDA500DD6F70 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		21A7801E258E0A4A00DD6F70 /* PulseLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseLayer.swift; sourceTree = "<group>"; };
 		21A78026258E0A6D00DD6F70 /* Pulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pulse.swift; sourceTree = "<group>"; };
@@ -101,7 +113,6 @@
 		21C10C73259290500049531E /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		21C10C7B2592906D0049531E /* TabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
 		21C10C80259290900049531E /* CustomCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorner.swift; sourceTree = "<group>"; };
-		21C10C8E2593AA6F0049531E /* Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inbox.swift; sourceTree = "<group>"; };
 		21C10C9C25943B250049531E /* UniversityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversityModel.swift; sourceTree = "<group>"; };
 		21C10CA125943B7E0049531E /* University.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = University.swift; sourceTree = "<group>"; };
 		21C10CA6259440A90049531E /* CustomShapeOnboardin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomShapeOnboardin.swift; sourceTree = "<group>"; };
@@ -134,6 +145,9 @@
 		21CCF0CD2572BC2600B22A75 /* IndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexView.swift; sourceTree = "<group>"; };
 		21CCF0FC2572BE4100B22A75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		21CCF1092572BE8300B22A75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		21F7A80F25D0F0C100113DAE /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		21F7A81725D0F0F800113DAE /* BuildingGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingGallery.swift; sourceTree = "<group>"; };
+		21F7A81C25D0F15200113DAE /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		370E680625A7F9FE00EA597C /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
 		37BB945025B88DD300D1FC86 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		37BB945525B88E2E00D1FC86 /* BottomSheet_building.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheet_building.swift; sourceTree = "<group>"; };
@@ -212,9 +226,12 @@
 		21A78074258E201B00DD6F70 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				2151A7A825D0CD88007C9F90 /* Inbox.swift */,
 				21A78040258E0EFF00DD6F70 /* Messages.swift */,
 				21A78076258E204A00DD6F70 /* Chat_Interface.swift */,
-				21C10C8E2593AA6F0049531E /* Inbox.swift */,
+				2151A7AD25D0CDE1007C9F90 /* ChatRow.swift */,
+				2151A7B225D0CE1A007C9F90 /* ChatBubble.swift */,
+				2151A7B725D0CE49007C9F90 /* ChatModel.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -293,6 +310,7 @@
 				21CCF0622572B9B100B22A75 /* ContentView.swift */,
 				37BB946425B88F3E00D1FC86 /* CentralHomeView.swift */,
 				21CCF0642572B9B500B22A75 /* Assets.xcassets */,
+				21F7A82125D0FA8E00113DAE /* New Group */,
 				21CCF0692572B9B500B22A75 /* Info.plist */,
 				21CCF0662572B9B500B22A75 /* Preview Content */,
 				21CCF0FC2572BE4100B22A75 /* AppDelegate.swift */,
@@ -337,6 +355,7 @@
 				21C10C9C25943B250049531E /* UniversityModel.swift */,
 				21C10CA125943B7E0049531E /* University.swift */,
 				37BB947825B8A19200D1FC86 /* User.swift */,
+				2151A7BC25D0CE83007C9F90 /* MessageModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -344,6 +363,7 @@
 		21CCF0BF2572BBEF00B22A75 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				21F7A80E25D0F09F00113DAE /* UserProf */,
 				37BB948B25BB480C00D1FC86 /* Favorites */,
 				3795CF8E259D197400AB20F5 /* Building */,
 				21A78096258E82CA00DD6F70 /* Onboarding */,
@@ -355,6 +375,23 @@
 				370E680625A7F9FE00EA597C /* URLImage.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		21F7A80E25D0F09F00113DAE /* UserProf */ = {
+			isa = PBXGroup;
+			children = (
+				21F7A80F25D0F0C100113DAE /* UserViewModel.swift */,
+				21F7A81725D0F0F800113DAE /* BuildingGallery.swift */,
+				21F7A81C25D0F15200113DAE /* UserProfile.swift */,
+			);
+			path = UserProf;
+			sourceTree = "<group>";
+		};
+		21F7A82125D0FA8E00113DAE /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		3795CF8E259D197400AB20F5 /* Building */ = {
@@ -583,7 +620,6 @@
 				21A78041258E0EFF00DD6F70 /* Messages.swift in Sources */,
 				37BB946025B88E8900D1FC86 /* AddressModel.swift in Sources */,
 				21A780A625906F9500DD6F70 /* Picker.swift in Sources */,
-				21C10C8F2593AA6F0049531E /* Inbox.swift in Sources */,
 				21C10C74259290500049531E /* TabBar.swift in Sources */,
 				21A7804B258E110500DD6F70 /* PropertyManagerForm.swift in Sources */,
 				21C10CE225957E3D0049531E /* Verification.swift in Sources */,
@@ -591,6 +627,7 @@
 				370E680725A7F9FE00EA597C /* URLImage.swift in Sources */,
 				21A77FF2258DDDA500DD6F70 /* MapAnnotation.swift in Sources */,
 				21C10CA7259440A90049531E /* CustomShapeOnboardin.swift in Sources */,
+				2151A7B825D0CE49007C9F90 /* ChatModel.swift in Sources */,
 				21A78027258E0A6D00DD6F70 /* Pulse.swift in Sources */,
 				37BB945625B88E2E00D1FC86 /* BottomSheet_building.swift in Sources */,
 				21A78060258E11A100DD6F70 /* testScroll.swift in Sources */,
@@ -599,10 +636,12 @@
 				21C10CC325957D380049531E /* CustomCornerOnboarding.swift in Sources */,
 				37BB946525B88F3E00D1FC86 /* CentralHomeView.swift in Sources */,
 				21C10CB125957BEE0049531E /* CardViewOnboarding.swift in Sources */,
+				2151A7B325D0CE1A007C9F90 /* ChatBubble.swift in Sources */,
 				37BB947925B8A19200D1FC86 /* User.swift in Sources */,
 				21CCF10A2572BE8300B22A75 /* SceneDelegate.swift in Sources */,
 				21C10CC825957D4B0049531E /* PhoneAuth.swift in Sources */,
 				21CCF0C92572BC1400B22A75 /* CardView.swift in Sources */,
+				21F7A81025D0F0C100113DAE /* UserViewModel.swift in Sources */,
 				21CCF0CE2572BC2600B22A75 /* IndexView.swift in Sources */,
 				37BB94A025BB4AF800D1FC86 /* Favorites.swift in Sources */,
 				21A78077258E204A00DD6F70 /* Chat_Interface.swift in Sources */,
@@ -611,6 +650,7 @@
 				21C10CBE25957C930049531E /* BottomSheet.swift in Sources */,
 				21C10C81259290900049531E /* CustomCorner.swift in Sources */,
 				21CCF0AB2572BBB600B22A75 /* Card.swift in Sources */,
+				2151A7A925D0CD88007C9F90 /* Inbox.swift in Sources */,
 				21A78055258E114700DD6F70 /* BuildingModel.swift in Sources */,
 				21C10CEC25957E830049531E /* ProfilePicture.swift in Sources */,
 				21C10C9D25943B250049531E /* UniversityModel.swift in Sources */,
@@ -620,13 +660,17 @@
 				21C10CA225943B7E0049531E /* University.swift in Sources */,
 				21CCF0632572B9B100B22A75 /* ContentView.swift in Sources */,
 				21C10CB625957C660049531E /* BlurView.swift in Sources */,
+				21F7A81D25D0F15200113DAE /* UserProfile.swift in Sources */,
 				37BB945B25B88E3700D1FC86 /* SelectAddress.swift in Sources */,
 				21A78036258E0AC300DD6F70 /* CALayer+Extensions.swift in Sources */,
+				21F7A81825D0F0F800113DAE /* BuildingGallery.swift in Sources */,
 				21A7802C258E0A9000DD6F70 /* AnimationDelegate.swift in Sources */,
 				21C10CAC259497F60049531E /* FirstLastName.swift in Sources */,
 				21A78098258E82D500DD6F70 /* Signup.swift in Sources */,
 				21C10CF125957EA20049531E /* ImagePicker.swift in Sources */,
 				21A78046258E10CD00DD6F70 /* BuildingView.swift in Sources */,
+				2151A7BD25D0CE83007C9F90 /* MessageModel.swift in Sources */,
+				2151A7AE25D0CDE1007C9F90 /* ChatRow.swift in Sources */,
 				21CCF0BB2572BBDF00B22A75 /* TestData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -787,7 +831,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Yuppie-ios/Preview Content\"";
-				DEVELOPMENT_TEAM = 39QK36JNAM;
+				DEVELOPMENT_TEAM = HZUB2QW2AG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Yuppie-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -810,7 +854,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Yuppie-ios/Preview Content\"";
-				DEVELOPMENT_TEAM = 39QK36JNAM;
+				DEVELOPMENT_TEAM = HZUB2QW2AG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Yuppie-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
