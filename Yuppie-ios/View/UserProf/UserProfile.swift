@@ -60,7 +60,7 @@ struct UserProfile : View {
         
         VStack{
             
-            ProfileView(profilePic: profilePic, firstName: user.firstName, email: user.email)
+            ProfileView(profilePic: profilePic, firstName: user.firstName, user_id: $user_id, email: user.email)
             
             HStack(spacing: 0){
                 
@@ -137,6 +137,10 @@ struct UserProfile : View {
 struct ProfileView : View {
     var profilePic: String
     var firstName: String
+    @Binding var user_id: String
+    func logout() -> Void {
+        self.user_id = ""
+    }
     var email: String
     var body : some View{
         HStack(spacing: 15){
@@ -151,7 +155,7 @@ struct ProfileView : View {
             Spacer(minLength: 0)
             
             Button(action: {
-                
+                logout()
             }) {
                 
                 Text("Logout")
