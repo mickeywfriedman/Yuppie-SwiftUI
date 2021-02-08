@@ -19,71 +19,40 @@ struct UserProfile : View {
     @State var maxPrice = 10000.0
     @State var minDate = Date()
     @State var maxDate = Date(timeInterval: 14*86400, since: Date())
-    
     @State var index = 0
-    @State private var showFilters = false
-    
+    func format(date : Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: date)
+    }
     func dateFormat(string : String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.date(from: string) ?? Date()
     }
-    
-    func filter(units: [Unit]) -> Bool{
-        for unit in units{
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            let date_avail = dateFormatter.date(from: unit.dateAvailable)
-            if (unit.bedrooms >= minBedrooms && unit.bathrooms >= minBathrooms && unit.price <= maxPrice && date_avail ?? Date() < maxDate){
-                return true
-            }
+    func updateFilters() -> Void {
+        self.user.preferences.earliestMoveInDate = "\(format(date: minDate))"
+        self.user.preferences.latestMoveInDate = "\(format(date: maxDate))"
+        guard let filter_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)") else {
+            print("Your API end point is Invalid")
+            return
         }
-        return false
-    }
-    
-    func filterBuildings (buildings: [Building]) -> [Building] {
-        var filteredBuildings = [Building]()
-        for building in buildings{
-            if (filter(units: building.units)){
-                filteredBuildings.append(building)
-            }
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        guard let data = try? encoder.encode(update(preferences: user.preferences)) else {
+            print("Failed to encode order")
+            return
         }
-        if (filteredBuildings.count==0){
-            return [Building(
-                id: "1",
-                name: "No Matches",
-                images: ["http://18.218.78.71:8080/images/5fdbefceae921a507c9785de","http://18.218.78.71:8080/images/5fdbefceae921a507c9785dd"],
-                description: "Live life in luxary in one of the best apartment buildings in the city. 60 story Hudson Yards skyscraper just minutes away fro the mid-town.",
-                address: Address(
-                    streetAddress: "15 Bank Street",
-                    city: "New York City",
-                    state: "NY",
-                    zipCode: 10036
-                ),
-                amenities: ["Pool", "Gym"],
-                tenants: [tenant(
-                    profilePicture: "http://18.218.78.71:8080/images/5fdbefceae921a507c9785de",
-                    id: "5fd002a21ed3e413beb713d4",
-                    firstName: "Leon"
-                )],
-                propertyManager: propertyManager(
-                    email: "propertyManager1@gmail.com",
-                    id: "5fd002a21ed3e413beb713d4"
-                ),
-                units: [
-                    Unit(
-                        number: "40H",
-                        bedrooms: 2,
-                        bathrooms: 2,
-                        price: 3000,
-                        squareFeet: 2000,
-                        dateAvailable: "Today",
-                        floorPlan: "http://18.218.78.71:8080/images/5fdb99bcae921a507c9785cc"
-                    )
-                ]
-                )]
-        }
-        return filteredBuildings
+        var filter_request = URLRequest(url: filter_url)
+        filter_request.httpMethod = "PATCH"
+        filter_request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        filter_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        filter_request.httpBody = data
+        print("updated")
+        URLSession.shared.dataTask(with: filter_request) { data, response, error in
+            return
+            
+        }.resume()
     }
     
     var body: some View{
@@ -205,7 +174,7 @@ struct UserProfile : View {
             TabView(selection: self.$index){
 
                 // week data..
-                FiltersView(showFilters: self.$showFilters, token: $token, user: $user, user_id: $user_id, minDate: dateFormat(string: user.preferences.earliestMoveInDate), maxDate: dateFormat(string: user.preferences.latestMoveInDate))
+                FiltersView(token: $token, user: $user, user_id: $user_id, minDate: dateFormat(string: user.preferences.earliestMoveInDate), maxDate: dateFormat(string: user.preferences.latestMoveInDate))
 
                 // month data...
                 
@@ -228,5 +197,6 @@ struct UserProfile : View {
             Spacer(minLength: 0)
         }
         .background(Color("Color1").edgesIgnoringSafeArea(.all))
+        .onDisappear(perform: updateFilters)
     }
 }

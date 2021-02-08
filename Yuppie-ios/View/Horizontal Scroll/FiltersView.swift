@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct FiltersView: View {
-    @Binding var showFilters: Bool
     var Bedrooms = ["Studio", "1", "2", "3+"]
     @Binding var token: String
     @Binding var user : User
@@ -30,29 +29,6 @@ struct FiltersView: View {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.string(from: date)
     }
-    func updateFilters() -> Void {
-        self.user.preferences.earliestMoveInDate = "\(dateFormat(date: minDate))"
-        self.user.preferences.latestMoveInDate = "\(dateFormat(date: maxDate))"
-        guard let filter_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)") else {
-            print("Your API end point is Invalid")
-            return
-        }
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        guard let data = try? encoder.encode(update(preferences: user.preferences)) else {
-            print("Failed to encode order")
-            return
-        }
-        var filter_request = URLRequest(url: filter_url)
-        filter_request.httpMethod = "PATCH"
-        filter_request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        filter_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        filter_request.httpBody = data
-        URLSession.shared.dataTask(with: filter_request) { data, response, error in
-            return
-            
-        }.resume()
-    }
     func priceFormat(price : Double) -> String {
         var result = ""
         if (price == 10000) {
@@ -73,7 +49,6 @@ struct FiltersView: View {
             }
             Picker(selection: $user.preferences.bedrooms, label:
                     Text(Bedrooms[user.preferences.bedrooms]).foregroundColor(.purple)
-                        .background(Color.white)
             ) {
                 ForEach(0 ..< Bedrooms.count) {
                     Text(self.Bedrooms[$0])
@@ -87,7 +62,6 @@ struct FiltersView: View {
             }
             Picker(selection: $user.preferences.bathrooms, label:
                     Text(Bathrooms[user.preferences.bathrooms]).foregroundColor(.purple)
-                        .background(Color.white)
             ) {
                 ForEach(0 ..< Bathrooms.count) {
                     Text(self.Bathrooms[$0])
@@ -108,11 +82,9 @@ struct FiltersView: View {
                 }
                 DatePicker("Earliest Move In", selection: $minDate, displayedComponents: .date)
                 .foregroundColor(.black)
-                .background(Color.white)
                 .datePickerStyle(DefaultDatePickerStyle())
             DatePicker("Latest Move In", selection: $maxDate, displayedComponents: .date)
                 .foregroundColor(.black)
-                .background(Color.white)
                 .datePickerStyle(DefaultDatePickerStyle())
             HStack{
                 Text("I can't live without").fontWeight(.heavy)
@@ -325,11 +297,9 @@ struct FiltersView: View {
             
             
             Spacer()
-        }.padding()
-        .onDisappear(perform: updateFilters)
+        }
         
-    }
-    
+        }.padding()
 }
 
 }

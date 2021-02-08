@@ -20,6 +20,7 @@ struct ImagePickerOnboarding: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIImagePickerController {
         
         let picker = UIImagePickerController()
+        picker.allowsEditing = true
         picker.sourceType = .photoLibrary
         picker.delegate = context.coordinator
         return picker
@@ -45,12 +46,15 @@ struct ImagePickerOnboarding: UIViewControllerRepresentable {
         }
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            
+            if ((info[.editedImage]) != nil) {
+                let image = info[.editedImage] as! UIImage
+                parent.imageData = image.jpegData(compressionQuality: 0.5)!
+                parent.showPicker.toggle()
+            } else {
             let imgData = info[.originalImage] as! UIImage
-            
             parent.imageData = imgData.jpegData(compressionQuality: 0.5)!
-            
             parent.showPicker.toggle()
+            }
         }
     }
 }

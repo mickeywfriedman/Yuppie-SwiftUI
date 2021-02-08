@@ -13,7 +13,6 @@ struct testScroll: View {
     var buildings : [Building]
     @Binding var user : User
     @State var isFavorite = true
-    @State private var showFilters = false
     func dateFormat(string : String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -77,15 +76,6 @@ struct testScroll: View {
     var body: some View {
         ZStack{
             VStack {
-                Button(action: {
-                    self.showFilters.toggle()
-                            }) {
-                    Image(systemName:"slider.horizontal.3").foregroundColor(.black)
-                }.offset(x:150, y:50)
-                
-                .sheet(isPresented: $showFilters) {
-                    FiltersView(showFilters: self.$showFilters, token: $token, user: $user, user_id: $user_id, minDate: dateFormat(string: user.preferences.earliestMoveInDate), maxDate: dateFormat(string: user.preferences.latestMoveInDate))
-                }
                 Scroll(user: $user, token: $token, user_id: $user_id, buildings:buildings.filter({filter(units: $0.units)}))
                     .offset(y:400)
                 

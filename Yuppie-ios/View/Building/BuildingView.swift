@@ -269,7 +269,7 @@ struct ImageSlider: View {
         ZStack{
         TabView {
                 ForEach(images, id: \.self) {image in
-                    URLImage(url: image)
+                    ImageView(url: image)
                         .frame(width:UIScreen.main.bounds.width, height: 250)
                 }
             }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
