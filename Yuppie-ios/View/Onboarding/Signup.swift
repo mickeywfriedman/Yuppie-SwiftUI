@@ -13,6 +13,7 @@
 //
 
 import SwiftUI
+import PushNotifications
 
 struct SignupView: View {
     
@@ -69,7 +70,6 @@ struct SignupView: View {
     
        do {
            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
-           print(request.httpBody)
           } catch let error {
               print(error)
           }
@@ -91,7 +91,6 @@ struct SignupView: View {
                      do {
                          //create json object from data
                          if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] {
-                            print(json.values)
                             let values = json.values
                             
                             let stringDictionaries: [[String: String]] = json.map { dictionary in
@@ -128,12 +127,9 @@ struct SignupView: View {
                             let range_token = snippet.range(of: "access_token")
                              let my_access_token = snippet[(range_token?.lowerBound...)!].trimmingCharacters(in: .whitespaces)
                             
-                            print("fuck yea ma'am")
-                            print(my_access_token)
-                            
+                         
                             
                             str = String(my_access_token.split(separator: ";")[0])
-                            print(str)
                             
                             let replace_slashes = str.replacingOccurrences(of: "\\", with: "")
                             
@@ -143,7 +139,26 @@ struct SignupView: View {
                             
                             self.token = replace_quotations.replacingOccurrences(of: "=", with: "")
                             
-                           
+                            let pushNotifications = PushNotifications.shared
+                            pushNotifications.clearAllState {
+                              print("Cleared all state!")
+                            }
+                            let tokenProvider = BeamsTokenProvider(authURL: "http://18.218.78.71:8080/authentication/notifications") { () -> AuthData in
+                                let sessionToken = self.token
+                                print(self.token, self.user_id, "pushnotifs")
+                              let headers = ["Authorization": "Bearer \(sessionToken)"] // Headers your auth endpoint needs
+                              let queryParams: [String: String] = [:] // URL query params your auth endpoint needs
+                              return AuthData(headers: headers, queryParams: queryParams)
+                            }
+
+                            pushNotifications.setUserId(self.user_id, tokenProvider: tokenProvider, completion: { error in
+                              guard error == nil else {
+                                  print(error.debugDescription)
+                                  return
+                              }
+
+                              print("Successfully authenticated with Pusher Beams")
+                            })
                             
                             do {
                                 try (self.user_id+self.user_id+("token_id:")+self.token ).write(to: filename, atomically: true, encoding: String.Encoding.utf8)
@@ -173,6 +188,8 @@ struct SignupView: View {
                      }
            }
            task.resume()
+    
+
        
 
     }

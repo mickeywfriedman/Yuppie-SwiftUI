@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-  platform :ios, '9.0'
+  platform :ios, '10.0'
 
 target 'Yuppie-ios' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -7,6 +7,7 @@ target 'Yuppie-ios' do
 
   # Pods for Yuppie-ios
   pod 'Mapbox-iOS-SDK', '~> 6.3.0'
+  pod 'PushNotifications', '~> 3.0.4'
 
   target 'Yuppie-iosTests' do
     inherit! :search_paths

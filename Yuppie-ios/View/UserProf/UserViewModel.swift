@@ -36,20 +36,8 @@ class UserViewModel: ObservableObject{
             let url_file = self.getDocumentsDirectory().appendingPathComponent("index.txt")
                     do {
                         let input = try String(contentsOf: url_file)
-                        print(input, "SKSKSKSKSKKSKSKSKSKSKS")
-                        
-                        let tenant_id = String(input[0..<24])
-                        print(tenant_id)
-                        
                         let user_id = String(input[24..<48])
-                        print(user_id)
-                        let length = input.count
-                        print(length)
-                        let range = input.range(of: "token_id:")
-                         let myString = input[(range?.lowerBound...)!].trimmingCharacters(in: .whitespaces)
-                       
                         let token = input.substring(fromIndex: 57)
-                        print (token, "FUCK")
             guard let url = URL(string: "http://18.218.78.71:8080/buildings/\(building)") else {
                 print("Your API end point is Invalid")
                 return
@@ -80,20 +68,10 @@ class UserViewModel: ObservableObject{
 
                 do {
                     let input = try String(contentsOf: url_file)
-                    print(input, "SKSKSKSKSKKSKSKSKSKSKS")
                     
                     let tenant_id = String(input[0..<24])
-                    print(tenant_id)
-                    
                     let user_id = String(input[24..<48])
-                    print(user_id)
-                    let length = input.count
-                    print(length)
-                    let range = input.range(of: "token_id:")
-                     let myString = input[(range?.lowerBound...)!].trimmingCharacters(in: .whitespaces)
-                   
                     let token = input.substring(fromIndex: 57)
-                    print (token, "FUCK")
         guard let user_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)") else {
                 print("Your API end point is Invalid")
                 return
@@ -105,8 +83,6 @@ class UserViewModel: ObservableObject{
                     if let urlresponse = try? JSONDecoder().decode(userResponse.self, from: data) {
                         DispatchQueue.main.async {
                             self.user = urlresponse.data
-                            print("success")
-                            print(self.user)
                             self.loadData(building: self.user.building)
                         }
                         return

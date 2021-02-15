@@ -20,8 +20,14 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoibGVvbnl1cHBpZSIsImEiOiJja2Z0eG5qN2kwdXMwMnJxZ3VyZ3FxdjhlIn0.B4CoD568cuDcv1Z7EpnGvQ</string>
+	<key>MGLMapboxMetricsEnabledSettingShownInApp</key>
+	<string>YES</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<true/>
 		<key>UISceneConfigurations</key>
 		<dict>
 			<key>UIWindowSceneSessionRoleApplication</key>
@@ -36,17 +42,18 @@
 				</dict>
 			</array>
 		</dict>
-		<key>UIApplicationSupportsMultipleScenes</key>
-		<true/>
 	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>processing</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchScreen</key>
 	<dict/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>MGLMapboxAccessToken</key>
-	<string>pk.eyJ1IjoibGVvbnl1cHBpZSIsImEiOiJja2Z0eG5qN2kwdXMwMnJxZ3VyZ3FxdjhlIn0.B4CoD568cuDcv1Z7EpnGvQ</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

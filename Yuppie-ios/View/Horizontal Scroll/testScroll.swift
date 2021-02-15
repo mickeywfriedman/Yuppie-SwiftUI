@@ -103,19 +103,76 @@ struct Scroll: View {
        
     ]
     
+    let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/cephalopod004/ckkqhhfrt01hw17qlfsq1gwt4"))
+    
+
+    
+//    func coordinate_lat(forAddress address: (String) -> CLLocationCoordinate2D) {
+//        var geocoder = CLGeocoder()
+//        geocoder.geocodeAddressString(address) { placemarks, error in
+//            let placemark = placemarks?.first
+//            let lat = placemark!.location!.coordinate.latitude
+//            let lon = placemark!.location!.coordinate.longitude
+//            print("Lat: \(lat), Lon: \(lon)")
+//            return (CLLocationCoordinate2D(latitude: lat, longitude: lon))
+//        }
+//    }
+
+    func getLocation(from address: String, completion: @escaping (_ location: CLLocationCoordinate2D?)-> Void) {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address) { (placemarks, error) in
+            guard let placemarks = placemarks,
+            let location = placemarks.first?.location?.coordinate else {
+                completion(nil)
+                return
+            }
+            completion(location)
+        }
+    }
+    
+    func coordinates(forAddress address: String, completion: @escaping (CLLocationCoordinate2D?) -> CLLocationCoordinate2D) {
+        var geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address) { placemarks, error in
+            let placemark = placemarks?.first
+            let lat = placemark!.location!.coordinate.latitude
+            let lon = placemark!.location!.coordinate.longitude
+            print("Lat: \(lat), Lon: \(lon)")
+            greetAgain(latitude: lat, longitude: lon)
+           
+        }
+    }
+    
+    func greetAgain(latitude: Double, longitude: Double) -> CLLocationCoordinate2D {
+        return (CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+        
+    }
+    
+    
+
     var body: some View {
         GeometryReader { geometry in
             HStack (spacing: 0){
                 ForEach(buildings, id:\.name) {building in
+                    ZStack{
+                       
+                        MapView(annotations: $annotations, building: building).centerCoordinate(CLLocationCoordinate2D(latitude: 40.761360, longitude: -73.999222)).zoomLevel(20).offset(y:-450)
+                        
+                      //  moveToCoordinate(mapView, to: CLLocationCoordinate2D(latitude: 40.761360, longitude: -73.999222))
+                          
+                    
+                 
                     VStack{
-                        Chats(token: $token, user_id: $user_id, building:building, expand: self.$expand)
+                        Chats(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand)
                             .offset(y:-450)
                             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                        
                         
                         CardView(token: $token, user: $user, user_id: $user_id, building:building)
                             .padding(.horizontal, 20)
                        // .padding(.horizontal, 20)
-                        .offset(y:-490)
+                        .offset(y:-570)
+                        
+                    }
                         
 //
 //                        let currentCamera = mapView.camera

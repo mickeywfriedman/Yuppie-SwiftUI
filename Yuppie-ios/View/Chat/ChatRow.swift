@@ -14,8 +14,7 @@ struct ChatRow: View {
     @Binding var tenant_id: String
     @Binding var tenant_prof: String
     @State private var user = TestData.user
-    var chatData : Message1
-    //@AppStorage("current_user") var user = ""
+    var chatData : ReceivedMessages
     
     func print_user_id(){
         print(user_id)
@@ -57,12 +56,8 @@ struct ChatRow: View {
         
         
         HStack(spacing: 15){
-            
-            // NickName View...
-            
+
             if chatData.sender != self.user_id{
-                
-                
                 NickName(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, name: chatData.sender)
                 VStack(alignment: chatData.sender == self.user_id ? .trailing : .leading, spacing: 5, content: {
                     Text(chatData.message)
@@ -76,31 +71,18 @@ struct ChatRow: View {
                         .foregroundColor(.gray)
                         .padding(chatData.sender != self.user_id ? .leading : .trailing , 10)
                 }
-                
                 )
-                
             }
             
             if chatData.sender == self.user_id{
-                
                 Spacer(minLength: 0)}
-            
-            
-           
-            
             if chatData.sender == self.user_id{
-                
-                
-                
-                
-                
                 VStack(alignment: chatData.sender == self.user_id ? .trailing : .leading, spacing: 5, content: {
                     
                     Text(chatData.message)
                         .foregroundColor(.black)
                         .padding()
                         .background(Color.black.opacity(0.06))
-                    // Custom Shape...
                         .clipShape(ChatBubble(myMsg: chatData.sender == self.user_id))
                     
                     Text(dateFormat(string: chatData.sentTime), style: .time)//change back

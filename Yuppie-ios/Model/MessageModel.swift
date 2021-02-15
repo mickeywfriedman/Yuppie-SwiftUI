@@ -11,11 +11,11 @@ import Foundation
 
 struct Conversation: Hashable, Decodable{
     var user1: String
-    var messages: [Message1]
+    var messages: [ReceivedMessages]
 
 }
 
-struct Message1: Hashable, Decodable, Identifiable{
+struct ReceivedMessages: Hashable, Decodable, Identifiable{
     var id : String
     var sender : String
     var sentTime: String
@@ -25,7 +25,7 @@ struct Message1: Hashable, Decodable, Identifiable{
 
 
 
-struct Messages: Hashable, Codable, Identifiable{
+struct SentMessage: Hashable, Codable, Identifiable{
     var id : String
     var sender : String
     var sentTime: String

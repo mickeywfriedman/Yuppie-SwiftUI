@@ -9,6 +9,8 @@
 import SwiftUI
 
 class AddressModel: ObservableObject {
+    
+    
 
     @Published var universities = [
         

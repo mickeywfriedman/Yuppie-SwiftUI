@@ -6,14 +6,20 @@
 //
 
 import UIKit
+import PushNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var window: UIWindow?
+    let pushNotifications = PushNotifications.shared
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        self.pushNotifications.start(instanceId: "69c2e5bf-1617-4e4e-b726-8b545a670c91")
+        self.pushNotifications.registerForRemoteNotifications()
+        try? self.pushNotifications.addDeviceInterest(interest: "hello")
         return true
     }
 
@@ -31,7 +37,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return true
     }
-
+    
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        self.pushNotifications.registerDeviceToken(deviceToken)
+    }
+    
+    
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        let message = [""]
+        self.pushNotifications.handleNotification(userInfo: userInfo)
+        print(userInfo)
+        NotificationCenter.default
+                    .post(name: NSNotification.Name("com.user.login.success"),
+                     object: message)
+        
+    }
+    
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.

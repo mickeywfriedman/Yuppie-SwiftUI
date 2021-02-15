@@ -19,23 +19,51 @@ extension MGLPointAnnotation {
 
 struct MapView: UIViewRepresentable {
     @Binding var annotations: [MGLPointAnnotation]
+    var building: Building
     
-    private let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/cephalopod004/ckkqhhfrt01hw17qlfsq1gwt4"))
+   let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/cephalopod004/ckkqhhfrt01hw17qlfsq1gwt4"))
     
     // MARK: - Configuring UIViewRepresentable protocol
     
     func makeUIView(context: UIViewRepresentableContext<MapView>) -> MGLMapView {
         mapView.delegate = context.coordinator
+        mapView.isZoomEnabled = true
+        mapView.isScrollEnabled = true
+        mapView.compassView.isHidden = true
+        mapView.logoView.isHidden = true
+        mapView.attributionButton.isHidden = true
         return mapView
     }
     
     func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<MapView>) {
         updateAnnotations()
+        let address_coord = coordinates(forAddress: "\(building.address.streetAddress), \(building.address.city), \(building.address.state), \(building.address.zipCode)") {
+            (location) in
+            guard let location = location else {
+                return
+            }}
+        
+        //print(address_coord)
+        
+        
     }
     
     func makeCoordinator() -> MapView.Coordinator {
         Coordinator(self)
     }
+    
+    func coordinates(forAddress address: String, completion: @escaping (CLLocationCoordinate2D?) -> Void) {
+        var geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address) { placemarks, error in
+            let placemark = placemarks?.first
+            let lat = placemark!.location!.coordinate.latitude
+            let lon = placemark!.location!.coordinate.longitude
+            print("Lat: \(lat), Lon: \(lon)")
+            moveToCoordinate(mapView, to: CLLocationCoordinate2D(latitude: lat, longitude: lon))
+            return
+        }
+    }
+
     
     // MARK: - Configuring MGLMapView
     
@@ -52,6 +80,15 @@ struct MapView: UIViewRepresentable {
     func zoomLevel(_ zoomLevel: Double) -> MapView {
         mapView.zoomLevel = zoomLevel
         return self
+    }
+    
+    private func moveToCoordinate(_ mapView: MGLMapView, to point: CLLocationCoordinate2D) {
+        
+        let camera = MGLMapCamera(lookingAtCenter: point, fromDistance: 4500, pitch: 15, heading: 180)
+        mapView.fly(to: camera, withDuration: 4,
+        peakAltitude: 3000, completionHandler: nil)
+//        let camera = MGLMapCamera(lookingAtCenter: point, fromDistance: 4500, pitch: 15, heading: 180)
+//        mapView.setCamera(camera, withDuration: 5, animationTimingFunction: CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut))
     }
     
     private func updateAnnotations() {
@@ -116,10 +153,15 @@ struct MapView: UIViewRepresentable {
             return true
         }
         
+        func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+        let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, fromDistance: 4500, pitch: 15, heading: 180)
+        mapView.fly(to: camera, withDuration: 4,
+        peakAltitude: 300, completionHandler: nil)
+        }
+        
         
         
     }
-    
     class CustomAnnotationView: MGLAnnotationView {
     override func layoutSubviews() {
     super.layoutSubviews()

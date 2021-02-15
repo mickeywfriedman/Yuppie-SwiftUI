@@ -15,12 +15,6 @@ struct ChatUI: View {
     @StateObject var allMessages = Messages_image()
     
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
-    
-    func print_user_id(){
-        print(user_id, "S:FKSDF:KDJFKSJF:DSKJ:D")
-        
-        
-    }
     var body: some View {
         
         VStack(spacing: 0){
@@ -55,16 +49,10 @@ struct ChatUI: View {
                                     reader.scrollTo(homeData.msgs.last!.id,anchor: .bottom)
                                     scrolled = true
                                     
-                                    print_user_id()
                                 }
                             }
                         }
-                        
-//                        .onChange(of: homeData.msgs, perform: { value in
-//                            
-//                            // You can restrict only for current user scroll....
-//                            reader.scrollTo(homeData.msgs.last!.id,anchor: .bottom)
-//                        })
+
                     }
                     .padding(.vertical)
                     
@@ -115,10 +103,6 @@ struct ChatUI: View {
             .animation(.default)
             .padding()
         }
-        .onAppear(perform: {
-            
-            homeData.onAppear()
-        })
         .ignoresSafeArea(.all, edges: .top)
         .fullScreenCover(isPresented: self.$imagePicker2, onDismiss: {
             

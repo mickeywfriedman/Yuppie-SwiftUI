@@ -148,7 +148,7 @@ struct BuildingView: View {
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                            
-                            Chats(token: $token, user_id: $user_id, building:building, expand: self.$expand)
+                                Chats(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand)
                                 .offset(y:-100)
                                 .padding(.top, 15)
                             }}.padding(.horizontal, -15)

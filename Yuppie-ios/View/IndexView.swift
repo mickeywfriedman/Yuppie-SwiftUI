@@ -59,7 +59,7 @@ struct IndexView: View {
             
             ZStack{
                
-            MapView(annotations: $annotations).centerCoordinate(.init(latitude: 40.761360, longitude: -73.999222)).zoomLevel(15)
+           
                 Image("topgradient")
                                .resizable()
                                .aspectRatio(contentMode: .fit)

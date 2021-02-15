@@ -10,6 +10,7 @@ import SwiftUI
 
 struct Home : View {
     @Binding var token: String
+    @Binding var user : User
     @Binding var user_id: String
     @Binding var building: Building
     @State var tenant_id = ""
@@ -20,32 +21,15 @@ struct Home : View {
     @State var expand = false
     
     var body : some View{
-        
         ZStack{
-            
-//            NavigationLink(destination: ChatUI(token: $token, user_id: $user_id, building:building, tenant_id: $tenant_id, tenant_prof: $tenant_prof), isActive: self.$showChatUI)  {
-//
-//                Text("")
-//            }
-//
-            
-            
-            
             VStack{
                 
                 Color.clear
             }
-            
             VStack{
-                
                 ZStack{
-                    
-                    Chats(token: $token, user_id: $user_id, building:building,expand: self.$expand).opacity(self.index == 0 ? 1 : 0)
-                    
+                    Chats(token: $token, user: $user, user_id: $user_id, building:building,expand: self.$expand).opacity(self.index == 0 ? 1 : 0)
                 }
-                
-
-                
             }
         }
         .edgesIgnoringSafeArea(.all)
@@ -54,6 +38,7 @@ struct Home : View {
 
 struct Chats : View {
     @Binding var token: String
+    @Binding var user : User
     @Binding var user_id: String
     var building: Building
     @Binding var expand : Bool
@@ -62,7 +47,7 @@ struct Chats : View {
         
         VStack(spacing: 0){
             
-            TopView(token: $token, user_id: $user_id, building:building, expand: self.$expand).zIndex(0)
+            TopView(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand).zIndex(0)
             
             Centerview(expand: self.$expand).offset(y: -1250)
         }.frame(minWidth:(UIScreen.main.bounds.width-40), maxWidth: .infinity)
@@ -72,6 +57,7 @@ struct Chats : View {
 
 struct TopView : View {
     @Binding var token: String
+    @Binding var user : User
     @Binding var user_id: String
     var building: Building
     @State var tenant_id = ""
@@ -111,7 +97,7 @@ struct TopView : View {
                 Text("")
             }
             
-            NavigationLink(destination: Inbox(), isActive: self.$showInbox) {
+            NavigationLink(destination: Inbox(token: $token, user_id: $user_id, user: $user), isActive: self.$showInbox) {
                 
                 Text("")
             }
@@ -127,19 +113,13 @@ struct TopView : View {
                     Button(action: {
                         
                     }) {
-                        
                         Image("menu")
                         .resizable()
                         .frame(width: 20, height: 20)
                         .foregroundColor(Color.black.opacity(0.4))
-                        
                     }
-                    
-                
-//                }.sheet(isPresented: $showChatUI) {
-//                    ChatUI(token: $token, user_id: $user_id, building:building)
+
                 }
-                
                 ScrollView(.horizontal, showsIndicators: false) {
                     
                     HStack(spacing: 18){
@@ -149,25 +129,15 @@ struct TopView : View {
                             ZStack{
                         
                         Button(action: {
-                            
-                          
                                 self.showInbox.toggle()
                             
-                            
-                        }) {
-                            
-                            
-                            Image(systemName: "message")
+                        }) { Image(systemName: "message")
                             .resizable()
                             .frame(width: 25, height: 25)
                                 .foregroundColor(Color.white)
                             .padding(18)
-                            
-                            
-                           
-                            
                         }.sheet(isPresented: $showInbox) {
-                            Inbox()}.background(Color("blueshadow").opacity(0.5))
+                            Inbox(token: $token, user_id: $user_id, user: $user)}.background(Color("blueshadow").opacity(0.5))
                         .clipShape(Circle())
                             
                             Circle()
@@ -183,8 +153,6 @@ struct TopView : View {
                             .lineLimit(1)
                             
                     }
-                        
-                        
                         ForEach(building.tenants,id: \.self){tenant in
                             
                             Button(action: {
@@ -203,15 +171,8 @@ struct TopView : View {
                                 ZStack{
                                 
                                 URLImage(url: tenant.profilePicture)
-//                                .resizable()
-//                                .renderingMode(.original)
                                 .frame(width: 60, height: 60)
                                     .cornerRadius(30)
-//                                    .overlay(
-//
-//                                            RoundedRectangle(cornerRadius: 30)
-//                                                .stroke(Color.purple, lineWidth: 2))
-                                //)
                                     .padding(.bottom, 10)
                                     .padding(.top, 10)
                                     
@@ -228,22 +189,14 @@ struct TopView : View {
                                     Text(tenant.firstName)
                                         .foregroundColor(Color("Color-3"))
                                         .lineLimit(1)
-                                    
                                 }
-                                    
-                                
-                                
                                 }.sheet(isPresented: $showChatUI) {
                                     ChatUI(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, tenant_name: $tenant_name)
                                 }
                         }
                     }
-                }
-                
+                }    
             }
-            
-        
-            
         }.padding()
         .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
         .background(Color.clear)

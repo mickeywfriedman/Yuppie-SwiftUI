@@ -244,12 +244,10 @@ struct FiltersView: View {
                             
                             ForEach(chips.indices,id: \.self){index in
                              
-                                Text(chips[index])
-                                    .fontWeight(.semibold)
-                                    .padding(.vertical,10)
-                                    .padding(.horizontal)
-                                    .background(Capsule().stroke(Color.black,lineWidth: 1))
-                                    .lineLimit(1)
+                
+                                    
+                                    
+                                DateButton(title: chips[index])
                                 // Main Logic......
                                     .overlay(
                                     
@@ -303,3 +301,26 @@ struct FiltersView: View {
 }
 
 }
+
+struct DateButton: View {
+    var title : String
+    var body: some View {
+        
+        Button(action: {}, label: {
+            
+            Text(title)
+                .fontWeight(.bold)
+                .foregroundColor(Color.white)
+                .padding(.vertical,10)
+                .padding(.horizontal,20)
+                .lineLimit(1)
+                .background(
+                    LinearGradient(gradient: .init(colors: [Color("Color"),Color("Chat_Color")]), startPoint: .leading, endPoint: .trailing)
+                        
+                )
+                .cornerRadius(2)
+            
+        })
+    }
+}
+

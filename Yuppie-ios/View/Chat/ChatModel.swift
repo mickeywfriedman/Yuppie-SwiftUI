@@ -11,12 +11,25 @@ class ChatModel: ObservableObject{
     var user_id: String!
     var tenant_id: String!
     @Published var txt = ""
-    @Published var msgs : [Message1] = []
-    @Published var msgs1 : [Messages] = []
+    @Published var msgs : [ReceivedMessages] = []
+    @Published var msgs1 : [SentMessage] = []
     @AppStorage("current_user") var user = ""
+    
+    // For Brendan
     init() {
         loadMessageData()
+        NotificationCenter.default
+                          .addObserver(self,
+                                       selector:#selector(receivedMessageNotif(_:)),
+                         name: NSNotification.Name ("com.user.login.success"),
+                         object: nil)
     }
+    
+    deinit {
+      NotificationCenter.default
+       .removeObserver(self, name:  NSNotification.Name("com.user.login.success"), object: nil) }
+    
+    
     
     func getDocumentsDirectory() -> URL {
         // find all possible documents directories for this user
@@ -27,110 +40,12 @@ class ChatModel: ObservableObject{
     }
     
     
-    
-    func toString(_ value: Any?) -> String {
-      return String(describing: value ?? "")
+    @objc func receivedMessageNotif(_ notification: Notification){
+        let message = notification.object as? ReceivedMessages
+        //if statement 
     }
     
     
-    
-    func convertToDictionary(text: String) -> [String: Any]? {
-        if let data = text.data(using: .utf8) {
-            do {
-                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-            } catch {
-                //print(error.localizedDescription)
-            }
-        }
-        return nil
-    }
-    
-    func onAppear(){
-        
-        // Checking whether user is joined already....
-        
-        if user == ""{
-            // Join Alert...
-            
-            UIApplication.shared.windows.first?.rootViewController?.present(alertView(), animated: true)
-        }
-    }
-    
-    func alertView()->UIAlertController{
-        
-        let alert = UIAlertController(title: "Join Chat !!!", message: "Enter Nick Name", preferredStyle: .alert)
-        
-        alert.addTextField { (txt) in
-            txt.placeholder = "eg Kavsoft"
-        }
-        
-        let join = UIAlertAction(title: "Join", style: .default) { (_) in
-            
-            // checking for empty click...
-            
-            let user = alert.textFields![0].text ?? ""
-            
-            if user != ""{
-                
-                self.user = user
-                return
-            }
-            
-            // repromiting alert view...
-            
-            UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true)
-        }
-        
-        alert.addAction(join)
-        
-        return alert
-    }
-    
-    func loadMessageData() {
-        
-        let url_file = self.getDocumentsDirectory().appendingPathComponent("index.txt")
-
-                do {
-                    let input = try String(contentsOf: url_file)
-                    
-                    let tenant_id = String(input[0..<24])
-                    print(tenant_id)
-                    let length = input.count
-                    print(length)
-                    let range = input.range(of: "token_id:")
-                     let myString = input[(range?.lowerBound...)!].trimmingCharacters(in: .whitespaces)
-                   
-                    let token = input.substring(fromIndex: 57)
-                    print (token, "FUCK")
-                    
-                    guard let url = URL(string: "http://18.218.78.71:8080/conversations/users/\(tenant_id)") else {
-                        print("Your API end point is Invalid")
-                        return
-                    }
-                    var request = URLRequest(url: url)
-                request.setValue("application/json", forHTTPHeaderField: "Accept")
-                request.httpMethod = "GET"
-                request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-                    URLSession.shared.dataTask(with: request) { data, response, error in
-                        if let data = data {
-                            //print(data)
-                            let dataString = String(data: data, encoding: .utf8)
-                            print(dataString)
-                            if let response = try? JSONDecoder().decode(messageResponse.self, from: data) {
-                                DispatchQueue.main.async {
-                                    self.msgs = response.data.messages
-                                }
-                                return
-                            }else {
-                                print("fuck")
-                            }
-                        }
-                    }.resume()
-                } catch {
-                    print(error.localizedDescription)
-                }
-        }
-
     func randomAlphaNumericString(length: Int) -> String {
         let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         let allowedCharsCount = UInt32(allowedChars.count)
@@ -152,24 +67,62 @@ class ChatModel: ObservableObject{
         return dateFormatter.string(from: date)
     }
     
-    func writeMsg(){
+    
+    func loadMessageData() {
         
         let url_file = self.getDocumentsDirectory().appendingPathComponent("index.txt")
 
                 do {
                     let input = try String(contentsOf: url_file)
+                    //test tenant id
                     let tenant_id = String(input[0..<24])
+                    //test token
+                    let token = input.substring(fromIndex: 57)
+                    // Get messages with tenant
+                    guard let url = URL(string: "http://18.218.78.71:8080/conversations/users/\(tenant_id)") else {
+                        print("Your API end point is Invalid")
+                        return
+                    }
+                    var request = URLRequest(url: url)
+                    request.setValue("application/json", forHTTPHeaderField: "Accept")
+                    request.httpMethod = "GET"
+                    request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+                        URLSession.shared.dataTask(with: request) { data, response, error in
+                            if let data = data {
+                                //print(data)
+                                let dataString = String(data: data, encoding: .utf8)
+                                if let response = try? JSONDecoder().decode(messageResponse.self, from: data) {
+                                    DispatchQueue.main.async {
+                                        self.msgs = response.data.messages
+                                    }
+                                    return
+                                }
+                            }
+                        }.resume()
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+            }
+
+
+    func writeMsg(){
+        
+        let url_file = self.getDocumentsDirectory().appendingPathComponent("index.txt")
+
+                do {
+                    //test tenant id
+                    let input = try String(contentsOf: url_file)
+                    let tenant_id = String(input[0..<24])
+                    //test user id
                     let user_id = String(input[24..<48])
-                    let length = input.count
-                    let range = input.range(of: "token_id:")
-                     let myString = input[(range?.lowerBound...)!].trimmingCharacters(in: .whitespaces)
+                    //test token
                     let token = input.substring(fromIndex: 57)
                     let id = randomAlphaNumericString(length: 24)
                     let date = dateFormat(date: Date())
-                    let message = Messages(id: id, sender: user_id, sentTime: date,  message: txt, type: 0)
+                    let message = SentMessage(id: id, sender: user_id, sentTime: date,  message: txt, type: 0)
                                 
-                    let message1 = Message1(id: id, sender: user_id, sentTime: date,  message: txt, type: 0)
-                    
+                    let received_messages = ReceivedMessages(id: id, sender: user_id, sentTime: date,  message: txt, type: 0)
+                   
                     guard let encoded = try? JSONEncoder().encode(message) else {
                         print("Failed to encode order")
                         return
@@ -185,7 +138,7 @@ class ChatModel: ObservableObject{
                     request.httpBody = encoded
                     URLSession.shared.dataTask(with: request) {data, response, error in print(response)}.resume()
 
-                    self.msgs.append(message1)
+                    self.msgs.append(received_messages)
                     
                     self.txt = ""
                   }catch {
