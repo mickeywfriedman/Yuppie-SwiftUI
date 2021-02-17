@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         self.pushNotifications.start(instanceId: "69c2e5bf-1617-4e4e-b726-8b545a670c91")
+//        self.pushNotifications.start(instanceId: "a16e61ec-9ae8-43ee-8d21-f8e101ac0f5e")
         self.pushNotifications.registerForRemoteNotifications()
-        try? self.pushNotifications.addDeviceInterest(interest: "hello")
         return true
     }
 
@@ -46,11 +46,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        let message = [""]
+        let data = userInfo["data"] as! [String: Any]
+        let message = ReceivedMessages(id: data["id"] as! String, sender: data["sender"] as! String, sentTime: data["sentTime"] as! String,  message: data["message"] as! String, type: data["type"] as! Int)
         self.pushNotifications.handleNotification(userInfo: userInfo)
         print(userInfo)
         NotificationCenter.default
-                    .post(name: NSNotification.Name("com.user.login.success"),
+                    .post(name: NSNotification.Name ("com.messages." + (data["sender"] as! String)),
                      object: message)
         
     }
