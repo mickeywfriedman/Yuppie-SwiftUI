@@ -17,8 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-//        self.pushNotifications.start(instanceId: "69c2e5bf-1617-4e4e-b726-8b545a670c91")
-        self.pushNotifications.start(instanceId: "a16e61ec-9ae8-43ee-8d21-f8e101ac0f5e")
+        self.pushNotifications.start(instanceId: "69c2e5bf-1617-4e4e-b726-8b545a670c91")
+//        self.pushNotifications.start(instanceId: "a16e61ec-9ae8-43ee-8d21-f8e101ac0f5e")
         self.pushNotifications.registerForRemoteNotifications()
         return true
     }
