@@ -4,7 +4,6 @@
 //
 //  Created by Mickey Friedman on 19/11/1399 AP.
 //
-
 import Foundation
 import SwiftUI
 
@@ -110,7 +109,7 @@ struct UserProfile : View {
 
                 // month data...
                 
-                BuildingGallery()
+                BuildingGallery(buildings: buildings, user: user)
 
               
 

@@ -158,9 +158,6 @@ struct SelectUniversity: View {
                             
                            
                         }
-                       
-                        
-                        
                         
                         )
                         

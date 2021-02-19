@@ -13,6 +13,8 @@
 //
 
 import SwiftUI
+import PushNotifications
+
 
 struct LoginView: View {
     
@@ -31,6 +33,23 @@ struct LoginView: View {
     var gradient1 = [Color("gradient2"),Color("gradient3"),Color("gradient4")]
     
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
+    
+    
+    var isEmailValid: Bool {
+        if email.count < 5 {
+            return false
+        }
+        let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailFormat)
+        return emailPredicate.evaluate(with: email)
+    }
+    
+    var isPasswordValid: Bool {
+        if password.count < 6 {
+            return false
+        }
+        return true
+    }
     
     @StateObject var serverData = UniversityModel()
     
@@ -129,7 +148,26 @@ struct LoginView: View {
                             
                             self.token = replace_quotations.replacingOccurrences(of: "=", with: "")
                             
+                            let pushNotifications = PushNotifications.shared
+                            pushNotifications.clearAllState {
+                              print("Cleared all state!")
+                            }
+                            let tokenProvider = BeamsTokenProvider(authURL: "http://18.218.78.71:8080/authentication/notifications") { () -> AuthData in
+                                let sessionToken = self.token
+                                print(self.token, self.user_id, "pushnotifs")
+                              let headers = ["Authorization": "Bearer \(sessionToken)"] // Headers your auth endpoint needs
+                              let queryParams: [String: String] = [:] // URL query params your auth endpoint needs
+                              return AuthData(headers: headers, queryParams: queryParams)
+                            }
 
+                            pushNotifications.setUserId(self.user_id, tokenProvider: tokenProvider, completion: { error in
+                              guard error == nil else {
+                                  print(error.debugDescription)
+                                  return
+                              }
+
+                              print("Successfully authenticated with Pusher Beams")
+                            })
                             
 
                             
@@ -198,7 +236,7 @@ struct LoginView: View {
                                 
                                 Image(systemName: "house")
                                     .font(.system(size: 70))
-                                    .foregroundColor(serverData.isConnected ? Color.red.opacity(0.6) : Color("power"))
+                                    .foregroundColor(serverData.isConnected ? Color.white.opacity(0.6) : Color("power"))
                                     .frame(height: UIScreen.main.bounds.height / 9)
 
                             }
@@ -224,7 +262,7 @@ struct LoginView: View {
                        
                         HStack(spacing: 15){
                             Spacer()
-
+                            ZStack(alignment: .trailing){
                             TextField("Email", text: self.$email )
                                 .autocapitalization(.none)
                                 .foregroundColor(.white)
@@ -232,14 +270,23 @@ struct LoginView: View {
                                 .padding(.horizontal, 10)
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
-                                
+                            
+                            if !self.email.isEmpty {
+                                if !self.isEmailValid {
+                                    Text("Invalid email")
+                                    .foregroundColor(Color("Color"))
+                                    .padding(.trailing, 20)
+                                        .padding(.horizontal, 10)
+                                }
+                            }
+                            }
                             Spacer()
                         }
                         .offset(y: 30)
                         
                         HStack(spacing: 15){
                             Spacer()
-
+                            ZStack(alignment: .trailing){
                             SecureField("Password", text: self.$password)
                                 .autocapitalization(.none)
                                 .foregroundColor(.white)
@@ -247,7 +294,16 @@ struct LoginView: View {
                                 .padding(.horizontal, 10)
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
-                                
+                            
+                            if !self.password.isEmpty {
+                                if !self.isPasswordValid {
+                                    Text("Min. 6 characters")
+                                        .foregroundColor(Color("Color"))
+                                        .padding(.trailing, 20)
+                                            .padding(.horizontal, 10)
+                                }
+                            }
+                            }
                             Spacer()
                         }
                         .offset(y: 45)

@@ -22,6 +22,16 @@ struct PhoneAuth: View {
     
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
     
+    var isNumberValid: Bool {
+        if number.count < 10 {
+            return false
+        }
+        if number.count > 10 {
+            return false
+        }
+        return true
+    }
+    
     @StateObject var universityData = UniversityModel()
     
  
@@ -119,7 +129,7 @@ struct PhoneAuth: View {
                                 
                                 Image(systemName: "phone")
                                     .font(.system(size: 70))
-                                    .foregroundColor(universityData.isConnected ? Color.red.opacity(0.6) : Color("power"))
+                                    .foregroundColor(universityData.isConnected ? Color.white.opacity(0.6) : Color("power"))
                                     .frame(height: UIScreen.main.bounds.height / 9)
 
                             }
@@ -154,7 +164,7 @@ struct PhoneAuth: View {
                                 .padding(.horizontal, 10)
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
-                            
+                            ZStack(alignment: .trailing) {
                             TextField("Mobile Number", text: self.$number)
                                 .keyboardType(.numberPad)
                                 .foregroundColor(.white)
@@ -162,6 +172,16 @@ struct PhoneAuth: View {
                                 .padding(.horizontal, 10)
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
+                            
+                            if !self.number.isEmpty {
+                                if !self.isNumberValid {
+                                    Text("10 characters")
+                                        .foregroundColor(Color("Color"))
+                                        .padding(.trailing, 20)
+                                            .padding(.horizontal, 10)
+                                }
+                            }
+                            }
                             Spacer()
                         }
                         .offset(y: 30)

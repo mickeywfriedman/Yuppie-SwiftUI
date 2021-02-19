@@ -4,7 +4,6 @@
 //
 //  Created by Mickey Friedman on 29/09/1399 AP.
 //
-
 import SwiftUI
 import MapKit
 
@@ -51,6 +50,7 @@ struct BuildingImages: View{
     @State var width = UIScreen.main.bounds.width
     @State var index: Int = 0
     @State var expand = false
+    @Environment(\.colorScheme) var colorScheme
     var building: Building
     var body: some View{
         ZStack{
@@ -60,14 +60,26 @@ struct BuildingImages: View{
         Button(action: {
                 toggleFavorite()
             }) {
+            
+            Label(title: {
+               
+                
+            }) {
+                
+                
                 if (user.favorites.contains(building.id)) {
-                    Image(systemName: "heart.fill")
-                        .foregroundColor(Color.yellow)
-                    } else {
-                        Image(systemName: "heart")
-                            .foregroundColor(Color.gray)
-                    }
-            }.offset(x: (-1*UIScreen.main.bounds.width/2)+25, y: -100)
+                                        Image(systemName: "heart.fill")
+                                            .foregroundColor(Color("Chat_color"))
+                                        } else {
+                                            Image(systemName: "heart")
+                                                .foregroundColor(Color.gray)
+                                        }
+            }
+            .padding(.vertical,8)
+            .padding(.horizontal,10)
+            .background(Color("pgradient2"))
+            .clipShape(Capsule())
+        }.offset(x: (-1*UIScreen.main.bounds.width/2)+25, y: -100)
         HStack{
             Spacer()
             Button(action: {
@@ -127,14 +139,15 @@ struct BuildingView: View {
     
     var body: some View {
         ZStack{
+            Color.white
         VStack{
-            BuildingImages(token: $token, user : $user, user_id: $user_id, building: building)
+            BuildingImages(token: $token, user : $user, user_id: $user_id, building: building).background(Color.white)
         ScrollView(showsIndicators: false){
             VStack{
                 
                 Text(building.name).font(.largeTitle)
                     .foregroundColor(Color.gray)
-                Text(building.address.streetAddress).multilineTextAlignment(.center)
+                Text(building.address.streetAddress).multilineTextAlignment(.center).foregroundColor(Color.gray)
                 Spacer()
                 Spacer()
                 Text("Message Our Tenants").fontWeight(.heavy).padding(.top,4)
@@ -165,10 +178,10 @@ struct BuildingView: View {
                     }.padding(.horizontal)
                     .offset(y:-115)
                     VStack(alignment: .leading){
-                        BottomView().padding(.top, 10)
+                        BottomView(amenities: building.amenities).padding(.top, 10)
                        
                         
-                    }.padding(.horizontal)
+                    }
                     .offset(y:-95)
                     Spacer()
                     Spacer()
@@ -176,8 +189,7 @@ struct BuildingView: View {
                         Text("Units").fontWeight(.heavy).padding(.top,4)
                             .foregroundColor(Color.gray)
                         Picker(selection: $Bedroom, label:
-                            Text(Bedrooms[Bedroom]).foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-                                    .background(Color.white)
+                            Text(Bedrooms[Bedroom])
                         ) {
                             ForEach(0 ..< Bedrooms.count) {
                                 Text(self.Bedrooms[$0])
@@ -370,7 +382,7 @@ struct BuildingMapView: UIViewRepresentable {
 }
 
 struct BottomView : View {
-    
+    var amenities: [String]
     var body : some View{
         
         VStack{
@@ -380,106 +392,35 @@ struct BottomView : View {
                 Text("Building Amenities").fontWeight(.heavy).foregroundColor(.gray)
                 
                 Spacer()
+
                 
-                Button(action: {
-                    
-                }) {
-                    
-                    Text("View all").foregroundColor(.gray)
-                }
-                
-            }
+            }.padding(.horizontal)
             
             ScrollView(.horizontal, showsIndicators: true) {
-                
                 HStack(alignment: .top){
-                    
-                    Button(action: {
-                            
-                    }) {
-                            
+                    ForEach(amenities, id:\.self){
+                        amenity in
                         VStack(spacing: 8){
                             VStack{
-                                Image("mcard1").renderingMode(.original)}
-                                .frame(width: 60, height: 60)
+                                Image(amenity)
+                                    .resizable()
+                                    .frame(width: 60, height: 60)
+                            }
+                                
                                 .background(Color.white)
                                 .cornerRadius(10)
                                 .padding(.top, 25)
                                 .shadow(color: Color.purple.opacity(0.2), radius: 5, x: -5, y: -5)
                                 .shadow(color: Color.gray.opacity(0.7), radius: 5, x: 5, y: 5)
-                            Text("Clean Energy")
+                            Text(amenity)
                             //.frame(width: 55)
                             .font(.caption)
                             .foregroundColor(Color.black.opacity(0.5))
                             .multilineTextAlignment(.center)
-                        }
-                    }
-                    Spacer(minLength: 20)
-                    
-                    Button(action: {
-                            
-                    }) {
-                            
-                        VStack(spacing: 8){
-                            VStack{
-                                Image("mcard2").renderingMode(.original)}
-                            .frame(width: 60, height: 60)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                                .padding(.top, 25)
-                                .shadow(color: Color.purple.opacity(0.2), radius: 5, x: -5, y: -5)
-                                .shadow(color: Color.gray.opacity(0.7), radius: 5, x: 5, y: 5)
-                            Text("Dry Cleaning")
-                          //  .frame(width: 55)
-                            .font(.caption)
-                            .foregroundColor(Color.black.opacity(0.5))
-                            .multilineTextAlignment(.center)
-                        }
-                    }
-                    Spacer(minLength: 20)
-                    Button(action: {
-                            
-                    }) {
-                            
-                        VStack(spacing: 8){
-                            VStack{
-                                Image("mcard3").renderingMode(.original)}
-                                .frame(width: 60, height: 60)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                                .padding(.top, 25)
-                                .shadow(color: Color.purple.opacity(0.2), radius: 5, x: -5, y: -5)
-                                .shadow(color: Color.gray.opacity(0.7), radius: 5, x: 5, y: 5)
-                            Text("Theater")
-                            //.frame(width: 55)
-                            .font(.caption)
-                            .foregroundColor(Color.black.opacity(0.5))
-                            .multilineTextAlignment(.center)
-                        }
-                    }
-                    Spacer(minLength: 20)
-                    Button(action: {
-                            
-                    }) {
-                            
-                        VStack(spacing: 8){
-                            VStack{
-                                Image("mcard4").renderingMode(.original)}
-                                .frame(width: 60, height: 60)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                                .padding(.top, 25)
-                                .shadow(color: Color.purple.opacity(0.2), radius: 5, x: -5, y: -5)
-                                .shadow(color: Color.gray.opacity(0.7), radius: 5, x: 5, y: 5)
-                            Text("Something")
-                            //.frame(width: 55)
-                            .font(.caption)
-                            .foregroundColor(Color.black.opacity(0.5))
-                            .multilineTextAlignment(.center)
-                        }
+                        }.padding(.leading)
                     }
                 }
-            }.padding(.leading, 20)
+            }
             .padding(.bottom, 15)
         }
     }

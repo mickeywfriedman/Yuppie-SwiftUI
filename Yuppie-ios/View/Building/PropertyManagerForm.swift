@@ -1,19 +1,14 @@
-//
-//  PropertyManagerForm.swift
-//  Yuppie-ios
-//
-//  Created by Mickey Friedman on 29/09/1399 AP.
-//
-
 import SwiftUI
 import Combine
 
 struct PropertyManagerForm : View {
+    
     @Binding var token: String
     @Binding var user_id: String
     @Binding var user : User
     var building: Building
     @Binding var showForm: Bool
+    @State private var keyboardHeight: CGFloat = 0
     @State private var MoveIn = Date()
     @State private var Apartment = 0
     @State private var Message = ""
@@ -25,6 +20,7 @@ struct PropertyManagerForm : View {
     @State private var Parking = false
     @State private var covidPolicies = false
     @State private var askString = ""
+    @Environment(\.colorScheme) var colorScheme
     func sendEmail (Message: String, Apartment: String, userID: String, building: Building, moveIn:Date){
         self.user.contacted.append(building.id)
         let lead = Lead(
@@ -61,12 +57,14 @@ struct PropertyManagerForm : View {
         return dateFormatter.string(from: date)
     }
     var body : some View{
+        
         let message = "Hello my name is \(user.firstName) and I am interested in Unit \(Apartments[Apartment]) and would like to move in around \(dateFormat(date: MoveIn)). Can you tell me more about: \n\(self.amenityHours ? "-Amenity Hours\n": "")\(self.petPolicy ? "-Pet Policy\n": "")\(self.additionalCharges ? "-Additional Charges\n": "")\(self.localActivites ? "-Local Activities\n": "")\(self.covidPolicies ? "-Covid Policies\n": "")\(self.Parking ? "-Parking\n": "")"
         VStack(alignment: .center){
             Text("Contact Property").fontWeight(.heavy).font(.largeTitle)
-                .padding(.vertical).foregroundColor(.black)
+                .padding(.vertical)
+                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
             HStack{
-                Text("Ask About:").foregroundColor(.black)
+                Text("Ask About:").foregroundColor(colorScheme == .dark ? Color.white : Color.black)
             Spacer()
             }
             HStack{
@@ -224,16 +222,17 @@ struct PropertyManagerForm : View {
             }
             
             HStack{
-                Text("Select Apartment").foregroundColor(.black)
+                Text("Select Apartment")
+                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                 Spacer()
                 Picker(selection: $Apartment, label:
-                        Text(Apartments[Apartment]).foregroundColor(.blue)
-                        .background(Color.white)
+                        Text(Apartments[Apartment])
             ) {
                 ForEach(0 ..< Apartments.count) {
                     Text(self.Apartments[$0])
                 }
                 .padding(1.0)
+                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                 }.pickerStyle(MenuPickerStyle())
                 .onReceive([self.Apartment].publisher.first()) { value in
                     self.Message = message
@@ -242,15 +241,16 @@ struct PropertyManagerForm : View {
             }
             
             DatePicker("Move In Date", selection: $MoveIn, displayedComponents: .date)
-                .foregroundColor(.black)
-                .background(Color.white)
                 .datePickerStyle(CompactDatePickerStyle())
+                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                 .onReceive([self.MoveIn].publisher.first()) { value in
                     self.Message = message
                  }
             TextEditor(text:$Message)
                 .border(Color.black, width: 2)
                 .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealWidth: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight:300, maxHeight: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .padding(.bottom, keyboardHeight)
+                .onReceive(Publishers.keyboardHeight) { self.keyboardHeight = $0 }
             Button(action: {
                 self.showPopUp = true
                 sendEmail(Message: Message, Apartment: Apartments[Apartment], userID: user_id, building: building, moveIn: MoveIn)
@@ -263,13 +263,38 @@ struct PropertyManagerForm : View {
                     .cornerRadius(15.0)
             }
         }.padding().edgesIgnoringSafeArea([.top, .bottom])
+        .onTapGesture {
+
+              self.endTextEditing()
+        }
         if $showPopUp.wrappedValue {
                 VStack(alignment: .center) {
-                    Text("Message sent").foregroundColor(.black).fontWeight(.heavy)
-                    Text("The Property manager should reach out to you shortly.").foregroundColor(.black)
+                    Text("Message sent").fontWeight(.heavy)
+                    Text("The Property manager should reach out to you shortly.")
                 }
         }
     }
 }
 
 
+extension Publishers {
+    // 1.
+    static var keyboardHeight: AnyPublisher<CGFloat, Never> {
+        let willShow = NotificationCenter.default.publisher(for: UIApplication.keyboardWillShowNotification)
+            .map { _ in CGFloat(300) }
+        
+        let willHide = NotificationCenter.default.publisher(for: UIApplication.keyboardWillHideNotification)
+            .map { _ in CGFloat(0) }
+        
+        // 3.
+        return MergeMany(willShow, willHide)
+            .eraseToAnyPublisher()
+    }
+}
+
+extension View {
+  func endTextEditing() {
+    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                    to: nil, from: nil, for: nil)
+  }
+}

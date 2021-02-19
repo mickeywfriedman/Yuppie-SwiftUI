@@ -139,7 +139,7 @@ struct Inbox : View {
                                 
                                 // Chat View...
                                 
-                                ChatView(chatData: FriendsChat, token: $token)
+                                ChatView(chatData: FriendsChat, token: $token, user_id: $user_id)
                             }
                     }
                     .padding(.vertical)
@@ -175,8 +175,16 @@ struct ChatView : View {
     var chatData : FriendsChat
     @Binding var token: String
     @State var tenants = TestData.user
+    @Binding var user_id: String
+    @State var showChatUI = false
+    func dateFormat(string : String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: string) ?? Date()
+    }
+    
     func loadUser() {
-        if (token != "") {
+        if (user_id == chatData.user1) {
         guard let user_url = URL(string: "http://18.218.78.71:8080/users/\(chatData.user2)") else {
                 print("Your API end point is Invalid")
                 return
@@ -196,9 +204,43 @@ struct ChatView : View {
                     
                 }
             }.resume()
+        } else {
+            
+            guard let user_url = URL(string: "http://18.218.78.71:8080/users/\(chatData.user1)") else {
+                    print("Your API end point is Invalid")
+                    return
+                }
+                var user_request = URLRequest(url: user_url)
+                user_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+                URLSession.shared.dataTask(with: user_request) { data, response, error in
+                    if let data = data {
+                        if let urlresponse = try? JSONDecoder().decode(userResponse.self, from: data) {
+                            DispatchQueue.main.async {
+                                self.tenants = urlresponse.data
+                                print("success")
+                                print(self.tenants, "here")
+                            }
+                            return
+                        }
+                        
+                    }
+                }.resume()
+        
         }
         }
     var body: some View{
+        
+        ZStack{
+            NavigationLink(destination: ChatUI(token: $token, user_id: $user_id, tenant_id: $tenants.id, tenant_prof: $tenants.profilePicture, tenant_name: $tenants.firstName)){
+                
+                Text("")
+            }}
+        
+        Button(action: {
+            self.showChatUI.toggle()
+            
+            
+        }){
         
         HStack(spacing: 10){
             
@@ -214,22 +256,26 @@ struct ChatView : View {
                     .fontWeight(.bold)
                     .lineLimit(1)
                     .onAppear(perform: loadUser)
+                    .foregroundColor(.black)
                 
-                //name
+               // name
                 
-//                Text(chatData.msg)
-//                    .font(.caption)
-//                    .lineLimit(1)
+                Text("from your circle at UChicago")
+                    .font(.caption)
+                    .lineLimit(1)
+                    .foregroundColor(.gray)
             })
             
             Spacer(minLength: 0)
             
-            Text(chatData.modifiedDate)
+            Text(dateFormat(string: chatData.modifiedDate), style: .time)
                 .font(.system(size: 15))
-                .fontWeight(.bold)
+                .foregroundColor(.black)
         }
         .padding(.horizontal)
-    }
+        }.sheet(isPresented: $showChatUI) {
+            ChatUI(token: $token, user_id: $user_id, tenant_id: $tenants.id, tenant_prof: $tenants.profilePicture, tenant_name: $tenants.firstName)
+        }
 }
 
 // Model And Sample Data....
@@ -269,3 +315,4 @@ struct ChatView : View {
 //    InboxData(groupName: "Friends", groupData: FriendsChat),
 //
 //]
+}

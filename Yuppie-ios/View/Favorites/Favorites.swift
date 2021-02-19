@@ -238,15 +238,26 @@ struct FavoritesImageScroll: View {
             Button(action: {
                     toggleFavorite()
                 }) {
+                
+                Label(title: {
+                   
+                    
+                }) {
+                    
+                    
                     if (user.favorites.contains(building.id)) {
-                        Image(systemName: "heart.fill")
-                            .foregroundColor(Color.yellow)
-                            .frame(width: 32.0, height: 32.0)
-                        } else {
-                            Image(systemName: "heart")
-                                .foregroundColor(Color.gray)
-                        }
-                }.offset(x: (-1*(UIScreen.main.bounds.width-40)/2)+20, y: -80)
+                                            Image(systemName: "heart.fill")
+                                                .foregroundColor(Color("Chat_color"))
+                                            } else {
+                                                Image(systemName: "heart")
+                                                    .foregroundColor(Color.gray)
+                                            }
+                }
+                .padding(.vertical,8)
+                .padding(.horizontal,10)
+                .background(Color("pgradient2"))
+                .clipShape(Capsule())
+            }.offset(x: (-1*(UIScreen.main.bounds.width-40)/2)+20, y: -80)
     }
     }
 }

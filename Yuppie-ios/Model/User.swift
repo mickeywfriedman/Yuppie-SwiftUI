@@ -10,6 +10,7 @@ struct User: Codable{
     var contacted: [String]
     var favorites: [String]
     var preferences: preferences
+    var id: String
 }
 
 struct userResponse: Codable {
