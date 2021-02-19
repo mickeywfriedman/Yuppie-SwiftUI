@@ -4,7 +4,6 @@
 //
 //  Created by Mickey Friedman on 19/11/1399 AP.
 //
-
 import SwiftUI
 
 class ChatModel: ObservableObject{
@@ -18,16 +17,11 @@ class ChatModel: ObservableObject{
     // For Brendan
     init() {
         loadMessageData()
-        NotificationCenter.default
-                          .addObserver(self,
-                                       selector:#selector(receivedMessageNotif(_:)),
-                         name: NSNotification.Name ("com.user.login.success"),
-                         object: nil)
     }
     
     deinit {
       NotificationCenter.default
-       .removeObserver(self, name:  NSNotification.Name("com.user.login.success"), object: nil) }
+       .removeObserver(self, name: NSNotification.Name ("com.messages." + self.tenant_id), object: nil) }
     
     
     
@@ -41,8 +35,9 @@ class ChatModel: ObservableObject{
     
     
     @objc func receivedMessageNotif(_ notification: Notification){
-        let message = notification.object as? ReceivedMessages
-        //if statement 
+        let message = notification.object as! ReceivedMessages
+        self.msgs.append(message)
+        //if statement
     }
     
     
@@ -76,6 +71,8 @@ class ChatModel: ObservableObject{
                     let input = try String(contentsOf: url_file)
                     //test tenant id
                     let tenant_id = String(input[0..<24])
+                    self.tenant_id = tenant_id
+                    addObserver()
                     //test token
                     let token = input.substring(fromIndex: 57)
                     // Get messages with tenant
@@ -103,7 +100,14 @@ class ChatModel: ObservableObject{
                         print(error.localizedDescription)
                     }
             }
-
+    
+    func addObserver() {
+        NotificationCenter.default
+                          .addObserver(self,
+                                       selector:#selector(receivedMessageNotif(_:)),
+                                       name: NSNotification.Name ("com.messages." + self.tenant_id),
+                         object: nil)
+    }
 
     func writeMsg(){
         

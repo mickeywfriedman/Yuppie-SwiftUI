@@ -21,14 +21,16 @@ struct MapView: UIViewRepresentable {
     @Binding var annotations: [MGLPointAnnotation]
     var building: Building
     
-   let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/cephalopod004/ckkqhhfrt01hw17qlfsq1gwt4"))
+   let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/leonyuppie/ckfysprwo0l3n19qpi7hm8m8p"))
     
     // MARK: - Configuring UIViewRepresentable protocol
     
     func makeUIView(context: UIViewRepresentableContext<MapView>) -> MGLMapView {
         mapView.delegate = context.coordinator
         mapView.isZoomEnabled = true
+        mapView.isPitchEnabled = true
         mapView.isScrollEnabled = true
+        mapView.isRotateEnabled = true
         mapView.compassView.isHidden = true
         mapView.logoView.isHidden = true
         mapView.attributionButton.isHidden = true
@@ -76,6 +78,7 @@ struct MapView: UIViewRepresentable {
         mapView.centerCoordinate = centerCoordinate
         return self
     }
+
     
     func zoomLevel(_ zoomLevel: Double) -> MapView {
         mapView.zoomLevel = zoomLevel
@@ -84,7 +87,7 @@ struct MapView: UIViewRepresentable {
     
     private func moveToCoordinate(_ mapView: MGLMapView, to point: CLLocationCoordinate2D) {
         
-        let camera = MGLMapCamera(lookingAtCenter: point, fromDistance: 4500, pitch: 15, heading: 180)
+        let camera = MGLMapCamera(lookingAtCenter: point,  fromDistance: 4500, pitch: 15, heading: 180)
         mapView.fly(to: camera, withDuration: 4,
         peakAltitude: 3000, completionHandler: nil)
 //        let camera = MGLMapCamera(lookingAtCenter: point, fromDistance: 4500, pitch: 15, heading: 180)

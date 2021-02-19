@@ -165,9 +165,7 @@ struct ImageScroll: View {
             }) {
                 
                 Label(title: {
-                    Text("Save")
-                        .font(.system(size: 15, weight: .bold))
-                        .foregroundColor(.black)
+                   
                     
                 }) {
                     
@@ -185,7 +183,7 @@ struct ImageScroll: View {
                 .background(Color("pgradient2"))
                 .clipShape(Capsule())
             }
-        }.offset(x: (-1*(UIScreen.main.bounds.width-100)/2)-75, y: -80)
+        }.offset(x: (-1*(UIScreen.main.bounds.width-100)/2)-115, y: -80)
     }
 }
 

@@ -1,9 +1,3 @@
-//
-//  FiltersView.swift
-//  Yuppie-ios
-//
-//  Created by Mickey Friedman on 29/09/1399 AP.
-//
 
 import SwiftUI
 
@@ -21,9 +15,9 @@ struct FiltersView: View {
     @State var balcony = false
     @State var airConditioning = false
     @State var doorman = false
+    @Environment(\.colorScheme) var colorScheme
     var isExceeded = false
-    
-    var chips = ["doorman","pool","gym", "spa"]
+    var chipStack = [["Doorman","Pool","Gym","Rooftop"], ["Laundry", "Elevator"]]
     func dateFormat(date : Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -44,242 +38,83 @@ struct FiltersView: View {
         VStack{
         VStack{
             HStack{
-                Text("Min Bedrooms").fontWeight(.heavy)
+                Text("Number of Bedrooms").fontWeight(.heavy)
                 Spacer()
-            }
+            }.padding(.horizontal,25)
             Picker(selection: $user.preferences.bedrooms, label:
-                    Text(Bedrooms[user.preferences.bedrooms]).foregroundColor(.purple)
+                    Text(Bedrooms[user.preferences.bedrooms])
             ) {
                 ForEach(0 ..< Bedrooms.count) {
                     Text(self.Bedrooms[$0])
                 }
                 .padding(1.0)
                 }.pickerStyle(SegmentedPickerStyle())
+            .padding(.horizontal,25)
         
             HStack{
-                Text("Min Bathrooms").fontWeight(.heavy)
+                Text("Number of Bathrooms").fontWeight(.heavy)
                 Spacer()
-            }
+            }.padding(.horizontal,25)
             Picker(selection: $user.preferences.bathrooms, label:
-                    Text(Bathrooms[user.preferences.bathrooms]).foregroundColor(.purple)
+                    Text(Bathrooms[user.preferences.bathrooms])
             ) {
                 ForEach(0 ..< Bathrooms.count) {
                     Text(self.Bathrooms[$0])
                 }
                 .padding(1.0)
             }.pickerStyle(SegmentedPickerStyle())
+            .padding(.horizontal,25)
             
             HStack{
                 Text("The most I can pay is $\(priceFormat(price:user.preferences.price))").fontWeight(.heavy)
                 Spacer()
-            }
+            }.padding(.horizontal,25)
             Slider(value: $user.preferences.price, in: 1000...10000)
+                .padding(.horizontal,25)
             VStack{
                 HStack{
                     Text("Anticipated Move In Date").fontWeight(.heavy)
                     Spacer()
                     
-                }
+                }.padding(.horizontal,25)
                 DatePicker("Earliest Move In", selection: $minDate, displayedComponents: .date)
-                .foregroundColor(.black)
-                .datePickerStyle(DefaultDatePickerStyle())
+                .datePickerStyle(DefaultDatePickerStyle()).padding(.horizontal,25)
             DatePicker("Latest Move In", selection: $maxDate, displayedComponents: .date)
-                .foregroundColor(.black)
-                .datePickerStyle(DefaultDatePickerStyle())
+                .datePickerStyle(DefaultDatePickerStyle()).padding(.horizontal,25)
             HStack{
                 Text("I can't live without").fontWeight(.heavy)
                 Spacer()
+            }.padding(.horizontal,25)
             }
-            }
-//            HStack{
-//                if self.animals { Button(action:{
-//                    self.animals = !self.animals
-//                }) {
-//                    Text("Animals")
-//                        .foregroundColor(.white)
-//                        .padding()
-//                        .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-//                        .background(Color.purple)
-//                        .cornerRadius(30.0)
-//                }
-//                }
-//                else {
-//                    Button(action:{
-//                        self.animals = !self.animals
-//                    }) {
-//                        Text("Animals")
-//                            .foregroundColor(.white)
-//                            .padding()
-//                            .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-//                            .background(Color.gray)
-//                            .cornerRadius(30.0)
-//                    }
-//                }
-//                if self.gym { Button(action:{
-//                    self.gym = !self.gym
-//                }) {
-//                    Text("Gym")
-//                        .foregroundColor(.white)
-//                        .padding()
-//                        .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-//                        .background(Color.purple)
-//                        .cornerRadius(30.0)
-//                }
-//                }
-//                else {
-//                    Button(action:{self.gym = !self.gym}) {
-//                        Text("Gym")
-//                            .foregroundColor(.white)
-//                            .padding()
-//                            .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-//                            .background(Color.gray)
-//                            .cornerRadius(30.0)
-//                    }
-//
-//                }
-//            }
-            
-           
-//            LazyVStack(alignment: .leading,spacing: 10){
-//
-//
-//                if self.rooftop { Button(action:{
-//                    self.rooftop = !self.rooftop
-//                }) {
-//                    Text("Rooftop")
-//                        .fontWeight(.semibold)
-//                        .padding(.vertical,10)
-//                        .padding(.horizontal)
-//                        .background(Capsule().stroke(Color.black,lineWidth: 1))
-//                        .lineLimit(1)
-//                }
-//                }
-//                else {
-//                    Button(action:{
-//                        self.rooftop = !self.rooftop
-//                    }) {
-//                        Text("Rooftop")
-//                            .fontWeight(.semibold)
-//                            .padding(.vertical,10)
-//                            .padding(.horizontal)
-//                            .background(Capsule().stroke(Color.black,lineWidth: 1))
-//                            .lineLimit(1)
-//                    }
-//                }
-//                if self.balcony { Button(action:{
-//                    self.balcony = !self.balcony
-//                }) {
-//                    Text("Balcony")
-//                        .fontWeight(.semibold)
-//                        .padding(.vertical,10)
-//                        .padding(.horizontal)
-//                        .background(Capsule().stroke(Color.black,lineWidth: 1))
-//                        .lineLimit(1)
-//                }
-//                }
-//                else {
-//                    Button(action:{self.balcony = !self.balcony}) {
-//                        Text("Balcony")
-//                            .fontWeight(.semibold)
-//                            .padding(.vertical,10)
-//                            .padding(.horizontal)
-//                            .background(Capsule().stroke(Color.black,lineWidth: 1))
-//                            .lineLimit(1)
-//                    }
-//
-//                }
-//                if self.airConditioning { Button(action:{
-//                    self.airConditioning = !self.airConditioning
-//                }) {
-//                    Text("Air Conditioning")
-//                        .fontWeight(.semibold)
-//                        .padding(.vertical,10)
-//                        .padding(.horizontal)
-//                        .background(Capsule().stroke(Color.black,lineWidth: 1))
-//                        .lineLimit(1)
-//                }
-//                }
-//                else {
-//                    Button(action:{
-//                        self.airConditioning = !self.airConditioning
-//                    }) {
-//                        Text("Air Conditioning")
-//                            .fontWeight(.semibold)
-//                        .padding(.vertical,10)
-//                        .padding(.horizontal)
-//                        .background(Capsule().stroke(Color.black,lineWidth: 1))
-//                        .lineLimit(1)
-//                    }
-//                }
-//                if self.doorman { Button(action:{
-//                    self.doorman = !self.doorman
-//                }) {
-//                    Text("Doorman")
-//                        .fontWeight(.semibold)
-//                        .padding(.vertical,10)
-//                        .padding(.horizontal)
-//                        .background(Capsule().stroke(Color.black,lineWidth: 1))
-//                        .lineLimit(1)
-//                }
-//                }
-//                else {
-//                    Button(action:{self.doorman = !self.doorman}) {
-//                        Text("Doorman")
-//                            .fontWeight(.semibold)
-//                            .padding(.vertical,10)
-//                            .padding(.horizontal)
-//                            .background(Capsule().stroke(Color.black,lineWidth: 1))
-//                            .lineLimit(1)
-//                    }
-//
-//                }
-//            }
             ScrollView{
                 // Chips View...
                 LazyVStack(alignment: .leading,spacing: 10){
                     
                     // Since Were Using Indices So WE Need To Specify Id....
-                        
-                        HStack{
-                            
+                    ForEach(chipStack, id: \.self){
+                        chips in
+                    HStack{
                             ForEach(chips.indices,id: \.self){index in
-                             
-                
-                                    
-                                    
-                                DateButton(title: chips[index])
-                                // Main Logic......
-                                    .overlay(
-                                    
-                                        GeometryReader{reader -> Color in
-                                            
-                                            // By Using MaxX Parameter We Can Use Logic And Determine if its exceeds or not....
-                                            
-                                            let maxX = reader.frame(in: .global).maxX
-                                            
-                                            // Both Paddings  = 30+ 30 = 60
-                                            // Plus 10 For Extra....
-                                            
-                                            // Doing Action Only If The Item Exceeds...
-                                            
-                                            if maxX > UIScreen.main.bounds.width - 70 {
-                                                
-                                                // It is updating to each user interaction....
-                                                
-                                              
-                                            }
-                                            
-                                            return Color.clear
-                                        },
-                                        alignment: .trailing
-                                    )
-                                    .clipShape(Capsule())
-                                
+                                Button(action:{
+                                    if user.preferences.amenities.contains(chips[index]){
+                                        user.preferences.amenities = user.preferences.amenities.filter {$0 != chips[index]}
+                                    } else {
+                                    user.preferences.amenities.append(chips[index])
+                                    }
+                                }){
+                                Text(chips[index])
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                                    .padding(.vertical,10)
+                                    .padding(.horizontal)
+                                    .background(Capsule().stroke(colorScheme == .dark ? Color.white : Color.black,lineWidth: 1))
+                                    .background(Capsule().fill(user.preferences.amenities.contains(chips[index]) ? Color.purple: (colorScheme == .dark ? Color.black : Color.white)))
+                                    .lineLimit(1)
+                                }
                             }
-        
+                    }
                     }
                 }
-                .padding()
             }
             .frame(width: UIScreen.main.bounds.width - 30, height: UIScreen.main.bounds.height / 3)
             // Border...
@@ -299,28 +134,4 @@ struct FiltersView: View {
         
         }.padding()
 }
-
 }
-
-struct DateButton: View {
-    var title : String
-    var body: some View {
-        
-        Button(action: {}, label: {
-            
-            Text(title)
-                .fontWeight(.bold)
-                .foregroundColor(Color.white)
-                .padding(.vertical,10)
-                .padding(.horizontal,20)
-                .lineLimit(1)
-                .background(
-                    LinearGradient(gradient: .init(colors: [Color("Color"),Color("Chat_Color")]), startPoint: .leading, endPoint: .trailing)
-                        
-                )
-                .cornerRadius(2)
-            
-        })
-    }
-}
-

@@ -11,7 +11,6 @@
 		2151A7B325D0CE1A007C9F90 /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151A7B225D0CE1A007C9F90 /* ChatBubble.swift */; };
 		2151A7B825D0CE49007C9F90 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151A7B725D0CE49007C9F90 /* ChatModel.swift */; };
 		2151A7BD25D0CE83007C9F90 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151A7BC25D0CE83007C9F90 /* MessageModel.swift */; };
-		21A77FF2258DDDA500DD6F70 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A77FF1258DDDA500DD6F70 /* MapAnnotation.swift */; };
 		21A7801F258E0A4A00DD6F70 /* PulseLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7801E258E0A4A00DD6F70 /* PulseLayer.swift */; };
 		21A78027258E0A6D00DD6F70 /* Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A78026258E0A6D00DD6F70 /* Pulse.swift */; };
 		21A7802C258E0A9000DD6F70 /* AnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7802B258E0A9000DD6F70 /* AnimationDelegate.swift */; };
@@ -35,7 +34,6 @@
 		21C10CAC259497F60049531E /* FirstLastName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CAB259497F50049531E /* FirstLastName.swift */; };
 		21C10CB125957BEE0049531E /* CardViewOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CB025957BED0049531E /* CardViewOnboarding.swift */; };
 		21C10CB625957C660049531E /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CB525957C660049531E /* BlurView.swift */; };
-		21C10CBE25957C930049531E /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CBD25957C920049531E /* BottomSheet.swift */; };
 		21C10CC325957D380049531E /* CustomCornerOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CC225957D380049531E /* CustomCornerOnboarding.swift */; };
 		21C10CC825957D4B0049531E /* PhoneAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CC725957D4B0049531E /* PhoneAuth.swift */; };
 		21C10CE225957E3D0049531E /* Verification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C10CE125957E3D0049531E /* Verification.swift */; };
@@ -59,12 +57,16 @@
 		21F7A81825D0F0F800113DAE /* BuildingGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7A81725D0F0F800113DAE /* BuildingGallery.swift */; };
 		21F7A81D25D0F15200113DAE /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7A81C25D0F15200113DAE /* UserProfile.swift */; };
 		21F7A86625D646A100113DAE /* Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7A86525D646A000113DAE /* Inbox.swift */; };
+		21F7A89C25DB540900113DAE /* CustomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7A89B25DB540900113DAE /* CustomNavigationView.swift */; };
+		21F7A8B925DB77A400113DAE /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7A8B825DB77A400113DAE /* CustomSearchBar.swift */; };
+		21F7A8C325DB885700113DAE /* SearchUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7A8C225DB885700113DAE /* SearchUser.swift */; };
+		21F7A8C825DB90AF00113DAE /* Search_Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7A8C725DB90AF00113DAE /* Search_Bar.swift */; };
+		21F7A8F325DBC47F00113DAE /* Terms_Conditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7A8F225DBC47F00113DAE /* Terms_Conditions.swift */; };
+		21F7A92425DDDE1000113DAE /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7A92325DDDE1000113DAE /* BottomSheet.swift */; };
 		363DD9B869B0CEB162D02138 /* Pods_Yuppie_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99F83670E0F2DABA87D28533 /* Pods_Yuppie_iosTests.framework */; };
 		370E680725A7F9FE00EA597C /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370E680625A7F9FE00EA597C /* URLImage.swift */; };
 		37BB945125B88DD300D1FC86 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945025B88DD300D1FC86 /* Login.swift */; };
-		37BB945625B88E2E00D1FC86 /* BottomSheet_building.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945525B88E2E00D1FC86 /* BottomSheet_building.swift */; };
 		37BB945B25B88E3700D1FC86 /* SelectAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945A25B88E3700D1FC86 /* SelectAddress.swift */; };
-		37BB946025B88E8900D1FC86 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945F25B88E8900D1FC86 /* AddressModel.swift */; };
 		37BB946525B88F3E00D1FC86 /* CentralHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB946425B88F3E00D1FC86 /* CentralHomeView.swift */; };
 		37BB947925B8A19200D1FC86 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB947825B8A19200D1FC86 /* User.swift */; };
 		37BB94A025BB4AF800D1FC86 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB949F25BB4AF800D1FC86 /* Favorites.swift */; };
@@ -94,7 +96,6 @@
 		2151A7B225D0CE1A007C9F90 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
 		2151A7B725D0CE49007C9F90 /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		2151A7BC25D0CE83007C9F90 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
-		21A77FF1258DDDA500DD6F70 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		21A7801E258E0A4A00DD6F70 /* PulseLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseLayer.swift; sourceTree = "<group>"; };
 		21A78026258E0A6D00DD6F70 /* Pulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pulse.swift; sourceTree = "<group>"; };
 		21A7802B258E0A9000DD6F70 /* AnimationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationDelegate.swift; sourceTree = "<group>"; };
@@ -118,7 +119,6 @@
 		21C10CAB259497F50049531E /* FirstLastName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLastName.swift; sourceTree = "<group>"; };
 		21C10CB025957BED0049531E /* CardViewOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewOnboarding.swift; sourceTree = "<group>"; };
 		21C10CB525957C660049531E /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
-		21C10CBD25957C920049531E /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
 		21C10CC225957D380049531E /* CustomCornerOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCornerOnboarding.swift; sourceTree = "<group>"; };
 		21C10CC725957D4B0049531E /* PhoneAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAuth.swift; sourceTree = "<group>"; };
 		21C10CE125957E3D0049531E /* Verification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verification.swift; sourceTree = "<group>"; };
@@ -149,11 +149,15 @@
 		21F7A81C25D0F15200113DAE /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		21F7A84825D2306300113DAE /* Yuppie-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Yuppie-ios.entitlements"; sourceTree = "<group>"; };
 		21F7A86525D646A000113DAE /* Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inbox.swift; sourceTree = "<group>"; };
+		21F7A89B25DB540900113DAE /* CustomNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationView.swift; sourceTree = "<group>"; };
+		21F7A8B825DB77A400113DAE /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
+		21F7A8C225DB885700113DAE /* SearchUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUser.swift; sourceTree = "<group>"; };
+		21F7A8C725DB90AF00113DAE /* Search_Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search_Bar.swift; sourceTree = "<group>"; };
+		21F7A8F225DBC47F00113DAE /* Terms_Conditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terms_Conditions.swift; sourceTree = "<group>"; };
+		21F7A92325DDDE1000113DAE /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
 		370E680625A7F9FE00EA597C /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
 		37BB945025B88DD300D1FC86 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
-		37BB945525B88E2E00D1FC86 /* BottomSheet_building.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheet_building.swift; sourceTree = "<group>"; };
 		37BB945A25B88E3700D1FC86 /* SelectAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectAddress.swift; sourceTree = "<group>"; };
-		37BB945F25B88E8900D1FC86 /* AddressModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
 		37BB946425B88F3E00D1FC86 /* CentralHomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CentralHomeView.swift; path = "Yuppie-ios/CentralHomeView.swift"; sourceTree = SOURCE_ROOT; };
 		37BB947825B8A19200D1FC86 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		37BB949F25BB4AF800D1FC86 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
@@ -241,7 +245,6 @@
 			isa = PBXGroup;
 			children = (
 				21CCF09F2572BB7700B22A75 /* MapView.swift */,
-				21A77FF1258DDDA500DD6F70 /* MapAnnotation.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -254,9 +257,7 @@
 				21C10CAB259497F50049531E /* FirstLastName.swift */,
 				21C10CB525957C660049531E /* BlurView.swift */,
 				21C10CB025957BED0049531E /* CardViewOnboarding.swift */,
-				37BB945525B88E2E00D1FC86 /* BottomSheet_building.swift */,
 				37BB945A25B88E3700D1FC86 /* SelectAddress.swift */,
-				21C10CBD25957C920049531E /* BottomSheet.swift */,
 				37BB945025B88DD300D1FC86 /* Login.swift */,
 				21C10CC225957D380049531E /* CustomCornerOnboarding.swift */,
 				21C10CC725957D4B0049531E /* PhoneAuth.swift */,
@@ -265,6 +266,12 @@
 				21C10CEB25957E830049531E /* ProfilePicture.swift */,
 				21C10CF025957EA20049531E /* ImagePicker.swift */,
 				21C9B9B22596545C00ABF426 /* SelectUniversity.swift */,
+				21F7A89B25DB540900113DAE /* CustomNavigationView.swift */,
+				21F7A8B825DB77A400113DAE /* CustomSearchBar.swift */,
+				21F7A8C225DB885700113DAE /* SearchUser.swift */,
+				21F7A8C725DB90AF00113DAE /* Search_Bar.swift */,
+				21F7A8F225DBC47F00113DAE /* Terms_Conditions.swift */,
+				21F7A92325DDDE1000113DAE /* BottomSheet.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -352,7 +359,6 @@
 				21CCF0AA2572BBB600B22A75 /* Card.swift */,
 				21A78054258E114700DD6F70 /* BuildingModel.swift */,
 				21CCF0BA2572BBDF00B22A75 /* TestData.swift */,
-				37BB945F25B88E8900D1FC86 /* AddressModel.swift */,
 				21C10C9C25943B250049531E /* UniversityModel.swift */,
 				21C10CA125943B7E0049531E /* University.swift */,
 				37BB947825B8A19200D1FC86 /* User.swift */,
@@ -612,25 +618,26 @@
 			files = (
 				21CCF0FD2572BE4100B22A75 /* AppDelegate.swift in Sources */,
 				21A78041258E0EFF00DD6F70 /* Messages.swift in Sources */,
-				37BB946025B88E8900D1FC86 /* AddressModel.swift in Sources */,
+				21F7A8B925DB77A400113DAE /* CustomSearchBar.swift in Sources */,
+				21F7A89C25DB540900113DAE /* CustomNavigationView.swift in Sources */,
 				21A780A625906F9500DD6F70 /* Picker.swift in Sources */,
 				21C10C74259290500049531E /* TabBar.swift in Sources */,
 				21A7804B258E110500DD6F70 /* PropertyManagerForm.swift in Sources */,
 				21C10CE225957E3D0049531E /* Verification.swift in Sources */,
 				37BB945125B88DD300D1FC86 /* Login.swift in Sources */,
 				370E680725A7F9FE00EA597C /* URLImage.swift in Sources */,
-				21A77FF2258DDDA500DD6F70 /* MapAnnotation.swift in Sources */,
 				21C10CA7259440A90049531E /* CustomShapeOnboardin.swift in Sources */,
 				2151A7B825D0CE49007C9F90 /* ChatModel.swift in Sources */,
 				21A78027258E0A6D00DD6F70 /* Pulse.swift in Sources */,
-				37BB945625B88E2E00D1FC86 /* BottomSheet_building.swift in Sources */,
 				21A78060258E11A100DD6F70 /* testScroll.swift in Sources */,
 				21C9B9B32596545C00ABF426 /* SelectUniversity.swift in Sources */,
 				21A7801F258E0A4A00DD6F70 /* PulseLayer.swift in Sources */,
 				21C10CC325957D380049531E /* CustomCornerOnboarding.swift in Sources */,
+				21F7A8C325DB885700113DAE /* SearchUser.swift in Sources */,
 				37BB946525B88F3E00D1FC86 /* CentralHomeView.swift in Sources */,
 				21C10CB125957BEE0049531E /* CardViewOnboarding.swift in Sources */,
 				2151A7B325D0CE1A007C9F90 /* ChatBubble.swift in Sources */,
+				21F7A92425DDDE1000113DAE /* BottomSheet.swift in Sources */,
 				37BB947925B8A19200D1FC86 /* User.swift in Sources */,
 				21CCF10A2572BE8300B22A75 /* SceneDelegate.swift in Sources */,
 				21C10CC825957D4B0049531E /* PhoneAuth.swift in Sources */,
@@ -641,7 +648,6 @@
 				21A78077258E204A00DD6F70 /* Chat_Interface.swift in Sources */,
 				21A78050258E112100DD6F70 /* FiltersView.swift in Sources */,
 				21A78031258E0AA800DD6F70 /* ApplicationObserver.swift in Sources */,
-				21C10CBE25957C930049531E /* BottomSheet.swift in Sources */,
 				21C10C81259290900049531E /* CustomCorner.swift in Sources */,
 				21CCF0AB2572BBB600B22A75 /* Card.swift in Sources */,
 				21A78055258E114700DD6F70 /* BuildingModel.swift in Sources */,
@@ -659,9 +665,11 @@
 				21A78036258E0AC300DD6F70 /* CALayer+Extensions.swift in Sources */,
 				21F7A81825D0F0F800113DAE /* BuildingGallery.swift in Sources */,
 				21A7802C258E0A9000DD6F70 /* AnimationDelegate.swift in Sources */,
+				21F7A8F325DBC47F00113DAE /* Terms_Conditions.swift in Sources */,
 				21C10CAC259497F60049531E /* FirstLastName.swift in Sources */,
 				21A78098258E82D500DD6F70 /* Signup.swift in Sources */,
 				21C10CF125957EA20049531E /* ImagePicker.swift in Sources */,
+				21F7A8C825DB90AF00113DAE /* Search_Bar.swift in Sources */,
 				21A78046258E10CD00DD6F70 /* BuildingView.swift in Sources */,
 				2151A7BD25D0CE83007C9F90 /* MessageModel.swift in Sources */,
 				2151A7AE25D0CDE1007C9F90 /* ChatRow.swift in Sources */,
@@ -825,6 +833,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Yuppie-ios/Yuppie-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.1;
 				DEVELOPMENT_ASSET_PATHS = "\"Yuppie-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = HZUB2QW2AG;
 				ENABLE_PREVIEWS = YES;
@@ -834,7 +843,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dumb.mickey;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuppie.spaces;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -849,6 +858,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Yuppie-ios/Yuppie-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.1;
 				DEVELOPMENT_ASSET_PATHS = "\"Yuppie-ios/Preview Content\"";
 				DEVELOPMENT_TEAM = HZUB2QW2AG;
 				ENABLE_PREVIEWS = YES;
@@ -858,7 +868,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dumb.mickey;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuppie.spaces;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

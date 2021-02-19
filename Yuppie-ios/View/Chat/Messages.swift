@@ -143,14 +143,21 @@ struct TopView : View {
                             Circle()
                             .trim(from: 0, to: 1)
                                 .stroke(AngularGradient(gradient: .init(colors: [.purple,.blue,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [false ? 7 : 0]))
-                            .frame(width: 74, height: 74)
+                            .frame(width: 68, height: 68)
                             .rotationEffect(.init(degrees: true ? 360 : 0))
                                 
                             }
                         
-                        Text("Inbox")
-                            .foregroundColor(Color("Color-3"))
-                            .lineLimit(1)
+                            Label(title: {
+                            }) {Text("Inbox")
+                                .foregroundColor(Color.black)
+                                .lineLimit(1)
+                                
+                            } .padding(.vertical,4)
+                            .padding(.horizontal,10)
+                            .background(Color.white)
+                            .clipShape(Capsule())
+                            .opacity(0.8)
                             
                     }
                         ForEach(building.tenants,id: \.self){tenant in
@@ -165,30 +172,32 @@ struct TopView : View {
                                 writeTenant()
                                                         
                             }) {
-                                
                                 VStack(spacing: 8){
-                                
                                 ZStack{
-                                
                                 URLImage(url: tenant.profilePicture)
                                 .frame(width: 60, height: 60)
                                     .cornerRadius(30)
                                     .padding(.bottom, 10)
                                     .padding(.top, 10)
-                                    
-                                    
-                                    
                                 Circle()
                                 .trim(from: 0, to: 1)
                                     .stroke(AngularGradient(gradient: .init(colors: [.purple,.orange,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [showChatUI ? 3 : 0]))
                                 .frame(width: 68, height: 68)
                                 .rotationEffect(.init(degrees: showChatUI ? 360 : 0))
-                                    
                                 }
                                     
-                                    Text(tenant.firstName)
-                                        .foregroundColor(Color("Color-3"))
+                                    Label(title: {
+                                    }) {Text(tenant.firstName)
+                                        .foregroundColor(Color.black)
                                         .lineLimit(1)
+                                    } .padding(.vertical,4)
+                                    .padding(.horizontal,10)
+                                    .background(Color.white)
+                                    .clipShape(Capsule())
+                                    .opacity(0.8)
+                                    .offset(y: -5)
+                                    
+                                    
                                 }
                                 }.sheet(isPresented: $showChatUI) {
                                     ChatUI(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, tenant_name: $tenant_name)

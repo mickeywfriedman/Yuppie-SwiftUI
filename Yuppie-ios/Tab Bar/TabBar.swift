@@ -5,7 +5,6 @@
 //  Created by Mickey Friedman on 02/10/1399 AP.
 //
 
-
 import SwiftUI
 
 
@@ -25,6 +24,7 @@ struct ActivityIndicator: UIViewRepresentable {
 }
 
 struct LoadingScreen: View {
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
         VStack{
             Spacer()
@@ -35,7 +35,7 @@ struct LoadingScreen: View {
             }
             ActivityIndicator(isAnimating: .constant(true), style: .large)
             Spacer()
-        }.background(Color.white)
+        }.background(colorScheme == .dark ? Color.black : Color.white)
         .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
     }
 }
@@ -101,12 +101,8 @@ struct TabBar: View {
             .background(LinearGradient(gradient: .init(colors: [Color("pgradient1"),Color("pgradient2")]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
             .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
             .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
-        
+            
         }
     }
 
 }
-
-
-
-

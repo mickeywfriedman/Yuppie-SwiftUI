@@ -5,7 +5,6 @@
 //  Created by Mickey Friedman on 02/10/1399 AP.
 //
 
-
 import SwiftUI
 
 struct ProfilePicture: View {
@@ -148,8 +147,6 @@ struct ProfilePicture: View {
                             .background(Color("gradient2").opacity(0.7))
                             .clipShape(Circle())
                         })
-                        .offset(y: -65)
-                        .padding(.bottom,-65)
                             
                         }else{
                             
@@ -158,8 +155,6 @@ struct ProfilePicture: View {
                                 .aspectRatio(contentMode: .fit)
                                 .foregroundColor(serverData.isConnected ? Color.red.opacity(0.6) : Color("power"))
                                 .frame(height: UIScreen.main.bounds.height / 4)
-                                .offset(y: -65)
-                                    .padding(.bottom,-65)
                                         
 
 
@@ -273,4 +268,3 @@ struct ProfilePicture: View {
         return status
     }
 }
-

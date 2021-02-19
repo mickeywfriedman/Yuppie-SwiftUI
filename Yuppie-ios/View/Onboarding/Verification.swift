@@ -25,7 +25,7 @@ struct Verification: View {
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
     
     @StateObject var serverData = UniversityModel()
-    
+    @StateObject var universityData = UniversityModel()
 
     
     
@@ -121,7 +121,7 @@ struct Verification: View {
                                 
                                 Image(systemName: "phone")
                                     .font(.system(size: 70))
-                                    .foregroundColor(serverData.isConnected ? Color.red.opacity(0.6) : Color("power"))
+                                    .foregroundColor(universityData.isConnected ? Color.white.opacity(0.6) : Color("power"))
                                     .frame(height: UIScreen.main.bounds.height / 9)
 
                             }

@@ -126,7 +126,7 @@ struct FirstLastName: View {
                                 
                                 Image(systemName: "pencil")
                                     .font(.system(size: 70))
-                                    .foregroundColor(serverData.isConnected ? Color.red.opacity(0.6) : Color("power"))
+                                    .foregroundColor(serverData.isConnected ? Color.white.opacity(0.6) : Color("power"))
                                     .frame(height: UIScreen.main.bounds.height / 9)
 
                             }

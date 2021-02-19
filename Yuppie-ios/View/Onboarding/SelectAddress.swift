@@ -22,12 +22,10 @@ struct AddressView: View {
     @Binding var needsAccount: Bool
     @Binding var user_id: String
     
-    
     var gradient1 = [Color("gradient2"),Color("gradient3"),Color("gradient4")]
     
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
-    
-    @StateObject var buildingsData = AddressModel()
+
     @StateObject var universityData = UniversityModel()
     
    
@@ -147,79 +145,39 @@ struct AddressView: View {
                         .offset(y: -65)
                         .padding(.bottom,-65)
                         
-                        Text("Please enter your street address")
+                        Text("Live in one of our buildings? Enter your street address.")
                             .foregroundColor(Color.white)
                         
+                        Search_Bar(didLogin: $didLogin, needsAccount: $needsAccount, token: $token, user_id: $user_id)
                         
-                        
-                        HStack{
-                            
-                            Button(action: {
-                                
-                                withAnimation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5)){
+                        Button(action: {
+                                        self.send((Any).self)
+                                        self.didLogin = true
+                                        self.needsAccount = false
+                                        self.showCentralHomeView.toggle()
+                                        
+                                    }) {
+                                        
+                                        Text("Search Apartments")
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.white)
+                                            .padding(.vertical, 10)
+                                            .padding(.horizontal, 45)
+                                            .background(Color("pgradient1"))
+                                            .clipShape(Capsule())
+                                    }
+                                    // disabling view when both textfields are empty...
+                                    .opacity((self.address == "") ? 0.65 : 1)
+                                    .disabled(( self.address == "") ? true : false).offset(y: 70)
                                     
-                                   self.index = 0
-                                }
-                                
-                            }) {
-                                
-                                Text("Just Looking")
-                                    .foregroundColor(self.index == 0 ? Color("gradient1") : .white)
-                                    .fontWeight(.bold)
-                                    .padding(.vertical, 10)
-                                    .frame(width: (UIScreen.main.bounds.width - 50) / 2)
-                                
-                            }.background(self.index == 0 ? Color.white : Color.clear)
-                            .clipShape(Capsule())
-                            
-                            
-                            Button(action: {
-                                
-                               withAnimation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5)){
-                                   
-                                  self.index = 1
-                               }
-                                
-                            }) {
-                                
-                                Text("Yuppie Tenant")
-                                    .foregroundColor(self.index == 1 ? Color("gradient1")  : .white)
-                                    .fontWeight(.bold)
-                                    .padding(.vertical, 10)
-                                    .frame(width: (UIScreen.main.bounds.width - 50) / 2)
-                                
-                            }.background(self.index == 1 ? Color.white : Color.clear)
-                            .clipShape(Capsule())
-                            
-                        }.background(Color.black.opacity(0.1))
-                        .clipShape(Capsule())
-                        .padding(.top, 25)
-                        
-                      
-                        if self.index == 0{
-                            Spacer()
-                            
-                            AddressSearcher(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id)
-                        }
-                        else{
-                            
-                            Spacer()
-                            OnboardingTenant(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id)
-                        }
- 
-                       
-                        Spacer()
-                        
+           
                         
                     }
                     
                 })
-                .padding(.top,60)
                 
 
             }
-        
-            BottomSheet_buildings(buildingsData: buildingsData)
             
             
         }
@@ -425,66 +383,6 @@ struct AddressView: View {
         }
         }
     }
-    }
-    struct OnboardingTenant : View {
-        @State var countryCode = ""
-        @State var city = ""
-        @State var unitNumber = ""
-        @State var state = ""
-        @State var index = 0
-        @State var zipCode = ""
-        @State var showCentralHomeView = false
-        @State var address: String = ""
-        @Binding var token: String
-        @Binding var didLogin: Bool
-        @Binding var needsAccount: Bool
-        @Binding var user_id: String
-        
-        @StateObject var buildingsData = AddressModel()
-        @StateObject var universityData = UniversityModel()
-        var body : some View{
-        VStack{
-            
-                Button(action: {
-                    withAnimation{buildingsData.showSheet.toggle()}
-                }, label: {
-                    
-                    // CardViewOnboarding....
-                    
-                    CardViewOnboarding(University: buildingsData.currentUniversity,subTitle: "")
-                        .background(BlurView())
-                        .clipShape(Capsule())
-                        .padding()
-                    
-                   
-                }
-
-                
-                )
-            
-            Button(action: {
-                self.didLogin = true
-                self.needsAccount = false
-                self.showCentralHomeView.toggle()
-                
-            }) {
-                
-                Text("Search Apartments")
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 45)
-                    .background(Color("pgradient1"))
-                    .clipShape(Capsule())
-            }
-
-        
-            
-            BottomSheet_buildings(buildingsData: buildingsData)
-
-            
-        }
-        }
     }
 
 

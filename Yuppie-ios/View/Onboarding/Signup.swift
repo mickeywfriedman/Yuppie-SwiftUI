@@ -1,9 +1,4 @@
-//
-//  File.swift
-//  Pods
-//
-//  Created by Mickey Friedman on 10/10/1399 AP.
-//
+
 
 //
 //  Signup.swift
@@ -32,6 +27,23 @@ struct SignupView: View {
     var gradient1 = [Color("gradient2"),Color("gradient3"),Color("gradient4")]
     
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
+    
+    var isEmailValid: Bool {
+        if email.count < 5 {
+            return false
+        }
+        let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailFormat)
+        return emailPredicate.evaluate(with: email)
+    }
+    
+    var isPasswordValid: Bool {
+        if password.count < 6 {
+            return false
+        }
+        return true
+    }
+    
     
     @StateObject var serverData = UniversityModel()
     
@@ -63,10 +75,6 @@ struct SignupView: View {
         
     let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/authentication/signup")! as URL)
         request.httpMethod = "POST"
-    
-//    self.username = "\(self.username)"
-//    self.password = "\(self.password)"
-//    self.email = "\(self.email)"
     
        do {
            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
@@ -167,17 +175,6 @@ struct SignupView: View {
                                 // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
                             }
 
-                            
-                            //let modString_token = regex.stringByReplacingMatches(in: _token, options: [], range: range1, withTemplate: "XX")
-                            
-                            
-                           // let cleaned_token = cleanStr(str: modString_token)
-                           //let word_token = cleaned_token.replacingOccurrences(of: pattern, with: "", options: [.regularExpression])
-                            
-                           // print(word_token, "D:LFKJDS:LKFJSD")
-                            
-                            
-                            
                          }
 
                         let responseString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
@@ -234,7 +231,7 @@ struct SignupView: View {
                                 
                                 Image(systemName: "house")
                                     .font(.system(size: 70))
-                                    .foregroundColor(serverData.isConnected ? Color.red.opacity(0.6) : Color("power"))
+                                    .foregroundColor(serverData.isConnected ? Color.white.opacity(0.6) : Color("power"))
                                     .frame(height: UIScreen.main.bounds.height / 9)
 
                             }
@@ -260,7 +257,7 @@ struct SignupView: View {
                        
                         HStack(spacing: 15){
                             Spacer()
-
+                            ZStack(alignment: .trailing) {
                             TextField("Email", text: self.$email )
                                 .autocapitalization(.none)
                                 .foregroundColor(.white)
@@ -268,6 +265,16 @@ struct SignupView: View {
                                 .padding(.horizontal, 10)
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
+                            
+                            if !self.email.isEmpty {
+                                if !self.isEmailValid {
+                                    Text("Invalid email")
+                                    .foregroundColor(Color("Color"))
+                                    .padding(.trailing, 20)
+                                        .padding(.horizontal, 10)
+                                }
+                            }
+                            }
                                 
                             Spacer()
                         }
@@ -275,7 +282,7 @@ struct SignupView: View {
                         
                         HStack(spacing: 15){
                             Spacer()
-
+                            ZStack(alignment: .trailing) {
                             SecureField("Password", text: self.$password)
                                 .autocapitalization(.none)
                                 .foregroundColor(.white)
@@ -283,6 +290,16 @@ struct SignupView: View {
                                 .padding(.horizontal, 10)
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
+                            
+                            if !self.password.isEmpty {
+                                if !self.isPasswordValid {
+                                    Text("Min. 6 characters")
+                                        .foregroundColor(Color("Color"))
+                                        .padding(.trailing, 20)
+                                            .padding(.horizontal, 10)
+                                }
+                            }
+                            }
                                 
                             Spacer()
                         }
