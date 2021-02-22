@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct University: Identifiable {
-
+struct University: Identifiable, Codable{
     var id = UUID().uuidString
     var name: String
     var logo: String

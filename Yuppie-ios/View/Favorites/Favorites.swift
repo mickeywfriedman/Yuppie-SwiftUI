@@ -49,8 +49,12 @@ struct Favorites: View {
             .padding()
             if (Tabs[Tab] == "Favorites") {
                 if (findFavorites().count>0){
-                    ForEach(findFavorites(), id:\.name) { building in
-                        BuildingRow(token: $token, user: $user, user_id: $user_id, building: building, minBedrooms: minBedrooms, minBathrooms: minBathrooms)
+                    ScrollView{
+                        VStack{
+                            ForEach(findFavorites(), id:\.name) { building in
+                                BuildingRow(token: $token, user: $user, user_id: $user_id, building: building, minBedrooms: minBedrooms, minBathrooms: minBathrooms)
+                            }
+                        }
                     }
                 } else {
                     VStack{
@@ -61,17 +65,29 @@ struct Favorites: View {
                         .offset(y: 50)
                         
                         Image("buildings")
-                                       .resizable()
-                            .aspectRatio(contentMode: .fit)}
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    }
                 }
                 
             } else {
                 if (findContacted().count>0){
-                    ForEach(findContacted(), id:\.name) { building in
-                        BuildingRow(token: $token, user: $user, user_id: $user_id, building: building, minBedrooms: minBedrooms, minBathrooms: minBathrooms)
+                    ScrollView{
+                        VStack{
+                            ForEach(findContacted(), id:\.name) { building in
+                                BuildingRow(token: $token, user: $user, user_id: $user_id, building: building, minBedrooms: minBedrooms, minBathrooms: minBathrooms)
+                            }
+                        }
                     }
                 } else {
                     Text("You have not contacted any buildings")
+                        .foregroundColor(Color.white)
+                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        .offset(y: 50)
+                        
+                    Image("buildings")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
                 }
             }
             Spacer()
@@ -92,20 +108,28 @@ struct BuildingRow: View {
     var building: Building
     var minBedrooms: Int
     var minBathrooms: Int
-    func unitFilter(unit: Unit, minBathrooms: Int, minBedrooms: Int) -> Bool{
-        if (unit.bedrooms >= minBedrooms && unit.bathrooms >= minBathrooms){
+    func unitFilter(unit: Unit) -> Bool{
+        if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms >= user.preferences.bathrooms && unit.price <= user.preferences.price){
             return true
         }
         return false
     }
-    func minPrice (building: Building, minBedrooms: Int, minBathrooms: Int) -> Int {
+    func minPrice (building: Building) -> Int {
         var minPrice = 100000
-        for unit in building.units.filter({unitFilter(unit:$0, minBathrooms:minBathrooms,minBedrooms:minBedrooms)}) {
-            if (Int(unit.price) < minPrice){
+        for unit in building.units.filter({unitFilter(unit:$0)}) {
+            if (Int(unit.price) < Int(user.preferences.price) && Int(unit.price) < minPrice){
                 minPrice = Int(unit.price)
             }
         }
         return minPrice
+    }
+    func minBeds (minBedrooms: Int) -> Int {
+        for unit in building.units.filter({unitFilter(unit:$0)}) {
+            if (unit.bedrooms == minBedrooms) {
+                return minBedrooms
+            }
+        }
+        return minBeds(minBedrooms: minBedrooms+1)
     }
     @State var isFavorite = true
     @State var showCard = false
@@ -121,8 +145,8 @@ struct BuildingRow: View {
                                 
                                 
                                 VStack{
-                                    Text("\(Bedrooms[minBedrooms]) starting from").fontWeight(.heavy)
-                                    Text("$\(minPrice(building:building, minBedrooms:minBedrooms, minBathrooms:minBathrooms))")
+                                    Text("\(Bedrooms[minBeds(minBedrooms: user.preferences.bedrooms)]) from ").fontWeight(.heavy)
+                                    Text("$\(minPrice(building:building))")
                                                                         
                                 }.foregroundColor(.gray)
                                 Spacer()
@@ -140,7 +164,7 @@ struct BuildingRow: View {
                         .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                     }
                 }.sheet(isPresented: $showCard) {
-                    BuildingView(Bedroom: minBedrooms, user : $user, showCard:self.$showCard, token: $token, user_id: $user_id, building:building)
+                    BuildingView(Bedroom: minBeds(minBedrooms: user.preferences.bedrooms), user : $user, showCard:self.$showCard, token: $token, user_id: $user_id, building:building)
                 }
                 
                 ZStack{

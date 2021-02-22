@@ -35,15 +35,28 @@ struct testScroll: View {
         return false
     }
     let newCam = MGLMapCamera()
-    
+    var gradient = [Color("Color-3"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
 
     var body: some View {
         ZStack{
-            VStack {
-                Scroll(user: $user, token: $token, user_id: $user_id, buildings:buildings.filter({filter(units: $0.units, buildingAmenities:$0.amenities)}))
-                                    .offset(y:400)
-                
-            }.edgesIgnoringSafeArea([.top, .bottom])
+            if buildings.filter({filter(units: $0.units, buildingAmenities:$0.amenities)}).count > 0 {
+                VStack {
+                    Scroll(user: $user, token: $token, user_id: $user_id, buildings:buildings.filter({filter(units: $0.units, buildingAmenities:$0.amenities)}))
+                                        .offset(y:400)
+                    
+                }.edgesIgnoringSafeArea([.top, .bottom])
+            } else {
+                ZStack{
+                    LinearGradient(gradient: .init(colors: gradient), startPoint: .top, endPoint: .bottom)
+                        .ignoresSafeArea()
+                    VStack{
+                        Text("No buildings match your preferences")
+                        Image("buildings")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    }
+                }
+            }
         }
     }
 }

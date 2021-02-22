@@ -59,7 +59,7 @@ struct UserProfile : View {
         
         VStack{
             
-            ProfileView(profilePic: profilePic, firstName: user.firstName, user_id: $user_id)
+            ProfileView(profilePic: profilePic, firstName: user.firstName, university: user.university, user_id: $user_id)
             
             HStack(spacing: 0){
                 
@@ -136,6 +136,7 @@ struct UserProfile : View {
 struct ProfileView : View {
     var profilePic: String
     var firstName: String
+    var university: University
     @Binding var user_id: String
     func logout() -> Void {
         self.user_id = ""
@@ -193,14 +194,7 @@ struct ProfileView : View {
                 
                 Text("Hello, \(firstName)")
                     .font(.title)
-                    .foregroundColor(Color.black.opacity(0.8))
-                
-                Text("")
-                    .foregroundColor(Color.black.opacity(0.7))
-                    .padding(.top, 8)
-                
-                Text("UChicago")
-                    .foregroundColor(Color.black.opacity(0.7))
+                Text("\(university.name)")
             }
             .padding(.leading, 20)
             

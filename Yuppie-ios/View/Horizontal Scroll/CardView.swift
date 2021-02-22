@@ -9,7 +9,7 @@ struct CardView: View {
     var building: Building
     var Bedrooms = ["Studios", "1 Br", "2 BR", "3+ Br"]
     func unitFilter(unit: Unit) -> Bool{
-        if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms >= user.preferences.bathrooms){
+        if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms >= user.preferences.bathrooms && unit.price <= user.preferences.price){
             return true
         }
         return false
@@ -17,11 +17,19 @@ struct CardView: View {
     func minPrice (building: Building) -> Int {
         var minPrice = 100000
         for unit in building.units.filter({unitFilter(unit:$0)}) {
-            if (Int(unit.price) < Int(user.preferences.price)){
+            if (Int(unit.price) < Int(user.preferences.price) && Int(unit.price) < minPrice){
                 minPrice = Int(unit.price)
             }
         }
         return minPrice
+    }
+    func minBeds (minBedrooms: Int) -> Int {
+        for unit in building.units.filter({unitFilter(unit:$0)}) {
+            if (unit.bedrooms == minBedrooms) {
+                return minBedrooms
+            }
+        }
+        return minBeds(minBedrooms: minBedrooms+1)
     }
     @State var isFavorite = true
     @State var showCard = false
@@ -38,7 +46,7 @@ struct CardView: View {
                                 
                                 VStack{
                                     
-                                    Text("\(Bedrooms[user.preferences.bedrooms]) from").fontWeight(.heavy)
+                                    Text("\(Bedrooms[minBeds(minBedrooms: user.preferences.bedrooms)]) from").fontWeight(.heavy)
                                     Text("$\(minPrice(building:building))")
                                 }.foregroundColor(.gray)
                                 Spacer()
@@ -57,7 +65,7 @@ struct CardView: View {
                         .animation(.spring())
                     }
                 }.sheet(isPresented: $showCard) {
-                    BuildingView(Bedroom: user.preferences.bedrooms, user : $user, showCard:self.$showCard, token: $token, user_id: $user_id, building:building)
+                    BuildingView(Bedroom: minBeds(minBedrooms: user.preferences.bedrooms), user : $user, showCard:self.$showCard, token: $token, user_id: $user_id, building:building)
                 }
                 
                 ZStack{
