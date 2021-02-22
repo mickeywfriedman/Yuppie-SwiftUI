@@ -105,7 +105,7 @@ struct TopView : View {
         VStack{
             
             
-            if self.expand{
+            if true{
                 
                 HStack{
                    
