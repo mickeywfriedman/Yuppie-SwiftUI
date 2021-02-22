@@ -4,7 +4,6 @@ import Foundation
 struct User: Codable{
     var firstName: String
     var lastName: String
-    var email: String
     var building: String
     var profilePicture: String
     var contacted: [String]

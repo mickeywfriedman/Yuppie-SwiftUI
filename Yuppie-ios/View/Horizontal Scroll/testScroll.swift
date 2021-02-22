@@ -188,4 +188,14 @@ struct Scroll: View {
     }
 }
 
+struct Navshape : Shape {
+    
+    func path(in rect: CGRect) -> Path {
+        
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.bottomLeft,.bottomRight], cornerRadii: CGSize(width: 30, height: 30))
+        
+        return Path(path.cgPath)
+    }
+}
+
 

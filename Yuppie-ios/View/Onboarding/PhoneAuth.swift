@@ -49,14 +49,9 @@ struct PhoneAuth: View {
  
         let parameters: [String: String] = ["phone": self.number]
           
-        let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/users/"+self.user_id+"/request")! as URL)
+        let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/users/request")! as URL)
           request.httpMethod = "POST"
-        print(self.token)
-        request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
- 
-        
-        print("http://18.218.78.71:8080/users/"+self.user_id)
-      
+
          do {
              request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
              print(dump(toString(request.httpBody)))
@@ -101,7 +96,7 @@ struct PhoneAuth: View {
         
         ZStack{
             
-            NavigationLink(destination: Verification(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showVerification) {
+            NavigationLink(destination: Verification(number: $number, token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showVerification) {
                 
                 Text("")
             }
@@ -145,6 +140,7 @@ struct PhoneAuth: View {
                             .padding(15)
                             .background(Color("gradient2").opacity(0.7))
                             .clipShape(Circle())
+                            .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         })
                         .offset(y: -65)
                         .padding(.bottom,-65)
@@ -164,6 +160,7 @@ struct PhoneAuth: View {
                                 .padding(.horizontal, 10)
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
+                            
                             ZStack(alignment: .trailing) {
                             TextField("Mobile Number", text: self.$number)
                                 .keyboardType(.numberPad)
@@ -172,6 +169,7 @@ struct PhoneAuth: View {
                                 .padding(.horizontal, 10)
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
+                                .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                             
                             if !self.number.isEmpty {
                                 if !self.isNumberValid {

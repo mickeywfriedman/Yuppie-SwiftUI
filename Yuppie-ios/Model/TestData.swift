@@ -12,7 +12,6 @@ enum TestData {
     static let user = User(
         firstName: "Test",
         lastName: "User",
-        email: "User@user.com",
         building: "5fdae6afedf9ef3d1f7c215c",
         profilePicture: "asdlfkdslf.com",
         contacted: [],
@@ -40,7 +39,6 @@ enum TestData {
             firstName: "Leon"
         )],
         propertyManager: propertyManager(
-            email: "propertyManager1@gmail.com",
             id: "5fd002a21ed3e413beb713d4"
         ),
         units: [
@@ -78,7 +76,6 @@ enum TestData {
                 firstName: "Leon"
             )],
             propertyManager: propertyManager(
-                email: "propertyManager1@gmail.com",
                 id: "5fd002a21ed3e413beb713d4"
             ),
             units: [
@@ -118,7 +115,6 @@ enum InitialData {
                 firstName: "Leon"
             )],
             propertyManager: propertyManager(
-                email: "propertyManager1@gmail.com",
                 id: "5fd002a21ed3e413beb713d4"
             ),
             units: [
@@ -151,7 +147,6 @@ enum InitialData {
                 firstName: "Leon"
             )],
             propertyManager: propertyManager(
-                email: "propertyManager1@gmail.com",
                 id: "5fd002a21ed3e413beb713d4"
                 
             ),

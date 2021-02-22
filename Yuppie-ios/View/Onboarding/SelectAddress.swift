@@ -15,7 +15,7 @@ struct AddressView: View {
     @State var state = ""
     @State var index = 0
     @State var zipCode = ""
-    @State var showCentralHomeView = false
+    @State var showTermsandConditions = false
     @State var address: String = ""
     @Binding var token: String
     @Binding var didLogin: Bool
@@ -87,17 +87,21 @@ struct AddressView: View {
                            print(error)
                        }
              }
+        
+        print(self.token, "AHAHAHAHAHAHHAAHAA")
              task.resume()
          
 
       }
-
+    
+    func printStatement(value: String){
+        print(value)}
     
     var body: some View {
         
         ZStack{
             
-            NavigationLink(destination: CentralHomeView(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showCentralHomeView) {
+            NavigationLink(destination: Terms_Conditions(didLogin: $didLogin, needsAccount: $needsAccount, token: $token, user_id: $user_id), isActive: self.$showTermsandConditions) {
                 
                 Text("")
             }
@@ -151,10 +155,9 @@ struct AddressView: View {
                         Search_Bar(didLogin: $didLogin, needsAccount: $needsAccount, token: $token, user_id: $user_id)
                         
                         Button(action: {
+                            print(self.token, "DDDDDDDDD")
                                         self.send((Any).self)
-                                        self.didLogin = true
-                                        self.needsAccount = false
-                                        self.showCentralHomeView.toggle()
+                                        self.showTermsandConditions.toggle()
                                         
                                     }) {
                                         
@@ -357,8 +360,6 @@ struct AddressView: View {
             
             Button(action: {
                 self.send((Any).self)
-                self.didLogin = true
-                self.needsAccount = false
                 self.showCentralHomeView.toggle()
                 
             }) {

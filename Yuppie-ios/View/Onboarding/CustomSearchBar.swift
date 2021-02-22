@@ -33,7 +33,7 @@ struct CustomSearchBar: View {
                   
                 let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/buildings/\(id)/tenants")! as URL)
                   request.httpMethod = "POST"
-               print(self.token)
+               print(self.token, "HELLOOOOOOOO MICKEY")
                request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
         
                
@@ -109,11 +109,10 @@ struct CustomSearchBar: View {
                                     
                                         Text(user.name)
                                             .onTapGesture{
+                                                print(self.token, "S:DFKJSD:LFKJSD:FLJSDF:DSLJF")
                                             searchData.query = user.name
                                             self.showTermsandConditions.toggle()
                                                 self.send(id: user.id)
-                                            self.didLogin = false
-                                            self.needsAccount = true
                                             //searchData.searchedUser.removeAll()
                                             
                                         }
@@ -154,9 +153,7 @@ struct CustomSearchBar: View {
     }
         
         Button(action: {
-//                        self.send((Any).self)
-                        self.didLogin = false
-                        self.needsAccount = true
+//                       
                         self.showTermsandConditions.toggle()
                         
                     }) {

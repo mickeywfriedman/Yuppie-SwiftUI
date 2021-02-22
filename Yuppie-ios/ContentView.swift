@@ -51,11 +51,12 @@ struct ContentView: View {
                         
                         if (self.user_id == "" || self.needsAccount){
                             NavigationView{
-                                SignupView(user_id: $user_id, didLogin: $didLogin, needsAccount: $needsAccount, token: $authToken)}
+                                PhoneAuth(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id)}
 
 
-                        }else{
-                            CentralHomeView(token: $authToken, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id)
+                        }
+                        if (self.needsAccount == false){
+                            CentralHomeView(token: self.$token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id)
                         }
                         
                         

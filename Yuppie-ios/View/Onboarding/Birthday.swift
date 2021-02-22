@@ -144,6 +144,7 @@ struct Birthday: View {
                             .padding(15)
                             .background(Color("gradient2").opacity(0.7))
                             .clipShape(Circle())
+                            .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         })
                         .offset(y: -65)
                         .padding(.bottom,-65)
@@ -159,7 +160,8 @@ struct Birthday: View {
                                 
                                 
                             Spacer()
-                        }
+                        }.foregroundColor(.white)
+                        .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         .offset(x: -25, y: 30)
                         Button(action: {
                             self.send((Any).self)

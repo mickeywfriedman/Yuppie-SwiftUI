@@ -12,7 +12,7 @@ struct ProfilePicture: View {
     @State var countryCode = ""
     @State var number = ""
     @State var MoveIn = Date()
-    @State var showAddress = false
+    @State var showUniversity = false
     @State var showsDatePicker = false
     @State var images : [Data] = [Data()]
     @State var imagePicker = false
@@ -90,6 +90,7 @@ struct ProfilePicture: View {
                       print(error)
                   }
         }
+        print(self.token)
         task.resume()
 
             
@@ -101,7 +102,7 @@ struct ProfilePicture: View {
         
         ZStack{
             
-            NavigationLink(destination: AddressView(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showAddress) {
+            NavigationLink(destination: SelectUniversity(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showUniversity) {
                 
                 Text("")
             }
@@ -146,6 +147,7 @@ struct ProfilePicture: View {
                             .padding(15)
                             .background(Color("gradient2").opacity(0.7))
                             .clipShape(Circle())
+                            .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         })
                             
                         }else{
@@ -164,6 +166,7 @@ struct ProfilePicture: View {
                         .padding(15)
                         .background(Color("gradient2").opacity(0.7))
                         .clipShape(Circle())
+                        .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         
                     }
                     
@@ -195,6 +198,7 @@ struct ProfilePicture: View {
                                 .padding(15)
                                 .background(Color("gradient2").opacity(0.7))
                                 .clipShape(Circle())
+                                .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                             })
                             .padding(.bottom,-65)
                             
@@ -209,7 +213,7 @@ struct ProfilePicture: View {
                             self.send((Any).self)
                             self.didLogin = false
                             self.needsAccount = true
-                            self.showAddress.toggle()
+                            self.showUniversity.toggle()
                             
                         }) {
                             

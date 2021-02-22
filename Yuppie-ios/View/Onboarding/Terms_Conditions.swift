@@ -55,6 +55,7 @@ struct Terms_Conditions: View {
                 NotificationCenter.default.post(name:
                                                     Notification.Name("Success"), object: nil)
                     self.send((Any).self)
+                    print(self.token)
                     self.didLogin = true
                                    self.needsAccount = false
                                    self.showCentralHomeView.toggle()
@@ -75,7 +76,7 @@ struct Terms_Conditions: View {
          request.httpMethod = "PATCH"
        print(self.token)
        request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
-       print("http://18.218.78.71:8080/users/"+self.user_id)
+        print(self.token)
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
             print(dump(toString(request.httpBody)))
@@ -110,6 +111,8 @@ struct Terms_Conditions: View {
                           print(error)
                       }
             }
+        
+        print(self.token, "Terms")
             task.resume()
         
 

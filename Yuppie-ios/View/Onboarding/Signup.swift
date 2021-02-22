@@ -245,8 +245,8 @@ struct SignupView: View {
                             .background(Color("power1").opacity(0.7))
                             .clipShape(Circle())
                             .padding(15)
-                            .background(Color("gradient2").opacity(0.7))
-                            .clipShape(Circle())
+                            
+                            .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         })
                         .offset(y: -65)
                         .padding(.bottom,-65)
@@ -265,6 +265,7 @@ struct SignupView: View {
                                 .padding(.horizontal, 10)
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
+                                
                             
                             if !self.email.isEmpty {
                                 if !self.isEmailValid {
@@ -279,6 +280,7 @@ struct SignupView: View {
                             Spacer()
                         }
                         .offset(y: 30)
+                        .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         
                         HStack(spacing: 15){
                             Spacer()
@@ -290,6 +292,7 @@ struct SignupView: View {
                                 .padding(.horizontal, 10)
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
+                              
                             
                             if !self.password.isEmpty {
                                 if !self.isPasswordValid {
@@ -304,7 +307,7 @@ struct SignupView: View {
                             Spacer()
                         }
                         .offset(y: 45)
-                        
+                        .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                        
                         Button(action: {
                             self.send((Any).self)
@@ -345,6 +348,7 @@ struct SignupView: View {
                     
                 })
                 .padding(.top,160)
+                
                 
 
             }

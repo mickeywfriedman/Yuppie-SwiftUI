@@ -50,7 +50,6 @@ struct tenant: Hashable, Decodable{
 }
 
 struct propertyManager: Hashable, Codable{
-    var email: String
     var id: String
 }
 

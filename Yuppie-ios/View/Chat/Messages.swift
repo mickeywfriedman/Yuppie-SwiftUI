@@ -170,7 +170,6 @@ struct TopView : View {
                                 print(tenant_id)
                                 print(self.token)
                                 writeTenant()
-                                                        
                             }) {
                                 VStack(spacing: 8){
                                 ZStack{
@@ -196,8 +195,6 @@ struct TopView : View {
                                     .clipShape(Capsule())
                                     .opacity(0.8)
                                     .offset(y: -5)
-                                    
-                                    
                                 }
                                 }.sheet(isPresented: $showChatUI) {
                                     ChatUI(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, tenant_name: $tenant_name)

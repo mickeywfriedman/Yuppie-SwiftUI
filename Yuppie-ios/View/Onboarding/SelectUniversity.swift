@@ -14,7 +14,7 @@ struct SelectUniversity: View {
     @Binding var user_id: String
     
     
-    @State var showPhoneAuth = false
+    @State var showAddress = false
     
     var gradient1 = [Color("gradient2"),Color("gradient3"),Color("gradient4")]
     
@@ -85,8 +85,9 @@ struct SelectUniversity: View {
                            print(error)
                        }
              }
+        print(self.token)
              task.resume()
-         
+        
 
       }
 
@@ -95,7 +96,7 @@ struct SelectUniversity: View {
         
         ZStack{
             
-            NavigationLink(destination: PhoneAuth(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showPhoneAuth) {
+            NavigationLink(destination: AddressView(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showAddress) {
                 
                 Text("")
             }
@@ -141,6 +142,7 @@ struct SelectUniversity: View {
                         })
                         .offset(y: -65)
                         .padding(.bottom,-65)
+                        .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         
                         Text("Select your University")
                             .foregroundColor(Color.white)
@@ -154,9 +156,8 @@ struct SelectUniversity: View {
                                 .background(BlurView())
                                 .clipShape(Capsule())
                                 .padding()
+                                .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                             
-                            
-                           
                         }
                         
                         )
@@ -167,7 +168,7 @@ struct SelectUniversity: View {
                             self.didLogin = false
                             self.needsAccount = true
                             
-                            self.showPhoneAuth.toggle()
+                            self.showAddress.toggle()
                             
                         }) {
                             

@@ -255,6 +255,7 @@ struct LoginView: View {
                         })
                         .offset(y: -65)
                         .padding(.bottom,-65)
+                        .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         
                         
                         Text("Login to Yuppie").fontWeight(.heavy).font(.largeTitle)
@@ -270,6 +271,7 @@ struct LoginView: View {
                                 .padding(.horizontal, 10)
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
+                                .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                             
                             if !self.email.isEmpty {
                                 if !self.isEmailValid {
@@ -294,6 +296,7 @@ struct LoginView: View {
                                 .padding(.horizontal, 10)
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
+                                .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                             
                             if !self.password.isEmpty {
                                 if !self.isPasswordValid {

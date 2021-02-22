@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		211AB0BD25E2FEAA00383732 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 211AB0BC25E2FEAA00383732 /* Montserrat-Bold.ttf */; };
+		211AB10225E3397700383732 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211AB10125E3397700383732 /* AuthModel.swift */; };
 		2151A7AE25D0CDE1007C9F90 /* ChatRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151A7AD25D0CDE1007C9F90 /* ChatRow.swift */; };
 		2151A7B325D0CE1A007C9F90 /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151A7B225D0CE1A007C9F90 /* ChatBubble.swift */; };
 		2151A7B825D0CE49007C9F90 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151A7B725D0CE49007C9F90 /* ChatModel.swift */; };
@@ -92,6 +94,8 @@
 
 /* Begin PBXFileReference section */
 		0F58E1E3230A7656E830254D /* Pods-Yuppie-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-ios.release.xcconfig"; path = "Target Support Files/Pods-Yuppie-ios/Pods-Yuppie-ios.release.xcconfig"; sourceTree = "<group>"; };
+		211AB0BC25E2FEAA00383732 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.ttf"; path = "../../../Downloads/28ca1828-7859-49c1-84ac-5501c8b87735 (1)/Font/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		211AB10125E3397700383732 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		2151A7AD25D0CDE1007C9F90 /* ChatRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRow.swift; sourceTree = "<group>"; };
 		2151A7B225D0CE1A007C9F90 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
 		2151A7B725D0CE49007C9F90 /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
@@ -206,6 +210,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		211AB0BB25E2FE8800383732 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				211AB0BC25E2FEAA00383732 /* Montserrat-Bold.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
 		21A7801D258E0A3B00DD6F70 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +301,7 @@
 		21CCF0542572B9B100B22A75 = {
 			isa = PBXGroup;
 			children = (
+				211AB0BB25E2FE8800383732 /* Font */,
 				21CCF05F2572B9B100B22A75 /* Yuppie-ios */,
 				21CCF0712572B9B600B22A75 /* Yuppie-iosTests */,
 				21CCF07C2572B9B600B22A75 /* Yuppie-iosUITests */,
@@ -363,6 +376,7 @@
 				21C10CA125943B7E0049531E /* University.swift */,
 				37BB947825B8A19200D1FC86 /* User.swift */,
 				2151A7BC25D0CE83007C9F90 /* MessageModel.swift */,
+				211AB10125E3397700383732 /* AuthModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -528,6 +542,7 @@
 			files = (
 				21CCF0682572B9B500B22A75 /* Preview Assets.xcassets in Resources */,
 				21CCF0652572B9B500B22A75 /* Assets.xcassets in Resources */,
+				211AB0BD25E2FEAA00383732 /* Montserrat-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,6 +673,7 @@
 				21C10C7C2592906D0049531E /* TabButton.swift in Sources */,
 				21C10CE725957E650049531E /* Birthday.swift in Sources */,
 				21C10CA225943B7E0049531E /* University.swift in Sources */,
+				211AB10225E3397700383732 /* AuthModel.swift in Sources */,
 				21CCF0632572B9B100B22A75 /* ContentView.swift in Sources */,
 				21C10CB625957C660049531E /* BlurView.swift in Sources */,
 				21F7A81D25D0F15200113DAE /* UserProfile.swift in Sources */,

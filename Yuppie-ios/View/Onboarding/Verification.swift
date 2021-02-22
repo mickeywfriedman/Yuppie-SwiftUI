@@ -10,15 +10,23 @@
 
 import SwiftUI
 
+struct Verification_Payload: Codable {
+    var phone: String
+    var passcode: String
+}
+
+
+
 struct Verification: View {
     
     @State var code = ""
-    @State var number = ""
+    @Binding var number: String
     @State var showBirthday = false
     @Binding var token: String
     @Binding var didLogin: Bool
     @Binding var needsAccount: Bool
     @Binding var user_id: String
+    @State var showFirstLastName = false
     
     var gradient1 = [Color("gradient2"),Color("gradient3"),Color("gradient4")]
     
@@ -27,73 +35,53 @@ struct Verification: View {
     @StateObject var serverData = UniversityModel()
     @StateObject var universityData = UniversityModel()
 
-    
-    
-      func cleanStr(str: String) -> String {
-          return str.replacingOccurrences(of: "[.#$\\[/\\]];}", with: ",", options: [.regularExpression])
-      }
-      
-      func toString(_ value: Any?) -> String {
-        return String(describing: value ?? "")
-      }
-      
-     public func send(_ sender: Any) {
-      
-        let parameters: [String: String] = ["passcode": self.code]
-          
-        let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/users/"+self.user_id+"/verify")! as URL)
-          request.httpMethod = "POST"
-        print(self.token)
-        request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
- 
+    func receiveAuthInfo (){
+        let payload = Verification_Payload(
+            phone: self.number,
+            passcode: self.code
+        )
+        guard let encoded = try? JSONEncoder().encode(payload) else {
+            print("Failed to encode order")
+            return
+        }
+        guard let url = URL(string: "http://18.218.78.71:8080/users/verify") else {
+            print("Your API end point is Invalid")
+            return
+        }
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = encoded
         
-        print("http://18.218.78.71:8080/users/"+self.user_id)
-      
-         do {
-             request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
-             print(dump(toString(request.httpBody)))
-
-            } catch let error {
-                print(error)
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                if let urlresponse = try? JSONDecoder().decode(authResponse.self, from: data) {
+                    DispatchQueue.main.async {
+                        let response = urlresponse.result
+                       
+                        self.token = response.access_token
+                        self.user_id = response.user_id
+                        self.needsAccount = response.needsAccount
+                        print("success", self.token, self.user_id)
+                    }
+                    return
+                }
+                
             }
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-
-             let task = URLSession.shared.dataTask(with: request as URLRequest) {
-                 data, response, error in
-                 
-                   guard error == nil else {
-                           return
-                       }
-
-                       guard let data = data else {
-                           return
-                       }
-
-                       do {
-                           //create json object from data
-                           if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] {
-                              print(json)
-                            
-                           }
-
-                          let responseString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-                                responseString as! String
-                       } catch let error {
-                           print(error)
-                       }
-             }
-             task.resume()
-         
-
-      }
+        }.resume()
+    }
+    
+      
+   
 
     
     var body: some View {
         
         ZStack{
             
-            NavigationLink(destination: Birthday(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showBirthday) {
+            NavigationLink(destination:  FirstLastName(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showFirstLastName){
+                //Birthday(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showBirthday)
                 
                 Text("")
             }
@@ -137,6 +125,7 @@ struct Verification: View {
                             .padding(15)
                             .background(Color("gradient2").opacity(0.7))
                             .clipShape(Circle())
+                            .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         })
                         .offset(y: -65)
                         .padding(.bottom,-65)
@@ -158,10 +147,10 @@ struct Verification: View {
                         }
                         .offset(y: 30)
                         Button(action: {
-                            self.send((Any).self)
+                            self.receiveAuthInfo()
                             self.didLogin = false
                             self.needsAccount = true
-                            self.showBirthday.toggle()
+                            self.showFirstLastName.toggle()
                             
                         }) {
                             
@@ -172,6 +161,7 @@ struct Verification: View {
                                 .padding(.horizontal, 45)
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
+                                .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         }
                         // disabling view when both textfields are empty...
                         .opacity((self.code == "") ? 0.65 : 1)

@@ -12,7 +12,7 @@ struct FirstLastName: View {
     
     @State var countryCode = ""
     @State var number = ""
-    @State var showUniversity = false
+    @State var showBirthday = false
     @State var firstName: String = ""
     @State var lastName: String = ""
     @Binding var token: String
@@ -98,8 +98,9 @@ struct FirstLastName: View {
         
         ZStack{
             
-            NavigationLink(destination: SelectUniversity(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showUniversity) {
+            NavigationLink(destination: Birthday(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showBirthday) {
                 
+             
                 Text("")
             }
             
@@ -140,11 +141,12 @@ struct FirstLastName: View {
                             .background(Color("power1").opacity(0.7))
                             .clipShape(Circle())
                             .padding(15)
-                            .background(Color("gradient2").opacity(0.7))
-                            .clipShape(Circle())
+                            
+                            
                         })
                         .offset(y: -65)
                         .padding(.bottom,-65)
+                        .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         
                         
                         Text("Enter your First and Last Name")
@@ -164,7 +166,7 @@ struct FirstLastName: View {
                             Spacer()
                         }
                         .offset(y: 30)
-                        
+                        .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         HStack(spacing: 15){
                             Spacer()
 
@@ -178,6 +180,7 @@ struct FirstLastName: View {
                             Spacer()
                         }
                         .offset(y: 45)
+                        .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         Button(action: {
                             
                             self.send((Any).self)
@@ -185,7 +188,7 @@ struct FirstLastName: View {
                             self.didLogin = false
                             self.needsAccount = true
                             
-                            self.showUniversity.toggle()
+                            self.showBirthday.toggle()
                             
                         }) {
                             

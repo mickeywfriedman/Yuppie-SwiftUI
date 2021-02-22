@@ -59,7 +59,7 @@ struct UserProfile : View {
         
         VStack{
             
-            ProfileView(profilePic: profilePic, firstName: user.firstName, user_id: $user_id, email: user.email)
+            ProfileView(profilePic: profilePic, firstName: user.firstName, user_id: $user_id)
             
             HStack(spacing: 0){
                 
@@ -140,7 +140,7 @@ struct ProfileView : View {
     func logout() -> Void {
         self.user_id = ""
     }
-    var email: String
+
     var body : some View{
         HStack(spacing: 15){
             
@@ -195,7 +195,7 @@ struct ProfileView : View {
                     .font(.title)
                     .foregroundColor(Color.black.opacity(0.8))
                 
-                Text("\(email)")
+                Text("")
                     .foregroundColor(Color.black.opacity(0.7))
                     .padding(.top, 8)
                 

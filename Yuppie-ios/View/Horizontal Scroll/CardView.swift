@@ -54,6 +54,7 @@ struct CardView: View {
                         .frame(width:UIScreen.main.bounds.width-40)
                         .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
                         .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
+                        .animation(.spring())
                     }
                 }.sheet(isPresented: $showCard) {
                     BuildingView(Bedroom: user.preferences.bedrooms, user : $user, showCard:self.$showCard, token: $token, user_id: $user_id, building:building)
@@ -65,6 +66,7 @@ struct CardView: View {
                     .cornerRadius(20)
                 .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
                 .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
+                .animation(.spring(response: 0.8, dampingFraction: 0.7, blendDuration: 0.4))
                     
                     Button(action: {self.showCard.toggle()}, label: {
                         
@@ -74,6 +76,8 @@ struct CardView: View {
                             .padding(.all)
                             .background(Color("Color-3"))
                             .clipShape(Circle())
+                            
+                            
                         // adding neuromorphic effect...
                             
                     }).offset(y:95)
@@ -130,11 +134,42 @@ struct ImageScroll: View {
                     URLImage(url:image)
                         .frame(width:UIScreen.main.bounds.width-100, height: 200)
                             .cornerRadius(20)
+                        .contextMenu {
+                            
+                            VStack{
+                                
+                                Button(action: {
+                                    print("save")
+                                }) {
+                                    
+                                    HStack{
+                                        
+                                        Image(systemName: "folder.fill")
+                                        Text("Save to Gallery")
+                                    }
+                                }
+                                
+                                Button(action: {
+                                    print("send")
+                                }) {
+                                    
+                                    HStack{
+                                        
+                                        Image(systemName: "paperplane.fill")
+                                        Text("Send")
+                                    }
+                                }
+                            }
+                    }
+
+                    
+                    
                 }
             }
            .frame(width: geometry.size.width, alignment: .leading)
            .offset(x: -CGFloat(self.index) * geometry.size.width)
-           .animation(.interactiveSpring())
+            .animation(.spring(response: 0.8, dampingFraction: 0.7, blendDuration: 0.4))
+                
            .gesture(
               DragGesture()
                  .updating(self.$translation) { gestureValue, gestureState, _ in
