@@ -18,6 +18,8 @@ struct Building: Hashable, Decodable{
     var tenants: [tenant]
     var propertyManager: propertyManager
     var units: [Unit]
+    var latitude: Float
+    var longitude: Float
 
 }
 

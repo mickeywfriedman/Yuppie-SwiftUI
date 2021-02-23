@@ -52,7 +52,9 @@ enum TestData {
                 dateAvailable: "Today",
                 floorPlan: "http://18.218.78.71:8080/images/5fdb99bcae921a507c9785cc"
             )
-        ]
+        ],
+        latitude: 0.0,
+        longitude: 0.0
     
     )
 
@@ -89,7 +91,9 @@ enum TestData {
                     dateAvailable: "Today",
                     floorPlan: "http://18.218.78.71:8080/images/5fdb99bcae921a507c9785cc"
                 )
-            ]
+            ],
+            latitude: 0.0,
+            longitude: 0.0
             )
     ]
 }
@@ -128,7 +132,9 @@ enum InitialData {
                     dateAvailable: " ",
                     floorPlan: ""
                 )
-            ]
+            ],
+            latitude: 0.0,
+            longitude: 0.0
             ),
         Building(
             id: "1",
@@ -161,7 +167,9 @@ enum InitialData {
                     dateAvailable: " ",
                     floorPlan: ""
                 )
-            ]
+            ],
+            latitude: 0.0,
+            longitude: 0.0
             )
         
     ]
