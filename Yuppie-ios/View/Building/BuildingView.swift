@@ -164,7 +164,7 @@ struct BuildingView: View {
                                 Chats(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand)
                                 .offset(y:-100)
                                 .padding(.top, 15)
-                            }}.padding(.horizontal, -15)
+                            }}
                     }.offset(y:0)
                     
                     
@@ -178,7 +178,7 @@ struct BuildingView: View {
                     }.padding(.horizontal)
                     .offset(y:-115)
                     VStack(alignment: .leading){
-                        BottomView(amenities: building.amenities).padding(.top, 10)
+                        BottomView(amenities: building.amenities)
                        
                         
                     }
@@ -186,7 +186,7 @@ struct BuildingView: View {
                     Spacer()
                     Spacer()
                     VStack(alignment: .leading){
-                        Text("Units").fontWeight(.heavy).padding(.top,4)
+                        Text("Units").fontWeight(.heavy)
                             .foregroundColor(Color.gray)
                         Picker(selection: $Bedroom, label:
                             Text(Bedrooms[Bedroom])
@@ -228,7 +228,7 @@ struct BuildingView: View {
                     }.padding(.horizontal)
                     .offset(y: -90)
                 }
-                BuildingMapView(address:building.address).frame(width: UIScreen.main.bounds.width-40, height: 200).offset(y: -90)
+                BuildingMapView(building:building).frame(width: UIScreen.main.bounds.width-40, height: 200).offset(y: -90)
                 
             }
         }.background(Color(.white))
@@ -343,41 +343,24 @@ struct CustomShape : Shape {
 
 
 struct BuildingMapView: UIViewRepresentable {
-    var address : Address
-    func coordinates(forAddress address: String, completion: @escaping (CLLocationCoordinate2D?) -> Void) {
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address) {
-            (placemarks, error) in
-            guard error == nil else {
-                print("Geocoding error: \(error!)")
-                completion(nil)
-                return
-            }
-            completion(placemarks?.first?.location?.coordinate)
-        }
-    }
-    
+    var building : Building
     func makeUIView(context: Context) -> MKMapView {
     
         MKMapView(frame: .zero)
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        coordinates(forAddress: "\(address.streetAddress), \(address.city), \(address.state), \(address.zipCode)") {
-            (location) in
-            guard let location = location else {
-                return
-            }
-            let coordinate = CLLocationCoordinate2D(
-                latitude: location.latitude, longitude: location.longitude)
-            let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-            let region = MKCoordinateRegion(center: coordinate, span: span)
-            
-            uiView.setRegion(region, animated: true)
-            let newPin = MKPointAnnotation()
-            newPin.coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-            uiView.addAnnotation(newPin)
-        }
+        let lat = Double(building.latitude) as! CLLocationDegrees
+        let lon = Double(building.longitude) as! CLLocationDegrees
+        let coordinate = CLLocationCoordinate2D(
+            latitude: lat, longitude: lon)
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        
+        uiView.setRegion(region, animated: true)
+        let newPin = MKPointAnnotation()
+        newPin.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        uiView.addAnnotation(newPin)
     }
 }
 
