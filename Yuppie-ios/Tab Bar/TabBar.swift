@@ -24,19 +24,61 @@ struct ActivityIndicator: UIViewRepresentable {
 }
 
 struct LoadingScreen: View {
-    @Environment(\.colorScheme) var colorScheme
+    @State private var animateLogo = false
+    @State private var animateSmaller = false
+    @State private var animateMedium = false
+    @State private var animateLarger = false
+    
+    var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
     var body: some View {
-        VStack{
-            Spacer()
-            HStack{
-                Spacer()
-                Text("Loading")
-                Spacer()
+        ZStack {
+            Image("background")
+            .resizable()
+                .edgesIgnoringSafeArea(.all)
+            
+            // Circle: Larger
+            Circle()
+                .frame(width: 212+80, height: 212+80)
+                .foregroundColor(Color("Color1"))
+                .opacity(0.5)
+            .scaleEffect(animateLarger ? 1.2 : 0.5, anchor: .center)
+                .animation(Animation.easeOut(duration: 0.3).repeatForever(autoreverses: true).delay(0.1))
+                .onAppear() {
+                    self.animateLarger.toggle()
             }
-            ActivityIndicator(isAnimating: .constant(true), style: .large)
-            Spacer()
-        }.background(colorScheme == .dark ? Color.black : Color.white)
-        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            
+            // Circle: Medium
+            Circle()
+                .frame(width: 212+40, height: 212+40)
+                .foregroundColor(Color("pgradient1"))
+                .opacity(0.5)
+                .scaleEffect(animateMedium ? 1.2 : 0.5, anchor: .center)
+                .animation(Animation.easeOut(duration: 0.3).repeatForever(autoreverses: true).delay(0.05))
+                .onAppear() {
+                    self.animateMedium.toggle()
+            }
+            
+            
+            // Circle: Smaller
+            Circle()
+                .frame(width: 212, height: 212)
+                .foregroundColor(Color("pgradient2"))
+                .opacity(0.5)
+                .scaleEffect(animateSmaller ? 1.2 : 0.5, anchor: .center)
+                .animation(Animation.easeOut(duration: 1).repeatForever(autoreverses: true).delay(0.03))
+                .onAppear() {
+                    self.animateSmaller.toggle()
+            }
+            
+            
+            Image("small")
+                .frame(width: 150)
+                .scaleEffect(animateLogo ? 1 : 1.4, anchor: .center)
+                .animation(Animation.easeOut(duration: 1).repeatForever(autoreverses: true))
+                .onAppear() {
+                    self.animateLogo.toggle()
+            }
+        }
     }
 }
 
@@ -54,6 +96,7 @@ struct TabBar: View {
     @State var current = "Home"
     var profilePic: String
     var tabs = ["house","person","suit.heart"]
+    var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
             TabView(selection: $current){
@@ -98,11 +141,11 @@ struct TabBar: View {
             .padding(.top,10)
             .padding(.bottom,30)
             .padding(.horizontal,25)
-            .background(LinearGradient(gradient: .init(colors: [Color("pgradient1"),Color("pgradient2")]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
+            .background(Color("pgradient1"))
             .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
             .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
             
-        }
+        }.background(LinearGradient(gradient: .init(colors: gradient), startPoint: .top, endPoint: .bottom))
     }
 
 }

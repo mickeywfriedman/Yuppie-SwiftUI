@@ -125,7 +125,7 @@ struct FirstLastName: View {
                             
                             VStack(spacing: 45){
                                 
-                                Image(systemName: "pencil")
+                                Image(systemName: "person")
                                     .font(.system(size: 70))
                                     .foregroundColor(serverData.isConnected ? Color.white.opacity(0.6) : Color("power"))
                                     .frame(height: UIScreen.main.bounds.height / 9)
@@ -160,8 +160,9 @@ struct FirstLastName: View {
                                 .foregroundColor(.white)
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 10)
-                                .background(Color("pgradient1"))
+                                .background(Color("pgradient1").opacity(0.6))
                                 .clipShape(Capsule())
+                                .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                                 
                             Spacer()
                         }
@@ -174,8 +175,9 @@ struct FirstLastName: View {
                                 .foregroundColor(.white)
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 10)
-                                .background(Color("pgradient1"))
+                                .background(Color("pgradient1").opacity(0.6))
                                 .clipShape(Capsule())
+                                .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                                 
                             Spacer()
                         }

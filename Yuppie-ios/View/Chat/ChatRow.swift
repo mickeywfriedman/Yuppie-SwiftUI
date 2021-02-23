@@ -56,9 +56,11 @@ struct ChatRow: View {
         
         
         HStack(spacing: 15){
-
+            
+       
+            
             if chatData.sender != self.user_id{
-                NickName(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, name: chatData.sender)
+                ProfilePictureChat(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, name: chatData.sender)
                 VStack(alignment: chatData.sender == self.user_id ? .trailing : .leading, spacing: 5, content: {
                     Text(chatData.message)
                     .foregroundColor(.white)
@@ -92,7 +94,7 @@ struct ChatRow: View {
                 }
                 
                 )
-                NickName(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $user.profilePicture, name: chatData.sender)
+                ProfilePictureChat(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $user.profilePicture, name: chatData.sender)
             }
             
             if chatData.sender != self.user_id{Spacer(minLength: 0)}
@@ -103,7 +105,7 @@ struct ChatRow: View {
     }
 }
 
-struct NickName : View {
+struct ProfilePictureChat : View {
     @Binding var token: String
     @Binding var user_id: String
     @Binding var tenant_id: String

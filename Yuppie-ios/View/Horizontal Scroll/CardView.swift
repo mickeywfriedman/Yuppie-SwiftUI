@@ -134,6 +134,7 @@ struct ImageScroll: View {
     @Binding var user: User
     @Binding var token: String
     @Binding var user_id: String
+    @State var current_slide: Int = 1
     var body: some View {
         ZStack{
         GeometryReader { geometry in
@@ -193,6 +194,7 @@ struct ImageScroll: View {
                     let offset = (value.translation.width + weakGesture) / geometry.size.width
                             let newIndex = (CGFloat(self.index) - offset).rounded()
                     self.index = min(max(Int(newIndex), 0), self.building.images.count - 1)
+                    self.current_slide = self.current_slide + 1
                  }
            )
         }
@@ -223,10 +225,35 @@ struct ImageScroll: View {
                 }
                 .padding(.vertical,8)
                 .padding(.horizontal,10)
-                .background(Color("pgradient2"))
+                .background(Color("Color1"))
                 .clipShape(Capsule())
             }
         }.offset(x: (-1*(UIScreen.main.bounds.width-100)/2)-115, y: -80)
+        
+        HStack{
+            
+            Spacer(minLength: 0)
+            
+            Button(action: {
+                toggleFavorite()
+            }) {
+                
+                Label(title: {
+                   
+                    
+                }) {
+                    
+                    
+                    Text("\(current_slide)"+"/"+"\(building.images.count)")
+                        .foregroundColor(Color.white)
+                   
+                }
+                .padding(.vertical,4)
+                .padding(.horizontal,4)
+                .background(Color.black).opacity(0.56)
+                .clipShape(Capsule())
+            }
+        }.offset(x: (-1*(UIScreen.main.bounds.width-100)/2)+150, y: 80)
     }
 }
 

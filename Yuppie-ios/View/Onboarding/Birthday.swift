@@ -136,19 +136,18 @@ struct Birthday: View {
                             .background(
                             
                                 LinearGradient(gradient: .init(colors: [Color("pgradient1"),Color("pgradient2")]), startPoint: .top, endPoint: .bottom)
+                                    .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                             )
                             .clipShape(Circle())
                             .padding(15)
                             .background(Color("power1").opacity(0.7))
                             .clipShape(Circle())
                             .padding(15)
-                            .background(Color("gradient2").opacity(0.7))
-                            .clipShape(Circle())
                             .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         })
                         .offset(y: -65)
                         .padding(.bottom,-65)
-                        
+                        .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         Text("Enter your Date of Birth.")
                             .foregroundColor(Color.white)
                         
@@ -181,7 +180,7 @@ struct Birthday: View {
                         }
                         // disabling view when both textfields are empty...
                         .offset(y: 70)
-                        
+                        .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         Spacer()
                         
                         

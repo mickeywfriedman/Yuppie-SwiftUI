@@ -15,6 +15,10 @@ struct ChatUI: View {
     @StateObject var allMessages = Messages_image()
     
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
+    func initiatefirstView() {
+    if homeData.msgs.isEmpty{print("f")}
+    }
+    
     var body: some View {
         
         VStack(spacing: 0){
@@ -37,12 +41,16 @@ struct ChatUI: View {
                 
                 ScrollView{
                     
+                    
                     VStack(spacing: 15){
+                      
+                        
                         
                         ForEach(homeData.msgs){msg in
                             
                            ChatRow(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, chatData: msg)
                             .onAppear{
+                              
                                 // First Time Scroll
                                 if msg.id == self.homeData.msgs.last!.id && !scrolled{
                                     

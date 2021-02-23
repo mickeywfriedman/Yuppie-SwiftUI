@@ -45,6 +45,8 @@ struct IndexView: View {
         set { selectedIndex = newValue }
     }
     
+    var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
+    
     
     // MARK: - Body
     
@@ -60,12 +62,7 @@ struct IndexView: View {
             ZStack{
                
            
-                Image("topgradient")
-                               .resizable()
-                               .aspectRatio(contentMode: .fit)
-                               .frame(width: UIScreen.main.bounds.width)
-                    .offset(y: -150)
-           }
+           }.background(LinearGradient(gradient: .init(colors: gradient), startPoint: .top, endPoint: .bottom))
     }
     
     

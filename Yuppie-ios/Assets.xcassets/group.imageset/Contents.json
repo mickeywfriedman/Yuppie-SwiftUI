@@ -1,6 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "background.pdf",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
       "filename" : "group.png",
       "idiom" : "universal",
       "scale" : "1x"

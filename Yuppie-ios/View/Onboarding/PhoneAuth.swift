@@ -99,7 +99,7 @@ struct PhoneAuth: View {
             NavigationLink(destination: Verification(number: $number, token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showVerification) {
                 
                 Text("")
-            }
+            }.transition(.moveAndFade)
             
             
             VStack(spacing: 35){
@@ -138,8 +138,7 @@ struct PhoneAuth: View {
                             .background(Color("power1").opacity(0.7))
                             .clipShape(Circle())
                             .padding(15)
-                            .background(Color("gradient2").opacity(0.7))
-                            .clipShape(Circle())
+                      
                             .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         })
                         .offset(y: -65)
@@ -158,8 +157,9 @@ struct PhoneAuth: View {
                                 .foregroundColor(.white)
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 10)
-                                .background(Color("pgradient1"))
+                                .background(Color("pgradient1").opacity(0.6))
                                 .clipShape(Capsule())
+                                .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                             
                             ZStack(alignment: .trailing) {
                             TextField("Mobile Number", text: self.$number)
@@ -167,7 +167,7 @@ struct PhoneAuth: View {
                                 .foregroundColor(.white)
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 10)
-                                .background(Color("pgradient1"))
+                                .background(Color("pgradient1").opacity(0.6))
                                 .clipShape(Capsule())
                                 .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                             
@@ -188,6 +188,7 @@ struct PhoneAuth: View {
                             self.didLogin = false
                             self.needsAccount = true
                             self.showVerification.toggle()
+                            
                             
                         }) {
                             
@@ -231,3 +232,8 @@ struct PhoneAuth: View {
     }
 }
 
+extension AnyTransition {
+    static var moveAndFade: AnyTransition {
+        AnyTransition.slide
+    }
+}

@@ -107,7 +107,7 @@ struct Verification: View {
                             
                             VStack(spacing: 45){
                                 
-                                Image(systemName: "phone")
+                                Image(systemName: "checkmark")
                                     .font(.system(size: 70))
                                     .foregroundColor(universityData.isConnected ? Color.white.opacity(0.6) : Color("power"))
                                     .frame(height: UIScreen.main.bounds.height / 9)
@@ -123,12 +123,11 @@ struct Verification: View {
                             .background(Color("power1").opacity(0.7))
                             .clipShape(Circle())
                             .padding(15)
-                            .background(Color("gradient2").opacity(0.7))
-                            .clipShape(Circle())
                             .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         })
                         .offset(y: -65)
                         .padding(.bottom,-65)
+                        .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         
                         Text("Enter the 6 digit code just texted to you.")
                             .foregroundColor(Color.white)
@@ -140,11 +139,13 @@ struct Verification: View {
                                 .foregroundColor(.white)
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 10)
-                                .background(Color("pgradient1"))
+                                .background(Color("pgradient1").opacity(0.6))
                                 .clipShape(Capsule())
+                                .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                                 
                             Spacer()
                         }
+                        .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         .offset(y: 30)
                         Button(action: {
                             self.receiveAuthInfo()
