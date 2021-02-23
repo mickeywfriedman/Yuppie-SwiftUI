@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		211AB10225E3397700383732 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211AB10125E3397700383732 /* AuthModel.swift */; };
+		213F3C9925E505490011E20D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213F3C9825E505490011E20D /* Settings.swift */; };
 		2151A7AE25D0CDE1007C9F90 /* ChatRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151A7AD25D0CDE1007C9F90 /* ChatRow.swift */; };
 		2151A7B325D0CE1A007C9F90 /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151A7B225D0CE1A007C9F90 /* ChatBubble.swift */; };
 		2151A7B825D0CE49007C9F90 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151A7B725D0CE49007C9F90 /* ChatModel.swift */; };
@@ -94,6 +95,7 @@
 /* Begin PBXFileReference section */
 		0F58E1E3230A7656E830254D /* Pods-Yuppie-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-ios.release.xcconfig"; path = "Target Support Files/Pods-Yuppie-ios/Pods-Yuppie-ios.release.xcconfig"; sourceTree = "<group>"; };
 		211AB10125E3397700383732 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
+		213F3C9825E505490011E20D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2151A7AD25D0CDE1007C9F90 /* ChatRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRow.swift; sourceTree = "<group>"; };
 		2151A7B225D0CE1A007C9F90 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
 		2151A7B725D0CE49007C9F90 /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				21A7805F258E11A100DD6F70 /* testScroll.swift */,
 				21CCF0C82572BC1300B22A75 /* CardView.swift */,
 				21A7804F258E112100DD6F70 /* FiltersView.swift */,
+				213F3C9825E505490011E20D /* Settings.swift */,
 			);
 			path = "Horizontal Scroll";
 			sourceTree = "<group>";
@@ -673,6 +676,7 @@
 				21C10CAC259497F60049531E /* FirstLastName.swift in Sources */,
 				21A78098258E82D500DD6F70 /* Signup.swift in Sources */,
 				21C10CF125957EA20049531E /* ImagePicker.swift in Sources */,
+				213F3C9925E505490011E20D /* Settings.swift in Sources */,
 				21F7A8C825DB90AF00113DAE /* Search_Bar.swift in Sources */,
 				21A78046258E10CD00DD6F70 /* BuildingView.swift in Sources */,
 				2151A7BD25D0CE83007C9F90 /* MessageModel.swift in Sources */,

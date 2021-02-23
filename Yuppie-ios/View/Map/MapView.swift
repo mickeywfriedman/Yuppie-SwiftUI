@@ -39,7 +39,7 @@ struct MapView: UIViewRepresentable {
     
     func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<MapView>) {
         updateAnnotations()
-        let address_coord = coordinates(forAddress: "\(building.address.streetAddress), \(building.address.city), \(building.address.state), \(building.address.zipCode)") {
+        let address_coord = coordinates(forAddress: "\(building.address.streetAddress), \(building.address.city), \(building.address.state), \(building.address.zipCode)", latitude: building.latitude, longitude: building.longitude ) {
             (location) in
             guard let location = location else {
                 return
@@ -54,12 +54,12 @@ struct MapView: UIViewRepresentable {
         Coordinator(self)
     }
     
-    func coordinates(forAddress address: String, completion: @escaping (CLLocationCoordinate2D?) -> Void) {
+    func coordinates(forAddress address: String, latitude: Float, longitude: Float, completion: @escaping (CLLocationCoordinate2D?) -> Void) {
         var geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) { placemarks, error in
             let placemark = placemarks?.first
-            let lat = placemark!.location!.coordinate.latitude
-            let lon = placemark!.location!.coordinate.longitude
+            let lat = Double(latitude) as! CLLocationDegrees
+            let lon = Double(longitude) as! CLLocationDegrees
             print("Lat: \(lat), Lon: \(lon)")
             moveToCoordinate(mapView, to: CLLocationCoordinate2D(latitude: lat, longitude: lon))
             return

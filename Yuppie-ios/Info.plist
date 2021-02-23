@@ -56,9 +56,12 @@
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchScreen</key>
-	<dict/>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<dict>
+		<key>UIImageName</key>
+		<string>small</string>
+		<key>UIColorName</key>
+		<string>gradient1</string>
+	</dict>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

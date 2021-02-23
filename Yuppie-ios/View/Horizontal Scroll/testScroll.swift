@@ -71,18 +71,19 @@ struct Scroll: View {
     func reset() -> Void {
         index = 0
     }
+    
+    @State var offset : CGFloat = UIScreen.main.bounds.height
     var buildings: [Building]
     @State var annotations: [MGLPointAnnotation] = [
-        MGLPointAnnotation(title: "$13", coordinate: .init(latitude: 40.7369847, longitude: -73.9976231))
+        MGLPointAnnotation(title: "$13", coordinate: .init(latitude: 40.761295318603516, longitude: -73.99922180175781))
         ,
         
-        MGLPointAnnotation(title: "$2000", coordinate: .init(latitude: 40.7430087, longitude: -74.0047497)),
+        MGLPointAnnotation(title: "$2000", coordinate: .init(latitude: 40.74340057373047, longitude: -74.0054702758789)),
         
-        MGLPointAnnotation(title: "$2000", coordinate: .init(latitude: 40.7616645, longitude: -73.9997357)),
+        MGLPointAnnotation(title: "$2000", coordinate: .init(latitude: 40.77073287963867, longitude: -73.99181365966797)),
         
-        MGLPointAnnotation(title: "$2000", coordinate: .init(latitude: 40.7708087, longitude: -73.9917445)),
+        MGLPointAnnotation(title: "$2000", coordinate: .init(latitude: 40.75188064575195, longitude: -74.00379180908203)),
 
-        
        
     ]
     
@@ -138,8 +139,15 @@ struct Scroll: View {
                 ForEach(buildings, id:\.name) {building in
                     ZStack{
                         MapView(annotations: $annotations, building: building).centerCoordinate((annotations[0].coordinate)).zoomLevel(15).offset(y:-450)
+                        
+                        Image("topgradient")
+                                                       .resizable()
+                                                       .aspectRatio(contentMode: .fit)                                   .aspectRatio(contentMode: .fit)
+                            .offset(y:-710)
                       
                     VStack{
+                        
+                        HStack{
                         
                         Label(title: {
                         }) {Text("Chat with Current Residents")
@@ -151,7 +159,34 @@ struct Scroll: View {
                         .background(Color.white)
                         .clipShape(Capsule())
                         .opacity(0.7)
-                        .offset(y:-350)
+                        .offset(x: 15, y:-350)
+                            
+                            Button(action: {
+                                self.offset = 0
+                            }) {
+                                
+                                Label(title: {
+                                   
+                                    
+                                }) {
+                                    
+                                    
+                                                            Image(systemName: "gear")
+                                                                .foregroundColor(Color.white)
+                                                           
+                                }
+                                .padding(.vertical,8)
+                                .padding(.horizontal,10)
+                                .background(Color("Chat_color").opacity(0.5))
+                                .clipShape(Capsule())
+                            } .offset(x: 30, y:-350)
+                            
+                            
+                            
+                            
+                        }
+                        
+                        
                         
                         
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -172,6 +207,7 @@ struct Scroll: View {
                     }
                     
                 }
+                
             }
            .frame(width: geometry.size.width, alignment: .leading)
            .offset(x: -CGFloat(self.index) * geometry.size.width)
