@@ -123,7 +123,7 @@ struct FiltersView: View {
             
             
 
-        .padding()
+        .padding(.horizontal,25)
 //
         }
             
@@ -132,6 +132,6 @@ struct FiltersView: View {
             Spacer()
         }
         
-        }.padding()
+        }
 }
 }

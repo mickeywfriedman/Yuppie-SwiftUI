@@ -37,34 +37,11 @@ struct MapView: UIViewRepresentable {
         return mapView
     }
     
-    func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<MapView>) {
-        updateAnnotations()
-        let address_coord = coordinates(forAddress: "\(building.address.streetAddress), \(building.address.city), \(building.address.state), \(building.address.zipCode)", latitude: building.latitude, longitude: building.longitude ) {
-            (location) in
-            guard let location = location else {
-                return
-            }}
-        
-        //print(address_coord)
-        
-        
-    }
-    
     func makeCoordinator() -> MapView.Coordinator {
         Coordinator(self)
     }
     
-    func coordinates(forAddress address: String, latitude: Float, longitude: Float, completion: @escaping (CLLocationCoordinate2D?) -> Void) {
-        var geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address) { placemarks, error in
-            let placemark = placemarks?.first
-            let lat = Double(latitude) as! CLLocationDegrees
-            let lon = Double(longitude) as! CLLocationDegrees
-            print("Lat: \(lat), Lon: \(lon)")
-            moveToCoordinate(mapView, to: CLLocationCoordinate2D(latitude: lat, longitude: lon))
-            return
-        }
-    }
+
 
     
     // MARK: - Configuring MGLMapView
@@ -75,7 +52,7 @@ struct MapView: UIViewRepresentable {
     }
     
     func centerCoordinate(_ centerCoordinate: CLLocationCoordinate2D) -> MapView {
-        mapView.centerCoordinate = centerCoordinate
+        mapView.centerCoordinate =  coordinates(latitude: building.latitude, longitude: building.longitude)
         return self
     }
 
@@ -84,16 +61,17 @@ struct MapView: UIViewRepresentable {
         mapView.zoomLevel = zoomLevel
         return self
     }
-    
-    private func moveToCoordinate(_ mapView: MGLMapView, to point: CLLocationCoordinate2D) {
+    func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<MapView>) {
+        updateAnnotations()
         
-        let camera = MGLMapCamera(lookingAtCenter: point,  fromDistance: 4500, pitch: 15, heading: 180)
-        mapView.fly(to: camera, withDuration: 4,
-        peakAltitude: 3000, completionHandler: nil)
-//        let camera = MGLMapCamera(lookingAtCenter: point, fromDistance: 4500, pitch: 15, heading: 180)
-//        mapView.setCamera(camera, withDuration: 5, animationTimingFunction: CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut))
     }
-    
+    func coordinates(latitude: Float, longitude: Float) -> CLLocationCoordinate2D {
+        let lat = Double(latitude) as! CLLocationDegrees
+        let lon = Double(longitude) as! CLLocationDegrees
+        print("Lat: \(lat), Lon: \(lon)")
+        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
+    }
+
     private func updateAnnotations() {
         if let currentAnnotations = mapView.annotations {
             mapView.removeAnnotations(currentAnnotations)
@@ -193,13 +171,3 @@ struct MapView: UIViewRepresentable {
 }
 }
 
-
-
-
-
-
-struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
-    }
-}

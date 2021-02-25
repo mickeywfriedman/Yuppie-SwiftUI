@@ -63,15 +63,51 @@ struct testScroll: View {
 
 struct Scroll: View {
     @GestureState private var translation: CGFloat = 0
+    @State var showFilters = false
     @State var index: Int = 0
     @State var expand = false
     @Binding var user : User
     @Binding var token: String
     @Binding var user_id: String
+    @State var minDate = Date()
+    @State var maxDate = Date(timeInterval: 14*86400, since: Date())
     func reset() -> Void {
         index = 0
     }
-    
+    func format(date : Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: date)
+    }
+    func dateFormat(string : String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: string) ?? Date()
+    }
+    func updateFilters() -> Void {
+        self.user.preferences.earliestMoveInDate = "\(format(date: minDate))"
+        self.user.preferences.latestMoveInDate = "\(format(date: maxDate))"
+        guard let filter_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)") else {
+            print("Your API end point is Invalid")
+            return
+        }
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        guard let data = try? encoder.encode(update(preferences: user.preferences)) else {
+            print("Failed to encode order")
+            return
+        }
+        var filter_request = URLRequest(url: filter_url)
+        filter_request.httpMethod = "PATCH"
+        filter_request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        filter_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        filter_request.httpBody = data
+        print("updated")
+        URLSession.shared.dataTask(with: filter_request) { data, response, error in
+            return
+            
+        }.resume()
+    }
     @State var offset : CGFloat = UIScreen.main.bounds.height
     var buildings: [Building]
     func annotations () -> [MGLPointAnnotation]{
@@ -111,18 +147,16 @@ struct Scroll: View {
                         .offset(x: 15, y:-350)
                             
                             Button(action: {
-                                self.offset = 0
+                                self.showFilters = true
                             }) {
                                 
                                 Label(title: {
                                    
                                     
                                 }) {
-                                    
-                                    
-                                                            Image(systemName: "gear")
-                                                                .foregroundColor(Color.white)
-                                                           
+
+                                Image(systemName: "slider.horizontal.3")
+                                    .foregroundColor(Color.white)
                                 }
                                 .padding(.vertical,8)
                                 .padding(.horizontal,10)
@@ -139,12 +173,16 @@ struct Scroll: View {
                             Chats(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand)
                            
                         }.offset(y:-435)
-                        Text("Hi")
                         
                         CardView(token: $token, user: $user, user_id: $user_id, building:building)
                             .padding(.horizontal, 20)
                         .offset(y:-520)
                         
+                    }.sheet(isPresented: $showFilters) {
+                        VStack{
+                            Text("Update Preferences").font(.largeTitle).fontWeight(.heavy)
+                        FiltersView(token: $token, user: $user, user_id: $user_id, minDate: dateFormat(string: user.preferences.earliestMoveInDate), maxDate: dateFormat(string: user.preferences.latestMoveInDate)).onDisappear(perform: updateFilters)
+                        }.padding()
                     }
                     
                     }

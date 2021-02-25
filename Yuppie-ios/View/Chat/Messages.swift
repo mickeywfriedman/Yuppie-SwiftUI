@@ -143,6 +143,7 @@ struct TopView : View {
                                 .stroke(AngularGradient(gradient: .init(colors: [.purple,.blue,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [false ? 7 : 0]))
                             .frame(width: 68, height: 68)
                             .rotationEffect(.init(degrees: true ? 360 : 0))
+                                .padding(3)
                                 
                             }
                         
@@ -181,6 +182,7 @@ struct TopView : View {
                                     .stroke(AngularGradient(gradient: .init(colors: [.purple,.orange,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [showChatUI ? 3 : 0]))
                                 .frame(width: 68, height: 68)
                                 .rotationEffect(.init(degrees: showChatUI ? 360 : 0))
+                                    .padding(3)
                                 }
                                     
                                     Label(title: {

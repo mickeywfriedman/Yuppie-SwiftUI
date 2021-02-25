@@ -144,36 +144,6 @@ struct ImageScroll: View {
                     URLImage(url:image)
                         .frame(width:UIScreen.main.bounds.width-100, height: 200)
                             .cornerRadius(20)
-                        .contextMenu {
-                            
-                            VStack{
-                                
-                                Button(action: {
-                                    print("save")
-                                }) {
-                                    
-                                    HStack{
-                                        
-                                        Image(systemName: "folder.fill")
-                                        Text("Save to Gallery")
-                                    }
-                                }
-                                
-                                Button(action: {
-                                    print("send")
-                                }) {
-                                    
-                                    HStack{
-                                        
-                                        Image(systemName: "paperplane.fill")
-                                        Text("Send")
-                                    }
-                                }
-                            }
-                    }
-
-                    
-                    
                 }
             }
            .frame(width: geometry.size.width, alignment: .leading)
@@ -230,31 +200,7 @@ struct ImageScroll: View {
                 .clipShape(Capsule())
             }
         }.offset(x: (-1*(UIScreen.main.bounds.width-100)/2)-115, y: -80)
-        
-        HStack{
-            
-            Spacer(minLength: 0)
-            
-            Button(action: {
-                toggleFavorite()
-            }) {
-                
-                Label(title: {
-                   
-                    
-                }) {
-                    
-                    
-                    Text("\(current_slide)"+"/"+"\(building.images.count)")
-                        .foregroundColor(Color.white)
-                   
-                }
-                .padding(.vertical,4)
-                .padding(.horizontal,4)
-                .background(Color.black).opacity(0.56)
-                .clipShape(Capsule())
-            }
-        }.offset(x: (-1*(UIScreen.main.bounds.width-100)/2)+150, y: 80)
+
     }
 }
 
