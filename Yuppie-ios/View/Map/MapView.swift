@@ -19,8 +19,7 @@ extension MGLPointAnnotation {
 
 struct MapView: UIViewRepresentable {
     @State var annotations: [MGLPointAnnotation]
-    @Binding var buildings: [Building]
-    @Binding var index: Int
+    @State var building: Building
     
    let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/leonyuppie/ckfysprwo0l3n19qpi7hm8m8p"))
     
@@ -53,8 +52,8 @@ struct MapView: UIViewRepresentable {
     }
     
     func centerCoordinate(_ centerCoordinate: CLLocationCoordinate2D) -> MapView {
-        print(buildings[index].name)
-        mapView.centerCoordinate =  CLLocationCoordinate2D(latitude: Double(buildings[index].latitude), longitude: Double(buildings[index].longitude))
+        mapView.centerCoordinate =  coordinates(latitude: building.latitude, longitude: building.longitude)
+
         return self
     }
 

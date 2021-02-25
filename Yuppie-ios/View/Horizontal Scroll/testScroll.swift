@@ -81,7 +81,7 @@ struct Scroll: View {
         return dateFormatter.date(from: string) ?? Date()
     }
     @State var offset : CGFloat = UIScreen.main.bounds.height
-    @State var buildings: [Building]
+    var buildings: [Building]
     func annotations () -> [MGLPointAnnotation]{
         var result = [MGLPointAnnotation(coordinate: .init(latitude: 40.761295318603516, longitude: -73.99922180175781))]
         for building in buildings {
@@ -93,10 +93,11 @@ struct Scroll: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack{
-                MapView(annotations: annotations(), buildings: $buildings, index: $index).centerCoordinate(CLLocationCoordinate2D(latitude: Double(buildings[0].latitude), longitude: Double(buildings[0].longitude))).zoomLevel(15).offset(y:-450)
             HStack (spacing: 0){
                 ForEach(buildings, id:\.name) {building in
+                    
                     ZStack{
+                        MapView(annotations: annotations(), building: building).centerCoordinate(CLLocationCoordinate2D(latitude: Double(building.latitude), longitude: Double(building.longitude))).zoomLevel(15).offset(y:-450)
                         Image("topgradient")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -178,7 +179,9 @@ struct Scroll: View {
                  }
            )
         }.sheet(isPresented: $showCard) {
-            sheets(card: $card, user: $user, buildings: buildings, user_id: $user_id, token:$token, index: index)
+            sheets(card: $card, user: $user, buildings: buildings, user_id: $user_id, token:$token, index: index).onDisappear(perform: {
+                reset()
+            })
         }
 
 }
