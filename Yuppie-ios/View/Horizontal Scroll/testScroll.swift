@@ -74,71 +74,20 @@ struct Scroll: View {
     
     @State var offset : CGFloat = UIScreen.main.bounds.height
     var buildings: [Building]
-    @State var annotations: [MGLPointAnnotation] = [
-        MGLPointAnnotation(title: "$13", coordinate: .init(latitude: 40.761295318603516, longitude: -73.99922180175781))
-        ,
-        
-        MGLPointAnnotation(title: "$2000", coordinate: .init(latitude: 40.74340057373047, longitude: -74.0054702758789)),
-        
-        MGLPointAnnotation(title: "$2000", coordinate: .init(latitude: 40.77073287963867, longitude: -73.99181365966797)),
-        
-        MGLPointAnnotation(title: "$2000", coordinate: .init(latitude: 40.75188064575195, longitude: -74.00379180908203)),
-
-       
-    ]
-    
-    let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/cephalopod004/ckkqhhfrt01hw17qlfsq1gwt4"))
-    
-
-    
-//    func coordinate_lat(forAddress address: (String) -> CLLocationCoordinate2D) {
-//        var geocoder = CLGeocoder()
-//        geocoder.geocodeAddressString(address) { placemarks, error in
-//            let placemark = placemarks?.first
-//            let lat = placemark!.location!.coordinate.latitude
-//            let lon = placemark!.location!.coordinate.longitude
-//            print("Lat: \(lat), Lon: \(lon)")
-//            return (CLLocationCoordinate2D(latitude: lat, longitude: lon))
-//        }
-//    }
-
-    func getLocation(from address: String, completion: @escaping (_ location: CLLocationCoordinate2D?)-> Void) {
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address) { (placemarks, error) in
-            guard let placemarks = placemarks,
-            let location = placemarks.first?.location?.coordinate else {
-                completion(nil)
-                return
-            }
-            completion(location)
+    func annotations () -> [MGLPointAnnotation]{
+        var result = [MGLPointAnnotation(title: "$13", coordinate: .init(latitude: 40.761295318603516, longitude: -73.99922180175781))]
+        for building in buildings {
+            result.append(MGLPointAnnotation(title: "$13", coordinate: .init(latitude: Double(building.latitude), longitude: Double(building.longitude))))
         }
+        result.removeFirst(1)
+        return result
     }
-    
-    func coordinates(forAddress address: String, completion: @escaping (CLLocationCoordinate2D?) -> CLLocationCoordinate2D) {
-        var geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address) { placemarks, error in
-            let placemark = placemarks?.first
-            let lat = placemark!.location!.coordinate.latitude
-            let lon = placemark!.location!.coordinate.longitude
-            print("Lat: \(lat), Lon: \(lon)")
-            greetAgain(latitude: lat, longitude: lon)
-           
-        }
-    }
-    
-    func greetAgain(latitude: Double, longitude: Double) -> CLLocationCoordinate2D {
-        return (CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-        
-    }
-    
-    
-
     var body: some View {
         GeometryReader { geometry in
             HStack (spacing: 0){
                 ForEach(buildings, id:\.name) {building in
                     ZStack{
-                        MapView(annotations: $annotations, building: building).centerCoordinate((annotations[0].coordinate)).zoomLevel(15).offset(y:-450)
+                        MapView(annotations: annotations(), building: building).centerCoordinate((annotations()[0].coordinate)).zoomLevel(15).offset(y:-450)
                         
                         Image("topgradient")
                                                        .resizable()
@@ -186,7 +135,7 @@ struct Scroll: View {
                             
                         }
                         
-                        HStack{
+                            HStack{
                             Chats(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand)
                            
                         }.offset(y:-435)
