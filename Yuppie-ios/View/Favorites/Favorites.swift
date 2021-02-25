@@ -169,7 +169,7 @@ struct BuildingRow: View {
                         .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                     }
                 }.sheet(isPresented: $showCard) {
-                    BuildingView(Bedroom: minBeds(), user : $user, showCard:self.$showCard, token: $token, user_id: $user_id, building:building)
+                    BuildingView(Bedroom: minBeds(), user : $user, token: $token, user_id: $user_id, building:building)
                 }
                 
                 ZStack{

@@ -34,7 +34,6 @@ struct testScroll: View {
         }
         return false
     }
-    let newCam = MGLMapCamera()
     var gradient = [Color("Color-3"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
 
     var body: some View {
@@ -63,7 +62,8 @@ struct testScroll: View {
 
 struct Scroll: View {
     @GestureState private var translation: CGFloat = 0
-    @State var showFilters = false
+    @State var card = ""
+    @State var showCard = false
     @State var index: Int = 0
     @State var expand = false
     @Binding var user : User
@@ -74,39 +74,11 @@ struct Scroll: View {
     func reset() -> Void {
         index = 0
     }
-    func format(date : Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.string(from: date)
-    }
+    
     func dateFormat(string : String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.date(from: string) ?? Date()
-    }
-    func updateFilters() -> Void {
-        self.user.preferences.earliestMoveInDate = "\(format(date: minDate))"
-        self.user.preferences.latestMoveInDate = "\(format(date: maxDate))"
-        guard let filter_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)") else {
-            print("Your API end point is Invalid")
-            return
-        }
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        guard let data = try? encoder.encode(update(preferences: user.preferences)) else {
-            print("Failed to encode order")
-            return
-        }
-        var filter_request = URLRequest(url: filter_url)
-        filter_request.httpMethod = "PATCH"
-        filter_request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        filter_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        filter_request.httpBody = data
-        print("updated")
-        URLSession.shared.dataTask(with: filter_request) { data, response, error in
-            return
-            
-        }.resume()
     }
     @State var offset : CGFloat = UIScreen.main.bounds.height
     var buildings: [Building]
@@ -120,14 +92,14 @@ struct Scroll: View {
     }
     var body: some View {
         GeometryReader { geometry in
+            ZStack{
+                MapView(annotations: annotations(), buildings: buildings, index: index).centerCoordinate(CLLocationCoordinate2D(latitude: Double(buildings[0].latitude), longitude: Double(buildings[0].longitude))).zoomLevel(15).offset(y:-450)
             HStack (spacing: 0){
                 ForEach(buildings, id:\.name) {building in
                     ZStack{
-                        MapView(annotations: annotations(), building: building).centerCoordinate(CLLocationCoordinate2D(latitude: Double(building.latitude), longitude: Double(building.longitude))).zoomLevel(15).offset(y:-450)
-                        
                         Image("topgradient")
-                                                       .resizable()
-                                                       .aspectRatio(contentMode: .fit)                                   .aspectRatio(contentMode: .fit)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
                             .offset(y:-710)
                       
                     VStack{
@@ -147,7 +119,8 @@ struct Scroll: View {
                         .offset(x: 15, y:-350)
                             
                             Button(action: {
-                                self.showFilters = true
+                                self.card = "filter"
+                                self.showCard = true
                             }) {
                                 
                                 Label(title: {
@@ -163,10 +136,6 @@ struct Scroll: View {
                                 .background(Color("Chat_color").opacity(0.5))
                                 .clipShape(Capsule())
                             } .offset(x: 30, y:-350)
-                            
-                            
-                            
-                            
                         }
                         
                             HStack{
@@ -174,17 +143,12 @@ struct Scroll: View {
                            
                         }.offset(y:-435)
                         
-                        CardView(token: $token, user: $user, user_id: $user_id, building:building)
+                        CardView(token: $token, user: $user, user_id: $user_id, building:building, showCard: $showCard, card: $card)
                             .padding(.horizontal, 20)
                         .offset(y:-520)
                         
-                    }.sheet(isPresented: $showFilters) {
-                        VStack{
-                            Text("Update Preferences").font(.largeTitle).fontWeight(.heavy)
-                        FiltersView(token: $token, user: $user, user_id: $user_id, minDate: dateFormat(string: user.preferences.earliestMoveInDate), maxDate: dateFormat(string: user.preferences.latestMoveInDate)).onDisappear(perform: updateFilters)
-                        }.padding()
                     }
-                    
+                    }
                     }
                     
                 }
@@ -213,9 +177,85 @@ struct Scroll: View {
                             self.index = min(max(Int(newIndex), 0), self.buildings.count - 1)
                  }
            )
+        }.sheet(isPresented: $showCard) {
+            sheets(card: $card, user: $user, buildings: buildings, user_id: $user_id, token:$token, index: index)
         }
-        
+
+}
+}
+
+struct sheets: View {
+    @Binding var card: String
+    @Binding var user: User
+    @State var buildings: [Building]
+    @Binding var user_id: String
+    @Binding var token: String
+    @State var index: Int
+    @State var minDate = Date()
+    @State var maxDate = Date(timeInterval: 14*86400, since: Date())
+    func dateFormat(string : String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: string) ?? Date()
     }
+    func format(date : Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: date)
+    }
+    func updateFilters() -> Void {
+        self.user.preferences.earliestMoveInDate = "\(format(date: minDate))"
+        self.user.preferences.latestMoveInDate = "\(format(date: maxDate))"
+        guard let filter_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)") else {
+            print("Your API end point is Invalid")
+            return
+        }
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        guard let data = try? encoder.encode(update(preferences: user.preferences)) else {
+            print("Failed to encode order")
+            return
+        }
+        var filter_request = URLRequest(url: filter_url)
+        filter_request.httpMethod = "PATCH"
+        filter_request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        filter_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        filter_request.httpBody = data
+        print("updated")
+        URLSession.shared.dataTask(with: filter_request) { data, response, error in
+            return
+            
+        }.resume()
+    }
+    func unitFilter(unit: Unit) -> Bool{
+        if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms >= user.preferences.bathrooms){
+                return true
+            }
+            return false
+        }
+    
+    func minBeds () -> Int{
+        var lowest = 3
+        for unit in buildings[index].units.filter({unitFilter(unit:$0)}) {
+            if (Int(unit.bedrooms) < lowest){
+                lowest = unit.bedrooms
+            }
+        }
+        return lowest
+    }
+    var body: some View {
+        if (card == "filter"){
+        VStack{
+            Text("Update Preferences").font(.largeTitle).fontWeight(.heavy)
+        FiltersView(token: $token, user: $user, user_id: $user_id, minDate: dateFormat(string: user.preferences.earliestMoveInDate), maxDate: dateFormat(string: user.preferences.latestMoveInDate)).onDisappear(perform: updateFilters)
+        }.padding()
+        }
+        else if (card == "building") {
+            BuildingView(Bedroom: minBeds(), user : $user, token: $token, user_id: $user_id, building:buildings[index])
+        } else {
+            Text("oops\(card) sadf")
+        }
+        }
 }
 
 struct Navshape : Shape {

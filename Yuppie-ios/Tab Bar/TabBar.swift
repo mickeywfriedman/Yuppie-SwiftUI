@@ -158,7 +158,7 @@ struct TabBar: View {
             
         }.background(LinearGradient(gradient: .init(colors: gradient), startPoint: .top, endPoint: .bottom))
         .sheet(isPresented: $showCard) {
-            BuildingView(Bedroom: 0, user : $user, showCard:self.$showCard, token: $token, user_id: $user_id, building:findBuilding())
+            BuildingView(Bedroom: 0, user : $user, token: $token, user_id: $user_id, building:findBuilding())
         }
     }
 

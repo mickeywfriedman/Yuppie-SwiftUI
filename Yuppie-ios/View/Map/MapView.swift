@@ -19,7 +19,8 @@ extension MGLPointAnnotation {
 
 struct MapView: UIViewRepresentable {
     @State var annotations: [MGLPointAnnotation]
-    var building: Building
+    @State var buildings: [Building]
+    @State var index: Int
     
    let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/leonyuppie/ckfysprwo0l3n19qpi7hm8m8p"))
     
@@ -52,7 +53,8 @@ struct MapView: UIViewRepresentable {
     }
     
     func centerCoordinate(_ centerCoordinate: CLLocationCoordinate2D) -> MapView {
-        mapView.centerCoordinate =  centerCoordinate
+        print(buildings[index].name)
+        mapView.centerCoordinate =  CLLocationCoordinate2D(latitude: Double(buildings[index].latitude), longitude: Double(buildings[index].longitude))
         return self
     }
 
@@ -83,18 +85,16 @@ struct MapView: UIViewRepresentable {
     
     final class Coordinator: NSObject, MGLMapViewDelegate {
         var control: MapView
-        
         init(_ control: MapView) {
             self.control = control
         }
         
         func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
-            
             let coordinates = [
                 CLLocationCoordinate2D(latitude: 37.791329, longitude: -122.396906),
-                CLLocationCoordinate2D(latitude: 37.791591, longitude: -122.396566),
-                CLLocationCoordinate2D(latitude: 37.791147, longitude: -122.396009),
-                CLLocationCoordinate2D(latitude: 37.790883, longitude: -122.396349),
+                CLLocationCoordinate2D(latitude: 37.791329, longitude: -122.396906),
+                CLLocationCoordinate2D(latitude: 37.791329, longitude: -122.396906),
+                CLLocationCoordinate2D(latitude: 37.791329, longitude: -122.396906),
                 CLLocationCoordinate2D(latitude: 37.791329, longitude: -122.396906),
             ]
             

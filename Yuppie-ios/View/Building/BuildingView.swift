@@ -151,7 +151,6 @@ struct BuildingView: View {
     @State private var floorplanURL = ""
     @State private var height = UIScreen.main.bounds.height
     @State private var width = UIScreen.main.bounds.width
-    @Binding var showCard: Bool
     @State private var index = 0
     @State private var value : CGFloat = 200
     @Binding var token: String
@@ -257,7 +256,6 @@ struct BuildingView: View {
             }
         }.background(Color(.white))
         Button(action: {
-                self.showCard.toggle()
             }) {
                
         }.offset(x:-170,y:290)

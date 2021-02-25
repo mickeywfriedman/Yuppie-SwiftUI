@@ -33,7 +33,8 @@ struct CardView: View {
         return lowest
     }
     @State var isFavorite = true
-    @State var showCard = false
+    @Binding var showCard : Bool
+    @Binding var card: String
     var body: some View {
             ZStack{
                 VStack{
@@ -43,8 +44,7 @@ struct CardView: View {
                         VStack{
                             
                             HStack{
-                                
-                                
+
                                 VStack{
                                     
                                     Text("\(Bedrooms[minBeds()]) from").fontWeight(.heavy)
@@ -65,8 +65,6 @@ struct CardView: View {
                         .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                         .animation(.spring())
                     }
-                }.sheet(isPresented: $showCard) {
-                    BuildingView(Bedroom: minBeds(), user : $user, showCard:self.$showCard, token: $token, user_id: $user_id, building:building)
                 }
                 
                 ZStack{
@@ -77,7 +75,11 @@ struct CardView: View {
                 .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                 .animation(.spring(response: 0.8, dampingFraction: 0.7, blendDuration: 0.4))
                     
-                    Button(action: {self.showCard.toggle()}, label: {
+                    Button(action: {
+                        self.card = "building"
+                        self.showCard = true
+                        
+                    }, label: {
                         
                         Image(systemName: "arrow.up")
                             .font(.system(size: 14, weight: .bold))
