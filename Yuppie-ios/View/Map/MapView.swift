@@ -39,31 +39,24 @@ struct MapView: UIViewRepresentable {
     
     func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<MapView>) {
         updateAnnotations()
-        let address_coord = coordinates(forAddress: "\(building.address.streetAddress), \(building.address.city), \(building.address.state), \(building.address.zipCode)", latitude: building.latitude, longitude: building.longitude ) {
-            (location) in
-            guard let location = location else {
-                return
-            }}
-        
-        //print(address_coord)
-        
-        
+        let address_coord = coordinates(forAddress: "\(building.address.streetAddress), \(building.address.city), \(building.address.state), \(building.address.zipCode)", latitude: building.latitude, longitude: building.longitude )
+        guard address_coord != nil else {
+            print("fuck")
+            return
+        }
+
     }
     
     func makeCoordinator() -> MapView.Coordinator {
         Coordinator(self)
     }
     
-    func coordinates(forAddress address: String, latitude: Float, longitude: Float, completion: @escaping (CLLocationCoordinate2D?) -> Void) {
-        var geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address) { placemarks, error in
-            let placemark = placemarks?.first
-            let lat = Double(latitude) as! CLLocationDegrees
-            let lon = Double(longitude) as! CLLocationDegrees
-            print("Lat: \(lat), Lon: \(lon)")
-            moveToCoordinate(mapView, to: CLLocationCoordinate2D(latitude: lat, longitude: lon))
-            return
-        }
+    func coordinates(forAddress address: String, latitude: Float, longitude: Float) -> CLLocationCoordinate2D {
+        let lat = Double(latitude) as! CLLocationDegrees
+        let lon = Double(longitude) as! CLLocationDegrees
+        print("\(CLLocationCoordinate2D(latitude: lat, longitude: lon))")
+        moveToCoordinate(mapView, to: CLLocationCoordinate2D(latitude: lat, longitude: lon))
+        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
 
     
@@ -86,7 +79,8 @@ struct MapView: UIViewRepresentable {
     }
     
     private func moveToCoordinate(_ mapView: MGLMapView, to point: CLLocationCoordinate2D) {
-        
+        print(point)
+        print("sadfkl")
         let camera = MGLMapCamera(lookingAtCenter: point,  fromDistance: 4500, pitch: 15, heading: 180)
         mapView.fly(to: camera, withDuration: 4,
         peakAltitude: 3000, completionHandler: nil)

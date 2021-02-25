@@ -85,6 +85,8 @@ struct LoadingScreen: View {
 import SwiftUI
 
 struct TabBar: View {
+    @Binding var showCard: Bool
+    @State var buildingId: String
     @State var currentTab = "house"
     @State var minBedrooms = 0
     @State var minBathrooms = 0
@@ -94,6 +96,15 @@ struct TabBar: View {
     @Binding var user : User
     @Namespace var animation
     @State var current = "Home"
+    func findBuilding() -> Building {
+        var result = TestData.buildings.first!
+        for building in buildings {
+            if building.id == buildingId{
+                result = building
+            }
+        }
+        return result
+    }
     var profilePic: String
     var tabs = ["house","person","suit.heart"]
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
@@ -146,6 +157,9 @@ struct TabBar: View {
             .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
             
         }.background(LinearGradient(gradient: .init(colors: gradient), startPoint: .top, endPoint: .bottom))
+        .sheet(isPresented: $showCard) {
+            BuildingView(Bedroom: 0, user : $user, showCard:self.$showCard, token: $token, user_id: $user_id, building:findBuilding())
+        }
     }
 
 }

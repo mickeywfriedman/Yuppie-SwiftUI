@@ -9,27 +9,15 @@ import SwiftUI
 import Mapbox
 
 struct ContentView: View {
-    
-   
-    
-    
+    @State var showCard: Bool
     @State private var menuItemSize: CGFloat = 66
     @State private var authToken: String = UserDefaults.standard.string(forKey: "Token") ?? ""
     @State var didLogin: Bool = false
     @State var needsAccount: Bool = true
     @State var user_id: String = ""
     @State var token: String = ""
-    
-    // MARK: - Helper
-    
-    
-
-    
-    // MARK: - Body
-    
+    @State var buildingId: String
     var body: some View {
-        
-        
         return
             
                 VStack {
@@ -37,43 +25,19 @@ struct ContentView: View {
                     Spacer()
                     
                     ZStack(alignment: .leading) {
-                        
-                        
-                        
-                        
-                        // selected card index view
-                      
-                       // if self.authToken == "" {
-                          //  NavigationView{LoginView(didLogin: $didLogin, needsAccount: $needsAccount, random: $random, token: $authToken)}
-                      //  }
-                        
-                        
-                        
+
                         if (self.user_id == "" || self.needsAccount){
                             NavigationView{
                                 PhoneAuth(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id)}
 
 
                         }
-                        if (self.needsAccount == false){
-                            CentralHomeView(token: self.$token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id)
+                        else {
+                            CentralHomeView(token: self.$token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id, showCard: self.$showCard, buildingId: buildingId)
                         }
-                        
-                        
-                        
-                        
-                       // SignupView()
-                       // Registration()
-                        
+
                     }
-                    
-                    
-                       
-                        
-                    
-                   
-                        
-                        
+
                 }
             .edgesIgnoringSafeArea(.all)
             
@@ -82,8 +46,3 @@ struct ContentView: View {
    
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}

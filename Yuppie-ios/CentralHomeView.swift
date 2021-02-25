@@ -15,6 +15,8 @@ struct CentralHomeView: View {
     @Binding var user_id: String
     @State private var user = TestData.user
     @State private var buildingsData = TestData.buildings
+    @Binding var showCard : Bool
+    @State var buildingId : String
     func loadData() {
         print(self.token)
         print(self.user_id)
@@ -84,7 +86,7 @@ struct CentralHomeView: View {
                 Spacer()
                 ZStack(alignment: .leading) {
                     
-                    TabBar(token: $token, user_id: $user_id, buildings: $buildingsData, user: $user, profilePic: user.profilePicture)
+                    TabBar(showCard: $showCard, buildingId: buildingId, token: $token, user_id: $user_id, buildings: $buildingsData, user: $user, profilePic: user.profilePicture)
                 }.edgesIgnoringSafeArea(.all)
             }
             .onAppear(perform: loadUser)

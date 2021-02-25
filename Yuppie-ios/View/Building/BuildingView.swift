@@ -7,6 +7,18 @@
 import SwiftUI
 import MapKit
 
+struct ActivityView: UIViewControllerRepresentable {
+    let activityItems: [Any]
+    let applicationActivities: [UIActivity]?
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityView>) -> UIActivityViewController {
+        return UIActivityViewController(activityItems: activityItems,
+                                        applicationActivities: applicationActivities)
+    }
+    func updateUIViewController(_ uiViewController: UIActivityViewController,
+context: UIViewControllerRepresentableContext<ActivityView>) {
+    }
+}
+
 struct BuildingImages: View{
     func addFavorite() -> Void {
         self.user.favorites.append(building.id)
@@ -41,6 +53,7 @@ struct BuildingImages: View{
             addFavorite()
         }
     }
+    @State private var isShareSheetShowing = false
     @Binding var token: String
     @Binding var user : User
     @Binding var user_id: String
@@ -62,24 +75,35 @@ struct BuildingImages: View{
             }) {
             
             Label(title: {
-               
-                
             }) {
-                
-                
                 if (user.favorites.contains(building.id)) {
-                                        Image(systemName: "heart.fill")
-                                            .foregroundColor(Color("Chat_color"))
-                                        } else {
-                                            Image(systemName: "heart")
-                                                .foregroundColor(Color.gray)
-                                        }
+                    Image(systemName: "heart.fill")
+                        .foregroundColor(Color("Chat_color"))
+                    } else {
+                        Image(systemName: "heart")
+                            .foregroundColor(Color.gray)
+                    }
             }
             .padding(.vertical,8)
             .padding(.horizontal,10)
             .background(Color("pgradient2"))
             .clipShape(Capsule())
         }.offset(x: (-1*UIScreen.main.bounds.width/2)+25, y: -100)
+        Button(action: {
+            self.isShareSheetShowing = true
+            }) {
+            Label(title: {
+            }) {
+                Image(systemName: "square.and.arrow.up")
+            }
+            .padding(.vertical,8)
+            .padding(.horizontal,10)
+            .background(Color("pgradient2"))
+            .clipShape(Capsule())
+        }.offset(x: (-1*UIScreen.main.bounds.width/2)+75, y: -100)
+        .sheet(isPresented: $isShareSheetShowing){
+            ActivityView(activityItems: [NSURL(string: "yuppie://id/\(building.id)")!] as [Any], applicationActivities: nil)
+          }
         HStack{
             Spacer()
             Button(action: {

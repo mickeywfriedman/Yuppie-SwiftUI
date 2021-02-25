@@ -58,11 +58,7 @@ struct Settingsw: View {
     }
 }
 
-struct Settinggs_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+
 
 struct CustomActionSheet : View {
     

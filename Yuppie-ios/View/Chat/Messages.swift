@@ -27,9 +27,7 @@ struct Home : View {
                 Color.clear
             }
             VStack{
-                ZStack{
                     Chats(token: $token, user: $user, user_id: $user_id, building:building,expand: self.$expand).opacity(self.index == 0 ? 1 : 0)
-                }
             }
         }
         .edgesIgnoringSafeArea(.all)

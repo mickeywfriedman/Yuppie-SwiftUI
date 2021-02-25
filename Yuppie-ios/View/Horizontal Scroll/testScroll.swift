@@ -186,17 +186,11 @@ struct Scroll: View {
                             
                         }
                         
-                        
-                        
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack{
-                            Text("")
+                        HStack{
                             Chats(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand)
-                            }
                            
                         }.offset(y:-435)
-                        
+                        Text("Hi")
                         
                         CardView(token: $token, user: $user, user_id: $user_id, building:building)
                             .padding(.horizontal, 20)
