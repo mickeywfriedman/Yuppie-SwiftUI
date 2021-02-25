@@ -138,7 +138,7 @@ struct TabBar: View {
                 // TabButton...
                 
                 
-                TabButton(title: "Profile", image: "user", selected: $current)
+                TabButton(title: "Saved", image: "heart-1", selected: $current)
                 
                 Spacer(minLength: 0)
                 
@@ -146,8 +146,8 @@ struct TabBar: View {
                 
                 Spacer(minLength: 0)
                 
+                TabButton(title: "Profile", image: "user", selected: $current)
                 
-                TabButton(title: "Saved", image: "heart-1", selected: $current)
             }
             .padding(.top,10)
             .padding(.bottom,30)

@@ -123,7 +123,7 @@ struct Scroll: View {
             HStack (spacing: 0){
                 ForEach(buildings, id:\.name) {building in
                     ZStack{
-                        MapView(annotations: annotations(), building: building).centerCoordinate((annotations()[0].coordinate)).zoomLevel(15).offset(y:-450)
+                        MapView(annotations: annotations(), building: building).centerCoordinate(CLLocationCoordinate2D(latitude: Double(building.latitude), longitude: Double(building.longitude))).zoomLevel(15).offset(y:-450)
                         
                         Image("topgradient")
                                                        .resizable()

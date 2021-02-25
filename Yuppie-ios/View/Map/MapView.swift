@@ -52,7 +52,7 @@ struct MapView: UIViewRepresentable {
     }
     
     func centerCoordinate(_ centerCoordinate: CLLocationCoordinate2D) -> MapView {
-        mapView.centerCoordinate =  coordinates(latitude: building.latitude, longitude: building.longitude)
+        mapView.centerCoordinate =  centerCoordinate
         return self
     }
 
