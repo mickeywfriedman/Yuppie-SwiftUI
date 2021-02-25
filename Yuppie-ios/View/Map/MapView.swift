@@ -9,9 +9,9 @@ import SwiftUI
 import Mapbox
 
 extension MGLPointAnnotation {
-    convenience init(title: String, coordinate: CLLocationCoordinate2D) {
+    convenience init(coordinate: CLLocationCoordinate2D) {
         self.init()
-        self.title = title
+        self.title = ""
         self.coordinate = coordinate
     }
 }
@@ -19,8 +19,8 @@ extension MGLPointAnnotation {
 
 struct MapView: UIViewRepresentable {
     @State var annotations: [MGLPointAnnotation]
-    @State var buildings: [Building]
-    @State var index: Int
+    @Binding var buildings: [Building]
+    @Binding var index: Int
     
    let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/leonyuppie/ckfysprwo0l3n19qpi7hm8m8p"))
     

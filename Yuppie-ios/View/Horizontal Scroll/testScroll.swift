@@ -81,11 +81,11 @@ struct Scroll: View {
         return dateFormatter.date(from: string) ?? Date()
     }
     @State var offset : CGFloat = UIScreen.main.bounds.height
-    var buildings: [Building]
+    @State var buildings: [Building]
     func annotations () -> [MGLPointAnnotation]{
-        var result = [MGLPointAnnotation(title: "$13", coordinate: .init(latitude: 40.761295318603516, longitude: -73.99922180175781))]
+        var result = [MGLPointAnnotation(coordinate: .init(latitude: 40.761295318603516, longitude: -73.99922180175781))]
         for building in buildings {
-            result.append(MGLPointAnnotation(title: "$13", coordinate: .init(latitude: Double(building.latitude), longitude: Double(building.longitude))))
+            result.append(MGLPointAnnotation(coordinate: .init(latitude: Double(building.latitude), longitude: Double(building.longitude))))
         }
         result.removeFirst(1)
         return result
@@ -93,7 +93,7 @@ struct Scroll: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack{
-                MapView(annotations: annotations(), buildings: buildings, index: index).centerCoordinate(CLLocationCoordinate2D(latitude: Double(buildings[0].latitude), longitude: Double(buildings[0].longitude))).zoomLevel(15).offset(y:-450)
+                MapView(annotations: annotations(), buildings: $buildings, index: $index).centerCoordinate(CLLocationCoordinate2D(latitude: Double(buildings[0].latitude), longitude: Double(buildings[0].longitude))).zoomLevel(15).offset(y:-450)
             HStack (spacing: 0){
                 ForEach(buildings, id:\.name) {building in
                     ZStack{
