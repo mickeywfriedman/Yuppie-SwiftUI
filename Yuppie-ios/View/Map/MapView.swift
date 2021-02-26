@@ -22,7 +22,7 @@ struct MapView: UIViewRepresentable {
     @Binding var buildings: [Building]
     @Binding var index: Int
     @State var newIndex: Int = 0
-   let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/leonyuppie/ckfysprwo0l3n19qpi7hm8m8p"))
+    @State var mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/leonyuppie/ckfysprwo0l3n19qpi7hm8m8p"))
     
     // MARK: - Configuring UIViewRepresentable protocol
     
@@ -37,21 +37,18 @@ struct MapView: UIViewRepresentable {
         mapView.attributionButton.isHidden = true
         return mapView
     }
+    
     func makeCoordinator() -> MapView.Coordinator {
         Coordinator(self)
     }
     
 
-
-    
-    // MARK: - Configuring MGLMapView
-    
     func styleURL(_ styleURL: URL) -> MapView {
         mapView.styleURL = styleURL
         return self
     }
     func centerCoordinate(_ centerCoordinate: CLLocationCoordinate2D) -> MapView {
-        mapView.centerCoordinate =  coordinates(latitude: buildings[index].latitude, longitude: buildings[index].longitude)
+        mapView.centerCoordinate =  centerCoordinate
         return self
     }
     func zoomLevel(_ zoomLevel: Double) -> MapView {
@@ -68,7 +65,7 @@ struct MapView: UIViewRepresentable {
     func moveToCoordinate(_ mapView: MGLMapView, to point: CLLocationCoordinate2D) {
         print(point)
         print("hello")
-        let camera = MGLMapCamera(lookingAtCenter: point, fromDistance: 4500, pitch: 15, heading: 180)
+        let camera = MGLMapCamera(lookingAtCenter: point, fromDistance: 4500, pitch: 15, heading: 0)
         mapView.fly(to: camera, withDuration: 4,
                     peakAltitude: 3000, completionHandler: nil)
         self.newIndex = index

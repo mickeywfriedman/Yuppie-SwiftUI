@@ -34,13 +34,16 @@ struct testScroll: View {
         }
         return false
     }
+    func filteredBuildings() -> [Building]{
+        return buildings.filter({filter(units: $0.units, buildingAmenities:$0.amenities)})
+    }
     var gradient = [Color("Color-3"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
 
     var body: some View {
         ZStack{
-            if buildings.filter({filter(units: $0.units, buildingAmenities:$0.amenities)}).count > 0 {
+            if filteredBuildings().count > 0 {
                 VStack {
-                    Scroll(user: $user, token: $token, user_id: $user_id, buildings:buildings.filter({filter(units: $0.units, buildingAmenities:$0.amenities)}))
+                    Scroll(user: $user, token: $token, user_id: $user_id, buildings:filteredBuildings())
                                         .offset(y:400)
                     
                 }.edgesIgnoringSafeArea([.top, .bottom])
@@ -74,7 +77,25 @@ struct Scroll: View {
     func reset() -> Void {
         index = 0
     }
-    
+    func filter(units: [Unit], buildingAmenities: [String]) -> Bool{
+        for unit in units{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let date_avail = dateFormatter.date(from: unit.dateAvailable)
+            if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms-1 >= user.preferences.bathrooms && Int(unit.price) <= Int(user.preferences.price) && date_avail ?? Date() < dateFormat(string: user.preferences.latestMoveInDate)){
+                for amenity in user.preferences.amenities {
+                    if (!buildingAmenities.contains(amenity)){
+                        return false
+                    }
+                }
+                return true
+            }
+        }
+        return false
+    }
+    func filteredBuildings() -> [Building]{
+        return buildings.filter({filter(units: $0.units, buildingAmenities:$0.amenities)})
+    }
     func dateFormat(string : String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -93,7 +114,7 @@ struct Scroll: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack{
-                MapView(annotations: annotations(), buildings: $buildings, index: $index).centerCoordinate(CLLocationCoordinate2D(latitude: Double(buildings[index].latitude), longitude: Double(buildings[index].longitude))).zoomLevel(15).offset(y:-450).onDisappear(perform: {
+                MapView(annotations: annotations(), buildings: $buildings, index: $index).centerCoordinate(CLLocationCoordinate2D(latitude: Double(filteredBuildings()[index].latitude), longitude: Double(filteredBuildings()[index].longitude))).zoomLevel(15).offset(y:-450).onDisappear(perform: {
                     reset()
                 })
                 VStack{
@@ -122,7 +143,7 @@ struct Scroll: View {
                         }
                     }
                     HStack (spacing: 0){
-                        ForEach(buildings, id:\.name) {building in
+                        ForEach(filteredBuildings(), id:\.name) {building in
                             Chats(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand)
                                 .padding(.top, -75).padding(.horizontal, 20)
                             }
@@ -133,7 +154,7 @@ struct Scroll: View {
                     
                 }.offset(y: -350)
             HStack (spacing: 0){
-                ForEach(buildings, id:\.name) {building in
+                ForEach(filteredBuildings(), id:\.name) {building in
                         CardView(token: $token, user: $user, user_id: $user_id, building:building, showCard: $showCard, card: $card)
                             .padding(.horizontal, 20)
                     }
@@ -156,7 +177,7 @@ struct Scroll: View {
                          }
                     let offset = (value.translation.width + weakGesture) / geometry.size.width
                             let newIndex = (CGFloat(self.index) - offset).rounded()
-                            self.index = min(max(Int(newIndex), 0), self.buildings.count - 1)
+                            self.index = min(max(Int(newIndex), 0), filteredBuildings().count - 1)
                     print(buildings[index].name)
                  }
            )
@@ -177,8 +198,7 @@ struct sheets: View {
     @State var minDate = Date()
     @State var maxDate = Date(timeInterval: 14*86400, since: Date())
     func reset() -> Void {
-        index = 0
-    }
+        index = 0    }
     func dateFormat(string : String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
