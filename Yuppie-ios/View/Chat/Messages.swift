@@ -38,9 +38,8 @@ struct Chats : View {
     @Binding var token: String
     @Binding var user : User
     @Binding var user_id: String
-    var building: Building
+    @State var building: Building
     @Binding var expand : Bool
-    
     var body : some View{
         
         VStack(spacing: 0){
@@ -57,7 +56,7 @@ struct TopView : View {
     @Binding var token: String
     @Binding var user : User
     @Binding var user_id: String
-    var building: Building
+    @State var building: Building
     @State var tenant_id = ""
     @State var tenant_prof = ""
     @State var tenant_name = ""

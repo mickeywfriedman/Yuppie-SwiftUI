@@ -81,7 +81,7 @@ struct Scroll: View {
         return dateFormatter.date(from: string) ?? Date()
     }
     @State var offset : CGFloat = UIScreen.main.bounds.height
-    var buildings: [Building]
+    @State var buildings: [Building]
     func annotations () -> [MGLPointAnnotation]{
         var result = [MGLPointAnnotation(coordinate: .init(latitude: 40.761295318603516, longitude: -73.99922180175781))]
         for building in buildings {
@@ -93,74 +93,55 @@ struct Scroll: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack{
-            HStack (spacing: 0){
-                ForEach(buildings, id:\.name) {building in
-                    
-                    ZStack{
-                        MapView(annotations: annotations(), building: building).centerCoordinate(CLLocationCoordinate2D(latitude: Double(building.latitude), longitude: Double(building.longitude))).zoomLevel(15).offset(y:-450)
-                        Image("topgradient")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .offset(y:-710)
-                      
-                    VStack{
-                        
-                        HStack{
-                        
-                        Label(title: {
-                        }) {Text("Chat with Current Residents")
+                MapView(annotations: annotations(), buildings: $buildings, index: $index).centerCoordinate(CLLocationCoordinate2D(latitude: Double(buildings[index].latitude), longitude: Double(buildings[index].longitude))).zoomLevel(15).offset(y:-450).onDisappear(perform: {
+                    reset()
+                })
+                VStack{
+                    HStack{
+                        Text("Chat with Current Residents")
                             .foregroundColor(Color.black)
                             .fontWeight(.bold)
-                           
-                        } .padding(.vertical,4)
+                            .padding(.vertical,4)
                         .padding(.horizontal,10)
                         .background(Color.white)
                         .clipShape(Capsule())
                         .opacity(0.7)
-                        .offset(x: 15, y:-350)
-                            
-                            Button(action: {
-                                self.card = "filter"
-                                self.showCard = true
+                        Button(action: {
+                            self.card = "filter"
+                            self.showCard = true
+                        }) {
+                            Label(title: {
                             }) {
-                                
-                                Label(title: {
-                                   
-                                    
-                                }) {
-
-                                Image(systemName: "slider.horizontal.3")
-                                    .foregroundColor(Color.white)
-                                }
-                                .padding(.vertical,8)
-                                .padding(.horizontal,10)
-                                .background(Color("Chat_color").opacity(0.5))
-                                .clipShape(Capsule())
-                            } .offset(x: 30, y:-350)
+                            Image(systemName: "slider.horizontal.3")
+                                .foregroundColor(Color.white)
+                            }
+                            .padding(.vertical,8)
+                            .padding(.horizontal,10)
+                            .background(Color("Chat_color").opacity(0.5))
+                            .clipShape(Capsule())
                         }
-                        
-                            HStack{
+                    }
+                    HStack (spacing: 0){
+                        ForEach(buildings, id:\.name) {building in
                             Chats(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand)
-                           
-                        }.offset(y:-435)
-                        
+                                .padding(.top, -75).padding(.horizontal, 20)
+                            }
+                        }
+                   .frame(width: geometry.size.width, alignment: .leading)
+                    .offset(x: -CGFloat(self.index) * geometry.size.width)
+                   .animation(.interactiveSpring())
+                    
+                }.offset(y: -350)
+            HStack (spacing: 0){
+                ForEach(buildings, id:\.name) {building in
                         CardView(token: $token, user: $user, user_id: $user_id, building:building, showCard: $showCard, card: $card)
                             .padding(.horizontal, 20)
-                        .offset(y:-520)
-                        
                     }
-                    }
-                    }
-                    
                 }
-                
-            }
            .frame(width: geometry.size.width, alignment: .leading)
-           .offset(x: -CGFloat(self.index) * geometry.size.width)
+            .offset(x: -CGFloat(self.index) * geometry.size.width, y: -200)
            .animation(.interactiveSpring())
-            .onDisappear(perform: {
-                reset()
-            })
+            
            .gesture(
               DragGesture()
                  .updating(self.$translation) { gestureValue, gestureState, _ in
@@ -176,14 +157,13 @@ struct Scroll: View {
                     let offset = (value.translation.width + weakGesture) / geometry.size.width
                             let newIndex = (CGFloat(self.index) - offset).rounded()
                             self.index = min(max(Int(newIndex), 0), self.buildings.count - 1)
+                    print(buildings[index].name)
                  }
            )
         }.sheet(isPresented: $showCard) {
-            sheets(card: $card, user: $user, buildings: buildings, user_id: $user_id, token:$token, index: index).onDisappear(perform: {
-                reset()
-            })
+            sheets(card: $card, user: $user, buildings: buildings, user_id: $user_id, token:$token, index: $index)
         }
-
+        }
 }
 }
 
@@ -193,9 +173,12 @@ struct sheets: View {
     @State var buildings: [Building]
     @Binding var user_id: String
     @Binding var token: String
-    @State var index: Int
+    @Binding var index: Int
     @State var minDate = Date()
     @State var maxDate = Date(timeInterval: 14*86400, since: Date())
+    func reset() -> Void {
+        index = 0
+    }
     func dateFormat(string : String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -251,7 +234,9 @@ struct sheets: View {
         VStack{
             Text("Update Preferences").font(.largeTitle).fontWeight(.heavy)
         FiltersView(token: $token, user: $user, user_id: $user_id, minDate: dateFormat(string: user.preferences.earliestMoveInDate), maxDate: dateFormat(string: user.preferences.latestMoveInDate)).onDisappear(perform: updateFilters)
-        }.padding()
+        }.padding().onDisappear(perform: {
+            reset()
+        })
         }
         else if (card == "building") {
             BuildingView(Bedroom: minBeds(), user : $user, token: $token, user_id: $user_id, building:buildings[index])

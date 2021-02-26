@@ -19,8 +19,9 @@ extension MGLPointAnnotation {
 
 struct MapView: UIViewRepresentable {
     @State var annotations: [MGLPointAnnotation]
-    @State var building: Building
-    
+    @Binding var buildings: [Building]
+    @Binding var index: Int
+    @State var newIndex: Int = 0
    let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/leonyuppie/ckfysprwo0l3n19qpi7hm8m8p"))
     
     // MARK: - Configuring UIViewRepresentable protocol
@@ -36,7 +37,6 @@ struct MapView: UIViewRepresentable {
         mapView.attributionButton.isHidden = true
         return mapView
     }
-    
     func makeCoordinator() -> MapView.Coordinator {
         Coordinator(self)
     }
@@ -50,26 +50,32 @@ struct MapView: UIViewRepresentable {
         mapView.styleURL = styleURL
         return self
     }
-    
     func centerCoordinate(_ centerCoordinate: CLLocationCoordinate2D) -> MapView {
-        mapView.centerCoordinate =  coordinates(latitude: building.latitude, longitude: building.longitude)
-
+        mapView.centerCoordinate =  coordinates(latitude: buildings[index].latitude, longitude: buildings[index].longitude)
         return self
     }
-
-    
     func zoomLevel(_ zoomLevel: Double) -> MapView {
         mapView.zoomLevel = zoomLevel
         return self
     }
     func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<MapView>) {
         updateAnnotations()
-        
+        mapView.centerCoordinate =  coordinates(latitude: buildings[index].latitude, longitude: buildings[index].longitude)
+        if ((index != newIndex)){
+            moveToCoordinate(mapView, to: CLLocationCoordinate2D(latitude: Double(buildings[index].latitude), longitude: Double(buildings[index].longitude)))
+        }
+    }
+    func moveToCoordinate(_ mapView: MGLMapView, to point: CLLocationCoordinate2D) {
+        print(point)
+        print("hello")
+        let camera = MGLMapCamera(lookingAtCenter: point, fromDistance: 4500, pitch: 15, heading: 180)
+        mapView.fly(to: camera, withDuration: 4,
+                    peakAltitude: 3000, completionHandler: nil)
+        self.newIndex = index
     }
     func coordinates(latitude: Float, longitude: Float) -> CLLocationCoordinate2D {
         let lat = Double(latitude) as! CLLocationDegrees
         let lon = Double(longitude) as! CLLocationDegrees
-        print("Lat: \(lat), Lon: \(lon)")
         return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
 

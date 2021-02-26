@@ -112,9 +112,6 @@ struct TabBar: View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
             TabView(selection: $current){
                 ZStack{
-                    IndexView(buildings: $buildings)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .tag(tabs[0])
                     if (buildings[0].name == "Test"){
                         LoadingScreen()
                     } else {
