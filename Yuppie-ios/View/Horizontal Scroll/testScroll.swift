@@ -74,6 +74,32 @@ struct Scroll: View {
     @Binding var user_id: String
     @State var minDate = Date()
     @State var maxDate = Date(timeInterval: 14*86400, since: Date())
+    @State var tenant_id = ""
+    @State var tenant_prof = ""
+    @State var tenant_name = ""
+    @State var showChatUI = false
+    @State var search = ""
+    @State var showInbox = false
+    func getDocumentsDirectory1() -> URL {
+        // find all possible documents directories for this user
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+
+        // just send back the first one, which ought to be the only one
+        return paths[0]
+    }
+    
+    func writeTenant(){
+        let text = ""
+        
+        let filename = getDocumentsDirectory1().appendingPathComponent("index.txt")
+        do {
+            try text.write(to: filename, atomically: false, encoding: .utf8)
+            try (self.tenant_id+self.user_id+("token_id:")+self.token ).write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+            
+        } catch {
+            // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
+        }
+    }
     func reset() -> Void {
         index = 0
     }
@@ -144,7 +170,129 @@ struct Scroll: View {
                     }
                     HStack (spacing: 0){
                         ForEach(filteredBuildings(), id:\.name) {building in
-                            Chats(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand)
+                            VStack(spacing: 0){
+                                
+                                ZStack{
+                                    NavigationLink(destination: ChatUI(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, tenant_name: $tenant_name)){
+                                        
+                                        Text("")
+                                    }
+                                    
+                                    NavigationLink(destination: Inbox(token: $token, user_id: $user_id, user: $user), isActive: self.$showInbox) {
+                                        
+                                        Text("")
+                                    }
+                                
+                                VStack{
+                                    
+                                    
+                                    if true{
+                                        
+                                        HStack{
+                                           
+                                            
+                                            Button(action: {
+                                                
+                                            }) {
+                                                Image("menu")
+                                                .resizable()
+                                                .frame(width: 20, height: 20)
+                                                .foregroundColor(Color.black.opacity(0.4))
+                                            }
+
+                                        }
+                                        ScrollView(.horizontal, showsIndicators: false) {
+                                            
+                                            HStack(spacing: 18){
+                                                
+                                                VStack{
+                                                    
+                                                    ZStack{
+                                                
+                                                Button(action: {
+                                                    self.showCard.toggle()
+                                                    self.card = "inbox"
+                                                    
+                                                }) { Image(systemName: "message")
+                                                    .resizable()
+                                                    .frame(width: 25, height: 25)
+                                                        .foregroundColor(Color.white)
+                                                    .padding(18)
+                                                }.background(Color("blueshadow").opacity(0.5))
+                                                .clipShape(Circle())
+                                                    
+                                                    Circle()
+                                                    .trim(from: 0, to: 1)
+                                                        .stroke(AngularGradient(gradient: .init(colors: [.purple,.blue,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [false ? 7 : 0]))
+                                                    .frame(width: 68, height: 68)
+                                                    .rotationEffect(.init(degrees: true ? 360 : 0))
+                                                        .padding(3)
+                                                        
+                                                    }
+                                                
+                                                    Label(title: {
+                                                    }) {Text("Inbox")
+                                                        .foregroundColor(Color.black)
+                                                        .lineLimit(1)
+                                                        
+                                                    } .padding(.vertical,4)
+                                                    .padding(.horizontal,10)
+                                                    .background(Color.white)
+                                                    .clipShape(Capsule())
+                                                    .opacity(0.8)
+                                                    
+                                            }
+                                                ForEach(building.tenants,id: \.self){tenant in
+                                                    
+                                                    Button(action: {
+                                                        self.showCard = true
+                                                        self.card = "chat"
+                                                        tenant_id = String(tenant.id)
+                                                        tenant_prof = String(tenant.profilePicture)
+                                                        tenant_name = String(tenant.firstName)
+                                                        writeTenant()
+                                                    }) {
+                                                        VStack(spacing: 8){
+                                                        ZStack{
+                                                        URLImage(url: tenant.profilePicture)
+                                                        .frame(width: 60, height: 60)
+                                                            .cornerRadius(30)
+                                                            .padding(.bottom, 10)
+                                                            .padding(.top, 10)
+                                                        Circle()
+                                                        .trim(from: 0, to: 1)
+                                                            .stroke(AngularGradient(gradient: .init(colors: [.purple,.orange,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [showChatUI ? 3 : 0]))
+                                                        .frame(width: 68, height: 68)
+                                                        .rotationEffect(.init(degrees: showChatUI ? 360 : 0))
+                                                            .padding(3)
+                                                        }
+                                                            
+                                                            Label(title: {
+                                                            }) {Text(tenant.firstName)
+                                                                .foregroundColor(Color.black)
+                                                                .lineLimit(1)
+                                                            } .padding(.vertical,4)
+                                                            .padding(.horizontal,10)
+                                                            .background(Color.white)
+                                                            .clipShape(Capsule())
+                                                            .opacity(0.8)
+                                                            .offset(y: -5)
+                                                        }
+                                                        }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }.padding()
+                                .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
+                                .background(Color.clear)
+                                .clipShape(shape())
+                                .animation(.default)
+                                
+                            }.zIndex(0)
+                                
+                                Centerview(expand: self.$expand).offset(y: -1250)
+                            }.frame(minWidth:(UIScreen.main.bounds.width-40), maxWidth: .infinity)
                                 .padding(.top, -85).padding(.horizontal, 20)
                             }
                         }
@@ -181,107 +329,12 @@ struct Scroll: View {
                  }
            )
         }.sheet(isPresented: $showCard) {
-            sheets(card: $card, user: $user, buildings: filteredBuildings(), user_id: $user_id, token:$token, index: $index)
+            sheets(card: $card, user: $user, buildings: filteredBuildings(), user_id: $user_id, token:$token, index: $index, tenant_id : $tenant_id, tenant_prof: $tenant_prof, tenant_name:$tenant_name)
         }
         }
 }
 }
 
-struct sheets: View {
-    @Binding var card: String
-    @Binding var user: User
-    @State var buildings: [Building]
-    @Binding var user_id: String
-    @Binding var token: String
-    @Binding var index: Int
-    @State var minDate = Date()
-    @State var maxDate = Date(timeInterval: 14*86400, since: Date())
-    func filter(units: [Unit], buildingAmenities: [String]) -> Bool{
-        for unit in units{
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            let date_avail = dateFormatter.date(from: unit.dateAvailable)
-            if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms-1 >= user.preferences.bathrooms && Int(unit.price) <= Int(user.preferences.price) && date_avail ?? Date() < dateFormat(string: user.preferences.latestMoveInDate)){
-                for amenity in user.preferences.amenities {
-                    if (!buildingAmenities.contains(amenity)){
-                        return false
-                    }
-                }
-                return true
-            }
-        }
-        return false
-    }
-    func filteredBuildings() -> [Building]{
-        return buildings.filter({filter(units: $0.units, buildingAmenities:$0.amenities)})
-    }
-    func dateFormat(string : String) -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.date(from: string) ?? Date()
-    }
-    func reset() -> Void {
-        index = 0    }
-
-    func format(date : Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.string(from: date)
-    }
-    func updateFilters() -> Void {
-        self.user.preferences.earliestMoveInDate = "\(format(date: minDate))"
-        self.user.preferences.latestMoveInDate = "\(format(date: maxDate))"
-        guard let filter_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)") else {
-            print("Your API end point is Invalid")
-            return
-        }
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        guard let data = try? encoder.encode(update(preferences: user.preferences)) else {
-            print("Failed to encode order")
-            return
-        }
-        var filter_request = URLRequest(url: filter_url)
-        filter_request.httpMethod = "PATCH"
-        filter_request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        filter_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        filter_request.httpBody = data
-        print("updated")
-        URLSession.shared.dataTask(with: filter_request) { data, response, error in
-            return
-            
-        }.resume()
-    }
-    func unitFilter(unit: Unit) -> Bool{
-        if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms >= user.preferences.bathrooms){
-                return true
-            }
-            return false
-        }
-    
-    func minBeds () -> Int{
-        var lowest = 3
-        for unit in buildings[index].units.filter({unitFilter(unit:$0)}) {
-            if (Int(unit.bedrooms) < lowest){
-                lowest = unit.bedrooms
-            }
-        }
-        return lowest
-    }
-    var body: some View {
-        if (card == "filter"){
-        VStack{
-            Text("Update Preferences").font(.largeTitle).fontWeight(.heavy)
-        FiltersView(token: $token, user: $user, user_id: $user_id, minDate: dateFormat(string: user.preferences.earliestMoveInDate), maxDate: dateFormat(string: user.preferences.latestMoveInDate)).onDisappear(perform: updateFilters)
-        }.padding().onDisappear(perform: {
-            reset()
-        })
-        }
-        else if (card == "building") {
-            BuildingView(Bedroom: minBeds(), user : $user, token: $token, user_id: $user_id, building:filteredBuildings()[index])
-        }
-        }
-}
 
 struct Navshape : Shape {
     

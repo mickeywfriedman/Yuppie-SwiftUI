@@ -98,7 +98,7 @@ struct BuildingImages: View{
             }
             .padding(.vertical,8)
             .padding(.horizontal,10)
-            .background(Color("Color1"))
+            .background(Color("pgradient2"))
             .clipShape(Capsule())
         }.offset(x: (-1*UIScreen.main.bounds.width/2)+75, y: -100)
         .sheet(isPresented: $isShareSheetShowing){
