@@ -86,7 +86,7 @@ struct BuildingImages: View{
             }
             .padding(.vertical,8)
             .padding(.horizontal,10)
-            .background(Color("pgradient2"))
+            .background(Color("Color1"))
             .clipShape(Capsule())
         }.offset(x: (-1*UIScreen.main.bounds.width/2)+25, y: -100)
         Button(action: {
@@ -98,7 +98,7 @@ struct BuildingImages: View{
             }
             .padding(.vertical,8)
             .padding(.horizontal,10)
-            .background(Color("pgradient2"))
+            .background(Color("Color1"))
             .clipShape(Capsule())
         }.offset(x: (-1*UIScreen.main.bounds.width/2)+75, y: -100)
         .sheet(isPresented: $isShareSheetShowing){

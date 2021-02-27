@@ -22,10 +22,34 @@ struct MapView: UIViewRepresentable {
     @Binding var buildings: [Building]
     @Binding var index: Int
     @State var newIndex: Int = 0
+    @Binding var user: User
     @State var mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/leonyuppie/ckfysprwo0l3n19qpi7hm8m8p"))
     
     // MARK: - Configuring UIViewRepresentable protocol
-    
+    func filter(units: [Unit], buildingAmenities: [String]) -> Bool{
+        for unit in units{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let date_avail = dateFormatter.date(from: unit.dateAvailable)
+            if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms-1 >= user.preferences.bathrooms && Int(unit.price) <= Int(user.preferences.price) && date_avail ?? Date() < dateFormat(string: user.preferences.latestMoveInDate)){
+                for amenity in user.preferences.amenities {
+                    if (!buildingAmenities.contains(amenity)){
+                        return false
+                    }
+                }
+                return true
+            }
+        }
+        return false
+    }
+    func filteredBuildings() -> [Building]{
+        return buildings.filter({filter(units: $0.units, buildingAmenities:$0.amenities)})
+    }
+    func dateFormat(string : String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: string) ?? Date()
+    }
     func makeUIView(context: UIViewRepresentableContext<MapView>) -> MGLMapView {
         mapView.delegate = context.coordinator
         mapView.isZoomEnabled = true
@@ -57,14 +81,14 @@ struct MapView: UIViewRepresentable {
     }
     func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<MapView>) {
         updateAnnotations()
-        mapView.centerCoordinate =  coordinates(latitude: buildings[index].latitude, longitude: buildings[index].longitude)
+        if index < filteredBuildings().count {
+        mapView.centerCoordinate =  coordinates(latitude: filteredBuildings()[index].latitude, longitude: filteredBuildings()[index].longitude)
         if ((index != newIndex)){
-            moveToCoordinate(mapView, to: CLLocationCoordinate2D(latitude: Double(buildings[index].latitude), longitude: Double(buildings[index].longitude)))
+            moveToCoordinate(mapView, to: CLLocationCoordinate2D(latitude: Double(filteredBuildings()[index].latitude), longitude: Double(filteredBuildings()[index].longitude)))
+        }
         }
     }
     func moveToCoordinate(_ mapView: MGLMapView, to point: CLLocationCoordinate2D) {
-        print(point)
-        print("hello")
         let camera = MGLMapCamera(lookingAtCenter: point, fromDistance: 4500, pitch: 15, heading: 0)
         mapView.fly(to: camera, withDuration: 4,
                     peakAltitude: 3000, completionHandler: nil)

@@ -43,7 +43,7 @@ struct testScroll: View {
         ZStack{
             if filteredBuildings().count > 0 {
                 VStack {
-                    Scroll(user: $user, token: $token, user_id: $user_id, buildings:filteredBuildings())
+                    Scroll(user: $user, token: $token, user_id: $user_id, buildings:buildings)
                                         .offset(y:400)
                     
                 }.edgesIgnoringSafeArea([.top, .bottom])
@@ -114,7 +114,7 @@ struct Scroll: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack{
-                MapView(annotations: annotations(), buildings: $buildings, index: $index).centerCoordinate(CLLocationCoordinate2D(latitude: Double(filteredBuildings()[index].latitude), longitude: Double(filteredBuildings()[index].longitude))).zoomLevel(15).offset(y:-450).onDisappear(perform: {
+                MapView(annotations: annotations(), buildings: $buildings, index: $index, user: $user).centerCoordinate(CLLocationCoordinate2D(latitude: Double(buildings[index].latitude), longitude: Double(buildings[index].longitude))).zoomLevel(15).offset(y:-450).onDisappear(perform: {
                     reset()
                 })
                 VStack{
@@ -145,7 +145,7 @@ struct Scroll: View {
                     HStack (spacing: 0){
                         ForEach(filteredBuildings(), id:\.name) {building in
                             Chats(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand)
-                                .padding(.top, -75).padding(.horizontal, 20)
+                                .padding(.top, -85).padding(.horizontal, 20)
                             }
                         }
                    .frame(width: geometry.size.width, alignment: .leading)
@@ -178,11 +178,10 @@ struct Scroll: View {
                     let offset = (value.translation.width + weakGesture) / geometry.size.width
                             let newIndex = (CGFloat(self.index) - offset).rounded()
                             self.index = min(max(Int(newIndex), 0), filteredBuildings().count - 1)
-                    print(buildings[index].name)
                  }
            )
         }.sheet(isPresented: $showCard) {
-            sheets(card: $card, user: $user, buildings: buildings, user_id: $user_id, token:$token, index: $index)
+            sheets(card: $card, user: $user, buildings: filteredBuildings(), user_id: $user_id, token:$token, index: $index)
         }
         }
 }
@@ -197,13 +196,33 @@ struct sheets: View {
     @Binding var index: Int
     @State var minDate = Date()
     @State var maxDate = Date(timeInterval: 14*86400, since: Date())
-    func reset() -> Void {
-        index = 0    }
+    func filter(units: [Unit], buildingAmenities: [String]) -> Bool{
+        for unit in units{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let date_avail = dateFormatter.date(from: unit.dateAvailable)
+            if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms-1 >= user.preferences.bathrooms && Int(unit.price) <= Int(user.preferences.price) && date_avail ?? Date() < dateFormat(string: user.preferences.latestMoveInDate)){
+                for amenity in user.preferences.amenities {
+                    if (!buildingAmenities.contains(amenity)){
+                        return false
+                    }
+                }
+                return true
+            }
+        }
+        return false
+    }
+    func filteredBuildings() -> [Building]{
+        return buildings.filter({filter(units: $0.units, buildingAmenities:$0.amenities)})
+    }
     func dateFormat(string : String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.date(from: string) ?? Date()
     }
+    func reset() -> Void {
+        index = 0    }
+
     func format(date : Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -259,9 +278,7 @@ struct sheets: View {
         })
         }
         else if (card == "building") {
-            BuildingView(Bedroom: minBeds(), user : $user, token: $token, user_id: $user_id, building:buildings[index])
-        } else {
-            Text("oops\(card) sadf")
+            BuildingView(Bedroom: minBeds(), user : $user, token: $token, user_id: $user_id, building:filteredBuildings()[index])
         }
         }
 }
