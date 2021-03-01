@@ -147,18 +147,18 @@ struct PhoneAuth: View {
                         
                         Text("Welcome To Yuppie")
                             .foregroundColor(Color.white)
-                            .font(.custom("Futura Light", size: 32))
+                            .font(.custom("Futura", size: 32))
                         
                         Text("Get Started by Entering Your Number")
                             .foregroundColor(Color.white)
-                            .font(.custom("Futura Light", size: 16))
+                            .font(.custom("Futura", size: 16))
                             
                        
                         HStack(spacing: 15){
                             Spacer()
                             TextField("1", text: self.$countryCode)
                                 .keyboardType(.numberPad)
-                                .font(.custom("Futura Light", size: 18))
+                                .font(.custom("Futura", size: 18))
                                 // fixed Width...
                                 .frame(width: 50)
                                 .foregroundColor(.white)
@@ -187,7 +187,7 @@ struct PhoneAuth: View {
                             TextField("Mobile Number", text: self.$number)
                                 .keyboardType(.numberPad)
                                 .foregroundColor(.white)
-                                .font(.custom("Futura Light", size: 18))
+                                .font(.custom("Futura", size: 18))
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 10)
                                 .background(Color("pgradient1").opacity(0.6))
@@ -212,7 +212,7 @@ struct PhoneAuth: View {
                             if !self.number.isEmpty {
                                 if !self.isNumberValid {
                                     Text("10 characters")
-                                        .font(.custom("Futura Light", size: 16))
+                                        .font(.custom("Futura", size: 16))
                                         .foregroundColor(Color("Color"))
                                         .padding(.trailing, 20)
                                             .padding(.horizontal, 10)

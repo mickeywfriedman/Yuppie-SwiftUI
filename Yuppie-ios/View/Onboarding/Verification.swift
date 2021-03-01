@@ -155,7 +155,7 @@ struct Verification: View {
                         
                         Text("Enter the 6 digit code just texted to you.")
                             .foregroundColor(Color.white)
-                            .font(.custom("Futura Light", size: 18))
+                            .font(.custom("Futura", size: 18))
                         HStack(spacing: 15){
                             Spacer()
 
@@ -167,7 +167,7 @@ struct Verification: View {
                                 .background(Color("pgradient1").opacity(0.6))
                                 .clipShape(Capsule())
                                 .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
-                                .font(.custom("Futura Light", size: 18))
+                                .font(.custom("Futura", size: 18))
                                 
                             Spacer()
                         }

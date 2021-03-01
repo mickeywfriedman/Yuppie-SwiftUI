@@ -253,7 +253,7 @@ struct SignupView: View {
                         
                         
                         Text("Welcome to Yuppie").fontWeight(.heavy).font(.largeTitle)
-                            .foregroundColor(Color.white)
+                            .foregroundColor(Color.white).font(.custom("Futura", size: 20))
                        
                         HStack(spacing: 15){
                             Spacer()
