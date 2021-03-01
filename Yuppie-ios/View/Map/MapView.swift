@@ -19,7 +19,6 @@ extension MGLPointAnnotation {
 
 struct MapView: UIViewRepresentable {
     @Binding var annotations: [MGLPointAnnotation]
-    var building: Building
     
    let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/leonyuppie/ckfysprwo0l3n19qpi7hm8m8p"))
     
@@ -38,34 +37,14 @@ struct MapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<MapView>) {
-        updateAnnotations()
-        let address_coord = coordinates(forAddress: "\(building.address.streetAddress), \(building.address.city), \(building.address.state), \(building.address.zipCode)", latitude: building.latitude, longitude: building.longitude ) {
-            (location) in
-            guard let location = location else {
-                return
-            }}
-        
-        //print(address_coord)
-        
-        
-    }
-    
-    func makeCoordinator() -> MapView.Coordinator {
-        Coordinator(self)
-    }
-    
-    func coordinates(forAddress address: String, latitude: Float, longitude: Float, completion: @escaping (CLLocationCoordinate2D?) -> Void) {
-        var geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address) { placemarks, error in
-            let placemark = placemarks?.first
-            let lat = Double(latitude) as! CLLocationDegrees
-            let lon = Double(longitude) as! CLLocationDegrees
-            print("Lat: \(lat), Lon: \(lon)")
-            moveToCoordinate(mapView, to: CLLocationCoordinate2D(latitude: lat, longitude: lon))
-            return
-        }
-    }
-
+            updateAnnotations()
+                }
+        
+        func makeCoordinator() -> MapView.Coordinator {
+            Coordinator(self)
+        }
+        
+     
     
     // MARK: - Configuring MGLMapView
     
@@ -159,7 +138,8 @@ struct MapView: UIViewRepresentable {
         func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, fromDistance: 4500, pitch: 15, heading: 180)
         mapView.fly(to: camera, withDuration: 4,
-        peakAltitude: 300, completionHandler: nil)
+                    peakAltitude: 300, completionHandler: nil)
+            mapView.zoomLevel = 15
         }
         
         

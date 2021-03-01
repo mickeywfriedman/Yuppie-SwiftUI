@@ -56,10 +56,12 @@ struct IndexView: View {
         
         let size: CGFloat = 10
         let selectedScaleFactor: CGFloat = 2.5
-        
+        let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/leonyuppie/ckfysprwo0l3n19qpi7hm8m8p"))
         return
             
             ZStack{
+                
+                MapView(annotations: $annotations).centerCoordinate((annotations[0].coordinate)).zoomLevel(15)
                
            
            }.background(LinearGradient(gradient: .init(colors: gradient), startPoint: .top, endPoint: .bottom))

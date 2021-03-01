@@ -61,7 +61,22 @@ struct testScroll: View {
     }
 }
 
+class MapScroll: ObservableObject {
+    @Published var ipAddress: String = ""
+
+    func scroll_map(building: Building) {
+        let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/cephalopod004/ckkqhhfrt01hw17qlfsq1gwt4"))
+        let lat = Double(building.latitude) as! CLLocationDegrees
+     let lon = Double(building.longitude) as! CLLocationDegrees
+        let camera = MGLMapCamera(lookingAtCenter: (CLLocationCoordinate2D(latitude: lat, longitude: lon)),  fromDistance: 4500, pitch: 15, heading: 180)
+        mapView.fly(to: camera, withDuration: 4,
+        peakAltitude: 3000, completionHandler: nil)
+    }
+    
+}
+
 struct Scroll: View {
+    @ObservedObject var mapScroll: MapScroll = MapScroll()
     @GestureState private var translation: CGFloat = 0
     @State var index: Int = 0
     @State var expand = false
@@ -71,6 +86,9 @@ struct Scroll: View {
     func reset() -> Void {
         index = 0
     }
+    
+   
+
     
     @State var offset : CGFloat = UIScreen.main.bounds.height
     var buildings: [Building]
@@ -87,7 +105,7 @@ struct Scroll: View {
        
     ]
     
-    let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/cephalopod004/ckkqhhfrt01hw17qlfsq1gwt4"))
+    
     
 
     
@@ -101,33 +119,142 @@ struct Scroll: View {
 //            return (CLLocationCoordinate2D(latitude: lat, longitude: lon))
 //        }
 //    }
+    
+    let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/cephalopod004/ckkqhhfrt01hw17qlfsq1gwt4"))
+    func scroll_map(building: Building) {
+        let lat = Double(building.latitude) as! CLLocationDegrees
+     let lon = Double(building.longitude) as! CLLocationDegrees
+        let camera = MGLMapCamera(lookingAtCenter: (CLLocationCoordinate2D(latitude: lat, longitude: lon)),  fromDistance: 4500, pitch: 15, heading: 180)
+        mapView.fly(to: camera, withDuration: 4,
+        peakAltitude: 3000, completionHandler: nil)
+    }
+   
+    func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<MapView>) {
+            updateAnnotations()
+            let address_coord = coordinates() {
+                (location) in
+                guard let location = location else {
+                    return
+                }}
+            
+            //print(address_coord)
+            
+            
+        }
+      
+        
+        func coordinates(completion: @escaping (CLLocationCoordinate2D?) -> Void) {
+                        let lat = Double(45.7) as! CLLocationDegrees
+                        let lon = Double(77.7) as! CLLocationDegrees
+            print("Lat: \(lat), Lon: \(lon)")
+            moveToCoordinate(mapView, to: CLLocationCoordinate2D(latitude: lat, longitude: lon))
+            return
+        }
+    
+    private func moveToCoordinate(_ mapView: MGLMapView, to point: CLLocationCoordinate2D) {
+        
+        let camera = MGLMapCamera(lookingAtCenter: point,  fromDistance: 4500, pitch: 15, heading: 180)
+        mapView.fly(to: camera, withDuration: 4,
+        peakAltitude: 3000, completionHandler: nil)
+//        let camera = MGLMapCamera(lookingAtCenter: point, fromDistance: 4500, pitch: 15, heading: 180)
+//        mapView.setCamera(camera, withDuration: 5, animationTimingFunction: CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut))
+    }
+    
+    private func updateAnnotations() {
+        if let currentAnnotations = mapView.annotations {
+            mapView.removeAnnotations(currentAnnotations)
+        }
+        mapView.addAnnotations(annotations)
+    }
+    
+    class CustomAnnotationView: MGLAnnotationView {
+    override func layoutSubviews() {
+    super.layoutSubviews()
+     
+    // Use CALayer’s corner radius to turn this view into a circle.
+    layer.cornerRadius = bounds.width / 2
+    layer.borderWidth = 6
+    layer.borderColor = UIColor.white.cgColor
+        layer.addPulse { builder in
+            builder.repeatCount = 10
+        }
+    }
+     
+    override func setSelected(_ selected: Bool, animated: Bool) {
+    super.setSelected(selected, animated: animated)
+     
+    // Animate the border width in/out, creating an iris effect.
+    let animation = CABasicAnimation(keyPath: "borderWidth")
+    animation.duration = 0.1
+    layer.borderWidth = selected ? bounds.width / 10 : 2
+    layer.add(animation, forKey: "borderWidth")
+    }
+    
+    
+    
+}
+    
+    final class Coordinator: NSObject, MGLMapViewDelegate {
+        var control: MapView
+        
+        init(_ control: MapView) {
+            self.control = control
+        }
+        
+        func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
+            
+            let coordinates = [
+                CLLocationCoordinate2D(latitude: 37.791329, longitude: -122.396906),
+                CLLocationCoordinate2D(latitude: 37.791591, longitude: -122.396566),
+                CLLocationCoordinate2D(latitude: 37.791147, longitude: -122.396009),
+                CLLocationCoordinate2D(latitude: 37.790883, longitude: -122.396349),
+                CLLocationCoordinate2D(latitude: 37.791329, longitude: -122.396906),
+            ]
+            
+            let buildingFeature = MGLPolygonFeature(coordinates: coordinates, count: 5)
+            let shapeSource = MGLShapeSource(identifier: "buildingSource", features: [buildingFeature], options: nil)
+            mapView.style?.addSource(shapeSource)
+            
+          
 
-    func getLocation(from address: String, completion: @escaping (_ location: CLLocationCoordinate2D?)-> Void) {
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address) { (placemarks, error) in
-            guard let placemarks = placemarks,
-            let location = placemarks.first?.location?.coordinate else {
-                completion(nil)
-                return
+        }
+        
+        func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+            // This example is only concerned with point annotations.
+            guard annotation is MGLPointAnnotation else {
+            return nil
             }
-            completion(location)
+             
+            // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
+            let reuseIdentifier = "\(annotation.coordinate.longitude)"
+             
+            // For better performance, always try to reuse existing annotations.
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+             
+            // If there’s no reusable annotation view available, initialize a new one.
+            if annotationView == nil {
+            annotationView = CustomAnnotationView(reuseIdentifier: reuseIdentifier)
+            annotationView!.bounds = CGRect(x: 0, y: 0, width: 30, height: 30)
+            // Set the annotation view’s background color to a value determined by its longitude.
+            let hue = CGFloat(annotation.coordinate.longitude) / 100
+                annotationView!.backgroundColor = UIColor(red: 0.7882, green: 0.498, blue: 0.8784, alpha: 1.0)
+            }
+             
+            return annotationView
         }
-    }
-    
-    func coordinates(forAddress address: String, completion: @escaping (CLLocationCoordinate2D?) -> CLLocationCoordinate2D) {
-        var geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address) { placemarks, error in
-            let placemark = placemarks?.first
-            let lat = placemark!.location!.coordinate.latitude
-            let lon = placemark!.location!.coordinate.longitude
-            print("Lat: \(lat), Lon: \(lon)")
-            greetAgain(latitude: lat, longitude: lon)
-           
+         
+        func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+            return true
         }
-    }
-    
-    func greetAgain(latitude: Double, longitude: Double) -> CLLocationCoordinate2D {
-        return (CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+        
+        func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+        let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, fromDistance: 4500, pitch: 15, heading: 180)
+        mapView.fly(to: camera, withDuration: 4,
+                    peakAltitude: 300, completionHandler: nil)
+            mapView.zoomLevel = 15
+        }
+        
+        
         
     }
     
@@ -137,72 +264,68 @@ struct Scroll: View {
         GeometryReader { geometry in
             HStack (spacing: 0){
                 ForEach(buildings, id:\.name) {building in
-                    ZStack{
-                        MapView(annotations: $annotations, building: building).centerCoordinate((annotations[0].coordinate)).zoomLevel(15).offset(y:-450)
-                        
-                        Image("topgradient")
-                                                       .resizable()
-                                                       .aspectRatio(contentMode: .fit)                                   .aspectRatio(contentMode: .fit)
+                    ZStack{ Image("topgradient")
+                           .resizable()
+                           .aspectRatio(contentMode: .fit)
+                            .aspectRatio(contentMode: .fit)
                             .offset(y:-710)
-                      
-                    VStack{
-                        
+                      VStack{
                         HStack{
-                        
-                        Label(title: {
+                         Label(title: {
                         }) {Text("Chat with Current Residents")
                             .foregroundColor(Color.black)
                             .fontWeight(.bold)
-                           
                         } .padding(.vertical,4)
                         .padding(.horizontal,10)
                         .background(Color.white)
                         .clipShape(Capsule())
                         .opacity(0.7)
                         .offset(x: 15, y:-350)
-                            
                             Button(action: {
                                 self.offset = 0
                             }) {
-                                
                                 Label(title: {
-                                   
-                                    
-                                }) {
-                                    
-                                    
-                                                            Image(systemName: "gear")
-                                                                .foregroundColor(Color.white)
-                                                           
+                                }) { Image(systemName: "gear")
+                                    .foregroundColor(Color.white)
                                 }
                                 .padding(.vertical,8)
                                 .padding(.horizontal,10)
                                 .background(Color("Chat_color").opacity(0.5))
                                 .clipShape(Capsule())
                             } .offset(x: 30, y:-350)
-                            
-                            
-                            
-                            
                         }
-                        
-                        
-                        
-                        
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack{
                             Text("")
                             Chats(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand)
                             }
-                           
                         }.offset(y:-435)
-                        
-                        
                         CardView(token: $token, user: $user, user_id: $user_id, building:building)
                             .padding(.horizontal, 20)
                         .offset(y:-520)
+                            
+                    }.gesture(
                         
-                    }
+                        
+                        DragGesture()
+                           .updating(self.$translation) { gestureValue, gestureState, _ in
+                                     gestureState = gestureValue.translation.width
+                            updateAnnotations()
+                            scroll_map(building: building)
+                            }
+                           .onEnded { value in
+                              var weakGesture : CGFloat = 0
+                                   if value.translation.width < 0 {
+                                      weakGesture = -100
+                                   } else {
+                                      weakGesture = 100
+                                   }
+                              let offset = (value.translation.width + weakGesture) / geometry.size.width
+                                      let newIndex = (CGFloat(self.index) - offset).rounded()
+                                      self.index = min(max(Int(newIndex), 0), self.buildings.count - 1)
+                              
+                           }
+                     )
                     
                     }
                     
@@ -215,23 +338,7 @@ struct Scroll: View {
             .onDisappear(perform: {
                 reset()
             })
-           .gesture(
-              DragGesture()
-                 .updating(self.$translation) { gestureValue, gestureState, _ in
-                           gestureState = gestureValue.translation.width
-                  }
-                 .onEnded { value in
-                    var weakGesture : CGFloat = 0
-                         if value.translation.width < 0 {
-                            weakGesture = -100
-                         } else {
-                            weakGesture = 100
-                         }
-                    let offset = (value.translation.width + weakGesture) / geometry.size.width
-                            let newIndex = (CGFloat(self.index) - offset).rounded()
-                            self.index = min(max(Int(newIndex), 0), self.buildings.count - 1)
-                 }
-           )
+           
         }
         
     }
