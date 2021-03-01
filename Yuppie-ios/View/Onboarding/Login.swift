@@ -195,13 +195,13 @@ struct LoginView: View {
 
     }
 
-    
+    @State var showCard = false
     var body: some View {
         
         ZStack{
            
            
-            NavigationLink(destination: CentralHomeView(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showCentralHomeView) {
+            NavigationLink(destination: CentralHomeView(token: self.$token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id, showCard: self.$showCard, buildingId: ""), isActive: self.$showCentralHomeView) {
                 
                 Text("")
             }

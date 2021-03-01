@@ -27,9 +27,7 @@ struct Home : View {
                 Color.clear
             }
             VStack{
-                ZStack{
                     Chats(token: $token, user: $user, user_id: $user_id, building:building,expand: self.$expand).opacity(self.index == 0 ? 1 : 0)
-                }
             }
         }
         .edgesIgnoringSafeArea(.all)
@@ -40,9 +38,8 @@ struct Chats : View {
     @Binding var token: String
     @Binding var user : User
     @Binding var user_id: String
-    var building: Building
+    @State var building: Building
     @Binding var expand : Bool
-    
     var body : some View{
         
         VStack(spacing: 0){
@@ -59,7 +56,7 @@ struct TopView : View {
     @Binding var token: String
     @Binding var user : User
     @Binding var user_id: String
-    var building: Building
+    @State var building: Building
     @State var tenant_id = ""
     @State var tenant_prof = ""
     @State var tenant_name = ""
@@ -145,6 +142,7 @@ struct TopView : View {
                                 .stroke(AngularGradient(gradient: .init(colors: [.purple,.blue,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [false ? 7 : 0]))
                             .frame(width: 68, height: 68)
                             .rotationEffect(.init(degrees: true ? 360 : 0))
+                                .padding(3)
                                 
                             }
                         
@@ -183,6 +181,7 @@ struct TopView : View {
                                     .stroke(AngularGradient(gradient: .init(colors: [.purple,.orange,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [showChatUI ? 3 : 0]))
                                 .frame(width: 68, height: 68)
                                 .rotationEffect(.init(degrees: showChatUI ? 360 : 0))
+                                    .padding(3)
                                 }
                                     
                                     Label(title: {

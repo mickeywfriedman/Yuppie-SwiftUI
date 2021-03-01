@@ -122,17 +122,6 @@ struct Inbox : View {
                         
                       
                             
-                            // Group Name..
-                            HStack{
-                                
-                                Text("Friends")
-                                    .font(.caption)
-                                    .foregroundColor(.gray)
-                                
-                                Spacer(minLength: 0)
-                            }
-                            .padding(.horizontal)
-                            
                             // Group Data....
                             
                             ForEach(convos){FriendsChat in

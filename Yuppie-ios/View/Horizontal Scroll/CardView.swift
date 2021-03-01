@@ -9,30 +9,32 @@ struct CardView: View {
     var building: Building
     var Bedrooms = ["Studios", "1 Br", "2 BR", "3+ Br"]
     func unitFilter(unit: Unit) -> Bool{
-        if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms >= user.preferences.bathrooms && unit.price <= user.preferences.price){
-            return true
+        if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms >= user.preferences.bathrooms){
+                return true
+            }
+            return false
         }
-        return false
-    }
     func minPrice (building: Building) -> Int {
         var minPrice = 100000
         for unit in building.units.filter({unitFilter(unit:$0)}) {
-            if (Int(unit.price) < Int(user.preferences.price) && Int(unit.price) < minPrice){
+            if (Int(unit.price) < minPrice){
                 minPrice = Int(unit.price)
             }
         }
         return minPrice
     }
-    func minBeds (minBedrooms: Int) -> Int {
+    func minBeds () -> Int{
+        var lowest = 3
         for unit in building.units.filter({unitFilter(unit:$0)}) {
-            if (unit.bedrooms == minBedrooms) {
-                return minBedrooms
+            if (Int(unit.bedrooms) < lowest){
+                lowest = unit.bedrooms
             }
         }
-        return minBeds(minBedrooms: minBedrooms+1)
+        return lowest
     }
     @State var isFavorite = true
-    @State var showCard = false
+    @Binding var showCard : Bool
+    @Binding var card: String
     var body: some View {
             ZStack{
                 VStack{
@@ -42,11 +44,10 @@ struct CardView: View {
                         VStack{
                             
                             HStack{
-                                
-                                
+
                                 VStack{
                                     
-                                    Text("\(Bedrooms[minBeds(minBedrooms: user.preferences.bedrooms)]) from").fontWeight(.heavy)
+                                    Text("\(Bedrooms[minBeds()]) from").fontWeight(.heavy)
                                     Text("$\(minPrice(building:building))")
                                 }.foregroundColor(.gray)
                                 Spacer()
@@ -64,8 +65,6 @@ struct CardView: View {
                         .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                         .animation(.spring())
                     }
-                }.sheet(isPresented: $showCard) {
-                    BuildingView(Bedroom: minBeds(minBedrooms: user.preferences.bedrooms), user : $user, showCard:self.$showCard, token: $token, user_id: $user_id, building:building)
                 }
                 
                 ZStack{
@@ -76,7 +75,11 @@ struct CardView: View {
                 .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                 .animation(.spring(response: 0.8, dampingFraction: 0.7, blendDuration: 0.4))
                     
-                    Button(action: {self.showCard.toggle()}, label: {
+                    Button(action: {
+                        self.card = "building"
+                        self.showCard = true
+                        
+                    }, label: {
                         
                         Image(systemName: "arrow.up")
                             .font(.system(size: 14, weight: .bold))
@@ -143,36 +146,6 @@ struct ImageScroll: View {
                     URLImage(url:image)
                         .frame(width:UIScreen.main.bounds.width-100, height: 200)
                             .cornerRadius(20)
-                        .contextMenu {
-                            
-                            VStack{
-                                
-                                Button(action: {
-                                    print("save")
-                                }) {
-                                    
-                                    HStack{
-                                        
-                                        Image(systemName: "folder.fill")
-                                        Text("Save to Gallery")
-                                    }
-                                }
-                                
-                                Button(action: {
-                                    print("send")
-                                }) {
-                                    
-                                    HStack{
-                                        
-                                        Image(systemName: "paperplane.fill")
-                                        Text("Send")
-                                    }
-                                }
-                            }
-                    }
-
-                    
-                    
                 }
             }
            .frame(width: geometry.size.width, alignment: .leading)
@@ -229,31 +202,7 @@ struct ImageScroll: View {
                 .clipShape(Capsule())
             }
         }.offset(x: (-1*(UIScreen.main.bounds.width-100)/2)-115, y: -80)
-        
-        HStack{
-            
-            Spacer(minLength: 0)
-            
-            Button(action: {
-                toggleFavorite()
-            }) {
-                
-                Label(title: {
-                   
-                    
-                }) {
-                    
-                    
-                    Text("\(current_slide)"+"/"+"\(building.images.count)")
-                        .foregroundColor(Color.white)
-                   
-                }
-                .padding(.vertical,4)
-                .padding(.horizontal,4)
-                .background(Color.black).opacity(0.56)
-                .clipShape(Capsule())
-            }
-        }.offset(x: (-1*(UIScreen.main.bounds.width-100)/2)+150, y: 80)
+
     }
 }
 

@@ -9,21 +9,54 @@ import SwiftUI
 import Mapbox
 
 extension MGLPointAnnotation {
-    convenience init(title: String, coordinate: CLLocationCoordinate2D) {
+    convenience init(coordinate: CLLocationCoordinate2D) {
         self.init()
-        self.title = title
+        self.title = ""
         self.coordinate = coordinate
     }
 }
 
 
 struct MapView: UIViewRepresentable {
+<<<<<<< HEAD
     @Binding var annotations: [MGLPointAnnotation]
     
    let mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/leonyuppie/ckfysprwo0l3n19qpi7hm8m8p"))
+=======
+    @State var annotations: [MGLPointAnnotation]
+    @Binding var buildings: [Building]
+    @Binding var index: Int
+    @State var newIndex: Int = 0
+    @Binding var user: User
+    @Binding var first : Bool
+    @State var mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/leonyuppie/ckfysprwo0l3n19qpi7hm8m8p"))
+>>>>>>> 38ae6ec411b51e7608b56baccf3234f49c555219
     
     // MARK: - Configuring UIViewRepresentable protocol
-    
+    func filter(units: [Unit], buildingAmenities: [String]) -> Bool{
+        for unit in units{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let date_avail = dateFormatter.date(from: unit.dateAvailable)
+            if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms-1 >= user.preferences.bathrooms && Int(unit.price) <= Int(user.preferences.price) && date_avail ?? Date() < dateFormat(string: user.preferences.latestMoveInDate)){
+                for amenity in user.preferences.amenities {
+                    if (!buildingAmenities.contains(amenity)){
+                        return false
+                    }
+                }
+                return true
+            }
+        }
+        return false
+    }
+    func filteredBuildings() -> [Building]{
+        return buildings.filter({filter(units: $0.units, buildingAmenities:$0.amenities)})
+    }
+    func dateFormat(string : String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: string) ?? Date()
+    }
     func makeUIView(context: UIViewRepresentableContext<MapView>) -> MGLMapView {
         mapView.delegate = context.coordinator
         mapView.isZoomEnabled = true
@@ -36,6 +69,7 @@ struct MapView: UIViewRepresentable {
         return mapView
     }
     
+<<<<<<< HEAD
     func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<MapView>) {
             updateAnnotations()
                 }
@@ -48,31 +82,42 @@ struct MapView: UIViewRepresentable {
     
     // MARK: - Configuring MGLMapView
     
+=======
+    func makeCoordinator() -> MapView.Coordinator {
+        Coordinator(self)
+    }
+    
+
+>>>>>>> 38ae6ec411b51e7608b56baccf3234f49c555219
     func styleURL(_ styleURL: URL) -> MapView {
         mapView.styleURL = styleURL
         return self
     }
-    
     func centerCoordinate(_ centerCoordinate: CLLocationCoordinate2D) -> MapView {
-        mapView.centerCoordinate = centerCoordinate
+        mapView.centerCoordinate =  centerCoordinate
         return self
     }
-
-    
     func zoomLevel(_ zoomLevel: Double) -> MapView {
         mapView.zoomLevel = zoomLevel
         return self
     }
-    
-    private func moveToCoordinate(_ mapView: MGLMapView, to point: CLLocationCoordinate2D) {
-        
-        let camera = MGLMapCamera(lookingAtCenter: point,  fromDistance: 4500, pitch: 15, heading: 180)
-        mapView.fly(to: camera, withDuration: 4,
-        peakAltitude: 3000, completionHandler: nil)
-//        let camera = MGLMapCamera(lookingAtCenter: point, fromDistance: 4500, pitch: 15, heading: 180)
-//        mapView.setCamera(camera, withDuration: 5, animationTimingFunction: CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut))
+    func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<MapView>) {
+        updateAnnotations()
+        if (index < filteredBuildings().count && (first == false)) {
+            moveToCoordinate(mapView, to: CLLocationCoordinate2D(latitude: Double(filteredBuildings()[index].latitude), longitude: Double(filteredBuildings()[index].longitude)))
+        }
     }
-    
+    func moveToCoordinate(_ mapView: MGLMapView, to point: CLLocationCoordinate2D) {
+        let camera = MGLMapCamera(lookingAtCenter: point, fromDistance: 4500, pitch: 15, heading: 0)
+        mapView.fly(to: camera, withDuration: 4,
+                    peakAltitude: 3000, completionHandler: nil)
+    }
+    func coordinates(latitude: Float, longitude: Float) -> CLLocationCoordinate2D {
+        let lat = Double(latitude) as! CLLocationDegrees
+        let lon = Double(longitude) as! CLLocationDegrees
+        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
+    }
+
     private func updateAnnotations() {
         if let currentAnnotations = mapView.annotations {
             mapView.removeAnnotations(currentAnnotations)
@@ -84,25 +129,22 @@ struct MapView: UIViewRepresentable {
     
     final class Coordinator: NSObject, MGLMapViewDelegate {
         var control: MapView
-        
         init(_ control: MapView) {
             self.control = control
         }
         
         func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
-            
             let coordinates = [
                 CLLocationCoordinate2D(latitude: 37.791329, longitude: -122.396906),
-                CLLocationCoordinate2D(latitude: 37.791591, longitude: -122.396566),
-                CLLocationCoordinate2D(latitude: 37.791147, longitude: -122.396009),
-                CLLocationCoordinate2D(latitude: 37.790883, longitude: -122.396349),
+                CLLocationCoordinate2D(latitude: 37.791329, longitude: -122.396906),
+                CLLocationCoordinate2D(latitude: 37.791329, longitude: -122.396906),
+                CLLocationCoordinate2D(latitude: 37.791329, longitude: -122.396906),
                 CLLocationCoordinate2D(latitude: 37.791329, longitude: -122.396906),
             ]
             
             let buildingFeature = MGLPolygonFeature(coordinates: coordinates, count: 5)
             let shapeSource = MGLShapeSource(identifier: "buildingSource", features: [buildingFeature], options: nil)
             mapView.style?.addSource(shapeSource)
-            
           
 
         }
@@ -173,13 +215,3 @@ struct MapView: UIViewRepresentable {
 }
 }
 
-
-
-
-
-
-struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
-    }
-}

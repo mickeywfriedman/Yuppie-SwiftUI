@@ -109,27 +109,28 @@ struct BuildingRow: View {
     var minBedrooms: Int
     var minBathrooms: Int
     func unitFilter(unit: Unit) -> Bool{
-        if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms >= user.preferences.bathrooms && unit.price <= user.preferences.price){
-            return true
+        if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms >= user.preferences.bathrooms){
+                return true
+            }
+            return false
         }
-        return false
-    }
     func minPrice (building: Building) -> Int {
         var minPrice = 100000
         for unit in building.units.filter({unitFilter(unit:$0)}) {
-            if (Int(unit.price) < Int(user.preferences.price) && Int(unit.price) < minPrice){
+            if (Int(unit.price) < minPrice){
                 minPrice = Int(unit.price)
             }
         }
         return minPrice
     }
-    func minBeds (minBedrooms: Int) -> Int {
+    func minBeds () -> Int{
+        var lowest = 3
         for unit in building.units.filter({unitFilter(unit:$0)}) {
-            if (unit.bedrooms == minBedrooms) {
-                return minBedrooms
+            if (Int(unit.bedrooms) < lowest){
+                lowest = unit.bedrooms
             }
         }
-        return minBeds(minBedrooms: minBedrooms+1)
+        return lowest
     }
     @State var isFavorite = true
     @State var showCard = false
@@ -145,8 +146,12 @@ struct BuildingRow: View {
                                 
                                 
                                 VStack{
-                                    Text("\(Bedrooms[minBeds(minBedrooms: user.preferences.bedrooms)]) from ").fontWeight(.heavy)
-                                    Text("$\(minPrice(building:building))")
+                                    if minPrice(building:building) == 100000{
+                                        Text("No \(Bedrooms[user.preferences.bedrooms])").fontWeight(.heavy)
+                                    } else{
+                                        Text("\(Bedrooms[minBeds()]) from ").fontWeight(.heavy)
+                                        Text("$\(minPrice(building:building))")
+                                    }
                                                                         
                                 }.foregroundColor(.gray)
                                 Spacer()
@@ -164,7 +169,7 @@ struct BuildingRow: View {
                         .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                     }
                 }.sheet(isPresented: $showCard) {
-                    BuildingView(Bedroom: minBeds(minBedrooms: user.preferences.bedrooms), user : $user, showCard:self.$showCard, token: $token, user_id: $user_id, building:building)
+                    BuildingView(Bedroom: minBeds(), user : $user, token: $token, user_id: $user_id, building:building)
                 }
                 
                 ZStack{
@@ -279,7 +284,7 @@ struct FavoritesImageScroll: View {
                 }
                 .padding(.vertical,8)
                 .padding(.horizontal,10)
-                .background(Color("pgradient2"))
+                .background(Color("Color1"))
                 .clipShape(Capsule())
             }.offset(x: (-1*(UIScreen.main.bounds.width-40)/2)+20, y: -80)
     }

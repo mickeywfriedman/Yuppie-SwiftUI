@@ -59,11 +59,11 @@ struct UserProfile : View {
         
         VStack{
             
-            ProfileView(profilePic: profilePic, firstName: user.firstName, university: user.university, user_id: $user_id)
+            ProfileView(profilePic: profilePic, firstName: user.firstName, university: user.university, user_id: $user_id).padding()
             
             HStack(spacing: 0){
                 
-                Text("My Preferences")
+                Text("Preferences")
                     .foregroundColor(self.index == 0 ? .white : Color("Chat_color").opacity(0.7))
                     .fontWeight(.bold)
                     .padding(.vertical,10)
@@ -99,8 +99,8 @@ struct UserProfile : View {
             }
             .background(Color.black.opacity(0.06))
             .clipShape(Capsule())
-            .padding(.horizontal)
-            .padding(.top,25)
+            .padding()
+            
             
             TabView(selection: self.$index){
 

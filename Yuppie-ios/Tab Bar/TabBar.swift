@@ -85,6 +85,8 @@ struct LoadingScreen: View {
 import SwiftUI
 
 struct TabBar: View {
+    @Binding var showCard: Bool
+    @State var buildingId: String
     @State var currentTab = "house"
     @State var minBedrooms = 0
     @State var minBathrooms = 0
@@ -94,6 +96,15 @@ struct TabBar: View {
     @Binding var user : User
     @Namespace var animation
     @State var current = "Home"
+    func findBuilding() -> Building {
+        var result = TestData.buildings.first!
+        for building in buildings {
+            if building.id == buildingId{
+                result = building
+            }
+        }
+        return result
+    }
     var profilePic: String
     var tabs = ["house","person","suit.heart"]
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
@@ -101,25 +112,22 @@ struct TabBar: View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
             TabView(selection: $current){
                 ZStack{
-                    IndexView(buildings: $buildings)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .tag(tabs[0])
                     if (buildings[0].name == "Test"){
                         LoadingScreen()
                     } else {
                     testScroll(token: $token, user_id: $user_id, buildings:buildings, user: $user)
                     }
-                }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).tag("Home")
+                }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).tag("Home").font(.custom("Futura", size: 18))
                 ZStack{
                     UserProfile(token: $token, user_id: $user_id, buildings:$buildings, user: $user, minBedrooms: $minBedrooms, minBathrooms: $minBathrooms, profilePic: profilePic)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .tag(tabs[1])
-                }.tag("Profile")
+                }.tag("Profile").font(.custom("Futura", size: 18))
                 ZStack{
                 Favorites(token: $token, user_id: $user_id, buildings:$buildings, user: $user, minBedrooms: $minBedrooms, minBathrooms: $minBathrooms)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .tag(tabs[2])
-                }.tag("Saved")
+                }.tag("Saved").font(.custom("Futura", size: 18))
             }
             
             HStack(spacing: 0){
@@ -127,25 +135,32 @@ struct TabBar: View {
                 // TabButton...
                 
                 
-                TabButton(title: "Profile", image: "user", selected: $current)
+                TabButton(title: "Saved", image: "heart-1", selected: $current)
+                    .font(.custom("Futura Light", size: 18))
                 
                 Spacer(minLength: 0)
                 
                 TabButton(title: "Home", image: "home", selected: $current)
+                    .font(.custom("Futura Light", size: 18))
                 
                 Spacer(minLength: 0)
                 
+                TabButton(title: "Profile", image: "user", selected: $current)
+                    .font(.custom("Futura Light", size: 18))
                 
-                TabButton(title: "Saved", image: "heart-1", selected: $current)
             }
             .padding(.top,10)
             .padding(.bottom,30)
             .padding(.horizontal,25)
+            .font(.custom("Futura Light", size: 18))
             .background(Color("pgradient1"))
             .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
             .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
             
         }.background(LinearGradient(gradient: .init(colors: gradient), startPoint: .top, endPoint: .bottom))
+        .sheet(isPresented: $showCard) {
+            BuildingView(Bedroom: 0, user : $user, token: $token, user_id: $user_id, building:findBuilding())
+        }
     }
 
 }

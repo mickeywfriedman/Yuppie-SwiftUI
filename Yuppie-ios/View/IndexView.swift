@@ -21,12 +21,11 @@ struct HotAnnotation{
 }
 struct IndexView: View {
     @Binding var buildings : [Building]
-    
     @State var annotations: [MGLPointAnnotation] = [
-        MGLPointAnnotation(title: "$13", coordinate: .init(latitude: 40.761360, longitude: -73.999222))
+        MGLPointAnnotation(coordinate: .init(latitude: 40.761360, longitude: -73.999222))
         ,
         
-        MGLPointAnnotation(title: "$2000", coordinate: .init(latitude: 40.737140, longitude: -73.998140)),
+        MGLPointAnnotation(coordinate: .init(latitude: 40.737140, longitude: -73.998140)),
         
 
        

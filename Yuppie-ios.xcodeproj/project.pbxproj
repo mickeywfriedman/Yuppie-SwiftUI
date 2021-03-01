@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		211AB10225E3397700383732 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211AB10125E3397700383732 /* AuthModel.swift */; };
+		21380C8625ECAE820063DAB0 /* Futura.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 21380C8525ECAE820063DAB0 /* Futura.ttc */; settings = {ASSET_TAGS = (CustomFonts, ); }; };
+		21380C8E25ECB1140063DAB0 /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21380C8D25ECB1140063DAB0 /* Montserrat-ExtraLight.ttf */; };
+		21380C9725ECB1950063DAB0 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21380C9625ECB1950063DAB0 /* Montserrat-Medium.ttf */; };
+		21380C9C25ECB3F90063DAB0 /* FuturaLightRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 21380C9B25ECB3F90063DAB0 /* FuturaLightRegular.otf */; };
+		21380CA425ECB4B00063DAB0 /* Futura Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21380CA325ECB4B00063DAB0 /* Futura Light.ttf */; };
 		213F3C9925E505490011E20D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213F3C9825E505490011E20D /* Settings.swift */; };
 		2151A7AE25D0CDE1007C9F90 /* ChatRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151A7AD25D0CDE1007C9F90 /* ChatRow.swift */; };
 		2151A7B325D0CE1A007C9F90 /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2151A7B225D0CE1A007C9F90 /* ChatBubble.swift */; };
@@ -67,6 +72,7 @@
 		21F7A92425DDDE1000113DAE /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F7A92325DDDE1000113DAE /* BottomSheet.swift */; };
 		363DD9B869B0CEB162D02138 /* Pods_Yuppie_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99F83670E0F2DABA87D28533 /* Pods_Yuppie_iosTests.framework */; };
 		370E680725A7F9FE00EA597C /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370E680625A7F9FE00EA597C /* URLImage.swift */; };
+		376D0E1425EACDD10087B91F /* Sheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376D0E1325EACDD10087B91F /* Sheets.swift */; };
 		37BB945125B88DD300D1FC86 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945025B88DD300D1FC86 /* Login.swift */; };
 		37BB945B25B88E3700D1FC86 /* SelectAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945A25B88E3700D1FC86 /* SelectAddress.swift */; };
 		37BB946525B88F3E00D1FC86 /* CentralHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB946425B88F3E00D1FC86 /* CentralHomeView.swift */; };
@@ -95,6 +101,12 @@
 /* Begin PBXFileReference section */
 		0F58E1E3230A7656E830254D /* Pods-Yuppie-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-ios.release.xcconfig"; path = "Target Support Files/Pods-Yuppie-ios/Pods-Yuppie-ios.release.xcconfig"; sourceTree = "<group>"; };
 		211AB10125E3397700383732 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
+		21380C8525ECAE820063DAB0 /* Futura.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; name = Futura.ttc; path = ../../Downloads/Futura.ttc; sourceTree = "<group>"; };
+		21380C8D25ECB1140063DAB0 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-ExtraLight.ttf"; path = "../../../../../Downloads/Montserrat/Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
+		21380C9225ECB11A0063DAB0 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
+		21380C9625ECB1950063DAB0 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Medium.ttf"; path = "../../Downloads/Montserrat/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		21380C9B25ECB3F90063DAB0 /* FuturaLightRegular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FuturaLightRegular.otf; path = "../../Downloads/Futura Light Regular/FuturaLightRegular.otf"; sourceTree = "<group>"; };
+		21380CA325ECB4B00063DAB0 /* Futura Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Futura Light.ttf"; path = "../../Downloads/futura light 2/Futura Light.ttf"; sourceTree = "<group>"; };
 		213F3C9825E505490011E20D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2151A7AD25D0CDE1007C9F90 /* ChatRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRow.swift; sourceTree = "<group>"; };
 		2151A7B225D0CE1A007C9F90 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
@@ -160,6 +172,7 @@
 		21F7A8F225DBC47F00113DAE /* Terms_Conditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terms_Conditions.swift; sourceTree = "<group>"; };
 		21F7A92325DDDE1000113DAE /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
 		370E680625A7F9FE00EA597C /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
+		376D0E1325EACDD10087B91F /* Sheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheets.swift; sourceTree = "<group>"; };
 		37BB945025B88DD300D1FC86 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		37BB945A25B88E3700D1FC86 /* SelectAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectAddress.swift; sourceTree = "<group>"; };
 		37BB946425B88F3E00D1FC86 /* CentralHomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CentralHomeView.swift; path = "Yuppie-ios/CentralHomeView.swift"; sourceTree = SOURCE_ROOT; };
@@ -229,6 +242,7 @@
 				21CCF0C82572BC1300B22A75 /* CardView.swift */,
 				21A7804F258E112100DD6F70 /* FiltersView.swift */,
 				213F3C9825E505490011E20D /* Settings.swift */,
+				376D0E1325EACDD10087B91F /* Sheets.swift */,
 			);
 			path = "Horizontal Scroll";
 			sourceTree = "<group>";
@@ -266,6 +280,7 @@
 				37BB945025B88DD300D1FC86 /* Login.swift */,
 				21C10CC225957D380049531E /* CustomCornerOnboarding.swift */,
 				21C10CC725957D4B0049531E /* PhoneAuth.swift */,
+				21380C8D25ECB1140063DAB0 /* Montserrat-ExtraLight.ttf */,
 				21C10CE125957E3D0049531E /* Verification.swift */,
 				21C10CE625957E650049531E /* Birthday.swift */,
 				21C10CEB25957E830049531E /* ProfilePicture.swift */,
@@ -294,6 +309,11 @@
 		21CCF0542572B9B100B22A75 = {
 			isa = PBXGroup;
 			children = (
+				21380CA325ECB4B00063DAB0 /* Futura Light.ttf */,
+				21380C9B25ECB3F90063DAB0 /* FuturaLightRegular.otf */,
+				21380C9625ECB1950063DAB0 /* Montserrat-Medium.ttf */,
+				21380C8525ECAE820063DAB0 /* Futura.ttc */,
+				21380C9225ECB11A0063DAB0 /* Montserrat-ExtraLight.ttf */,
 				21CCF05F2572B9B100B22A75 /* Yuppie-ios */,
 				21CCF0712572B9B600B22A75 /* Yuppie-iosTests */,
 				21CCF07C2572B9B600B22A75 /* Yuppie-iosUITests */,
@@ -491,6 +511,9 @@
 		21CCF0552572B9B100B22A75 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					CustomFonts,
+				);
 				LastSwiftUpdateCheck = 1210;
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
@@ -532,8 +555,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21380C8625ECAE820063DAB0 /* Futura.ttc in Resources */,
+				21380C9725ECB1950063DAB0 /* Montserrat-Medium.ttf in Resources */,
+				21380C9C25ECB3F90063DAB0 /* FuturaLightRegular.otf in Resources */,
+				21380C8E25ECB1140063DAB0 /* Montserrat-ExtraLight.ttf in Resources */,
 				21CCF0682572B9B500B22A75 /* Preview Assets.xcassets in Resources */,
 				21CCF0652572B9B500B22A75 /* Assets.xcassets in Resources */,
+				21380CA425ECB4B00063DAB0 /* Futura Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,6 +683,7 @@
 				21A78050258E112100DD6F70 /* FiltersView.swift in Sources */,
 				21A78031258E0AA800DD6F70 /* ApplicationObserver.swift in Sources */,
 				21C10C81259290900049531E /* CustomCorner.swift in Sources */,
+				376D0E1425EACDD10087B91F /* Sheets.swift in Sources */,
 				21CCF0AB2572BBB600B22A75 /* Card.swift in Sources */,
 				21A78055258E114700DD6F70 /* BuildingModel.swift in Sources */,
 				21C10CEC25957E830049531E /* ProfilePicture.swift in Sources */,

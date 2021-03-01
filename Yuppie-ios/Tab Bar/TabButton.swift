@@ -32,6 +32,7 @@ struct TabButton: View {
                     Text(title)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
+                        .font(.custom("Futura Light", size: 18))
                 }
             }
             .padding(.vertical,10)

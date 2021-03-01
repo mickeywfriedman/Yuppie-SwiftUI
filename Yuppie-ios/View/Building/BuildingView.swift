@@ -7,6 +7,18 @@
 import SwiftUI
 import MapKit
 
+struct ActivityView: UIViewControllerRepresentable {
+    let activityItems: [Any]
+    let applicationActivities: [UIActivity]?
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityView>) -> UIActivityViewController {
+        return UIActivityViewController(activityItems: activityItems,
+                                        applicationActivities: applicationActivities)
+    }
+    func updateUIViewController(_ uiViewController: UIActivityViewController,
+context: UIViewControllerRepresentableContext<ActivityView>) {
+    }
+}
+
 struct BuildingImages: View{
     func addFavorite() -> Void {
         self.user.favorites.append(building.id)
@@ -41,6 +53,7 @@ struct BuildingImages: View{
             addFavorite()
         }
     }
+    @State private var isShareSheetShowing = false
     @Binding var token: String
     @Binding var user : User
     @Binding var user_id: String
@@ -62,24 +75,35 @@ struct BuildingImages: View{
             }) {
             
             Label(title: {
-               
-                
             }) {
-                
-                
                 if (user.favorites.contains(building.id)) {
-                                        Image(systemName: "heart.fill")
-                                            .foregroundColor(Color("Chat_color"))
-                                        } else {
-                                            Image(systemName: "heart")
-                                                .foregroundColor(Color.gray)
-                                        }
+                    Image(systemName: "heart.fill")
+                        .foregroundColor(Color("Chat_color"))
+                    } else {
+                        Image(systemName: "heart")
+                            .foregroundColor(Color.gray)
+                    }
+            }
+            .padding(.vertical,8)
+            .padding(.horizontal,10)
+            .background(Color("Color1"))
+            .clipShape(Capsule())
+        }.offset(x: (-1*UIScreen.main.bounds.width/2)+25, y: -100)
+        Button(action: {
+            self.isShareSheetShowing = true
+            }) {
+            Label(title: {
+            }) {
+                Image(systemName: "square.and.arrow.up")
             }
             .padding(.vertical,8)
             .padding(.horizontal,10)
             .background(Color("pgradient2"))
             .clipShape(Capsule())
-        }.offset(x: (-1*UIScreen.main.bounds.width/2)+25, y: -100)
+        }.offset(x: (-1*UIScreen.main.bounds.width/2)+75, y: -100)
+        .sheet(isPresented: $isShareSheetShowing){
+            ActivityView(activityItems: [NSURL(string: "yuppie://id/\(building.id)")!] as [Any], applicationActivities: nil)
+          }
         HStack{
             Spacer()
             Button(action: {
@@ -87,8 +111,8 @@ struct BuildingImages: View{
                 
             }) {
                 HStack{
-                Text("    Contact Property Manager").font(.headline)
-                    //.renderingMode(.original)
+                Text("    Contact Property Manager")
+                    .font(.custom("Futura", size: 18))
                     .padding(.top, 25)
                     .padding(.bottom, 15)
                     .foregroundColor(.white)
@@ -127,7 +151,6 @@ struct BuildingView: View {
     @State private var floorplanURL = ""
     @State private var height = UIScreen.main.bounds.height
     @State private var width = UIScreen.main.bounds.width
-    @Binding var showCard: Bool
     @State private var index = 0
     @State private var value : CGFloat = 200
     @Binding var token: String
@@ -145,16 +168,24 @@ struct BuildingView: View {
         ScrollView(showsIndicators: false){
             VStack{
                 
-                Text(building.name).font(.largeTitle)
+                Text(building.name)
                     .foregroundColor(Color.gray)
+                    .font(.custom("Futura", size: 28))
+                    .padding(.top, 15)
                 Text(building.address.streetAddress).multilineTextAlignment(.center).foregroundColor(Color.gray)
-                Spacer()
-                Spacer()
-                Text("Message Our Tenants").fontWeight(.heavy).padding(.top,4)
-                    .foregroundColor(Color.gray)
+                    .font(.custom("Futura Light", size: 18))
+        
+              
+                
+                
                 VStack(alignment: .leading){
                     VStack(alignment: .leading){
-                        
+                        Text("Message Our Tenants").fontWeight(.heavy).padding(.top,15)
+                            .foregroundColor(Color.gray)
+                            .font(.custom("Futura Light", size: 16))
+                            .padding(.horizontal
+                            )
+                            
                         Loader(show: self.$show)
                         
                         HStack{
@@ -162,32 +193,39 @@ struct BuildingView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                            
                                 Chats(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand)
-                                .offset(y:-100)
+                                .offset(y:-110)
                                 .padding(.top, 15)
-                            }}.padding(.horizontal, -15)
-                    }.offset(y:0)
+                            }}
+                    }.offset(y:-10)
                     
                     
                     VStack(alignment: .leading){
-                        Text("Description").fontWeight(.heavy).padding(.top,4)
+                        Text("Description").fontWeight(.heavy)
                             .foregroundColor(Color.gray)
+                            .font(.custom("Futura Light", size: 16))
+                            .multilineTextAlignment(.center)
                         Spacer()
                         Text(building.description).fixedSize(horizontal: false, vertical: true)
                             .foregroundColor(Color.gray)
+                            .font(.custom("Futura Light", size: 16))
+                            .multilineTextAlignment(.center)
                         
                     }.padding(.horizontal)
-                    .offset(y:-115)
+                    .offset(y:-120)
                     VStack(alignment: .leading){
-                        BottomView(amenities: building.amenities).padding(.top, 10)
+                        BottomView(amenities: building.amenities)
+                            .font(.custom("Futura Light", size: 16))
+                            .multilineTextAlignment(.center)
                        
                         
                     }
-                    .offset(y:-95)
+                    .offset(y:-105)
                     Spacer()
                     Spacer()
                     VStack(alignment: .leading){
-                        Text("Units").fontWeight(.heavy).padding(.top,4)
+                        Text("Units").fontWeight(.heavy)
                             .foregroundColor(Color.gray)
+                            .font(.custom("Futura Light", size: 16))
                         Picker(selection: $Bedroom, label:
                             Text(Bedrooms[Bedroom])
                         ) {
@@ -226,14 +264,13 @@ struct BuildingView: View {
                             }
                         }
                     }.padding(.horizontal)
-                    .offset(y: -90)
+                    .offset(y: -105)
                 }
-                BuildingMapView(address:building.address).frame(width: UIScreen.main.bounds.width-40, height: 200).offset(y: -90)
+                BuildingMapView(building:building).frame(width: UIScreen.main.bounds.width-40, height: 200).offset(y: -90)
                 
             }
         }.background(Color(.white))
         Button(action: {
-                self.showCard.toggle()
             }) {
                
         }.offset(x:-170,y:290)
@@ -343,41 +380,24 @@ struct CustomShape : Shape {
 
 
 struct BuildingMapView: UIViewRepresentable {
-    var address : Address
-    func coordinates(forAddress address: String, completion: @escaping (CLLocationCoordinate2D?) -> Void) {
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address) {
-            (placemarks, error) in
-            guard error == nil else {
-                print("Geocoding error: \(error!)")
-                completion(nil)
-                return
-            }
-            completion(placemarks?.first?.location?.coordinate)
-        }
-    }
-    
+    var building : Building
     func makeUIView(context: Context) -> MKMapView {
     
         MKMapView(frame: .zero)
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        coordinates(forAddress: "\(address.streetAddress), \(address.city), \(address.state), \(address.zipCode)") {
-            (location) in
-            guard let location = location else {
-                return
-            }
-            let coordinate = CLLocationCoordinate2D(
-                latitude: location.latitude, longitude: location.longitude)
-            let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-            let region = MKCoordinateRegion(center: coordinate, span: span)
-            
-            uiView.setRegion(region, animated: true)
-            let newPin = MKPointAnnotation()
-            newPin.coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-            uiView.addAnnotation(newPin)
-        }
+        let lat = Double(building.latitude) as! CLLocationDegrees
+        let lon = Double(building.longitude) as! CLLocationDegrees
+        let coordinate = CLLocationCoordinate2D(
+            latitude: lat, longitude: lon)
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        
+        uiView.setRegion(region, animated: true)
+        let newPin = MKPointAnnotation()
+        newPin.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        uiView.addAnnotation(newPin)
     }
 }
 
@@ -418,6 +438,7 @@ struct BottomView : View {
                             .foregroundColor(Color.black.opacity(0.5))
                             .multilineTextAlignment(.center)
                         }.padding(.leading)
+                        .offset(y: -15)
                     }
                 }
             }
