@@ -22,67 +22,64 @@ struct ChatUI: View {
     var body: some View {
         
         VStack(spacing: 0){
-            
-            HStack{
+            ZStack{
+                HStack{
+                    Button(action: {}, label: {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 22))
+                            .foregroundColor(.white)
+                    })
+                    Spacer()
+                    Button(action: {}, label: {
+                        
+                        Image(systemName: "video")
+                            .font(.system(size: 22))
+                            .foregroundColor(.white)
+                    })
+                }
                 
-                Text("\(tenant_name) Chat")
-                    .font(.title)
-                    .fontWeight(.heavy)
-                    .foregroundColor(.white)
-                
-                Spacer(minLength: 0)
+                VStack(spacing: 5){
+                    
+                    Text("\(tenant_name)")
+                        .fontWeight(.bold)
+        
+                    Text("Active")
+                        .font(.caption)
+                }
+                .foregroundColor(.white)
             }
-            .padding()
+            .padding(.all)
             .padding(.top,UIApplication.shared.windows.first?.safeAreaInsets.top)
             .background(Color("Chat_color").clipShape(RoundedShape()))
             
             
             ScrollViewReader{reader in
-                
                 ScrollView{
-                    
-                    
                     VStack(spacing: 15){
-                      
-                        
-                        
                         ForEach(homeData.msgs){msg in
-                            
-                           ChatRow(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, chatData: msg)
+                            ChatRow(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, chatData: msg)
                             .onAppear{
-                              
-                                // First Time Scroll
                                 if msg.id == self.homeData.msgs.last!.id && !scrolled{
-                                    
                                     reader.scrollTo(homeData.msgs.last!.id,anchor: .bottom)
                                     scrolled = true
-                                    
                                 }
                             }
                         }
-
                     }
-                    .padding(.vertical)
-                    
-                    
+                .padding(.vertical)
                 }
             }
-            
             HStack(spacing: 15){
-                
                 TextField("Enter Message", text: $homeData.txt)
+                    .foregroundColor(Color.black.opacity(0.6))
                     .padding(.horizontal)
                     // Fixed Height For Animation...
                     .frame(height: 45)
-                    .background(Color.primary.opacity(0.06))
+                    .background(Color.black.opacity(0.06))
                     .clipShape(Capsule())
                 
                 Button(action: {
-                    
-                    // toogling image picker...
-                    
                     imagePicker2.toggle()
-                    
                 }, label: {
                     
                     Image(systemName: "paperclip.circle.fill")
@@ -94,32 +91,32 @@ struct ChatUI: View {
                 })
                 
                 if homeData.txt != ""{
-
                     Button(action: homeData.writeMsg, label: {
-
                         Image(systemName: "paperplane.fill")
                             .font(.system(size: 22))
                             .foregroundColor(.white)
                             .frame(width: 45, height: 45)
                             .background(Color("Chat_color"))
                             .clipShape(Circle())
-                    })
-                    
-                 
+                        })
+                    }
                 }
+                .animation(.default)
+                .padding()
             }
-            .animation(.default)
-            .padding()
-        }
         .ignoresSafeArea(.all, edges: .top)
+        .background(Color.white)
         .fullScreenCover(isPresented: self.$imagePicker2, onDismiss: {
             
             // when ever image picker closes...
             // verifying if image is selected or cancelled...
             
             if self.imgData.count != 0{
+                let imgData = UIImage(data: self.imgData)!
+                let imageData: Data = imgData.jpegData(compressionQuality: 0.1) ?? Data()
+                let imageStr: String = imageData.base64EncodedString()
                 
-                allMessages.writeMessage(id: Date(), msg: "", photo: self.imgData, myMsg: true, profilePic: "p1")
+                homeData.sendImg(image: imageStr)
             }
             
         }) {

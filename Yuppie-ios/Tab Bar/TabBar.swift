@@ -117,17 +117,17 @@ struct TabBar: View {
                     } else {
                     testScroll(token: $token, user_id: $user_id, buildings:buildings, user: $user)
                     }
-                }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).tag("Home")
+                }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).tag("Home").font(.custom("Futura", size: 18))
                 ZStack{
                     UserProfile(token: $token, user_id: $user_id, buildings:$buildings, user: $user, minBedrooms: $minBedrooms, minBathrooms: $minBathrooms, profilePic: profilePic)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .tag(tabs[1])
-                }.tag("Profile")
+                }.tag("Profile").font(.custom("Futura", size: 18))
                 ZStack{
                 Favorites(token: $token, user_id: $user_id, buildings:$buildings, user: $user, minBedrooms: $minBedrooms, minBathrooms: $minBathrooms)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .tag(tabs[2])
-                }.tag("Saved")
+                }.tag("Saved").font(.custom("Futura", size: 18))
             }
             
             HStack(spacing: 0){
@@ -136,19 +136,23 @@ struct TabBar: View {
                 
                 
                 TabButton(title: "Saved", image: "heart-1", selected: $current)
+                    .font(.custom("Futura Light", size: 18))
                 
                 Spacer(minLength: 0)
                 
                 TabButton(title: "Home", image: "home", selected: $current)
+                    .font(.custom("Futura Light", size: 18))
                 
                 Spacer(minLength: 0)
                 
                 TabButton(title: "Profile", image: "user", selected: $current)
+                    .font(.custom("Futura Light", size: 18))
                 
             }
             .padding(.top,10)
             .padding(.bottom,30)
             .padding(.horizontal,25)
+            .font(.custom("Futura Light", size: 18))
             .background(Color("pgradient1"))
             .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
             .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)

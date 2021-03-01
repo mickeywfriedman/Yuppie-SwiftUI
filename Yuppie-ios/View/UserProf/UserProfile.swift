@@ -63,7 +63,7 @@ struct UserProfile : View {
             
             HStack(spacing: 0){
                 
-                Text("My Preferences")
+                Text("Preferences")
                     .foregroundColor(self.index == 0 ? .white : Color("Chat_color").opacity(0.7))
                     .fontWeight(.bold)
                     .padding(.vertical,10)

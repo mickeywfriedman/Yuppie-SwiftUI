@@ -41,7 +41,12 @@
 	<string>YES</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Montserrat-Medium.ttf</string>
+		<string>Futura Light.ttf</string>
+		<string>FuturaLightRegular.otf</string>
 		<string>Monserrat-Bold.ttf</string>
+		<string>Montserrat-ExtraLight.ttf</string>
+		<string>Futura.ttc</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -72,8 +77,6 @@
 	</array>
 	<key>UILaunchScreen</key>
 	<dict>
-		<key>UIColorName</key>
-		<string>gradient1</string>
 		<key>UIImageName</key>
 		<string>small</string>
 	</dict>

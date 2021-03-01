@@ -80,6 +80,7 @@ struct Scroll: View {
     @State var showChatUI = false
     @State var search = ""
     @State var showInbox = false
+    @State var first = true
     func getDocumentsDirectory1() -> URL {
         // find all possible documents directories for this user
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -140,7 +141,7 @@ struct Scroll: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack{
-                MapView(annotations: annotations(), buildings: $buildings, index: $index, user: $user).centerCoordinate(CLLocationCoordinate2D(latitude: Double(buildings[index].latitude), longitude: Double(buildings[index].longitude))).zoomLevel(15).offset(y:-450).onDisappear(perform: {
+                MapView(annotations: annotations(), buildings: $buildings, index: $index, user: $user, first: $first).centerCoordinate(CLLocationCoordinate2D(latitude: Double(buildings[index].latitude), longitude: Double(buildings[index].longitude))).zoomLevel(15).offset(y:-450).onDisappear(perform: {
                     reset()
                 })
                 VStack{
@@ -326,6 +327,7 @@ struct Scroll: View {
                     let offset = (value.translation.width + weakGesture) / geometry.size.width
                             let newIndex = (CGFloat(self.index) - offset).rounded()
                             self.index = min(max(Int(newIndex), 0), filteredBuildings().count - 1)
+                            self.first = false
                  }
            )
         }.sheet(isPresented: $showCard) {
@@ -335,15 +337,5 @@ struct Scroll: View {
 }
 }
 
-
-struct Navshape : Shape {
-    
-    func path(in rect: CGRect) -> Path {
-        
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.bottomLeft,.bottomRight], cornerRadii: CGSize(width: 30, height: 30))
-        
-        return Path(path.cgPath)
-    }
-}
 
 

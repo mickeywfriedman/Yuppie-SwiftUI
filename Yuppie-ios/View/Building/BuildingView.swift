@@ -111,8 +111,8 @@ struct BuildingImages: View{
                 
             }) {
                 HStack{
-                Text("    Contact Property Manager").font(.headline)
-                    //.renderingMode(.original)
+                Text("    Contact Property Manager")
+                    .font(.custom("Futura", size: 18))
                     .padding(.top, 25)
                     .padding(.bottom, 15)
                     .foregroundColor(.white)
@@ -168,16 +168,24 @@ struct BuildingView: View {
         ScrollView(showsIndicators: false){
             VStack{
                 
-                Text(building.name).font(.largeTitle)
+                Text(building.name)
                     .foregroundColor(Color.gray)
+                    .font(.custom("Futura", size: 28))
+                    .padding(.top, 15)
                 Text(building.address.streetAddress).multilineTextAlignment(.center).foregroundColor(Color.gray)
-                Spacer()
-                Spacer()
-                Text("Message Our Tenants").fontWeight(.heavy).padding(.top,4)
-                    .foregroundColor(Color.gray)
+                    .font(.custom("Futura Light", size: 18))
+        
+              
+                
+                
                 VStack(alignment: .leading){
                     VStack(alignment: .leading){
-                        
+                        Text("Message Our Tenants").fontWeight(.heavy).padding(.top,15)
+                            .foregroundColor(Color.gray)
+                            .font(.custom("Futura Light", size: 16))
+                            .padding(.horizontal
+                            )
+                            
                         Loader(show: self.$show)
                         
                         HStack{
@@ -185,32 +193,39 @@ struct BuildingView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                            
                                 Chats(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand)
-                                .offset(y:-100)
+                                .offset(y:-110)
                                 .padding(.top, 15)
                             }}
-                    }.offset(y:0)
+                    }.offset(y:-10)
                     
                     
                     VStack(alignment: .leading){
-                        Text("Description").fontWeight(.heavy).padding(.top,4)
+                        Text("Description").fontWeight(.heavy)
                             .foregroundColor(Color.gray)
+                            .font(.custom("Futura Light", size: 16))
+                            .multilineTextAlignment(.center)
                         Spacer()
                         Text(building.description).fixedSize(horizontal: false, vertical: true)
                             .foregroundColor(Color.gray)
+                            .font(.custom("Futura Light", size: 16))
+                            .multilineTextAlignment(.center)
                         
                     }.padding(.horizontal)
-                    .offset(y:-115)
+                    .offset(y:-120)
                     VStack(alignment: .leading){
                         BottomView(amenities: building.amenities)
+                            .font(.custom("Futura Light", size: 16))
+                            .multilineTextAlignment(.center)
                        
                         
                     }
-                    .offset(y:-95)
+                    .offset(y:-105)
                     Spacer()
                     Spacer()
                     VStack(alignment: .leading){
                         Text("Units").fontWeight(.heavy)
                             .foregroundColor(Color.gray)
+                            .font(.custom("Futura Light", size: 16))
                         Picker(selection: $Bedroom, label:
                             Text(Bedrooms[Bedroom])
                         ) {
@@ -249,7 +264,7 @@ struct BuildingView: View {
                             }
                         }
                     }.padding(.horizontal)
-                    .offset(y: -90)
+                    .offset(y: -105)
                 }
                 BuildingMapView(building:building).frame(width: UIScreen.main.bounds.width-40, height: 200).offset(y: -90)
                 
@@ -423,6 +438,7 @@ struct BottomView : View {
                             .foregroundColor(Color.black.opacity(0.5))
                             .multilineTextAlignment(.center)
                         }.padding(.leading)
+                        .offset(y: -15)
                     }
                 }
             }

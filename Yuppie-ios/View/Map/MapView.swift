@@ -23,6 +23,7 @@ struct MapView: UIViewRepresentable {
     @Binding var index: Int
     @State var newIndex: Int = 0
     @Binding var user: User
+    @Binding var first : Bool
     @State var mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/leonyuppie/ckfysprwo0l3n19qpi7hm8m8p"))
     
     // MARK: - Configuring UIViewRepresentable protocol
@@ -81,18 +82,14 @@ struct MapView: UIViewRepresentable {
     }
     func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<MapView>) {
         updateAnnotations()
-        if index < filteredBuildings().count {
-        mapView.centerCoordinate =  coordinates(latitude: filteredBuildings()[index].latitude, longitude: filteredBuildings()[index].longitude)
-        if ((index != newIndex)){
+        if (index < filteredBuildings().count && (first == false)) {
             moveToCoordinate(mapView, to: CLLocationCoordinate2D(latitude: Double(filteredBuildings()[index].latitude), longitude: Double(filteredBuildings()[index].longitude)))
-        }
         }
     }
     func moveToCoordinate(_ mapView: MGLMapView, to point: CLLocationCoordinate2D) {
         let camera = MGLMapCamera(lookingAtCenter: point, fromDistance: 4500, pitch: 15, heading: 0)
         mapView.fly(to: camera, withDuration: 4,
                     peakAltitude: 3000, completionHandler: nil)
-        self.newIndex = index
     }
     func coordinates(latitude: Float, longitude: Float) -> CLLocationCoordinate2D {
         let lat = Double(latitude) as! CLLocationDegrees
@@ -127,7 +124,6 @@ struct MapView: UIViewRepresentable {
             let buildingFeature = MGLPolygonFeature(coordinates: coordinates, count: 5)
             let shapeSource = MGLShapeSource(identifier: "buildingSource", features: [buildingFeature], options: nil)
             mapView.style?.addSource(shapeSource)
-            
           
 
         }

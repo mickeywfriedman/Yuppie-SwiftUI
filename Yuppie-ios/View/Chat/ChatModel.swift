@@ -10,6 +10,7 @@ class ChatModel: ObservableObject{
     var user_id: String!
     var tenant_id: String!
     @Published var txt = ""
+    @Published var imageStr = ""
     @Published var msgs : [ReceivedMessages] = []
     @Published var msgs1 : [SentMessage] = []
     @AppStorage("current_user") var user = ""
@@ -145,6 +146,50 @@ class ChatModel: ObservableObject{
                     self.msgs.append(received_messages)
                     
                     self.txt = ""
+                  }catch {
+                        print(error.localizedDescription)
+                    }
+        
+        
+    }
+    
+    func sendImg(image: String){
+        
+        let url_file = self.getDocumentsDirectory().appendingPathComponent("index.txt")
+
+                do {
+                    //test tenant id
+                    let input = try String(contentsOf: url_file)
+                    let tenant_id = String(input[0..<24])
+                    //test user id
+                    let user_id = String(input[24..<48])
+                    //test token
+                    let token = input.substring(fromIndex: 57)
+                    let id = randomAlphaNumericString(length: 24)
+                    let date = dateFormat(date: Date())
+                    let message = SentMessage(id: id, sender: user_id, sentTime: date,  message: imageStr, type: 1)
+                    let parameters: [String: String] = ["image": imageStr]
+                                
+                  //  let received_messages = ReceivedMessages(id: id, sender: user_id, sentTime: date,  message: txt, type: 0)
+                   
+                    guard let encoded = try? JSONEncoder().encode(message) else {
+                        print("Failed to encode order")
+                        return
+                    }
+                    guard let url = URL(string: "http://18.218.78.71:8080/conversations/users/\(tenant_id)") else {
+                        print("Your API end point is Invalid")
+                        return
+                    }
+                    var request = URLRequest(url: url)
+                    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.httpMethod = "POST"
+                    request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+                    request.httpBody = try JSONSerialization.data(withJSONObject: message, options: .prettyPrinted)
+                    URLSession.shared.dataTask(with: request) {data, response, error in print(response)}.resume()
+
+                 // self.msgs.append(received_messages)
+                    
+                    self.imageStr = ""
                   }catch {
                         print(error.localizedDescription)
                     }
