@@ -25,8 +25,7 @@ struct Search_Bar: View {
             Spacer()
             
         }.onChange(of: searchData.query) {(newData) in
-            print(newData)
-            print(self.token, "HIIIIIIIIIII")
+           
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
                 if newData == searchData.query{

@@ -164,7 +164,7 @@ struct BuildingView: View {
         ZStack{
             Color.white
         VStack{
-            BuildingImages(token: $token, user : $user, user_id: $user_id, building: building).background(Color.white)
+            BuildingImages(token: $token, user : $user, user_id: $user_id, building: building).background(Color.white).padding(.bottom, -10)
         ScrollView(showsIndicators: false){
             VStack{
                 
@@ -183,35 +183,29 @@ struct BuildingView: View {
                         Text("Message Our Tenants").fontWeight(.heavy).padding(.top,15)
                             .foregroundColor(Color.gray)
                             .font(.custom("Futura Light", size: 16))
-                            .padding(.horizontal
-                            )
+                            .padding(.horizontal)
                             
-                        Loader(show: self.$show)
-                        
                         HStack{
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                            
                                 Chats(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand)
-                                .offset(y:-110)
-                                .padding(.top, 15)
-                            }}
-                    }.offset(y:-10)
+                            }
+                        }.padding(.top, -95)
+                        .padding(.bottom, -15)
+                    }
                     
                     
                     VStack(alignment: .leading){
                         Text("Description").fontWeight(.heavy)
                             .foregroundColor(Color.gray)
                             .font(.custom("Futura Light", size: 16))
-                            .multilineTextAlignment(.center)
                         Spacer()
                         Text(building.description).fixedSize(horizontal: false, vertical: true)
                             .foregroundColor(Color.gray)
                             .font(.custom("Futura Light", size: 16))
-                            .multilineTextAlignment(.center)
                         
-                    }.padding(.horizontal)
-                    .offset(y:-120)
+                    }.padding()
                     VStack(alignment: .leading){
                         BottomView(amenities: building.amenities)
                             .font(.custom("Futura Light", size: 16))
@@ -219,9 +213,7 @@ struct BuildingView: View {
                        
                         
                     }
-                    .offset(y:-105)
-                    Spacer()
-                    Spacer()
+                    .padding(.vertical)
                     VStack(alignment: .leading){
                         Text("Units").fontWeight(.heavy)
                             .foregroundColor(Color.gray)
@@ -264,16 +256,11 @@ struct BuildingView: View {
                             }
                         }
                     }.padding(.horizontal)
-                    .offset(y: -105)
                 }
-                BuildingMapView(building:building).frame(width: UIScreen.main.bounds.width-40, height: 200).offset(y: -90)
+                BuildingMapView(building:building).frame(width: UIScreen.main.bounds.width-40, height: 200)
                 
             }
         }.background(Color(.white))
-        Button(action: {
-            }) {
-               
-        }.offset(x:-170,y:290)
         }.edgesIgnoringSafeArea([.top, .bottom])
             if $showPopUp.wrappedValue {
                 ZStack {
@@ -442,7 +429,6 @@ struct BottomView : View {
                     }
                 }
             }
-            .padding(.bottom, 15)
         }
     }
 }

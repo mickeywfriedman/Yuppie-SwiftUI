@@ -143,7 +143,24 @@ struct Scroll: View {
             ZStack{
                 MapView(annotations: annotations(), buildings: $buildings, index: $index, user: $user, first: $first).centerCoordinate(CLLocationCoordinate2D(latitude: Double(buildings[index].latitude), longitude: Double(buildings[index].longitude))).zoomLevel(15).offset(y:-450).onDisappear(perform: {
                     reset()
+                    
+                    
+                   
+                                               
                 })
+                
+                Image("topgradient")
+                                                                       .resizable()
+                                                                       .aspectRatio(contentMode: .fit)                                   .aspectRatio(contentMode: .fit)
+                .offset(y:-710)
+                
+                
+                Image("bottomgradient")
+                   .resizable()
+                   .aspectRatio(contentMode: .fit)
+                    .offset(y:-100)
+
+            
                 VStack{
                     HStack{
                         Text("Chat with Current Residents")
@@ -227,7 +244,7 @@ struct Scroll: View {
                                                         .stroke(AngularGradient(gradient: .init(colors: [.purple,.blue,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [false ? 7 : 0]))
                                                     .frame(width: 68, height: 68)
                                                     .rotationEffect(.init(degrees: true ? 360 : 0))
-                                                        .padding(3)
+                                                        
                                                         
                                                     }
                                                 
@@ -242,7 +259,7 @@ struct Scroll: View {
                                                     .clipShape(Capsule())
                                                     .opacity(0.8)
                                                     
-                                            }
+                                                }.padding(.leading)
                                                 ForEach(building.tenants,id: \.self){tenant in
                                                     
                                                     Button(action: {
@@ -265,7 +282,7 @@ struct Scroll: View {
                                                             .stroke(AngularGradient(gradient: .init(colors: [.purple,.orange,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [showChatUI ? 3 : 0]))
                                                         .frame(width: 68, height: 68)
                                                         .rotationEffect(.init(degrees: showChatUI ? 360 : 0))
-                                                            .padding(3)
+                                                            
                                                         }
                                                             
                                                             Label(title: {
@@ -284,7 +301,7 @@ struct Scroll: View {
                                             }
                                         }
                                     }
-                                }.padding()
+                                }.padding(.vertical)
                                 .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
                                 .background(Color.clear)
                                 .clipShape(shape())
@@ -293,8 +310,8 @@ struct Scroll: View {
                             }.zIndex(0)
                                 
                                 Centerview(expand: self.$expand).offset(y: -1250)
-                            }.frame(minWidth:(UIScreen.main.bounds.width-40), maxWidth: .infinity)
-                                .padding(.top, -85).padding(.horizontal, 20)
+                            }.frame(minWidth:(UIScreen.main.bounds.width), maxWidth: .infinity)
+                                .padding(.top, -85)
                             }
                         }
                    .frame(width: geometry.size.width, alignment: .leading)

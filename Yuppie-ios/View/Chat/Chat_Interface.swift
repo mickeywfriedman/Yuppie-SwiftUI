@@ -117,13 +117,11 @@ struct ChatUI: View {
                 let imageStr: String = imageData.base64EncodedString()
                 
                 homeData.sendImg(image: imageStr)
+                print(imageStr)
             }
-            
         }) {
-            
             ImagePicker2(imagePicker2: self.$imagePicker2, imgData: self.$imgData)
         }
-        
     }
 }
 

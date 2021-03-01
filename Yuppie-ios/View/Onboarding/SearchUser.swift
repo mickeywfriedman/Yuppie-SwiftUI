@@ -12,7 +12,14 @@ class SearchUsers: ObservableObject {
     @Published var searchedUser = TestData.buildings
     @Published var query = ""
     
+    func getDocumentsDirectory() -> URL {
+        // find all possible documents directories for this user
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
 
+        // just send back the first one, which ought to be the only one
+        return paths[0]
+    }
+    
 
     func find(){
         
@@ -20,7 +27,11 @@ class SearchUsers: ObservableObject {
             print("Your API end point is Invalid")
             return
         }
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTMxMjk4MzcsIm5iZiI6MTYxMzEyOTgzNywianRpIjoiOTk4N2RlOTYtNzE0Mi00NTI3LWE4YWYtMTA2NDYxNWVlZjU5IiwiaWRlbnRpdHkiOiI2MDFiODM4MDZjYmQ5ZjY4ZDk0MWI2ZDYiLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MifQ.dJylhJ6mi07rlU819Pbhsgr-YZAF3u8Gkrteavd9nMw"
+        let url_file = self.getDocumentsDirectory().appendingPathComponent("index.txt")
+        do{
+        let input = try String(contentsOf: url_file)
+        let tenant_id = String(input[0..<24])
+        let token = input.substring(fromIndex: 57)
         var request = URLRequest(url: url)
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -38,6 +49,10 @@ class SearchUsers: ObservableObject {
                 print(error.localizedDescription)
             }
         }.resume()
+            
+        }catch {
+            print(error.localizedDescription)
+        }
         
         }
 }

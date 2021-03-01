@@ -88,7 +88,6 @@ struct AddressView: View {
                        }
              }
         
-        print(self.token, "AHAHAHAHAHAHHAAHAA")
              task.resume()
          
 

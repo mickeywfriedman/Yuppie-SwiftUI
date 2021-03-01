@@ -47,7 +47,7 @@ struct Chats : View {
             TopView(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand).zIndex(0)
             
             Centerview(expand: self.$expand).offset(y: -1250)
-        }.frame(minWidth:(UIScreen.main.bounds.width-40), maxWidth: .infinity)
+        }.frame(minWidth:(UIScreen.main.bounds.width), maxWidth: .infinity)
     }
 }
 
@@ -98,11 +98,14 @@ struct TopView : View {
                 
                 Text("")
             }
-        
+            
+            
         VStack{
             
             
             if true{
+                
+        
                 
                 HStack{
                    
@@ -142,7 +145,7 @@ struct TopView : View {
                                 .stroke(AngularGradient(gradient: .init(colors: [.purple,.blue,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [false ? 7 : 0]))
                             .frame(width: 68, height: 68)
                             .rotationEffect(.init(degrees: true ? 360 : 0))
-                                .padding(3)
+                                
                                 
                             }
                         
@@ -157,7 +160,7 @@ struct TopView : View {
                             .clipShape(Capsule())
                             .opacity(0.8)
                             
-                    }
+                        }.padding(.leading, 3)
                         ForEach(building.tenants,id: \.self){tenant in
                             
                             Button(action: {
@@ -181,7 +184,7 @@ struct TopView : View {
                                     .stroke(AngularGradient(gradient: .init(colors: [.purple,.orange,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [showChatUI ? 3 : 0]))
                                 .frame(width: 68, height: 68)
                                 .rotationEffect(.init(degrees: showChatUI ? 360 : 0))
-                                    .padding(3)
+                                    
                                 }
                                     
                                     Label(title: {

@@ -9,6 +9,7 @@
 
 
 import SwiftUI
+import PushNotifications
 
 struct Verification_Payload: Codable {
     var phone: String
@@ -54,6 +55,8 @@ struct Verification: View {
         request.httpBody = encoded
         
         
+        
+        
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                 if let urlresponse = try? JSONDecoder().decode(authResponse.self, from: data) {
@@ -64,6 +67,27 @@ struct Verification: View {
                         self.user_id = response.user_id
                         self.needsAccount = response.needsAccount
                         print("success", self.token, self.user_id)
+                        
+                        let pushNotifications = PushNotifications.shared
+                        pushNotifications.clearAllState {
+                          print("Cleared all state!")
+                        }
+                        let tokenProvider = BeamsTokenProvider(authURL: "http://18.218.78.71:8080/authentication/notifications") { () -> AuthData in
+                            let sessionToken = self.token
+                            print(self.token, self.user_id, "pushnotifs")
+                          let headers = ["Authorization": "Bearer \(sessionToken)"] // Headers your auth endpoint needs
+                          let queryParams: [String: String] = [:] // URL query params your auth endpoint needs
+                          return AuthData(headers: headers, queryParams: queryParams)
+                        }
+
+                        pushNotifications.setUserId(self.user_id, tokenProvider: tokenProvider, completion: { error in
+                          guard error == nil else {
+                              print(error.debugDescription)
+                              return
+                          }
+
+                          print("Successfully authenticated with Pusher Beams")
+                        })
                     }
                     return
                 }
