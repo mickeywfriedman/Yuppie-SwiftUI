@@ -150,16 +150,17 @@ struct Scroll: View {
                 })
                 
                 Image("topgradient")
-                                                                       .resizable()
-                                                                       .aspectRatio(contentMode: .fit)                                   .aspectRatio(contentMode: .fit)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
                 .offset(y:-710)
+                    .frame(width:UIScreen.main.bounds.width)
                 
                 
                 Image("bottomgradient")
                    .resizable()
                    .aspectRatio(contentMode: .fit)
                     .offset(y:-100)
-
+                    .frame(width:UIScreen.main.bounds.width)
             
                 VStack{
                     HStack{
