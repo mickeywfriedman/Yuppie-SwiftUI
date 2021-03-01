@@ -157,7 +157,7 @@ class ChatModel: ObservableObject{
             let id = randomAlphaNumericString(length: 24)
             let date = dateFormat(date: Date())
             //let received_messages = ReceivedMessages(id: id, sender: user_id, sentTime: date,  message: String, type: Int)
-            let message = SentMessage(id: id, sender: user_id, sentTime: date,  message: imageStr, type: 1)
+            let message = SentMessage(id: id, sender: user_id, sentTime: date,  message: image, type: 1)
             guard let encoded = try? JSONEncoder().encode(message) else {
                 print("Failed to encode order")
                 return}
@@ -168,8 +168,22 @@ class ChatModel: ObservableObject{
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "POST"
             request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-            request.httpBody = try JSONSerialization.data(withJSONObject: message, options: .prettyPrinted)
-            URLSession.shared.dataTask(with: request) {data, response, error in print(response)}.resume()
+            request.httpBody = encoded
+            URLSession.shared.dataTask(with: request) {data, response, error in
+                guard let data = data, error == nil else {
+                    print("error=\(String(describing: error))")
+                    return
+                }
+                do {
+                    if let convertedJsonIntoDict = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
+                        let url = (convertedJsonIntoDict["result"] as! [String:String])["message"] as! String
+                        let message = ReceivedMessages(id: id, sender: user_id, sentTime: date,  message: url as! String, type: 1)
+                        self.msgs.append(message)
+                    }
+                } catch {
+                    print("JSONSerialization error:", error)
+                }
+            }.resume()
             self.imageStr = ""
             //self.msgs.append(received_messages)
           }catch {
