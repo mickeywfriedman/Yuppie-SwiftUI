@@ -28,11 +28,9 @@ struct CustomShapeOnboarding: Shape {
             let to = CGPoint(x: midX, y: -55)
             let control1 = CGPoint(x: controlWidth, y: 70)
             let control2 = CGPoint(x: controlWidth - 30, y: -55)
-            
             let to1 = CGPoint(x: width, y: 70)
             let control3 = CGPoint(x: width - (controlWidth - 30), y: -55)
             let control4 = CGPoint(x: width - controlWidth, y: 70)
-            
             path.addCurve(to: to, control1: control1, control2: control2)
             
             path.addCurve(to: to1, control1: control3, control2: control4)

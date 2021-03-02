@@ -122,7 +122,7 @@ struct TopView : View {
                 }
                 ScrollView(.horizontal, showsIndicators: false) {
                     
-                    HStack(spacing: 18){
+                    HStack(spacing: 0){
                         
                         VStack{
                             
@@ -145,8 +145,6 @@ struct TopView : View {
                                 .stroke(AngularGradient(gradient: .init(colors: [.purple,.blue,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [false ? 7 : 0]))
                             .frame(width: 68, height: 68)
                             .rotationEffect(.init(degrees: true ? 360 : 0))
-                                
-                                
                             }
                         
                             Label(title: {
@@ -160,7 +158,8 @@ struct TopView : View {
                             .clipShape(Capsule())
                             .opacity(0.8)
                             
-                        }.padding(.leading, 3)
+                        }.padding(10)
+                        .padding(.leading, -7)
                         ForEach(building.tenants,id: \.self){tenant in
                             
                             Button(action: {
@@ -197,7 +196,7 @@ struct TopView : View {
                                     .clipShape(Capsule())
                                     .opacity(0.8)
                                     .offset(y: -5)
-                                }
+                                }.padding(10)
                                 }.sheet(isPresented: $showChatUI) {
                                     ChatUI(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, tenant_name: $tenant_name)
                                 }

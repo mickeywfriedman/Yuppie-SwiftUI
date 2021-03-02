@@ -18,7 +18,7 @@ struct CardViewOnboarding: View {
             Image(University.logo)
                 .resizable()
                 .frame(width: 45, height: 45)
-            
+                .clipShape(Circle())
             VStack(alignment: .leading, spacing: 3, content: {
                 
                 Text(University.name)

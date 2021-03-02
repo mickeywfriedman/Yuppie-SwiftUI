@@ -21,10 +21,6 @@ struct SelectUniversity: View {
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
     
     @StateObject var universityData = UniversityModel()
-    
-    
-    
-
       func cleanStr(str: String) -> String {
           return str.replacingOccurrences(of: "[.#$\\[/\\]];}", with: ",", options: [.regularExpression])
       }
@@ -32,11 +28,6 @@ struct SelectUniversity: View {
       func toString(_ value: Any?) -> String {
         return String(describing: value ?? "")
       }
-    
-    
-
-      
-      
       
      public func send(_ sender: Any) {
       
