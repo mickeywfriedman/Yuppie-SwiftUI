@@ -10,7 +10,7 @@ import PushNotifications
 
 struct PhoneAuth: View {
     
-    @State var countryCode = ""
+    @State var countryCode = "1"
     @State var number = ""
     @State var showVerification = false
     @Binding var token: String
@@ -93,7 +93,9 @@ struct PhoneAuth: View {
 
       }
 
-    
+    func hideKeyboard() {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
     var body: some View {
         
         ZStack{
@@ -119,8 +121,6 @@ struct PhoneAuth: View {
                     
                     
                     VStack(alignment:.center){
-                        
-                        Button(action: {universityData.isConnected.toggle()}, label: {
                             
                             VStack(spacing: 45){
                                 
@@ -141,7 +141,6 @@ struct PhoneAuth: View {
                             .padding(15)
                       
                             .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
-                        })
                         .offset(y: -65)
                         .padding(.bottom,-65)
                         
@@ -156,33 +155,6 @@ struct PhoneAuth: View {
                        
                         HStack(spacing: 15){
                             Spacer()
-                            TextField("1", text: self.$countryCode)
-                                .keyboardType(.numberPad)
-                                .font(.custom("Futura", size: 18))
-                                // fixed Width...
-                                .frame(width: 50)
-                                .foregroundColor(.white)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 10)
-                                .background(Color("pgradient1").opacity(0.6))
-                                .clipShape(Capsule())
-                                .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
-                                .offset(y: -self.value).animation(.spring()).onAppear{
-                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
-                                        
-                                        let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-                                        let height = value.height
-                                        
-                                        self.value = height/15
-                                    }
-                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
-                                        
-                                       
-                                        
-                                        self.value = 0
-                                    }
-                                }
-                            
                             ZStack(alignment: .trailing) {
                             TextField("Mobile Number", text: self.$number)
                                 .keyboardType(.numberPad)
@@ -287,6 +259,8 @@ struct PhoneAuth: View {
             }
             
             
+        }.onTapGesture {
+            hideKeyboard()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(

@@ -92,7 +92,9 @@ struct FirstLastName: View {
       }
 
     
-    
+    func hideKeyboard() {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
     
     var body: some View {
         
@@ -120,8 +122,6 @@ struct FirstLastName: View {
                     
                     
                     VStack{
-                        
-                        Button(action: {serverData.isConnected.toggle()}, label: {
                             
                             VStack(spacing: 45){
                                 
@@ -141,9 +141,6 @@ struct FirstLastName: View {
                             .background(Color("power1").opacity(0.7))
                             .clipShape(Circle())
                             .padding(15)
-                            
-                            
-                        })
                         .offset(y: -65)
                         .padding(.bottom,-65)
                         .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
@@ -218,6 +215,9 @@ struct FirstLastName: View {
             }
             
             
+        }
+        .onTapGesture {
+            hideKeyboard()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(

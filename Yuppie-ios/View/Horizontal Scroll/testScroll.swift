@@ -304,9 +304,11 @@ struct Scroll: View {
                             weakGesture = 100
                          }
                     let offset = (value.translation.width + weakGesture) / geometry.size.width
-                            let newIndex = (CGFloat(self.index) - offset).rounded()
-                            self.index = min(max(Int(newIndex), 0), filteredBuildings().count - 1)
-                            self.first = false
+                    let newIndex = (CGFloat(self.index) - offset).rounded()
+                    if (min(max(Int(newIndex), 0), filteredBuildings().count - 1) != index){
+                    self.index = min(max(Int(newIndex), 0), filteredBuildings().count - 1)
+                    }
+                    self.first = false
                  }
            )
         }.sheet(isPresented: $showCard) {

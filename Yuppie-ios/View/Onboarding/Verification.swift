@@ -35,7 +35,9 @@ struct Verification: View {
     
     @StateObject var serverData = UniversityModel()
     @StateObject var universityData = UniversityModel()
-
+    func hideKeyboard() {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
     func receiveAuthInfo (){
         let payload = Verification_Payload(
             phone: self.number,
@@ -126,8 +128,6 @@ struct Verification: View {
                     
                     
                     VStack{
-                        
-                        Button(action: {serverData.isConnected.toggle()}, label: {
                             
                             VStack(spacing: 45){
                                 
@@ -148,7 +148,6 @@ struct Verification: View {
                             .clipShape(Circle())
                             .padding(15)
                             .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
-                        })
                         .offset(y: -65)
                         .padding(.bottom,-65)
                         .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
@@ -220,6 +219,9 @@ struct Verification: View {
                     .ignoresSafeArea(.all, edges: .top)
             }
         )
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
 }
 
