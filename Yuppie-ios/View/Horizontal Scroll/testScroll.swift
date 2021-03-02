@@ -4,7 +4,6 @@
 //
 //  Created by Mickey Friedman on 29/09/1399 AP.
 //
-
 import SwiftUI
 import Mapbox
 struct testScroll: View {
@@ -189,40 +188,9 @@ struct Scroll: View {
                     }
                     HStack (spacing: 0){
                         ForEach(filteredBuildings(), id:\.name) {building in
-                            VStack(spacing: 0){
-                                
-                                ZStack{
-                                    NavigationLink(destination: ChatUI(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, tenant_name: $tenant_name)){
-                                        
-                                        Text("")
-                                    }
-                                    
-                                    NavigationLink(destination: Inbox(token: $token, user_id: $user_id, user: $user), isActive: self.$showInbox) {
-                                        
-                                        Text("")
-                                    }
-                                
-                                VStack{
-                                    
-                                    
-                                    if true{
-                                        
-                                        HStack{
-                                           
-                                            
-                                            Button(action: {
-                                                
-                                            }) {
-                                                Image("menu")
-                                                .resizable()
-                                                .frame(width: 20, height: 20)
-                                                .foregroundColor(Color.black.opacity(0.4))
-                                            }
-
-                                        }
                                         ScrollView(.horizontal, showsIndicators: false) {
                                             
-                                            HStack(spacing: 18){
+                                            HStack(spacing: 0){
                                                 
                                                 VStack{
                                                     
@@ -260,7 +228,7 @@ struct Scroll: View {
                                                     .clipShape(Capsule())
                                                     .opacity(0.8)
                                                     
-                                                }.padding(.leading)
+                                                }.padding(10)
                                                 ForEach(building.tenants,id: \.self){tenant in
                                                     
                                                     Button(action: {
@@ -295,38 +263,31 @@ struct Scroll: View {
                                                             .background(Color.white)
                                                             .clipShape(Capsule())
                                                             .opacity(0.8)
-                                                            .offset(y: -5)
-                                                        }
-                                                        }
-                                                }
-                                            }
-                                        }
+                                                            .offset(y: -6)
+                                                        }.padding(10)
                                     }
-                                }.padding(.vertical)
-                                .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
+                                }
                                 .background(Color.clear)
                                 .clipShape(shape())
                                 .animation(.default)
                                 
-                            }.zIndex(0)
-                                
-                                Centerview(expand: self.$expand).offset(y: -1250)
-                            }.frame(minWidth:(UIScreen.main.bounds.width), maxWidth: .infinity)
-                                .padding(.top, -85)
                             }
+                            }.frame(minWidth:(UIScreen.main.bounds.width), maxWidth: .infinity)
+                                
                         }
-                   .frame(width: geometry.size.width, alignment: .leading)
+                    }
+                   .frame(minWidth: geometry.size.width, maxWidth: .infinity, alignment: .leading)
                     .offset(x: -CGFloat(self.index) * geometry.size.width)
                    .animation(.interactiveSpring())
                     
-                }.offset(y: -350)
+                }.offset(y: -700)
             HStack (spacing: 0){
                 ForEach(filteredBuildings(), id:\.name) {building in
                         CardView(token: $token, user: $user, user_id: $user_id, building:building, showCard: $showCard, card: $card)
                             .padding(.horizontal, 20)
                     }
                 }
-           .frame(width: geometry.size.width, alignment: .leading)
+           .frame(minWidth: geometry.size.width, maxWidth: .infinity, alignment: .leading)
             .offset(x: -CGFloat(self.index) * geometry.size.width, y: -200)
            .animation(.interactiveSpring())
             
@@ -354,6 +315,3 @@ struct Scroll: View {
         }
 }
 }
-
-
-

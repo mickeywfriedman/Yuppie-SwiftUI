@@ -329,7 +329,6 @@
 			children = (
 				37A6937925ED859200E45CEC /* Fonts */,
 				21F7A84825D2306300113DAE /* Yuppie-ios.entitlements */,
-				21C10C72259290180049531E /* Tab Bar */,
 				21A7801D258E0A3B00DD6F70 /* Animations */,
 				21CCF0BF2572BBEF00B22A75 /* View */,
 				21CCF0A92572BBA900B22A75 /* Model */,
@@ -388,6 +387,7 @@
 		21CCF0BF2572BBEF00B22A75 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				21C10C72259290180049531E /* Tab Bar */,
 				21F7A80E25D0F09F00113DAE /* UserProf */,
 				37BB948B25BB480C00D1FC86 /* Favorites */,
 				3795CF8E259D197400AB20F5 /* Building */,
