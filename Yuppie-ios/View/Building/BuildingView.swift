@@ -225,15 +225,16 @@ struct BuildingView: View {
                             .foregroundColor(Color.gray)
                             .font(.custom("Futura", size: 20))
                         Picker(selection: $Bedroom, label:
-                            Text(Bedrooms[Bedroom])
-                        ) {
+                                Text(Bedrooms[Bedroom])
+                        ){
                             ForEach(0 ..< Bedrooms.count) {
-                                Text(self.Bedrooms[$0])
+                                Text(self.Bedrooms[$0]).foregroundColor(.black)
                             }
                             .padding(1.0)
                             }.pickerStyle(SegmentedPickerStyle())
+                        .foregroundColor(.black)
                         if noUnits(){
-                            Text("No \(Bedrooms[Bedroom]) Units").foregroundColor(Color.gray)
+                            Text("No \(Bedrooms[Bedroom]) Units").foregroundColor(Color.black)
                         }
                         ForEach(building.units, id:\.number){unit in
                             if (convertBedrooms(bedrooms:unit.bedrooms) == Bedroom) {
