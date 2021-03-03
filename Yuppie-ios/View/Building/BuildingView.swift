@@ -143,7 +143,7 @@ struct BuildingView: View {
     @State var show = false
     @State var showForm = false
     @State var isFavorite = true
-    var Bedrooms = ["Studio", "1 Br", "2 Br", "3+"]
+    var Bedrooms = ["Studio", "1 Br", "2 Br", "3+ Br"]
     @State var Bedroom : Int
     @Binding var user : User
     @State private var showPopUp = false

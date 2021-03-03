@@ -2,7 +2,7 @@
 import SwiftUI
 
 struct FiltersView: View {
-    var Bedrooms = ["Studio", "1", "2", "3+"]
+    var Bedrooms = ["Studio", "1 Br", "2 Br", "3+ Br"]
     @Binding var token: String
     @Binding var user : User
     @Binding var user_id: String
