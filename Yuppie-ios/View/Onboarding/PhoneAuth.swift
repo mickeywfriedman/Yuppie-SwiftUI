@@ -237,19 +237,14 @@ struct PhoneAuth: View {
                                 self.value = height
                             }
                             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
-                                
-                               
-                                
                                 self.value = 0
                             }
                         }
                         // disabling view when both textfields are empty...
                         .opacity((self.countryCode == "" || self.number == "") ? 0.65 : 1)
-                        .disabled((self.countryCode == "" || self.number == "") ? true : false).offset(y: 70)
-                        
+                        .disabled((self.countryCode == "" || self.number == "") ? true : false)
+                        .offset(y: 70)
                         Spacer()
-                        
-                        
                     }
                     
                 })

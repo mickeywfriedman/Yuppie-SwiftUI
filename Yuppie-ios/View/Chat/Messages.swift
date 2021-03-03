@@ -149,6 +149,7 @@ struct TopView : View {
                         
                             Label(title: {
                             }) {Text("Inbox")
+                                .font(.custom("Futura", size: 14))
                                 .foregroundColor(Color.black)
                                 .lineLimit(1)
                                 
@@ -188,9 +189,10 @@ struct TopView : View {
                                     
                                     Label(title: {
                                     }) {Text(tenant.firstName)
+                                        .font(.custom("Futura", size: 14))
                                         .foregroundColor(Color.black)
                                         .lineLimit(1)
-                                    } .padding(.vertical,4)
+                                    }.padding(.vertical,4)
                                     .padding(.horizontal,10)
                                     .background(Color.white)
                                     .clipShape(Capsule())

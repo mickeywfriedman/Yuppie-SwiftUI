@@ -66,7 +66,7 @@ struct FiltersView: View {
             .padding(.horizontal,25)
             
             HStack{
-                Text("The most I can pay is $\(priceFormat(price:user.preferences.price))").fontWeight(.heavy)
+                Text("The most I will pay is $\(priceFormat(price:user.preferences.price))").fontWeight(.heavy)
                 Spacer()
             }.padding(.horizontal,25)
             Slider(value: $user.preferences.price, in: 1000...10000)

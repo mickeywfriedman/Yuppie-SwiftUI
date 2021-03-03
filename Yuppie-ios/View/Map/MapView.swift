@@ -18,7 +18,6 @@ extension MGLPointAnnotation {
 
 
 struct MapView: UIViewRepresentable {
-    @State var annotations: [MGLPointAnnotation]
     @Binding var buildings: [Building]
     @Binding var index: Int
     @State var newIndex: Int = 0
@@ -27,6 +26,15 @@ struct MapView: UIViewRepresentable {
     @State var mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/leonyuppie/ckfysprwo0l3n19qpi7hm8m8p"))
     
     // MARK: - Configuring UIViewRepresentable protocol
+    func annotations () -> [MGLPointAnnotation]{
+        var result = [MGLPointAnnotation(coordinate: .init(latitude: 40.761295318603516, longitude: -73.99922180175781))]
+        for building in filteredBuildings() {
+            result.append(MGLPointAnnotation(coordinate: .init(latitude: Double(building.latitude), longitude: Double(building.longitude))))
+        }
+        result.removeFirst(1)
+        return result
+    }
+    
     func filter(units: [Unit], buildingAmenities: [String]) -> Bool{
         for unit in units{
             let dateFormatter = DateFormatter()
@@ -101,7 +109,7 @@ struct MapView: UIViewRepresentable {
         if let currentAnnotations = mapView.annotations {
             mapView.removeAnnotations(currentAnnotations)
         }
-        mapView.addAnnotations(annotations)
+        mapView.addAnnotations(annotations())
     }
     
     // MARK: - Implementing MGLMapViewDelegate

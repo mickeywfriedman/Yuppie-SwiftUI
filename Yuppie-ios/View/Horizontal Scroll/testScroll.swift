@@ -12,6 +12,39 @@ struct testScroll: View {
     var buildings : [Building]
     @Binding var user : User
     @State var isFavorite = true
+    @State var card = ""
+    @State var showCard = false
+    @State var minDate = Date()
+    @State var maxDate = Date(timeInterval: 14*86400, since: Date())
+    func format(date : Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: date)
+    }
+    func updateFilters() -> Void {
+        self.user.preferences.earliestMoveInDate = "\(format(date: minDate))"
+        self.user.preferences.latestMoveInDate = "\(format(date: maxDate))"
+        guard let filter_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)") else {
+            print("Your API end point is Invalid")
+            return
+        }
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        guard let data = try? encoder.encode(update(preferences: user.preferences)) else {
+            print("Failed to encode order")
+            return
+        }
+        var filter_request = URLRequest(url: filter_url)
+        filter_request.httpMethod = "PATCH"
+        filter_request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        filter_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        filter_request.httpBody = data
+        print("updated")
+        URLSession.shared.dataTask(with: filter_request) { data, response, error in
+            return
+            
+        }.resume()
+    }
     func dateFormat(string : String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -52,13 +85,30 @@ struct testScroll: View {
                         .ignoresSafeArea()
                     VStack{
                         Text("No buildings match your preferences")
+                        Button(action: {
+                            showCard.toggle()
+                            }) {
+                            Label(title: {
+                            }) {
+                                Text("Adjust Preferences Here").foregroundColor(.black)
+                            }
+                            .padding(.vertical,8)
+                            .padding(.horizontal,10)
+                            .background(Color("Color1"))
+                            .clipShape(Capsule())
+                        }
                         Image("buildings")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                    }
+                    }.sheet(isPresented: $showCard){
+                        VStack{
+                            Text("Update Preferences").font(.largeTitle).fontWeight(.heavy)
+                        FiltersView(token: $token, user: $user, user_id: $user_id, minDate: dateFormat(string: user.preferences.earliestMoveInDate), maxDate: dateFormat(string: user.preferences.latestMoveInDate)).onDisappear(perform: updateFilters)
+                        }.padding()
+                      }
+                }
                 }
             }
-        }
     }
 }
 
@@ -80,6 +130,13 @@ struct Scroll: View {
     @State var search = ""
     @State var showInbox = false
     @State var first = true
+    func moveMap () -> Void {
+        let seconds = 0.1
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            self.first = false
+        }
+        
+    }
     func getDocumentsDirectory1() -> URL {
         // find all possible documents directories for this user
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -129,23 +186,12 @@ struct Scroll: View {
     }
     @State var offset : CGFloat = UIScreen.main.bounds.height
     @State var buildings: [Building]
-    func annotations () -> [MGLPointAnnotation]{
-        var result = [MGLPointAnnotation(coordinate: .init(latitude: 40.761295318603516, longitude: -73.99922180175781))]
-        for building in buildings {
-            result.append(MGLPointAnnotation(coordinate: .init(latitude: Double(building.latitude), longitude: Double(building.longitude))))
-        }
-        result.removeFirst(1)
-        return result
-    }
     var body: some View {
         GeometryReader { geometry in
             ZStack{
-                MapView(annotations: annotations(), buildings: $buildings, index: $index, user: $user, first: $first).centerCoordinate(CLLocationCoordinate2D(latitude: Double(buildings[index].latitude), longitude: Double(buildings[index].longitude))).zoomLevel(15).offset(y:-450).onDisappear(perform: {
+                MapView(buildings: $buildings, index: $index, user: $user, first: $first).centerCoordinate(CLLocationCoordinate2D(latitude: Double(buildings[index].latitude), longitude: Double(buildings[index].longitude))).zoomLevel(15).offset(y:-450).onDisappear(perform: {
                     reset()
-                    
-                    
-                   
-                                               
+
                 })
                 
                 Image("topgradient")
@@ -221,7 +267,7 @@ struct Scroll: View {
                                                     }) {Text("Inbox")
                                                         .foregroundColor(Color.black)
                                                         .lineLimit(1)
-                                                        
+                                                        .font(.custom("Futura", size: 14))
                                                     } .padding(.vertical,4)
                                                     .padding(.horizontal,10)
                                                     .background(Color.white)
@@ -246,6 +292,7 @@ struct Scroll: View {
                                                             .cornerRadius(30)
                                                             .padding(.bottom, 10)
                                                             .padding(.top, 10)
+                                                            
                                                         Circle()
                                                         .trim(from: 0, to: 1)
                                                             .stroke(AngularGradient(gradient: .init(colors: [.purple,.orange,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [showChatUI ? 3 : 0]))
@@ -256,6 +303,7 @@ struct Scroll: View {
                                                             
                                                             Label(title: {
                                                             }) {Text(tenant.firstName)
+                                                                .font(.custom("Futura", size: 14))
                                                                 .foregroundColor(Color.black)
                                                                 .lineLimit(1)
                                                             } .padding(.vertical,4)
@@ -314,6 +362,6 @@ struct Scroll: View {
         }.sheet(isPresented: $showCard) {
             sheets(card: $card, user: $user, buildings: filteredBuildings(), user_id: $user_id, token:$token, index: $index, tenant_id : $tenant_id, tenant_prof: $tenant_prof, tenant_name:$tenant_name)
         }
-        }
+        }.onAppear(perform: moveMap)
 }
 }

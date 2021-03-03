@@ -108,6 +108,8 @@ struct sheets: View {
         }
         else if (card == "chat") {
             ChatUI(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, tenant_name: $tenant_name)
+        } else {
+            Text("oops")
         }
         }
 }

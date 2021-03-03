@@ -73,7 +73,6 @@ struct BuildingImages: View{
         Button(action: {
                 toggleFavorite()
             }) {
-            
             Label(title: {
             }) {
                 if (user.favorites.contains(building.id)) {
@@ -144,7 +143,7 @@ struct BuildingView: View {
     @State var show = false
     @State var showForm = false
     @State var isFavorite = true
-    var Bedrooms = ["Studio", "1", "2", "3+"]
+    var Bedrooms = ["Studio", "1 Br", "2 Br", "3+"]
     @State var Bedroom : Int
     @Binding var user : User
     @State private var showPopUp = false
@@ -157,7 +156,15 @@ struct BuildingView: View {
     @Binding var user_id: String
     @State var expand = false
     var building: Building
-    
+    func noUnits() -> Bool {
+        var none = true
+        for unit in building.units{
+            if (convertBedrooms(bedrooms:unit.bedrooms) == Bedroom) {
+                none = false
+            }
+        }
+        return none
+    }
    
     
     var body: some View {
@@ -225,6 +232,9 @@ struct BuildingView: View {
                             }
                             .padding(1.0)
                             }.pickerStyle(SegmentedPickerStyle())
+                        if noUnits(){
+                            Text("No \(Bedrooms[Bedroom]) Units").foregroundColor(Color.gray)
+                        }
                         ForEach(building.units, id:\.number){unit in
                             if (convertBedrooms(bedrooms:unit.bedrooms) == Bedroom) {
                                 Button(action: {
