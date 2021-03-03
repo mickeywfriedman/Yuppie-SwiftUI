@@ -103,10 +103,12 @@ struct CustomSearchBar: View {
                 ScrollView(.vertical, showsIndicators: true){
                     LazyVStack(alignment: .leading){
                         ForEach(searchData.searchedUser, id: \.id){user in
-                            if ((user.address.streetAddress.lowercased()).contains(searchData.query)) == true{
+                            if (((user.address.streetAddress.lowercased()).contains(searchData.query)) || ((user.name.lowercased()).contains(searchData.query))) == true{
                             VStack(alignment: .leading, spacing: 6){
                                     
-                                        Text(user.address.streetAddress)
+                                        Text("\(user.name)"+" - "+"\(user.address.streetAddress)")
+                                            .foregroundColor(Color.white)
+                                            .font(.custom("Futura", size: 16))
                                             .onTapGesture{
                                                 print(self.token, "S:DFKJSD:LFKJSD:FLJSDF:DSLJF")
                                             searchData.query = user.name
@@ -157,9 +159,10 @@ struct CustomSearchBar: View {
                         
                     }) {
                         
-                        Text("Skip: Currently Not a Yuppie Resident")
+                        Text("Not a Yuppie Resident (Yet)")
                             .fontWeight(.bold)
-                            .foregroundColor(.white)
+                            .foregroundColor(Color.white)
+                            .font(.custom("Futura", size: 18))
                             .padding(.vertical, 10)
                             .padding(.horizontal, 45)
                             .background(Color("pgradient1"))

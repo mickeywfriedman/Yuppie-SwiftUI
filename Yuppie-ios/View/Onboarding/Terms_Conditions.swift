@@ -147,9 +147,9 @@ struct Terms_Conditions: View {
                                     VStack{
                                         
                                         Text("Terms and Conditions")
-                                            .font(.largeTitle)
+                                            .foregroundColor(Color.white)
+                                            .font(.custom("Futura", size: 28))
                                             .fontWeight(.heavy)
-                                            .foregroundColor(.white)
                                         Spacer()
                                         
                                       
@@ -248,6 +248,7 @@ struct Terms_Conditions: View {
                         Notification of Changes
                         Yuppie reserves the right to change these conditions from time to time as it sees fit and your continued use of the site will signify your acceptance of any adjustment to these terms. If there are any changes to our privacy policy, we will announce that these changes have been made on our home page and on other key pages and applications. As well, any changes to our privacy policy will be posted on our site 30 days prior to these changes taking place. You are therefore advised to re-read this statement on a regular basis.
                         """).foregroundColor(Color("Color"))
+                                            .font(.custom("Futura", size: 18))
                                         
                                     }.padding(.horizontal, 25)
                                     .padding(.top, 25)
@@ -278,8 +279,8 @@ struct Terms_Conditions: View {
                         .fill(Color.white.opacity(0.1))
                     
                     Text("Swipe to Agree")
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color.white)
+                        .font(.custom("Futura", size: 18))
                         .padding(.leading, 30)
                     HStack{
                     Capsule()

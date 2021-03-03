@@ -115,6 +115,7 @@ struct SelectUniversity: View {
                                 Image(systemName: "studentdesk")
                                     .font(.system(size: 70))
                                     .foregroundColor(universityData.isConnected ? Color.red.opacity(0.6) : Color("power"))
+                                    .shadow(color: Color("Chat_color").opacity(0.6), radius: 5, x:5, y: 5)
                                     .frame(height: UIScreen.main.bounds.height / 9)
 
                             }
@@ -128,8 +129,7 @@ struct SelectUniversity: View {
                             .background(Color("power1").opacity(0.7))
                             .clipShape(Circle())
                             .padding(15)
-                            .background(Color("gradient2").opacity(0.7))
-                            .clipShape(Circle())
+                            .shadow(color: Color("Chat_color").opacity(0.6), radius: 5, x:5, y: 5)
                         })
                         .offset(y: -65)
                         .padding(.bottom,-65)
@@ -137,6 +137,7 @@ struct SelectUniversity: View {
                         
                         Text("Select your University")
                             .foregroundColor(Color.white)
+                            .font(.custom("Futura", size: 18))
                         Button(action: {
                             withAnimation{universityData.showSheet.toggle()}
                         }, label: {
@@ -166,6 +167,7 @@ struct SelectUniversity: View {
                             Text("Next")
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
+                                .font(.custom("Futura", size: 18))
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 45)
                                 .background(Color("pgradient1"))

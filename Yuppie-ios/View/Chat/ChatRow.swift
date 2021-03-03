@@ -61,6 +61,7 @@ struct ChatRow: View {
             
             if chatData.sender != self.user_id{
                 ProfilePictureChat(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, name: chatData.sender)
+                if chatData.type == 0 {
                 VStack(alignment: chatData.sender == self.user_id ? .trailing : .leading, spacing: 5, content: {
                     Text(chatData.message)
                     .foregroundColor(.white)
@@ -74,11 +75,27 @@ struct ChatRow: View {
                         .padding(chatData.sender != self.user_id ? .leading : .trailing , 10)
                 }
                 )
+                }else {
+                    VStack(alignment: chatData.sender == self.user_id ? .trailing : .leading, spacing: 5, content: {
+                        URLImage(url:chatData.message)
+                            .aspectRatio(contentMode: .fit)
+                        .clipShape(ChatBubble(myMsg: chatData.sender == self.user_id))
+                        
+                        Text(dateFormat(string: chatData.sentTime), style: .time)//change back
+                            .font(.caption2)
+                            .foregroundColor(.gray)
+                            .padding(chatData.sender != self.user_id ? .leading : .trailing , 10)
+                    }
+                    )
+                    
+                }
             }
             
             if chatData.sender == self.user_id{
                 Spacer(minLength: 0)}
             if chatData.sender == self.user_id{
+                
+                if chatData.type == 0 {
                 VStack(alignment: chatData.sender == self.user_id ? .trailing : .leading, spacing: 5, content: {
                     
                     Text(chatData.message)
@@ -93,7 +110,24 @@ struct ChatRow: View {
                         .padding(chatData.sender != self.user_id ? .leading : .trailing , 10)
                 }
                 
-                )
+                )}else{
+                    VStack(alignment: chatData.sender == self.user_id ? .trailing : .leading, spacing: 5, content: {
+                        
+                        URLImage(url:chatData.message)
+                            .aspectRatio(contentMode: .fit)
+                            .clipShape(ChatBubble(myMsg: chatData.sender == self.user_id))
+                        
+                        Text(dateFormat(string: chatData.sentTime), style: .time)//change back
+                            .font(.caption2)
+                            .foregroundColor(.gray)
+                            .padding(chatData.sender != self.user_id ? .leading : .trailing , 10)
+                    }
+                    
+                    )
+                    
+                }
+                
+                
                 ProfilePictureChat(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $user.profilePicture, name: chatData.sender)
             }
             

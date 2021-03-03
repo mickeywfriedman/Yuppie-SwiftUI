@@ -142,14 +142,18 @@ struct AddressView: View {
                             .background(Color("power1").opacity(0.7))
                             .clipShape(Circle())
                             .padding(15)
-                            .background(Color("gradient2").opacity(0.7))
-                            .clipShape(Circle())
+                           
                         })
                         .offset(y: -65)
                         .padding(.bottom,-65)
                         
-                        Text("Live in one of our buildings? Enter your street address.")
+                        Text("Live in one of our buildings?")
                             .foregroundColor(Color.white)
+                            .font(.custom("Futura", size: 18))
+                        
+                        Text("Enter your Address")
+                            .foregroundColor(Color.white)
+                            .font(.custom("Futura", size: 18))
                         
                         Search_Bar(didLogin: $didLogin, needsAccount: $needsAccount, token: $token, user_id: $user_id)
                         
@@ -290,6 +294,7 @@ struct AddressView: View {
                 TextField("Street Address", text: self.$address)
                   
                     .foregroundColor(.white)
+                    .font(.custom("Futura", size: 18))
                     .padding(.vertical, 10)
                     .padding(.horizontal, 10)
                     .background(Color("pgradient1"))

@@ -21,8 +21,8 @@ struct PhoneAuth: View {
     
     
     var gradient1 = [Color("gradient2"),Color("gradient3"),Color("gradient4")]
-    
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
+    var gradient2 = [Color("gradient4"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
     
     var isNumberValid: Bool {
         if number.count < 10 {
@@ -118,6 +118,22 @@ struct PhoneAuth: View {
                     
                     LinearGradient(gradient: .init(colors: gradient1), startPoint: .top, endPoint: .bottom)
                         .clipShape(CustomShapeOnboarding())
+                        .offset(y: -self.value).animation(.spring()).onAppear{
+                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
+                                
+                                let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                let height = value.height
+                                
+                                self.value = height/9
+                            }
+                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                
+                               
+                                
+                                self.value = 0
+                            }
+                        }
+                        
                     
                     
                     VStack(alignment:.center){
@@ -126,6 +142,7 @@ struct PhoneAuth: View {
                                 
                                 Image("small")
                                     .font(.system(size: 70))
+                                    .shadow(color: Color("Chat_color").opacity(0.4), radius: 6, x:3, y: 5)
                                     .foregroundColor(universityData.isConnected ? Color.white.opacity(0.6) : Color("power"))
                                     .frame(height: UIScreen.main.bounds.height / 9)
                             }
@@ -138,19 +155,67 @@ struct PhoneAuth: View {
                             .padding(15)
                             .background(Color("power1").opacity(0.7))
                             .clipShape(Circle())
+                            .shadow(color: Color("Chat_color").opacity(0.2), radius: 6, x:3, y: 5)
                             .padding(15)
+                            .offset(y: -65)
                       
                             .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
-                        .offset(y: -65)
-                        .padding(.bottom,-65)
+                            .offset(y: -self.value).animation(.spring()).onAppear{
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
+                                    
+                                    let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                    let height = value.height
+                                    
+                                    self.value = height/9
+                                }
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                    
+                                   
+                                    
+                                    self.value = 0
+                                }
+                            }
                         
                         Text("Welcome To Yuppie")
-                            .foregroundColor(Color.white)
+                            .foregroundColor(Color("Color1"))
                             .font(.custom("Futura", size: 32))
+                            .padding(.bottom,15)
+                            .offset(y: -65)
+                            .offset(y: -self.value).animation(.spring()).onAppear{
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
+                                    
+                                    let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                    let height = value.height
+                                    
+                                    self.value = height/9
+                                }
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                    
+                                   
+                                    
+                                    self.value = 0
+                                }
+                            }
                         
                         Text("Get Started by Entering Your Number")
-                            .foregroundColor(Color.white)
+                            .foregroundColor(Color("Color1"))
                             .font(.custom("Futura", size: 16))
+                            .offset(y: -65)
+                            .offset(y: -self.value).animation(.spring()).onAppear{
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
+                                    
+                                    let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                    let height = value.height
+                                    
+                                    self.value = height/9
+                                }
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                    
+                                   
+                                    
+                                    self.value = 0
+                                }
+                            }
                             
                        
                         HStack(spacing: 15){
@@ -165,27 +230,44 @@ struct PhoneAuth: View {
                                 .background(Color("pgradient1").opacity(0.6))
                                 .clipShape(Capsule())
                                 .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
+                                .offset(y: -65)
                                 .offset(y: -self.value).animation(.spring()).onAppear{
                                     NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
                                         
                                         let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
                                         let height = value.height
                                         
-                                        self.value = height/15
+                                        self.value = height/9
                                     }
                                     NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
-                                        
-                                       
-                                        
                                         self.value = 0
                                     }
                                 }
-                            
                             if !self.number.isEmpty {
                                 if !self.isNumberValid {
                                     Text("10 characters")
                                         .font(.custom("Futura", size: 16))
                                         .foregroundColor(Color("Color"))
+                                        .offset(y: -65)
+                                        .padding(.trailing, 20)
+                                        .padding(.horizontal, 10)
+                                        .offset(y: -self.value).animation(.spring()).onAppear{
+                                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
+                                                
+                                                let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                                let height = value.height
+                                                
+                                                self.value = height/7
+                                            }
+                                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                                self.value = 0
+                                            }
+                                        }
+                                }else{
+                                    Text("👍")
+                                        .font(.custom("Futura", size: 16))
+                                        .foregroundColor(Color("Color"))
+                                        .offset(y: -65)
                                         .padding(.trailing, 20)
                                             .padding(.horizontal, 10)
                                         .offset(y: -self.value).animation(.spring()).onAppear{
@@ -194,12 +276,9 @@ struct PhoneAuth: View {
                                                 let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
                                                 let height = value.height
                                                 
-                                                self.value = height/15
+                                                self.value = height/7
                                             }
                                             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
-                                                
-                                               
-                                                
                                                 self.value = 0
                                             }
                                         }
@@ -218,7 +297,7 @@ struct PhoneAuth: View {
                             
                         }) {
                             
-                            Text("Verify")
+                            Text("Text Me")
                                 .foregroundColor(.white)
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 45)
@@ -234,16 +313,19 @@ struct PhoneAuth: View {
                                 let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
                                 let height = value.height
                                 
-                                self.value = height
+                                self.value = height/7
                             }
                             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                
+                               
+                                
                                 self.value = 0
                             }
                         }
                         // disabling view when both textfields are empty...
-                        .opacity((self.countryCode == "" || self.number == "") ? 0.65 : 1)
-                        .disabled((self.countryCode == "" || self.number == "") ? true : false)
-                        .offset(y: 70)
+                        .opacity(!self.isNumberValid  ? 0.65 : 1)
+                        .disabled(!self.isNumberValid  ? true : false)
+                        
                         Spacer()
                     }
                     
@@ -262,7 +344,7 @@ struct PhoneAuth: View {
         
             ZStack{
                 
-                LinearGradient(gradient: .init(colors: gradient), startPoint: .top, endPoint: .bottom)
+                LinearGradient(gradient: .init(colors: gradient2), startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
                 
                 Color.black.opacity(0.1)

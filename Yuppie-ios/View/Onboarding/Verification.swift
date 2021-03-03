@@ -28,10 +28,21 @@ struct Verification: View {
     @Binding var needsAccount: Bool
     @Binding var user_id: String
     @State var showFirstLastName = false
+    @State var value: CGFloat = 0
     
     var gradient1 = [Color("gradient2"),Color("gradient3"),Color("gradient4")]
-    
+    var gradient2 = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
+    
+    var isNumberValid: Bool {
+        if code.count < 6 {
+            return false
+        }
+        if code.count > 6 {
+            return false
+        }
+        return true
+    }
     
     @StateObject var serverData = UniversityModel()
     @StateObject var universityData = UniversityModel()
@@ -125,6 +136,8 @@ struct Verification: View {
                     
                     LinearGradient(gradient: .init(colors: gradient1), startPoint: .top, endPoint: .bottom)
                         .clipShape(CustomShapeOnboarding())
+                       
+                        
                     
                     
                     VStack{
@@ -133,6 +146,7 @@ struct Verification: View {
                                 
                                 Image(systemName: "checkmark")
                                     .font(.system(size: 70))
+                                    .shadow(color: Color("Chat_color").opacity(0.2), radius: 6, x:3, y: 5)
                                     .foregroundColor(universityData.isConnected ? Color.white.opacity(0.6) : Color("power"))
                                     .frame(height: UIScreen.main.bounds.height / 9)
 
@@ -147,17 +161,35 @@ struct Verification: View {
                             .background(Color("power1").opacity(0.7))
                             .clipShape(Circle())
                             .padding(15)
+                            .padding(.bottom, 15)
+                            .shadow(color: Color("Chat_color").opacity(0.2), radius: 6, x:3, y: 5)
                             .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
-                        .offset(y: -65)
-                        .padding(.bottom,-65)
+                            .offset(y: -65)
+                            
                         .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         
                         Text("Enter the 6 digit code just texted to you.")
-                            .foregroundColor(Color.white)
+                            .foregroundColor(Color("Color1"))
                             .font(.custom("Futura", size: 18))
+                            .offset(y: -65)
+                            .offset(y: -self.value).animation(.spring()).onAppear{
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
+                                    
+                                    let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                    let height = value.height
+                                    
+                                    self.value = height/9
+                                }
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                    
+                                   
+                                    
+                                    self.value = 0
+                                }
+                            }
                         HStack(spacing: 15){
                             Spacer()
-
+                            ZStack(alignment: .trailing){
                             TextField("Code", text: self.$code)
                                 .keyboardType(.numberPad)
                                 .foregroundColor(.white)
@@ -167,11 +199,72 @@ struct Verification: View {
                                 .clipShape(Capsule())
                                 .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                                 .font(.custom("Futura", size: 18))
+                                .offset(y: -35)
+                                .offset(y: -self.value).animation(.spring()).onAppear{
+                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
+                                        
+                                        let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                        let height = value.height
+                                        
+                                        self.value = height/9
+                                    }
+                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                        
+                                       
+                                        
+                                        self.value = 0
+                                    }
+                                }
                                 
                             Spacer()
-                        }
+                    
                         .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         .offset(y: 30)
+                        
+                        if !self.code.isEmpty {
+                            if !self.isNumberValid {
+                                Text("6 characters")
+                                    .font(.custom("Futura", size: 16))
+                                    .foregroundColor(Color("Color1"))
+                                    .offset(y: -35)
+                                    .padding(.trailing, 20)
+                                        .padding(.horizontal, 10)
+                                    .offset(y: -self.value).animation(.spring()).onAppear{
+                                        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
+                                            
+                                            let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                            let height = value.height
+                                            
+                                            self.value = height/7
+                                        }
+                                        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                            self.value = 0
+                                        }
+                                    }
+                            }else{
+                                Text("👍")
+                                    .font(.custom("Futura", size: 16))
+                                    .foregroundColor(Color("Color"))
+                                    .offset(y: -35)
+                                    .padding(.trailing, 20)
+                                        .padding(.horizontal, 10)
+                                    .offset(y: -self.value).animation(.spring()).onAppear{
+                                        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
+                                            
+                                            let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                            let height = value.height
+                                            
+                                            self.value = height/7
+                                        }
+                                        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                            self.value = 0
+                                        }
+                                    }
+                            }
+                        }
+                            }
+                        }
+                        
                         Button(action: {
                             self.receiveAuthInfo()
                             self.didLogin = false
@@ -191,8 +284,23 @@ struct Verification: View {
                                 .font(.custom("Futura", size: 18))
                         }
                         // disabling view when both textfields are empty...
-                        .opacity((self.code == "") ? 0.65 : 1)
-                        .disabled((self.code == "") ? true : false).offset(y: 70)
+                        .opacity(!self.isNumberValid  ? 0.65 : 1)
+                        .disabled(!self.isNumberValid  ? true : false)
+                        .offset(y: -self.value).animation(.spring()).onAppear{
+                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
+                                
+                                let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                let height = value.height
+                                
+                                self.value = height/9
+                            }
+                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                
+                               
+                                
+                                self.value = 0
+                            }
+                        }
                         
                         Spacer()
                         
@@ -212,7 +320,7 @@ struct Verification: View {
         
             ZStack{
                 
-                LinearGradient(gradient: .init(colors: gradient), startPoint: .top, endPoint: .bottom)
+                LinearGradient(gradient: .init(colors: gradient2), startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
                 
                 Color.black.opacity(0.1)

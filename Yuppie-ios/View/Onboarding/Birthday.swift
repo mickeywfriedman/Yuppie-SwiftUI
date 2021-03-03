@@ -128,6 +128,7 @@ struct Birthday: View {
                                 
                                 Image(systemName: "calendar")
                                     .font(.system(size: 70))
+                                    .shadow(color: Color("Chat_color").opacity(0.2), radius: 6, x:3, y: 5)
                                     .foregroundColor(serverData.isConnected ? Color.red.opacity(0.6) : Color("power"))
                                     .frame(height: UIScreen.main.bounds.height / 9)
 
@@ -142,6 +143,7 @@ struct Birthday: View {
                             .padding(15)
                             .background(Color("power1").opacity(0.7))
                             .clipShape(Circle())
+                            .shadow(color: Color("Chat_color").opacity(0.2), radius: 6, x:3, y: 5)
                             .padding(15)
                             .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         })
@@ -149,7 +151,8 @@ struct Birthday: View {
                         .padding(.bottom,-65)
                         .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         Text("Enter your Date of Birth.")
-                            .foregroundColor(Color.white)
+                            .foregroundColor(Color("Color1"))
+                            .font(.custom("Futura", size: 18))
                         
                        
                         HStack(spacing: 15){
@@ -173,6 +176,7 @@ struct Birthday: View {
                             Text("Next")
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
+                                .font(.custom("Futura", size: 18))
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 45)
                                 .background(Color("pgradient1"))

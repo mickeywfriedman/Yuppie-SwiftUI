@@ -19,6 +19,7 @@ struct FirstLastName: View {
     @Binding var didLogin: Bool
     @Binding var needsAccount: Bool
     @Binding var user_id: String
+    @State var value: CGFloat = 0
     
     var gradient1 = [Color("gradient2"),Color("gradient3"),Color("gradient4")]
     
@@ -119,6 +120,21 @@ struct FirstLastName: View {
                     
                     LinearGradient(gradient: .init(colors: gradient1), startPoint: .top, endPoint: .bottom)
                         .clipShape(CustomShapeOnboarding())
+                        .offset(y: -self.value).animation(.spring()).onAppear{
+                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
+                                
+                                let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                let height = value.height
+                                
+                                self.value = height/9
+                            }
+                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                
+                               
+                                
+                                self.value = 0
+                            }
+                        }
                     
                     
                     VStack{
@@ -127,6 +143,7 @@ struct FirstLastName: View {
                                 
                                 Image(systemName: "person")
                                     .font(.system(size: 70))
+                                    .shadow(color: Color("Chat_color").opacity(0.2), radius: 6, x:3, y: 5)
                                     .foregroundColor(serverData.isConnected ? Color.white.opacity(0.6) : Color("power"))
                                     .frame(height: UIScreen.main.bounds.height / 9)
 
@@ -140,14 +157,47 @@ struct FirstLastName: View {
                             .padding(15)
                             .background(Color("power1").opacity(0.7))
                             .clipShape(Circle())
+                            .shadow(color: Color("Chat_color").opacity(0.2), radius: 6, x:3, y: 5)
                             .padding(15)
-                        .offset(y: -65)
-                        .padding(.bottom,-65)
+                            .offset(y: -65)
+                            .offset(y: -self.value).animation(.spring()).onAppear{
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
+                                    
+                                    let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                    let height = value.height
+                                    
+                                    self.value = height/9
+                                }
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                    
+                                   
+                                    
+                                    self.value = 0
+                                }
+                            }
                         .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         
                         
                         Text("Enter your First and Last Name")
-                            .foregroundColor(Color.white)
+                            .foregroundColor(Color("Color1"))
+                            .font(.custom("Futura", size: 18))
+                            .offset(y: -65)
+                            .offset(y: -self.value).animation(.spring()).onAppear{
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
+                                    
+                                    let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                    let height = value.height
+                                    
+                                    self.value = height/9
+                                }
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                    
+                                   
+                                    
+                                    self.value = 0
+                                }
+                            }
+                        
                        
                         HStack(spacing: 15){
                             Spacer()
@@ -157,9 +207,26 @@ struct FirstLastName: View {
                                 .foregroundColor(.white)
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 10)
+                                .font(.custom("Futura", size: 18))
                                 .background(Color("pgradient1").opacity(0.6))
                                 .clipShape(Capsule())
+                                .offset(y: -65)
                                 .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
+                                .offset(y: -self.value).animation(.spring()).onAppear{
+                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
+                                        
+                                        let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                        let height = value.height
+                                        
+                                        self.value = height/9
+                                    }
+                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                        
+                                       
+                                        
+                                        self.value = 0
+                                    }
+                                }
                                 
                             Spacer()
                         }
@@ -172,9 +239,26 @@ struct FirstLastName: View {
                                 .foregroundColor(.white)
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 10)
+                                .font(.custom("Futura", size: 18))
                                 .background(Color("pgradient1").opacity(0.6))
                                 .clipShape(Capsule())
+                                .offset(y: -65)
                                 .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
+                                .offset(y: -self.value).animation(.spring()).onAppear{
+                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
+                                        
+                                        let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                        let height = value.height
+                                        
+                                        self.value = height/9
+                                    }
+                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                        
+                                       
+                                        
+                                        self.value = 0
+                                    }
+                                }
                                 
                             Spacer()
                         }
@@ -194,14 +278,30 @@ struct FirstLastName: View {
                             Text("Next")
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
+                                .font(.custom("Futura", size: 18))
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 45)
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
                         }
+                        .offset(y: -self.value).animation(.spring()).onAppear{
+                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
+                                
+                                let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                                let height = value.height
+                                
+                                self.value = height/9
+                            }
+                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {(noti) in
+                                
+                               
+                                
+                                self.value = 0
+                            }
+                        }
                         // disabling view when both textfields are empty...
                         .opacity((self.firstName == "" || self.lastName == "") ? 0.65 : 1)
-                        .disabled((self.firstName == "" || self.lastName == "") ? true : false).offset(y: 70)
+                        .disabled((self.firstName == "" || self.lastName == "") ? true : false)
                         
                         Spacer()
                         

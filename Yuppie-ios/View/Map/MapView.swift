@@ -11,7 +11,6 @@ import Mapbox
 extension MGLPointAnnotation {
     convenience init(coordinate: CLLocationCoordinate2D) {
         self.init()
-        self.title = ""
         self.coordinate = coordinate
     }
 }

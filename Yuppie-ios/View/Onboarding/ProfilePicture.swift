@@ -57,8 +57,7 @@ struct ProfilePicture: View {
         
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
-            
-        print(imageStr+"THIS IS IMAGESTR")
+
 
            } catch let error {
                print(error)
@@ -132,6 +131,7 @@ struct ProfilePicture: View {
                                 Image(systemName: "camera")
                                     .font(.system(size: 70))
                                     .foregroundColor(serverData.isConnected ? Color.red.opacity(0.6) : Color("power"))
+                                    .shadow(color: Color("Chat_color").opacity(0.2), radius: 6, x:3, y: 5)
                                     .frame(height: UIScreen.main.bounds.height / 9)
 
                             }
@@ -144,8 +144,10 @@ struct ProfilePicture: View {
                             .padding(15)
                             .background(Color("power1").opacity(0.7))
                             .clipShape(Circle())
+                            .shadow(color: Color("Chat_color").opacity(0.2), radius: 6, x:3, y: 5)
                             .padding(15)
                             .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
+                            .offset(y: -65)
                         })
                             
                         }else{
@@ -162,6 +164,7 @@ struct ProfilePicture: View {
                         .padding(15)
                         .background(Color("power1").opacity(0.7))
                         .clipShape(Circle())
+                        .shadow(color: Color("Chat_color").opacity(0.8), radius: 15, x:5, y: 5)
                         .padding(15)
                         .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         .offset(y:-30)
@@ -169,7 +172,10 @@ struct ProfilePicture: View {
                     
                         
                         Text("Choose a Profile Picture")
-                            .foregroundColor(Color.white)
+                            .foregroundColor(Color("Color1"))
+                            .font(.custom("Futura", size: 18))
+                            .offset(y: -35)
+                        
                        
                         HStack(spacing: 15){
                             
@@ -197,6 +203,7 @@ struct ProfilePicture: View {
                                 .background(Color("gradient2").opacity(0.7))
                                 .clipShape(Circle())
                                 .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
+                                .offset(y: -35)
                                         
                             })
                             .padding(.bottom,-65)
@@ -219,14 +226,18 @@ struct ProfilePicture: View {
                             
                             Text("Next")
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color("Color1"))
+                                .font(.custom("Futura", size: 18))
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 45)
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
+                                
                         }
                         // disabling view when both textfields are empty...
-                        .offset(y: 70)
+                        .offset(y: 35)
+                        .opacity(self.images[0].count == 0  ? 0.65 : 1)
+                        .disabled(self.images[0].count == 0  ? true : false)
                         
                         Spacer()
                         
