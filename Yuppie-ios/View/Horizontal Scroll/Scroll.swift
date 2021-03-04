@@ -240,7 +240,7 @@ struct Scroll: View {
                     .offset(x: -CGFloat(self.index) * geometry.size.width)
                    .animation(.interactiveSpring())
                     
-                }.offset(y: -1*((UIScreen.main.bounds.height)/4)-70)
+                }.offset(y: -1*((UIScreen.main.bounds.height)/2)+140)
             HStack (spacing: 0){
                 ForEach(filteredBuildings(), id:\.name) {building in
                         CardView(token: $token, user: $user, user_id: $user_id, building:building, showCard: $showCard, card: $card)
@@ -248,7 +248,7 @@ struct Scroll: View {
                     }
                 }
            .frame(minWidth: geometry.size.width, maxWidth: .infinity, alignment: .leading)
-            .offset(x: -CGFloat(self.index) * geometry.size.width, y: ((UIScreen.main.bounds.height)/3.5)-70)
+            .offset(x: -CGFloat(self.index) * geometry.size.width, y: ((UIScreen.main.bounds.height)/2)-240)
            .animation(.interactiveSpring())
             
            .gesture(

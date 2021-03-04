@@ -149,8 +149,8 @@ struct TabBar: View {
                     .font(.custom("Futura Light", size: 18))
                 
             }
-            .padding(.top,UIScreen.main.bounds.height/81)
-            .padding(.bottom,UIScreen.main.bounds.height/27)
+            .padding(.top,10)
+            .padding(.bottom,30)
             .padding(.horizontal,25)
             .font(.custom("Futura Light", size: 18))
             .background(Color("pgradient1"))

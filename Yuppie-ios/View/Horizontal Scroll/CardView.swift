@@ -47,14 +47,14 @@ struct CardView: View {
 
                                 VStack{
                                     
-                                    Text("\(Bedrooms[minBeds()]) from").fontWeight(.heavy)
-                                    Text("$\(minPrice(building:building))")
+                                    Text("\(Bedrooms[minBeds()]) from").fontWeight(.heavy).font(.custom("Futura", size: 20))
+                                    Text("$\(minPrice(building:building))").font(.custom("Futura", size: 14))
                                 }.foregroundColor(.gray)
                                 Spacer()
                                 HStack{
                                     VStack{
-                                        Text(building.name).fontWeight(.heavy)
-                                        Text(building.address.streetAddress)}
+                                        Text(building.name).fontWeight(.heavy).font(.custom("Futura", size: 20))
+                                        Text(building.address.streetAddress)}.font(.custom("Futura", size: 14))
                                     }.foregroundColor(.gray)
                             }.padding(.top, 160)
                             .padding()
