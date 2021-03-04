@@ -22,7 +22,7 @@
 		21A7804B258E110500DD6F70 /* PropertyManagerForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7804A258E110500DD6F70 /* PropertyManagerForm.swift */; };
 		21A78050258E112100DD6F70 /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7804F258E112100DD6F70 /* FiltersView.swift */; };
 		21A78055258E114700DD6F70 /* BuildingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A78054258E114700DD6F70 /* BuildingModel.swift */; };
-		21A78060258E11A100DD6F70 /* testScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7805F258E11A100DD6F70 /* testScroll.swift */; };
+		21A78060258E11A100DD6F70 /* Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7805F258E11A100DD6F70 /* Scroll.swift */; };
 		21A78077258E204A00DD6F70 /* Chat_Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A78076258E204A00DD6F70 /* Chat_Interface.swift */; };
 		21A78098258E82D500DD6F70 /* Signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A78097258E82D500DD6F70 /* Signup.swift */; };
 		21A780A625906F9500DD6F70 /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A780A525906F9500DD6F70 /* Picker.swift */; };
@@ -114,7 +114,7 @@
 		21A7804A258E110500DD6F70 /* PropertyManagerForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyManagerForm.swift; sourceTree = "<group>"; };
 		21A7804F258E112100DD6F70 /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
 		21A78054258E114700DD6F70 /* BuildingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingModel.swift; sourceTree = "<group>"; };
-		21A7805F258E11A100DD6F70 /* testScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testScroll.swift; sourceTree = "<group>"; };
+		21A7805F258E11A100DD6F70 /* Scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scroll.swift; sourceTree = "<group>"; };
 		21A78076258E204A00DD6F70 /* Chat_Interface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat_Interface.swift; sourceTree = "<group>"; };
 		21A78097258E82D500DD6F70 /* Signup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup.swift; sourceTree = "<group>"; };
 		21A780A525906F9500DD6F70 /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
@@ -236,7 +236,7 @@
 		21A78070258E1FFC00DD6F70 /* Horizontal Scroll */ = {
 			isa = PBXGroup;
 			children = (
-				21A7805F258E11A100DD6F70 /* testScroll.swift */,
+				21A7805F258E11A100DD6F70 /* Scroll.swift */,
 				21CCF0C82572BC1300B22A75 /* CardView.swift */,
 				21A7804F258E112100DD6F70 /* FiltersView.swift */,
 				376D0E1325EACDD10087B91F /* Sheets.swift */,
@@ -668,7 +668,7 @@
 				21C10CA7259440A90049531E /* CustomShapeOnboardin.swift in Sources */,
 				2151A7B825D0CE49007C9F90 /* ChatModel.swift in Sources */,
 				21A78027258E0A6D00DD6F70 /* Pulse.swift in Sources */,
-				21A78060258E11A100DD6F70 /* testScroll.swift in Sources */,
+				21A78060258E11A100DD6F70 /* Scroll.swift in Sources */,
 				21C9B9B32596545C00ABF426 /* SelectUniversity.swift in Sources */,
 				21A7801F258E0A4A00DD6F70 /* PulseLayer.swift in Sources */,
 				21C10CC325957D380049531E /* CustomCornerOnboarding.swift in Sources */,

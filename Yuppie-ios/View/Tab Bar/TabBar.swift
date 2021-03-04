@@ -115,7 +115,8 @@ struct TabBar: View {
                     if (buildings[0].name == "Test"){
                         LoadingScreen()
                     } else {
-                    testScroll(token: $token, user_id: $user_id, buildings:buildings, user: $user)
+                        Scroll(user: $user, token: $token, user_id: $user_id, buildings:buildings)
+                                            .offset(y:400)
                     }
                 }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).tag("Home").font(.custom("Futura", size: 18))
                 ZStack{
