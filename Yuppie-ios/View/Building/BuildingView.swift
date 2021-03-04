@@ -195,8 +195,8 @@ struct BuildingView: View {
                            
                                 Chats(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand)
                             }
-                        }.padding(.top, -95)
-                        .padding(.bottom, -45)
+                        }.padding(.top, -UIScreen.main.bounds.height/9)
+                        .padding(.bottom, -UIScreen.main.bounds.height/18)
                     }
                     
                     
