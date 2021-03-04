@@ -116,7 +116,6 @@ struct TabBar: View {
                         LoadingScreen()
                     } else {
                         Scroll(user: $user, token: $token, user_id: $user_id, buildings:buildings)
-                                            .offset(y:400)
                     }
                 }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).tag("Home").font(.custom("Futura", size: 18))
                 ZStack{
@@ -150,8 +149,8 @@ struct TabBar: View {
                     .font(.custom("Futura Light", size: 18))
                 
             }
-            .padding(.top,10)
-            .padding(.bottom,30)
+            .padding(.top,UIScreen.main.bounds.height/81)
+            .padding(.bottom,UIScreen.main.bounds.height/27)
             .padding(.horizontal,25)
             .font(.custom("Futura Light", size: 18))
             .background(Color("pgradient1"))

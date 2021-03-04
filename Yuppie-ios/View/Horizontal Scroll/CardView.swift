@@ -199,9 +199,9 @@ struct ImageScroll: View {
                 .padding(.vertical,8)
                 .padding(.horizontal,10)
                 .background(Color("Color1"))
-                .clipShape(Capsule())
+                .clipShape(Circle())
             }
-        }.offset(x: (-1*(UIScreen.main.bounds.width-100)/2)-115, y: -80)
+        }.offset(x: (-1*(UIScreen.main.bounds.width)/1.34)+50, y: -80)
 
     }
 }

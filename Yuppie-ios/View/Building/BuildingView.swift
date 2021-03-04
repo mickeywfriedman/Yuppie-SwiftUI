@@ -86,7 +86,7 @@ struct BuildingImages: View{
             .padding(.vertical,8)
             .padding(.horizontal,10)
             .background(Color("Color1"))
-            .clipShape(Capsule())
+            .clipShape(Circle())
         }.offset(x: (-1*UIScreen.main.bounds.width/2)+25, y: -100)
         Button(action: {
             self.isShareSheetShowing = true
@@ -97,7 +97,7 @@ struct BuildingImages: View{
             }
             .padding(.vertical,8)
             .padding(.horizontal,10)
-            .background(Color("pgradient2"))
+            .background(Color("Color1"))
             .clipShape(Capsule())
         }.offset(x: (-1*UIScreen.main.bounds.width/2)+75, y: -100)
         .sheet(isPresented: $isShareSheetShowing){
@@ -181,10 +181,7 @@ struct BuildingView: View {
                     .padding(.top, 15)
                 Text(building.address.streetAddress).multilineTextAlignment(.center).foregroundColor(Color.gray)
                     .font(.custom("Futura", size: 16))
-        
-              
-                
-                
+
                 VStack(alignment: .leading){
                     VStack(alignment: .leading){
                         Text("Message Our Tenants").fontWeight(.heavy).padding(.top,15)
@@ -199,7 +196,7 @@ struct BuildingView: View {
                                 Chats(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand)
                             }
                         }.padding(.top, -95)
-                        .padding(.bottom, -15)
+                        .padding(.bottom, -45)
                     }
                     
                     
@@ -234,7 +231,7 @@ struct BuildingView: View {
                             }.pickerStyle(SegmentedPickerStyle())
                         .foregroundColor(.black)
                         if noUnits(){
-                            Text("No \(Bedrooms[Bedroom]) Units").foregroundColor(Color.black)
+                            Text("No \(Bedrooms[Bedroom]) Units").foregroundColor(Color.black).font(.custom("Futura", size: 15))
                         }
                         ForEach(building.units, id:\.number){unit in
                             if (convertBedrooms(bedrooms:unit.bedrooms) == Bedroom) {
@@ -243,24 +240,24 @@ struct BuildingView: View {
                                     self.floorplanURL = unit.floorPlan
                                     }, label: {
                                         HStack{
-                                            Text("\(unit.number)")
+                                            Text("\(unit.number)").font(.custom("Futura", size: 15))
                                             Spacer()
                                             HStack{
-                                            Text("\(unit.bedrooms)")
+                                            Text("\(unit.bedrooms)").font(.custom("Futura", size: 15))
                                                 Image("Bed").resizable().frame(width: 25, height: 25).foregroundColor(.purple)
                                             }
                                             Spacer()
                                             HStack{
-                                            Text("\(unit.bathrooms)")
+                                            Text("\(unit.bathrooms)").font(.custom("Futura", size: 15))
                                                 Image("Bath").resizable().frame(width: 35, height: 35).foregroundColor(.purple)
                                             }
                                             Spacer()
                                             HStack{
-                                            Text("\(unit.squareFeet)")
+                                            Text("\(unit.squareFeet)").font(.custom("Futura", size: 15))
                                                 Image("Square").resizable().frame(width: 25, height: 20).foregroundColor(.purple)
                                             }
                                             Spacer()
-                                            Text("$\(Int(unit.price))")
+                                            Text("$\(Int(unit.price))").font(.custom("Futura", size: 15))
                                         }.padding(.horizontal)
                                     }).foregroundColor(.black)
                             }

@@ -86,7 +86,7 @@ struct Scroll: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack{
-                MapView(buildings: $buildings, index: $index, user: $user, first: $first).centerCoordinate(CLLocationCoordinate2D(latitude: Double(buildings[index].latitude), longitude: Double(buildings[index].longitude))).zoomLevel(15).offset(y:-450).onDisappear(perform: {
+                MapView(buildings: $buildings, index: $index, user: $user, first: $first).centerCoordinate(CLLocationCoordinate2D(latitude: Double(buildings[index].latitude), longitude: Double(buildings[index].longitude))).zoomLevel(15).offset(y:-50).onDisappear(perform: {
                     reset()
                 })
                 if filteredBuildings().count == 0 {
@@ -117,16 +117,8 @@ struct Scroll: View {
                 Image("topgradient")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                .offset(y:-710)
+                .offset(y:-310)
                     .frame(width:UIScreen.main.bounds.width)
-                
-                
-                Image("bottomgradient")
-                   .resizable()
-                   .aspectRatio(contentMode: .fit)
-                    .offset(y:-100)
-                    .frame(width:UIScreen.main.bounds.width)
-            
                 VStack{
                     HStack{
                         Text("Chat with Current Residents")
@@ -248,7 +240,7 @@ struct Scroll: View {
                     .offset(x: -CGFloat(self.index) * geometry.size.width)
                    .animation(.interactiveSpring())
                     
-                }.offset(y: -700)
+                }.offset(y: -1*((UIScreen.main.bounds.height)/4)-70)
             HStack (spacing: 0){
                 ForEach(filteredBuildings(), id:\.name) {building in
                         CardView(token: $token, user: $user, user_id: $user_id, building:building, showCard: $showCard, card: $card)
@@ -256,7 +248,7 @@ struct Scroll: View {
                     }
                 }
            .frame(minWidth: geometry.size.width, maxWidth: .infinity, alignment: .leading)
-            .offset(x: -CGFloat(self.index) * geometry.size.width, y: -200)
+            .offset(x: -CGFloat(self.index) * geometry.size.width, y: ((UIScreen.main.bounds.height)/3.5)-70)
            .animation(.interactiveSpring())
             
            .gesture(
