@@ -9,6 +9,7 @@ import SwiftUI
 
 struct sheets: View {
     @Binding var card: String
+    @Binding var showCard : Bool
     @Binding var user: User
     @State var buildings: [Building]
     @Binding var user_id: String
@@ -107,7 +108,7 @@ struct sheets: View {
             Inbox(token: $token, user_id: $user_id, user: $user)
         }
         else if (card == "chat") {
-            ChatUI(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, tenant_name: $tenant_name)
+            ChatUI(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, tenant_name: $tenant_name, showChatUI: $showCard)
         } else {
             Text("oops")
         }

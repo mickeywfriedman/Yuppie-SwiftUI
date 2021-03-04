@@ -273,7 +273,7 @@ struct Scroll: View {
            )
                 }
         }.sheet(isPresented: $showCard) {
-            sheets(card: $card, user: $user, buildings: filteredBuildings(), user_id: $user_id, token:$token, index: $index, tenant_id : $tenant_id, tenant_prof: $tenant_prof, tenant_name:$tenant_name)
+            sheets(card: $card, showCard: $showCard, user: $user, buildings: filteredBuildings(), user_id: $user_id, token:$token, index: $index, tenant_id : $tenant_id, tenant_prof: $tenant_prof, tenant_name:$tenant_name)
         }.onAppear(perform: moveMap)
         }
             

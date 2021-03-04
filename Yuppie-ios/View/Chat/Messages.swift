@@ -89,7 +89,8 @@ struct TopView : View {
     var body : some View{
         
         ZStack{
-            NavigationLink(destination: ChatUI(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, tenant_name: $tenant_name)){
+            NavigationLink(destination: ChatUI(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, tenant_name: $tenant_name, showChatUI: $showChatUI)
+){
                 
                 Text("")
             }
@@ -200,7 +201,7 @@ struct TopView : View {
                                     .offset(y: -5)
                                 }.padding(10)
                                 }.sheet(isPresented: $showChatUI) {
-                                    ChatUI(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, tenant_name: $tenant_name)
+                                    ChatUI(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, tenant_name: $tenant_name, showChatUI: $showChatUI)
                                 }
                         }
                     }

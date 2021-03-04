@@ -13,7 +13,7 @@ struct ChatUI: View {
     @State var imagePicker2 = false
     @State var imgData : Data = Data(count: 0)
     @StateObject var allMessages = Messages_image()
-    
+    @Binding var showChatUI : Bool
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
     func initiatefirstView() {
     if homeData.msgs.isEmpty{print("f")}
@@ -24,7 +24,9 @@ struct ChatUI: View {
         VStack(spacing: 0){
             ZStack{
                 HStack{
-                    Button(action: {}, label: {
+                    Button(action: {
+                        showChatUI = false
+                    }, label: {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 22))
                             .foregroundColor(.white)

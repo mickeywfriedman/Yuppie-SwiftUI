@@ -138,7 +138,7 @@ struct Inbox : View {
                 // its cutting off inside view may be its a bug....
             }
         }
-        .background(Color("bg").ignoresSafeArea(.all, edges: .all))
+        .background(Color(.white).ignoresSafeArea(.all, edges: .all))
         .ignoresSafeArea(.all, edges: .top)
         .onAppear(perform: loadMessageData)
     }
@@ -220,7 +220,7 @@ struct ChatView : View {
     var body: some View{
         
         ZStack{
-            NavigationLink(destination: ChatUI(token: $token, user_id: $user_id, tenant_id: $tenants.id, tenant_prof: $tenants.profilePicture, tenant_name: $tenants.firstName)){
+            NavigationLink(destination: ChatUI(token: $token, user_id: $user_id, tenant_id: $tenants.id, tenant_prof: $tenants.profilePicture, tenant_name: $tenants.firstName, showChatUI:$showChatUI)){
                 
                 Text("")
             }}
@@ -263,7 +263,7 @@ struct ChatView : View {
         }
         .padding(.horizontal)
         }.sheet(isPresented: $showChatUI) {
-            ChatUI(token: $token, user_id: $user_id, tenant_id: $tenants.id, tenant_prof: $tenants.profilePicture, tenant_name: $tenants.firstName)
+            ChatUI(token: $token, user_id: $user_id, tenant_id: $tenants.id, tenant_prof: $tenants.profilePicture, tenant_name: $tenants.firstName, showChatUI: $showChatUI)
         }
 }
 
