@@ -137,21 +137,19 @@ struct ImageScroll: View {
     @Binding var user: User
     @Binding var token: String
     @Binding var user_id: String
-    @State var current_slide: Int = 1
     var body: some View {
         ZStack{
         GeometryReader { geometry in
             HStack (spacing: 0){
                 ForEach(building.images, id: \.self) {image in
                     URLImage(url:image)
-                        .frame(width:UIScreen.main.bounds.width-100, height: 200)
+                        .frame(width:UIScreen.main.bounds.width-40, height: 200)
                             .cornerRadius(20)
                 }
             }
            .frame(width: geometry.size.width, alignment: .leading)
            .offset(x: -CGFloat(self.index) * geometry.size.width)
-            .animation(.spring(response: 0.8, dampingFraction: 0.7, blendDuration: 0.4))
-                
+           .animation(.interactiveSpring())
            .gesture(
               DragGesture()
                  .updating(self.$translation) { gestureValue, gestureState, _ in
@@ -167,20 +165,12 @@ struct ImageScroll: View {
                     let offset = (value.translation.width + weakGesture) / geometry.size.width
                             let newIndex = (CGFloat(self.index) - offset).rounded()
                     self.index = min(max(Int(newIndex), 0), self.building.images.count - 1)
-                    self.current_slide = self.current_slide + 1
                  }
            )
         }
-        
-            
-    }
-        HStack{
-            
-            Spacer(minLength: 0)
-            
             Button(action: {
-                toggleFavorite()
-            }) {
+                    toggleFavorite()
+                }) {
                 
                 Label(title: {
                    
@@ -200,10 +190,7 @@ struct ImageScroll: View {
                 .padding(.horizontal,10)
                 .background(Color("Color1"))
                 .clipShape(Circle())
-            }
-        }.offset(x: (-1*(UIScreen.main.bounds.width)/1.34)+50, y: -80)
-
+            }.offset(x: (-1*(UIScreen.main.bounds.width-40)/2)+50, y: -80)
+    }
     }
 }
-
-
