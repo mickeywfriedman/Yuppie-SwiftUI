@@ -143,7 +143,7 @@ struct ImageScroll: View {
             HStack (spacing: 0){
                 ForEach(building.images, id: \.self) {image in
                     URLImage(url:image)
-                        .frame(width:UIScreen.main.bounds.width-40, height: 200)
+                        .frame(width:UIScreen.main.bounds.width-100, height: 200)
                             .cornerRadius(20)
                 }
             }

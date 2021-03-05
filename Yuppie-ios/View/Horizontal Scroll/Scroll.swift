@@ -233,7 +233,6 @@ struct Scroll: View {
                                 
                             }
                             }.frame(minWidth:(UIScreen.main.bounds.width), maxWidth: .infinity)
-                                
                         }
                     }
                    .frame(minWidth: geometry.size.width, maxWidth: .infinity, alignment: .leading)
