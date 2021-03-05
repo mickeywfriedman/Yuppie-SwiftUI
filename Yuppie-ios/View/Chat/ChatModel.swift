@@ -22,7 +22,9 @@ class ChatModel: ObservableObject{
     
     deinit {
       NotificationCenter.default
-       .removeObserver(self, name: NSNotification.Name ("com.messages." + self.tenant_id), object: nil) }
+       .removeObserver(self, name: NSNotification.Name ("com.messages." + self.tenant_id), object: nil)
+    print(tenant_id)
+    }
     
     
     
@@ -186,6 +188,7 @@ class ChatModel: ObservableObject{
             }.resume()
             self.imageStr = ""
             //self.msgs.append(received_messages)
+            loadMessageData()
           }catch {
                 print(error.localizedDescription)}
             }

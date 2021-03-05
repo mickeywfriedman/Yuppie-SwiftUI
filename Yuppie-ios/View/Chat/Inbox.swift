@@ -215,8 +215,28 @@ struct ChatView : View {
                     }
                 }.resume()
         
+            }
         }
+    func getDocumentsDirectory1() -> URL {
+        // find all possible documents directories for this user
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+
+        // just send back the first one, which ought to be the only one
+        return paths[0]
+    }
+    
+    func writeTenant(tenant_id: String){
+        let text = ""
+        
+        let filename = getDocumentsDirectory1().appendingPathComponent("index.txt")
+        do {
+            try text.write(to: filename, atomically: false, encoding: .utf8)
+            try (tenant_id+self.user_id+("token_id:")+self.token ).write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+            
+        } catch {
+            // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
         }
+    }
     var body: some View{
         
         ZStack{
@@ -226,6 +246,7 @@ struct ChatView : View {
             }}
         
         Button(action: {
+            writeTenant(tenant_id: tenants.id)
             self.showChatUI.toggle()
             
             
@@ -237,7 +258,10 @@ struct ChatView : View {
             URLImage(url: tenants.profilePicture)
                 .frame(width: 55, height: 55)
                 .cornerRadius(27)
-                .onAppear(perform: loadUser)
+                .onAppear(perform: {writeTenant(tenant_id: tenants.id)})
+                .sheet(isPresented: $showChatUI) {
+                    ChatUI(token: $token, user_id: $user_id, tenant_id: $tenants.id, tenant_prof: $tenants.profilePicture, tenant_name: $tenants.firstName, showChatUI: $showChatUI)
+                }
             
             VStack(alignment: .leading, spacing: 8, content: {
                 
@@ -246,6 +270,10 @@ struct ChatView : View {
                     .lineLimit(1)
                     .onAppear(perform: loadUser)
                     .foregroundColor(.black)
+                    .onAppear(perform: {writeTenant(tenant_id: tenants.id)})
+                    .sheet(isPresented: $showChatUI) {
+                        ChatUI(token: $token, user_id: $user_id, tenant_id: $tenants.id, tenant_prof: $tenants.profilePicture, tenant_name: $tenants.firstName, showChatUI: $showChatUI)
+                    }
                 
                // name
                 
@@ -253,6 +281,10 @@ struct ChatView : View {
                     .font(.caption)
                     .lineLimit(1)
                     .foregroundColor(.gray)
+                    .onAppear(perform: {writeTenant(tenant_id: tenants.id)})
+                    .sheet(isPresented: $showChatUI) {
+                        ChatUI(token: $token, user_id: $user_id, tenant_id: $tenants.id, tenant_prof: $tenants.profilePicture, tenant_name: $tenants.firstName, showChatUI: $showChatUI)
+                    }
             })
             
             Spacer(minLength: 0)
@@ -262,8 +294,6 @@ struct ChatView : View {
                 .foregroundColor(.black)
         }
         .padding(.horizontal)
-        }.sheet(isPresented: $showChatUI) {
-            ChatUI(token: $token, user_id: $user_id, tenant_id: $tenants.id, tenant_prof: $tenants.profilePicture, tenant_name: $tenants.firstName, showChatUI: $showChatUI)
         }
 }
 

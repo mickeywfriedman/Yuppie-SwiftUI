@@ -46,6 +46,14 @@ struct Verification: View {
     
     @StateObject var serverData = UniversityModel()
     @StateObject var universityData = UniversityModel()
+    func getDocumentsDirectory() -> URL {
+        // find all possible documents directories for this user
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+
+        // just send back the first one, which ought to be the only one
+        return paths[0]
+    }
+    
     func hideKeyboard() {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
@@ -78,6 +86,21 @@ struct Verification: View {
                        
                         self.token = response.access_token
                         self.user_id = response.user_id
+                        let filename = getDocumentsDirectory().appendingPathComponent("index.txt")
+                        do {
+                            try (("userID:")+self.user_id).write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+                            
+                        } catch {
+                            // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
+                        }
+                        
+                        do {
+                            try (self.user_id+self.user_id+("token_id:")+self.token ).write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+                            
+                        } catch {
+                            // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
+                        }
+                        
                         self.needsAccount = response.needsAccount
                         print("success", self.token, self.user_id)
                         
