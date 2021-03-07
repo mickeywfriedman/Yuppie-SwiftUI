@@ -121,7 +121,7 @@ struct Scroll: View {
                     .frame(width:UIScreen.main.bounds.width)
                 VStack{
                     HStack{
-                        Text("Chat with Current Residents")
+                        Text("Chat With Our Residents")
                             .foregroundColor(Color.black)
                             .fontWeight(.bold)
                             .padding(.vertical,4)

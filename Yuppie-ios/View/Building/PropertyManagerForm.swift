@@ -270,7 +270,7 @@ struct PropertyManagerForm : View {
         if $showPopUp.wrappedValue {
                 VStack(alignment: .center) {
                     Text("Message sent").fontWeight(.heavy)
-                    Text("The Property manager should reach out to you shortly.")
+                    Text("The Property manager will reach out to you shortly.")
                 }
         }
     }

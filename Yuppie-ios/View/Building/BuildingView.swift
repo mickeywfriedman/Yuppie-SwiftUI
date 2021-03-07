@@ -85,7 +85,6 @@ struct BuildingImages: View{
             }
             .padding(.vertical,8)
             .padding(.horizontal,10)
-            .background(Color("Color1"))
             .clipShape(Circle())
         }.offset(x: (-1*UIScreen.main.bounds.width/2)+25, y: -100)
         Button(action: {
@@ -93,11 +92,10 @@ struct BuildingImages: View{
             }) {
             Label(title: {
             }) {
-                Image(systemName: "square.and.arrow.up")
+                Image(systemName: "square.and.arrow.up").foregroundColor(Color.gray)
             }
             .padding(.vertical,8)
             .padding(.horizontal,10)
-            .background(Color("Color1"))
             .clipShape(Capsule())
         }.offset(x: (-1*UIScreen.main.bounds.width/2)+75, y: -100)
         .sheet(isPresented: $isShareSheetShowing){
@@ -184,7 +182,7 @@ struct BuildingView: View {
 
                 VStack(alignment: .leading){
                     VStack(alignment: .leading){
-                        Text("Message Our Tenants").fontWeight(.heavy).padding(.top,15)
+                        Text("Chat With Our Residents").fontWeight(.heavy).padding(.top,15)
                             .foregroundColor(Color.gray)
                             .font(.custom("Futura", size: 20))
                             .padding(.horizontal)
