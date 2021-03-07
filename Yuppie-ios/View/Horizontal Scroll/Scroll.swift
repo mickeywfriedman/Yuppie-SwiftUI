@@ -112,7 +112,7 @@ struct Scroll: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                         }
-                    }.offset(y:-400)
+                    }
                 } else{
                 Image("topgradient")
                     .resizable()
