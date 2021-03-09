@@ -50,15 +50,21 @@ struct PropertyManagerForm : View {
             print(response)
         }.resume()
     }
-    var Apartments = ["5E", "7C", "11B", "8D"]
+    func Apartments () -> [String]{
+        var result = [""]
+        for apartment in building.units {
+            result.append(apartment.number)
+        }
+        result.removeFirst()
+        return result
+    }
     func dateFormat(date : Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d, yyyy"
         return dateFormatter.string(from: date)
     }
     var body : some View{
-        
-        let message = "Hello my name is \(user.firstName) and I am interested in Unit \(Apartments[Apartment]) and would like to move in around \(dateFormat(date: MoveIn)). Can you tell me more about: \n\(self.amenityHours ? "-Amenity Hours\n": "")\(self.petPolicy ? "-Pet Policy\n": "")\(self.additionalCharges ? "-Additional Charges\n": "")\(self.localActivites ? "-Local Activities\n": "")\(self.covidPolicies ? "-Covid Policies\n": "")\(self.Parking ? "-Parking\n": "")"
+        var message = "Hello my name is \(user.firstName) and I am interested in Unit \(Apartments()[Apartment]) and would like to move in around \(dateFormat(date: MoveIn)). Can you tell me more about: \n\(self.amenityHours ? "-Amenity Hours\n": "")\(self.petPolicy ? "-Pet Policy\n": "")\(self.additionalCharges ? "-Additional Charges\n": "")\(self.localActivites ? "-Local Activities\n": "")\(self.covidPolicies ? "-Covid Policies\n": "")\(self.Parking ? "-Parking\n": "")"
         VStack(alignment: .center){
             Text("Contact Property").fontWeight(.heavy).font(.largeTitle)
                 .padding(.vertical)
@@ -226,10 +232,10 @@ struct PropertyManagerForm : View {
                     .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                 Spacer()
                 Picker(selection: $Apartment, label:
-                        Text(Apartments[Apartment])
+                        Text(Apartments()[Apartment])
             ) {
-                ForEach(0 ..< Apartments.count) {
-                    Text(self.Apartments[$0])
+                ForEach(0 ..< Apartments().count) {
+                    Text(self.Apartments()[$0])
                 }
                 .padding(1.0)
                 .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
@@ -237,9 +243,7 @@ struct PropertyManagerForm : View {
                 .onReceive([self.Apartment].publisher.first()) { value in
                     self.Message = message
                  }
-
             }
-            
             DatePicker("Move In Date", selection: $MoveIn, displayedComponents: .date)
                 .datePickerStyle(CompactDatePickerStyle())
                 .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
@@ -250,10 +254,13 @@ struct PropertyManagerForm : View {
                 .border(Color.black, width: 2)
                 .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealWidth: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight:300, maxHeight: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 .padding(.bottom, keyboardHeight)
-                .onReceive(Publishers.keyboardHeight) { self.keyboardHeight = $0 }
+                .onReceive(Publishers.keyboardHeight) {
+                    self.keyboardHeight = $0
+                    message = Message
+                }
             Button(action: {
                 self.showPopUp = true
-                sendEmail(Message: Message, Apartment: Apartments[Apartment], userID: user_id, building: building, moveIn: MoveIn)
+                sendEmail(Message: Message, Apartment: Apartments()[Apartment], userID: user_id, building: building, moveIn: MoveIn)
             }) {
                 Text("Send Message").font(.headline)
                     .foregroundColor(.white)
@@ -264,13 +271,13 @@ struct PropertyManagerForm : View {
             }
         }.padding().edgesIgnoringSafeArea([.top, .bottom])
         .onTapGesture {
-
-              self.endTextEditing()
+            message = Message
+            self.endTextEditing()
         }
         if $showPopUp.wrappedValue {
                 VStack(alignment: .center) {
                     Text("Message sent").fontWeight(.heavy)
-                    Text("The Property manager will reach out to you shortly.")
+                    Text("The Property manager should reach out to you shortly.")
                 }
         }
     }

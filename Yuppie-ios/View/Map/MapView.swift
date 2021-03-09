@@ -23,7 +23,6 @@ struct MapView: UIViewRepresentable {
     @Binding var user: User
     @Binding var first : Bool
     @State var mapView: MGLMapView = MGLMapView(frame: .zero, styleURL: URL(string: "mapbox://styles/leonyuppie/ckfysprwo0l3n19qpi7hm8m8p"))
-    
     // MARK: - Configuring UIViewRepresentable protocol
     func annotations () -> [MGLPointAnnotation]{
         var result = [MGLPointAnnotation(coordinate: .init(latitude: 40.761295318603516, longitude: -73.99922180175781))]
@@ -164,7 +163,7 @@ struct MapView: UIViewRepresentable {
         }
         
         func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
-        let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, fromDistance: 4500, pitch: 15, heading: 180)
+        let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, fromDistance: 4500, pitch: 15, heading: 0)
         mapView.fly(to: camera, withDuration: 4,
         peakAltitude: 300, completionHandler: nil)
         }

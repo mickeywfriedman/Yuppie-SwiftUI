@@ -96,6 +96,7 @@ struct TabBar: View {
     @Binding var user : User
     @Namespace var animation
     @State var current = "Home"
+    @State var showBuilding = false
     func findBuilding() -> Building {
         var result = TestData.buildings.first!
         for building in buildings {
@@ -105,6 +106,16 @@ struct TabBar: View {
         }
         return result
     }
+    func showBuildingCard () -> Void {
+        if showCard {
+        let seconds = 1.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            self.showBuilding = true
+            self.showCard = false
+        }
+        }
+    }
+
     var profilePic: String
     var tabs = ["house","person","suit.heart"]
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
@@ -115,7 +126,7 @@ struct TabBar: View {
                     if (buildings[0].name == "Test"){
                         LoadingScreen()
                     } else {
-                        Scroll(user: $user, token: $token, user_id: $user_id, buildings:buildings)
+                        Scroll(user: $user, token: $token, user_id: $user_id, buildings:buildings).onAppear(perform: showBuildingCard)
                     }
                 }.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).tag("Home").font(.custom("Futura", size: 18))
                 ZStack{
@@ -158,7 +169,7 @@ struct TabBar: View {
             .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
             
         }.background(LinearGradient(gradient: .init(colors: gradient), startPoint: .top, endPoint: .bottom))
-        .sheet(isPresented: $showCard) {
+        .sheet(isPresented: $showBuilding) {
             BuildingView(Bedroom: 0, user : $user, token: $token, user_id: $user_id, building:findBuilding())
         }
     }
