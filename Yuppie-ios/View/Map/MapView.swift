@@ -165,7 +165,7 @@ struct MapView: UIViewRepresentable {
         func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, fromDistance: 4500, pitch: 15, heading: 0)
         mapView.fly(to: camera, withDuration: 4,
-        peakAltitude: 300, completionHandler: nil)
+        peakAltitude: 3000, completionHandler: nil)
         }
         
         

@@ -1,3 +1,4 @@
+
 import SwiftUI
 
 
@@ -65,6 +66,9 @@ struct CardView: View {
                         .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                         .animation(.spring())
                     }
+                }.onTapGesture {
+                    self.card = "building"
+                    self.showCard = true
                 }
                 
                 ZStack{
@@ -74,24 +78,7 @@ struct CardView: View {
                 .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
                 .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                 .animation(.spring(response: 0.8, dampingFraction: 0.7, blendDuration: 0.4))
-                    
-                    Button(action: {
-                        self.card = "building"
-                        self.showCard = true
-                        
-                    }, label: {
-                        
-                        Image(systemName: "arrow.up")
-                            .font(.system(size: 14, weight: .bold))
-                            .foregroundColor(.white)
-                            .padding(.all)
-                            .background(Color("Color-3"))
-                            .clipShape(Circle())
-                            
-                            
-                        // adding neuromorphic effect...
-                            
-                    }).offset(y:95)
+
                 }.offset(y:-40)
     }
         }

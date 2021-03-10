@@ -168,6 +168,8 @@ struct BuildingRow: View {
                         .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
                         .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                     }
+                }.onTapGesture {
+                    self.showCard = true
                 }.sheet(isPresented: $showCard) {
                     BuildingView(Bedroom: minBeds(), user : $user, token: $token, user_id: $user_id, building:building)
                 }
@@ -176,18 +178,6 @@ struct BuildingRow: View {
                     FavoritesImageScroll(building: building, user: $user, token: $token, user_id: $user_id)
                 .frame(width:UIScreen.main.bounds.width-40, height: 200)
                     .cornerRadius(20)
-                    
-                    Button(action: {self.showCard.toggle()}, label: {
-                        
-                        Image(systemName: "arrow.up")
-                            .font(.system(size: 14, weight: .bold))
-                            .foregroundColor(.white)
-                            .padding(.all)
-                            .background(Color("Color-3"))
-                            .clipShape(Circle())
-                        // adding neuromorphic effect...
-                            
-                    }).offset(y:95)
                 }.offset(y:-40)
     }
         }
