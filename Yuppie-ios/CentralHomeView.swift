@@ -18,8 +18,6 @@ struct CentralHomeView: View {
     @Binding var showCard : Bool
     @State var buildingId : String
     func loadData() {
-        print(self.token)
-        print(self.user_id)
         if (self.token != "") {
             print(self.token, "SUHSHHHS")
             guard let url = URL(string: "http://18.218.78.71:8080/buildings") else {

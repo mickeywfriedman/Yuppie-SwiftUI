@@ -262,9 +262,9 @@ struct BuildingView: View {
                         }
                     }.padding(.horizontal)
                 }
-                BuildingMapView(building:building).frame(width: UIScreen.main.bounds.width-40, height: 200)
+                BuildingMapView(building:building).frame(width: UIScreen.main.bounds.width-40, height: 200).cornerRadius(15)
                 
-            }
+            }.padding(.bottom)
         }.background(Color(.white))
         }.edgesIgnoringSafeArea([.top, .bottom])
             if $showPopUp.wrappedValue {
@@ -374,7 +374,6 @@ struct CustomShape : Shape {
 struct BuildingMapView: UIViewRepresentable {
     var building : Building
     func makeUIView(context: Context) -> MKMapView {
-    
         MKMapView(frame: .zero)
     }
 
