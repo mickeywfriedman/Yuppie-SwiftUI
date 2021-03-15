@@ -41,7 +41,6 @@ struct CardView: View {
                 VStack{
                     VStack{
                         Text("   ")
-                        Text("   ")
                         VStack{
                             
                             HStack{
@@ -66,9 +65,6 @@ struct CardView: View {
                         .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                         .animation(.spring())
                     }
-                }.onTapGesture {
-                    self.card = "building"
-                    self.showCard = true
                 }
                 
                 ZStack{
@@ -79,7 +75,10 @@ struct CardView: View {
                 .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                 .animation(.spring(response: 0.8, dampingFraction: 0.7, blendDuration: 0.4))
 
-                }.offset(y:-40)
+                }.offset(y:-35)
+    }.onTapGesture {
+        self.card = "building"
+        self.showCard = true
     }
         }
     }
@@ -175,7 +174,9 @@ struct ImageScroll: View {
                 }
                 .padding(.vertical,8)
                 .padding(.horizontal,10)
+                .background(Color("Color1"))
                 .clipShape(Circle())
+                
             }.offset(x: (-1*(UIScreen.main.bounds.width-40)/2)+50, y: -80)
     }
     }

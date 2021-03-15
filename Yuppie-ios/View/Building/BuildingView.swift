@@ -85,6 +85,7 @@ struct BuildingImages: View{
             }
             .padding(.vertical,8)
             .padding(.horizontal,10)
+            .background(Color("Color1"))
             .clipShape(Circle())
         }.offset(x: (-1*UIScreen.main.bounds.width/2)+25, y: -100)
         Button(action: {
@@ -94,9 +95,10 @@ struct BuildingImages: View{
             }) {
                 Image(systemName: "square.and.arrow.up").foregroundColor(Color.gray)
             }
-            .padding(.vertical,8)
-            .padding(.horizontal,10)
-            .clipShape(Capsule())
+            .padding(.vertical,7)
+            .padding(.horizontal,8)
+            .background(Color("Color1"))
+            .clipShape(Circle())
         }.offset(x: (-1*UIScreen.main.bounds.width/2)+75, y: -100)
         .sheet(isPresented: $isShareSheetShowing){
             ActivityView(activityItems: [NSURL(string: "yuppie://id/\(building.id)")!] as [Any], applicationActivities: nil)

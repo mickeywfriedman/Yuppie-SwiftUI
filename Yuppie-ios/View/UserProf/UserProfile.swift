@@ -66,6 +66,7 @@ struct UserProfile : View {
                 
                 Text("Preferences")
                     .foregroundColor(self.index == 0 ? .white : Color("Chat_color").opacity(0.7))
+                    .font(.custom("Futura", size: 16))
                     .fontWeight(.bold)
                     .padding(.vertical,10)
                     .padding(.horizontal,35)
@@ -85,6 +86,7 @@ struct UserProfile : View {
                 
                 Text("My Building")
                     .foregroundColor(self.index == 1 ? .white : Color("Chat_color").opacity(0.7))
+                    .font(.custom("Futura", size: 16))
                     .fontWeight(.bold)
                     .padding(.vertical,10)
                     .padding(.horizontal,35)
@@ -109,7 +111,7 @@ struct UserProfile : View {
             } else if (index == 1){
                 // month data...
                 
-                BuildingGallery(buildings: buildings, user: user).tag(1)
+                BuildingGallery(buildings: buildings, user: $user, token: token).tag(1)
             }
             else if (index == 2){
 

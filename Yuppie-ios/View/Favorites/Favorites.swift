@@ -274,7 +274,9 @@ struct FavoritesImageScroll: View {
                 }
                 .padding(.vertical,8)
                 .padding(.horizontal,10)
+                .background(Color("Color1"))
                 .clipShape(Circle())
+                
             }.offset(x: (-1*(UIScreen.main.bounds.width-40)/2)+20, y: -80)
     }
     }

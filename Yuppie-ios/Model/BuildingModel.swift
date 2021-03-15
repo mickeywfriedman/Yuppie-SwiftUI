@@ -20,7 +20,6 @@ struct Building: Hashable, Decodable{
     var units: [Unit]
     var latitude: Float
     var longitude: Float
-
 }
 
 struct BuildingResponse: Decodable {

@@ -103,7 +103,7 @@ struct FiltersView: View {
                                     }
                                 }){
                                 Text(chips[index])
-                                    .font(.custom("Futura", size: 15))
+                                    .font(.custom("Futura", size: 13))
                                     .fontWeight(.semibold)
                                     .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                     .padding(.vertical,10)
