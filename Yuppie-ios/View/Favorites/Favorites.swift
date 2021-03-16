@@ -139,7 +139,6 @@ struct BuildingRow: View {
                 VStack{
                     VStack{
                         Text("   ")
-                        Text("   ")
                         VStack{
                             HStack{
                                 Spacer()

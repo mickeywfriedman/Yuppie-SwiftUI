@@ -85,6 +85,14 @@ struct BuildingGallery: View {
         }
         return []
     }
+    func getBuilding() -> String{
+        for building in buildings {
+            if building.id == user.building{
+                return building.name
+            }
+        }
+        return ""
+    }
     var columns = Array(repeating: GridItem(.flexible(),spacing: 20), count: 2)
     var body: some View {
         if getImages().count == 0 {
@@ -191,10 +199,9 @@ struct BuildingGallery: View {
         }
         } else {
         ScrollView{
-            
+            Text("\(getBuilding())")
             VStack(spacing: 18){
                 LazyVGrid(columns: columns,spacing: 20){
-                    
                     ForEach(getImages(), id: \.self) {image in
                         ImageView(url:image)
                             .frame(width:UIScreen.main.bounds.width-100, height: 200)
