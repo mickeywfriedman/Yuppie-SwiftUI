@@ -141,26 +141,21 @@ struct BuildingRow: View {
                         Text("   ")
                         Text("   ")
                         VStack{
-                            
                             HStack{
-                                
-                                
+                                Spacer()
                                 VStack{
+                                    
+                                    Text(building.name).fontWeight(.heavy).font(.custom("Futura", size: 20)).lineLimit(1)
                                     if minPrice(building:building) == 100000{
                                         Text("No \(Bedrooms[user.preferences.bedrooms])").fontWeight(.heavy)
                                     } else{
-                                        Text("\(Bedrooms[minBeds()]) from ").fontWeight(.heavy)
-                                        Text("$\(minPrice(building:building))")
+                                        Text("\(Bedrooms[minBeds()]) from $\(minPrice(building:building))").font(.custom("Futura", size: 16))
                                     }
-                                                                        
+                                    
                                 }.foregroundColor(.gray)
                                 Spacer()
-                                HStack{
-                                    VStack{
-                                        Text(building.name).fontWeight(.heavy)
-                                        Text(building.address.streetAddress)}
-                                    }.foregroundColor(.gray)
-                            }.padding(.top, 160)
+                            }
+                            .padding(.top, 160)
                             .padding()
                         }.background(Color("Color"))
                         .cornerRadius(14)

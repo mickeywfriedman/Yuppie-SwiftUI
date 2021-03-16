@@ -47,7 +47,7 @@ struct CardView: View {
                                 Spacer()
                                 VStack{
                                     
-                                    Text(building.name).fontWeight(.heavy).font(.custom("Futura", size: 20))
+                                    Text(building.name).fontWeight(.heavy).font(.custom("Futura", size: 20)).lineLimit(1)
                                     Text("\(Bedrooms[minBeds()]) from $\(minPrice(building:building))").font(.custom("Futura", size: 16))
                                 }.foregroundColor(.gray)
                                 Spacer()
