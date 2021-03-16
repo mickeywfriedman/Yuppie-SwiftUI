@@ -48,7 +48,6 @@
 		21CCF0732572B9B600B22A75 /* Yuppie_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF0722572B9B600B22A75 /* Yuppie_iosTests.swift */; };
 		21CCF07E2572B9B600B22A75 /* Yuppie_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF07D2572B9B600B22A75 /* Yuppie_iosUITests.swift */; };
 		21CCF0A02572BB7700B22A75 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF09F2572BB7700B22A75 /* MapView.swift */; };
-		21CCF0AB2572BBB600B22A75 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF0AA2572BBB600B22A75 /* Card.swift */; };
 		21CCF0BB2572BBDF00B22A75 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF0BA2572BBDF00B22A75 /* TestData.swift */; };
 		21CCF0C92572BC1400B22A75 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF0C82572BC1300B22A75 /* CardView.swift */; };
 		21CCF0CE2572BC2600B22A75 /* IndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CCF0CD2572BC2600B22A75 /* IndexView.swift */; };
@@ -146,7 +145,6 @@
 		21CCF07D2572B9B600B22A75 /* Yuppie_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Yuppie_iosUITests.swift; sourceTree = "<group>"; };
 		21CCF07F2572B9B600B22A75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21CCF09F2572BB7700B22A75 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		21CCF0AA2572BBB600B22A75 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		21CCF0BA2572BBDF00B22A75 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		21CCF0C82572BC1300B22A75 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		21CCF0CD2572BC2600B22A75 /* IndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexView.swift; sourceTree = "<group>"; };
@@ -372,7 +370,6 @@
 		21CCF0A92572BBA900B22A75 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				21CCF0AA2572BBB600B22A75 /* Card.swift */,
 				21A78054258E114700DD6F70 /* BuildingModel.swift */,
 				21CCF0BA2572BBDF00B22A75 /* TestData.swift */,
 				21C10C9C25943B250049531E /* UniversityModel.swift */,
@@ -689,7 +686,6 @@
 				21A78031258E0AA800DD6F70 /* ApplicationObserver.swift in Sources */,
 				21C10C81259290900049531E /* CustomCorner.swift in Sources */,
 				376D0E1425EACDD10087B91F /* Sheets.swift in Sources */,
-				21CCF0AB2572BBB600B22A75 /* Card.swift in Sources */,
 				21A78055258E114700DD6F70 /* BuildingModel.swift in Sources */,
 				21C10CEC25957E830049531E /* ProfilePicture.swift in Sources */,
 				21C10C9D25943B250049531E /* UniversityModel.swift in Sources */,

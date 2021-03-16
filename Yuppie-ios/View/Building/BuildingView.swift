@@ -155,6 +155,7 @@ struct BuildingView: View {
     @Binding var token: String
     @Binding var user_id: String
     @State var expand = false
+    @State var readMore = false
     var building: Building
     func noUnits() -> Bool {
         var none = true
@@ -208,6 +209,16 @@ struct BuildingView: View {
                         Text(building.description).fixedSize(horizontal: false, vertical: true)
                             .foregroundColor(Color.gray)
                             .font(.custom("Futura", size: 14))
+                            .lineLimit(readMore ? nil : 5)
+                        Button(action: {
+                            readMore.toggle()
+                        }) {
+                            Text(readMore ? "See Less" : "See More")
+                                .fontWeight(.heavy)
+                                .foregroundColor(Color.gray)
+                                .font(.custom("Futura", size: 14))
+                            
+                        }
                         
                     }.padding()
                     VStack(alignment: .leading){
@@ -288,7 +299,6 @@ struct BuildingView: View {
                         })
                     }.padding()
                 }
-                .frame(width: 300, height: 200)
                 .cornerRadius(20).shadow(radius: 20)
             }
     }
