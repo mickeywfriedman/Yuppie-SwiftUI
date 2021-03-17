@@ -11,6 +11,8 @@ struct User: Codable{
     var preferences: preferences
     var id: String
     var university: University
+    var email: String
+    var emailVerified: Bool
 }
 
 struct userResponse: Codable {

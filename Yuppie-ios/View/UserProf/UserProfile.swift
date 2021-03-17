@@ -69,7 +69,7 @@ struct UserProfile : View {
                     .font(.custom("Futura", size: 16))
                     .fontWeight(.bold)
                     .padding(.vertical,10)
-                    .padding(.horizontal,35)
+                    .padding(.horizontal,30)
                     .background(Color("Chat_color").opacity(self.index == 0 ? 1 : 0))
                     .clipShape(Capsule())
                     .onTapGesture {
@@ -89,7 +89,7 @@ struct UserProfile : View {
                     .font(.custom("Futura", size: 16))
                     .fontWeight(.bold)
                     .padding(.vertical,10)
-                    .padding(.horizontal,35)
+                    .padding(.horizontal,30)
                     .background(Color("Chat_color").opacity(self.index == 1 ? 1 : 0))
                     .clipShape(Capsule())
                     .onTapGesture {

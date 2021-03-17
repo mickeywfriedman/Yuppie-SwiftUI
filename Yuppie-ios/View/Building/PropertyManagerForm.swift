@@ -11,7 +11,6 @@ struct PropertyManagerForm : View {
     @State private var keyboardHeight: CGFloat = 0
     @State private var MoveIn = Date()
     @State private var Apartment = 0
-    @State private var Message = ""
     @State private var showPopUp = false
     @State private var amenityHours = false
     @State private var petPolicy = false
@@ -19,7 +18,7 @@ struct PropertyManagerForm : View {
     @State private var localActivites = false
     @State private var Parking = false
     @State private var covidPolicies = false
-    @State private var askString = ""
+    @State private var email = ""
     @State var message = ""
     @Environment(\.colorScheme) var colorScheme
     func sendEmail (Message: String, Apartment: String, userID: String, building: Building, moveIn:Date){
@@ -51,6 +50,31 @@ struct PropertyManagerForm : View {
             print(response)
         }.resume()
     }
+    func loadUser() {
+        if (self.token != "") {
+            guard let user_url = URL(string: "http://18.218.78.71:8080/users/\(self.user_id)") else {
+                print("Your API end point is Invalid")
+                return
+            }
+            var user_request = URLRequest(url: user_url)
+            user_request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+            URLSession.shared.dataTask(with: user_request) { data, response, error in
+                if let data = data {
+                    print(self.token)
+                    print(self.user_id)
+                    if let urlresponse = try? JSONDecoder().decode(userResponse.self, from: data) {
+                        DispatchQueue.main.async {
+                            self.user = urlresponse.data
+                            print("success")
+                            print(self.user)
+                        }
+                        return
+                    }
+                    
+                }
+            }.resume()
+        }
+        }
     func loadMessage() -> Void {
         if self.showPopUp{
             self.message = "Message sent. The Property Manager should reach out to you shortly."
@@ -73,7 +97,45 @@ struct PropertyManagerForm : View {
         return dateFormatter.string(from: date)
     }
     var body : some View{
-        
+        if user.emailVerified == false {
+            if user.email == ""{
+                VStack(alignment: .center){
+                Text("Enter your email to begin messaging with Porperty Managers.")
+                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                TextField("Email", text: self.$email )
+                    .autocapitalization(.none)
+                    .foregroundColor(.white)
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 10)
+                    .background(Color("pgradient1"))
+                    .clipShape(Capsule())
+                    .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
+                }.padding()
+                Text("Submit")
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
+                    .background(Color.purple)
+                    .cornerRadius(30.0)
+                    .onTapGesture {
+                        self.user.email = email
+                    }
+            } else {
+                VStack(alignment: .center){
+                    Text("Please click on the email verification link we sent to your email.")
+                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                    Text("Refresh")
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
+                        .background(Color.purple)
+                        .cornerRadius(30.0)
+                        .onTapGesture {
+                            loadUser()
+                        }
+                }.padding()
+            }
+        } else {
         VStack(alignment: .center){
             Text("Contact Property").fontWeight(.heavy).font(.largeTitle)
                 .padding(.vertical)
@@ -196,7 +258,7 @@ struct PropertyManagerForm : View {
         }.padding().padding(.bottom, keyboardHeight).edgesIgnoringSafeArea([.top, .bottom])
     }
 }
-
+}
 
 extension Publishers {
     // 1.

@@ -180,9 +180,10 @@ struct BuildingView: View {
                     .foregroundColor(Color.gray)
                     .font(.custom("Futura", size: 28))
                     .padding(.top, 15)
+                if (building.address.streetAddress != building.name) {
                 Text(building.address.streetAddress).multilineTextAlignment(.center).foregroundColor(Color.gray)
                     .font(.custom("Futura", size: 16))
-
+                }
                 VStack(alignment: .leading){
                     VStack(alignment: .leading){
                         Text("Chat With Our Residents").fontWeight(.heavy).padding(.top,15)
