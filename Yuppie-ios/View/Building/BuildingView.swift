@@ -57,7 +57,6 @@ struct BuildingImages: View{
     @Binding var token: String
     @Binding var user : User
     @Binding var user_id: String
-    @State var isFavorite = true
     @State var showForm = false
     @State var height = UIScreen.main.bounds.height
     @State var width = UIScreen.main.bounds.width
@@ -67,7 +66,7 @@ struct BuildingImages: View{
     var building: Building
     var body: some View{
         ZStack{
-        ImageSlider(images: building.images, isFavorite: $isFavorite)
+        ImageSlider(images: building.images)
             .frame(height: 250)
             .clipShape(CustomShape(corner: .bottomLeft, radii: self.height > 800 ? 65: 60))
         Button(action: {
@@ -318,7 +317,6 @@ struct CircleImage: View {
 
 struct ImageSlider: View {
     var images: [String]
-    @Binding var isFavorite: Bool
     var body: some View {
         ZStack{
         TabView {

@@ -120,35 +120,8 @@ struct ImageScroll: View {
     @Binding var user_id: String
     var body: some View {
         ZStack{
-        GeometryReader { geometry in
-            HStack (spacing: 0){
-                ForEach(building.images, id: \.self) {image in
-                    URLImage(url:image)
-                        .frame(width:UIScreen.main.bounds.width-100, height: 200)
-                            .cornerRadius(20)
-                }
-            }
-           .frame(width: geometry.size.width, alignment: .leading)
-           .offset(x: -CGFloat(self.index) * geometry.size.width)
-           .animation(.interactiveSpring())
-           .gesture(
-              DragGesture()
-                 .updating(self.$translation) { gestureValue, gestureState, _ in
-                           gestureState = gestureValue.translation.width
-                  }
-                 .onEnded { value in
-                    var weakGesture : CGFloat = 0
-                         if value.translation.width < 0 {
-                            weakGesture = -100
-                         } else {
-                            weakGesture = 100
-                         }
-                    let offset = (value.translation.width + weakGesture) / geometry.size.width
-                            let newIndex = (CGFloat(self.index) - offset).rounded()
-                    self.index = min(max(Int(newIndex), 0), self.building.images.count - 1)
-                 }
-           )
-        }
+            ImageSlider(images: building.images)
+                .frame(width: UIScreen.main.bounds.width-100, height: 200)
             Button(action: {
                     toggleFavorite()
                 }) {
