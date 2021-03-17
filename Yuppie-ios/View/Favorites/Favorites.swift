@@ -219,7 +219,7 @@ struct FavoritesImageScroll: View {
     @Binding var user_id: String
     var body: some View {
         ZStack{
-            ImageSlider(images: building.images)
+            ImageSlider(images: building.images, height: 200)
                 .frame(width: UIScreen.main.bounds.width-40, height: 200)
             Button(action: {
                     toggleFavorite()

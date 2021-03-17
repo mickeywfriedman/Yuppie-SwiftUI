@@ -66,7 +66,7 @@ struct BuildingImages: View{
     var building: Building
     var body: some View{
         ZStack{
-        ImageSlider(images: building.images)
+            ImageSlider(images: building.images, height: 250)
             .frame(height: 250)
             .clipShape(CustomShape(corner: .bottomLeft, radii: self.height > 800 ? 65: 60))
         Button(action: {
@@ -317,14 +317,15 @@ struct CircleImage: View {
 
 struct ImageSlider: View {
     var images: [String]
+    var height : Int
     var body: some View {
         ZStack{
         TabView {
                 ForEach(images, id: \.self) {image in
                     ImageView(url: image)
-                        .frame(width:UIScreen.main.bounds.width, height: 250)
+                        .frame(width:UIScreen.main.bounds.width, height: CGFloat(height))
                 }
-            }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
           
         }
         }
