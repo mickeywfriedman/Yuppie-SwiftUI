@@ -21,6 +21,29 @@ struct PropertyManagerForm : View {
     @State private var email = ""
     @State var message = ""
     @Environment(\.colorScheme) var colorScheme
+    func verifyEmail (){
+        self.user.email = email
+        let post_request = Email(
+            email: email
+        )
+        guard let encoded = try? JSONEncoder().encode(post_request) else {
+            print("Failed to encode order")
+            return
+        }
+        guard let url = URL(string: "http://18.218.78.71:8080/emails/request/\(user_id)") else {
+            print("Your API end point is Invalid")
+            return
+        }
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpBody = encoded
+        print(token)
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            print(response)
+        }.resume()
+    }
     func sendEmail (Message: String, Apartment: String, userID: String, building: Building, moveIn:Date){
         self.user.contacted.append(building.id)
         let lead = Lead(
@@ -111,6 +134,7 @@ struct PropertyManagerForm : View {
                     .clipShape(Capsule())
                     .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                 }.padding()
+                .onAppear(perform: loadUser)
                 Text("Submit")
                     .foregroundColor(.white)
                     .padding()
@@ -118,7 +142,7 @@ struct PropertyManagerForm : View {
                     .background(Color.purple)
                     .cornerRadius(30.0)
                     .onTapGesture {
-                        self.user.email = email
+                        verifyEmail()
                     }
             } else {
                 VStack(alignment: .center){

@@ -68,3 +68,6 @@ struct Lead: Codable {
     var moveInDate: String
 }
 
+struct Email: Codable {
+    var email: String
+}
