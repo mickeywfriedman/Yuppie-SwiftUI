@@ -20,6 +20,7 @@ struct PropertyManagerForm : View {
     @State private var Parking = false
     @State private var covidPolicies = false
     @State private var askString = ""
+    @State var message = ""
     @Environment(\.colorScheme) var colorScheme
     func sendEmail (Message: String, Apartment: String, userID: String, building: Building, moveIn:Date){
         self.user.contacted.append(building.id)
@@ -50,6 +51,14 @@ struct PropertyManagerForm : View {
             print(response)
         }.resume()
     }
+    func loadMessage() -> Void {
+        if self.showPopUp{
+            self.message = "Message sent. The Property Manager should reach out to you shortly."
+        } else{
+        self.message = "Hello my name is \(user.firstName) and I am interested in Unit \(Apartments()[Apartment]) and would like to move in around \(dateFormat(date: MoveIn)). Can you tell me more about: \n\(self.amenityHours ? "-Amenity Hours\n": "")\(self.petPolicy ? "-Pet Policy\n": "")\(self.additionalCharges ? "-Additional Charges\n": "")\(self.localActivites ? "-Local Activities\n": "")\(self.covidPolicies ? "-Covid Policies\n": "")\(self.Parking ? "-Parking\n": "")"
+        }
+    }
+    
     func Apartments () -> [String]{
         var result = [""]
         for apartment in building.units {
@@ -64,167 +73,83 @@ struct PropertyManagerForm : View {
         return dateFormatter.string(from: date)
     }
     var body : some View{
-        var message = "Hello my name is \(user.firstName) and I am interested in Unit \(Apartments()[Apartment]) and would like to move in around \(dateFormat(date: MoveIn)). Can you tell me more about: \n\(self.amenityHours ? "-Amenity Hours\n": "")\(self.petPolicy ? "-Pet Policy\n": "")\(self.additionalCharges ? "-Additional Charges\n": "")\(self.localActivites ? "-Local Activities\n": "")\(self.covidPolicies ? "-Covid Policies\n": "")\(self.Parking ? "-Parking\n": "")"
+        
         VStack(alignment: .center){
             Text("Contact Property").fontWeight(.heavy).font(.largeTitle)
                 .padding(.vertical)
                 .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                .onAppear(perform: {
+                    loadMessage()
+                })
             HStack{
                 Text("Ask About:").foregroundColor(colorScheme == .dark ? Color.white : Color.black)
             Spacer()
             }
             HStack{
-                if self.amenityHours { Button(action:{
-                    self.amenityHours = !self.amenityHours
-                    self.Message = message
-                }) {
-                    Text("Amenity Hours")
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.purple)
-                        .cornerRadius(30.0)
-                }
-                }
-                else {
-                    Button(action:{
-                        self.amenityHours = !self.amenityHours
-                        self.Message = message
-                    }) {
-                        Text("Amenity Hours")
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                            .background(Color.gray)
-                            .cornerRadius(30.0)
+                Text("Amenity Hours")
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
+                    .background(self.amenityHours ? Color.purple: Color.gray)
+                    .cornerRadius(30.0)
+                    .onTapGesture {
+                        self.amenityHours.toggle()
+                        loadMessage()
                     }
-                }
-                if self.petPolicy { Button(action:{
-                    self.petPolicy = !self.petPolicy
-                    self.Message = message
-                }) {
-                    Text("Pet Policy")
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.purple)
-                        .cornerRadius(30.0)
-                }
-                }
-                else {
-                    Button(action:{
-                            self.petPolicy = !self.petPolicy
-                            self.Message = message
-                    }) {
-                        Text("Pet Policy")
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                            .background(Color.gray)
-                            .cornerRadius(30.0)
+                Text("Pet Policy")
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
+                    .background(self.petPolicy ? Color.purple: Color.gray)
+                    .cornerRadius(30.0)
+                    .onTapGesture {
+                        self.petPolicy.toggle()
+                        loadMessage()
                     }
-                    
-                }
             }
             HStack{
-                if self.additionalCharges { Button(action:{
-                    self.additionalCharges = !self.additionalCharges
-                    self.Message = message
-                }) {
-                    Text("Additional Charges")
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.purple)
-                        .cornerRadius(30.0)
-                }
-                }
-                else {
-                    Button(action:{
-                            self.additionalCharges = !self.additionalCharges
-                            self.Message = message
-                    }) {
-                        Text("Additional Charges")
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                            .background(Color.gray)
-                            .cornerRadius(30.0)
+                Text("Additional Charges")
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
+                    .background(self.additionalCharges ? Color.purple: Color.gray)
+                    .cornerRadius(30.0)
+                    .onTapGesture {
+                        self.additionalCharges.toggle()
+                        loadMessage()
                     }
-                }
-                if self.localActivites { Button(action:{
-                    self.localActivites = !self.localActivites
-                    self.Message = message
-                }) {
-                    Text("Local Activities")
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.purple)
-                        .cornerRadius(30.0)
-                }
-                }
-                else {
-                    Button(action:{self.localActivites = !self.localActivites}) {
-                        Text("Local Activities")
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                            .background(Color.gray)
-                            .cornerRadius(30.0)
+                Text("Local Activities")
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
+                    .background(self.localActivites ? Color.purple: Color.gray)
+                    .cornerRadius(30.0)
+                    .onTapGesture {
+                        self.localActivites.toggle()
+                        loadMessage()
                     }
-                    
-                }
             }
             HStack{
-                if self.Parking { Button(action:{
-                    self.Parking = !self.Parking
-                    self.Message = message
-                }) {
-                    Text("Parking")
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.purple)
-                        .cornerRadius(30.0)
-                }
-                }
-                else {
-                    Button(action:{
-                        self.Parking = !self.Parking
-                        self.Message = message
-                    }) {
-                        Text("Parking")
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                            .background(Color.gray)
-                            .cornerRadius(30.0)
+                Text("Parking")
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
+                    .background(self.Parking ? Color.purple: Color.gray)
+                    .cornerRadius(30.0)
+                    .onTapGesture {
+                        self.Parking.toggle()
+                        loadMessage()
                     }
-                }
-                if self.covidPolicies { Button(action:{
-                    self.covidPolicies = !self.covidPolicies
-                    self.Message = message
-                }) {
-                    Text("Covid Policy")
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.purple)
-                        .cornerRadius(30.0)
-                }
-                }
-                else {
-                    Button(action:{self.covidPolicies = !self.covidPolicies}) {
-                        Text("Covid Policy")
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                            .background(Color.gray)
-                            .cornerRadius(30.0)
+                Text("Covid Policy")
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
+                    .background(self.covidPolicies ? Color.purple: Color.gray)
+                    .cornerRadius(30.0)
+                    .onTapGesture {
+                        self.covidPolicies.toggle()
+                        loadMessage()
                     }
-                    
-                }
             }
             
             HStack{
@@ -241,26 +166,25 @@ struct PropertyManagerForm : View {
                 .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                 }.pickerStyle(MenuPickerStyle())
                 .onReceive([self.Apartment].publisher.first()) { value in
-                    self.Message = message
+                    loadMessage()
                  }
             }
             DatePicker("Move In Date", selection: $MoveIn, displayedComponents: .date)
                 .datePickerStyle(CompactDatePickerStyle())
                 .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                 .onReceive([self.MoveIn].publisher.first()) { value in
-                    self.Message = message
+                    loadMessage()
                  }
-            TextEditor(text:$Message)
+            TextEditor(text:$message)
                 .border(Color.black, width: 2)
                 .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealWidth: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight:300, maxHeight: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                .padding(.bottom, keyboardHeight)
                 .onReceive(Publishers.keyboardHeight) {
                     self.keyboardHeight = $0
-                    message = Message
                 }
             Button(action: {
                 self.showPopUp = true
-                sendEmail(Message: Message, Apartment: Apartments()[Apartment], userID: user_id, building: building, moveIn: MoveIn)
+                sendEmail(Message: message, Apartment: Apartments()[Apartment], userID: user_id, building: building, moveIn: MoveIn)
+                self.endTextEditing()
             }) {
                 Text("Send Message").font(.headline)
                     .foregroundColor(.white)
@@ -269,17 +193,7 @@ struct PropertyManagerForm : View {
                     .background(Color.blue)
                     .cornerRadius(15.0)
             }
-        }.padding().edgesIgnoringSafeArea([.top, .bottom])
-        .onTapGesture {
-            message = Message
-            self.endTextEditing()
-        }
-        if $showPopUp.wrappedValue {
-                VStack(alignment: .center) {
-                    Text("Message sent").fontWeight(.heavy)
-                    Text("The Property manager should reach out to you shortly.")
-                }
-        }
+        }.padding().padding(.bottom, keyboardHeight).edgesIgnoringSafeArea([.top, .bottom])
     }
 }
 
