@@ -425,9 +425,19 @@ struct BottomView : View {
                         amenity in
                         VStack(spacing: 8){
                             VStack{
+                                if amenity == "Patio/Balcony"{
+                                    Image("Balcony")
+                                        .resizable()
+                                        .frame(width: 60, height: 60)
+                                } else if amenity == "Washer/Dryer"{
+                                    Image("Laundry Room")
+                                        .resizable()
+                                        .frame(width: 60, height: 60)
+                                } else {
                                 Image(amenity)
                                     .resizable()
                                     .frame(width: 60, height: 60)
+                                }
                             }
                                 
                                 .background(Color.white)
@@ -443,7 +453,7 @@ struct BottomView : View {
                         }.padding(.leading)
                         .offset(y: -15)
                     }
-                }
+                }.padding(.trailing)
             }
         }
     }

@@ -20,7 +20,13 @@ struct FirstLastName: View {
     @Binding var needsAccount: Bool
     @Binding var user_id: String
     @State var value: CGFloat = 0
-    
+    func reset () -> Void{
+        if user_id == ""{
+            self.didLogin = false
+            self.needsAccount = true
+            self.token = ""
+        }
+    }
     var gradient1 = [Color("gradient2"),Color("gradient3"),Color("gradient4")]
     
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
@@ -243,6 +249,9 @@ struct FirstLastName: View {
                                 .background(Color("pgradient1").opacity(0.6))
                                 .clipShape(Capsule())
                                 .offset(y: -65)
+                                .onAppear(perform: {
+                                    reset()
+                                })
                                 .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                                 .offset(y: -self.value).animation(.spring()).onAppear{
                                     NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) {(noti) in
