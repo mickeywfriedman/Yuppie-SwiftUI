@@ -122,7 +122,7 @@ struct URLImage : View {
   var body: some View {
     AsyncImage(
         url: URL(string: url)!,
-        placeholder: { Text("Loading ...") },
+        placeholder: { Image("Color1") },
         image: { Image(uiImage: $0).resizable() }
      )
   }
