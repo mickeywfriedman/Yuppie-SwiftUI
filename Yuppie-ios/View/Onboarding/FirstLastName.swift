@@ -12,7 +12,7 @@ struct FirstLastName: View {
     
     @State var countryCode = ""
     @State var number = ""
-    @State var showBirthday = false
+    @State var showProfilePicture = false
     @State var firstName: String = ""
     @State var lastName: String = ""
     @Binding var token: String
@@ -101,7 +101,7 @@ struct FirstLastName: View {
         
         ZStack{
             
-            NavigationLink(destination: Birthday(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showBirthday) {
+            NavigationLink(destination: ProfilePicture(token: $token, didLogin: $didLogin, needsAccount: $needsAccount, user_id: $user_id), isActive: self.$showProfilePicture) {
                 
              
                 Text("")
@@ -271,7 +271,7 @@ struct FirstLastName: View {
                             self.didLogin = false
                             self.needsAccount = true
                             
-                            self.showBirthday.toggle()
+                            self.showProfilePicture.toggle()
                             
                         }) {
                             
