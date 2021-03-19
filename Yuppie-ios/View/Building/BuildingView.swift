@@ -176,8 +176,9 @@ struct BuildingView: View {
             VStack{
                 
                 Text(building.name)
+                    .fontWeight(.heavy)
                     .foregroundColor(Color.gray)
-                    .font(.custom("Futura", size: 28))
+                    .font(.custom("Futura", size: 25))
                     .padding(.top, 15)
                 if (building.address.streetAddress != building.name) {
                 Text(building.address.streetAddress).multilineTextAlignment(.center).foregroundColor(Color.gray)
@@ -187,7 +188,7 @@ struct BuildingView: View {
                     VStack(alignment: .leading){
                         Text("Chat With Our Residents").fontWeight(.heavy).padding(.top,15)
                             .foregroundColor(Color.gray)
-                            .font(.custom("Futura", size: 20))
+                            .font(.custom("Futura", size: 18))
                             .padding(.horizontal)
                             
                         HStack{
@@ -204,7 +205,7 @@ struct BuildingView: View {
                     VStack(alignment: .leading){
                         Text("Description").fontWeight(.heavy)
                             .foregroundColor(Color.gray)
-                            .font(.custom("Futura", size: 20))
+                            .font(.custom("Futura", size: 18))
                         Spacer()
                         Text(building.description).fixedSize(horizontal: false, vertical: true)
                             .foregroundColor(Color.gray)
@@ -231,7 +232,7 @@ struct BuildingView: View {
                     VStack(alignment: .leading){
                         Text("Units").fontWeight(.heavy)
                             .foregroundColor(Color.gray)
-                            .font(.custom("Futura", size: 20))
+                            .font(.custom("Futura", size: 18))
                         Picker(selection: $Bedroom, label:
                                 Text(Bedrooms[Bedroom])
                         ){
@@ -413,7 +414,7 @@ struct BottomView : View {
             HStack{
                 
                 Text("Building Amenities").fontWeight(.heavy).foregroundColor(.gray)
-                    .font(.custom("Futura", size: 20))
+                    .font(.custom("Futura", size: 18))
                 Spacer()
 
                 

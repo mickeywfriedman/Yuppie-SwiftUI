@@ -19,7 +19,7 @@ struct UserProfile : View {
     @State var minDate = Date()
     @State var maxDate = Date(timeInterval: 14*86400, since: Date())
     @State var index = 0
-
+    
     var profilePic : String
     func format(date : Date) -> String {
         let dateFormatter = DateFormatter()

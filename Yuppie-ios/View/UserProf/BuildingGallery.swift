@@ -11,13 +11,36 @@ struct BuildingGallery: View {
     var buildings: [Building]
     @Binding var user: User
     @State var rec = ""
-    @State var unit = ""
     @State var showUnit = false
     @State var buildingID = ""
     @State var filter = ""
     var token : String
+    @State var Apartment = 0
+    @State var showError = false
+    @Environment(\.colorScheme) var colorScheme
+    func Apartments (building: Building) -> [String]{
+        var result = ["Enter Unit"]
+        for apartment in building.units {
+            result.append(apartment.number)
+        }
+        return result
+    }
+    func findBuilding() -> Building {
+        var filtered = TestData.buildings[0]
+        for building in buildings{
+            if (building.id == buildingID) {
+                filtered = building
+            }
+        }
+        return filtered
+    }
     public func send() {
-        let parameters: [String: String] = ["user" : self.user.id, "unit": self.unit]
+        if Apartment == 0{
+            showError = true
+        }
+        else{
+        user.building = filterBuildings()[0].id
+        let parameters: [String: String] = ["user" : self.user.id, "unit": Apartments(building: findBuilding())[Apartment]]
                   
                 let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/buildings/\(buildingID)/tenants")! as URL)
                   request.httpMethod = "POST"
@@ -61,8 +84,11 @@ struct BuildingGallery: View {
                     }
                     task.resume()
                 
-
+        }
              }
+    public func removeResidency() {
+        user.building = ""
+    }
     func filterBuildings() -> [Building] {
         var filtered = [TestData.buildings[0]]
         for building in buildings{
@@ -155,30 +181,37 @@ struct BuildingGallery: View {
                             }
                             else {
                                 VStack{
-                                Text("Enter Unit (Optional)")
-                                
                                     HStack(spacing: 15){
                                         Spacer()
-                                        TextField("Unit Number", text: $unit)
-                                            .padding(.vertical, 10)
-                                            .padding(.horizontal, 10)
-                                            .clipShape(Capsule())
+                                        Picker(selection: $Apartment, label:
+                                                Text(Apartments(building: findBuilding())[Apartment])
+                                    ) {
+                                        ForEach(0 ..< Apartments(building: findBuilding()).count) {
+                                            Text(self.Apartments(building: findBuilding())[$0])
+                                        }
+                                        .padding(1.0)
+                                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                                        }.pickerStyle(MenuPickerStyle())
                                             
                                         Spacer()
                                     }
                                 Button(action: {
                                     self.send()
-                                    user.building = filterBuildings()[0].id
+                                    
                                 }) {
                                     
                                     Text("Submit")
                                         .fontWeight(.bold)
+                                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                         .font(.custom("Futura", size: 18))
                                         .padding(.vertical, 10)
                                         .padding(.horizontal, 45)
                                         .background(Color("pgradient1"))
                                         .clipShape(Capsule())
                                 }
+                                    if showError{
+                                        Text("Please Enter Your Unit Above")
+                                    }
                                 }.offset(y:15)
                                 
                             }
@@ -200,6 +233,19 @@ struct BuildingGallery: View {
         } else {
         ScrollView{
             Text("\(getBuilding())")
+            Button(action: {
+                self.removeResidency()
+                
+            }) {
+                
+                Text("Remove Residency")
+                    .font(.custom("Futura", size: 18))
+                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 45)
+                    .background(Color("pgradient1"))
+                    .clipShape(Capsule())
+            }
             VStack(spacing: 18){
                 LazyVGrid(columns: columns,spacing: 20){
                     ForEach(getImages(), id: \.self) {image in

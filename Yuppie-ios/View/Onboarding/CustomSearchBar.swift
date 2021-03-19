@@ -17,9 +17,30 @@ struct CustomSearchBar: View {
     @Binding var token: String
     @Binding var user_id: String
     @State var buildings = [TestData.buildings[0]]
-    @State var unit = ""
     @State var showUnit = false
     @State var buildingID = ""
+    @State var Apartment = 0
+    @State var showError = false
+    @Environment(\.colorScheme) var colorScheme
+    func Apartments (building: Building) -> [String]{
+        var result = ["Enter Unit"]
+        for apartment in building.units {
+            result.append(apartment.number)
+        }
+        return result
+    }
+    func findBuilding() -> Building {
+        var filtered = TestData.buildings[0]
+        for building in buildings{
+            if (building.id == buildingID) {
+                filtered = building
+            }
+        }
+        return filtered
+    }
+    func toString(_ value: Any?) -> String {
+      return String(describing: value ?? "")
+    }
     func filterBuildings() -> [Building] {
         var filtered = [TestData.buildings[0]]
         for building in buildings{
@@ -30,9 +51,7 @@ struct CustomSearchBar: View {
         filtered.removeFirst()
         return filtered
     }
-    func toString(_ value: Any?) -> String {
-      return String(describing: value ?? "")
-    }
+
     func loadData() {
         if (self.token != "") {
             print(self.token, "SUHSHHHS")
@@ -62,10 +81,12 @@ struct CustomSearchBar: View {
     
     public func send() {
                 
-
-                
-            
-        let parameters: [String: String] = ["user" : self.user_id, "unit": self.unit]
+        if Apartment == 0{
+            showError = true
+        }
+        else{
+            self.showTermsandConditions.toggle()
+        let parameters: [String: String] = ["user" : self.user_id, "unit": Apartments(building: findBuilding())[Apartment]]
                   
                 let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/buildings/\(buildingID)/tenants")! as URL)
                   request.httpMethod = "POST"
@@ -109,7 +130,7 @@ struct CustomSearchBar: View {
                     }
                     task.resume()
                 
-
+        }
              }
             
     var body: some View {
@@ -180,22 +201,24 @@ struct CustomSearchBar: View {
                         }
                         else {
                             VStack{
-                            Text("Enter Unit (Optional)")
                             
                                 HStack(spacing: 15){
                                     Spacer()
-                                    TextField("Unit Number", text: $unit)
-                                        .foregroundColor(.white)
-                                        .padding(.vertical, 10)
-                                        .padding(.horizontal, 10)
-                                        .background(Color("pgradient1"))
-                                        .clipShape(Capsule())
+                                    Picker(selection: $Apartment, label:
+                                            Text(Apartments(building: findBuilding())[Apartment])
+                                ) {
+                                    ForEach(0 ..< Apartments(building: findBuilding()).count) {
+                                        Text(self.Apartments(building: findBuilding())[$0])
+                                    }
+                                    .padding(1.0)
+                                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                                    }.pickerStyle(MenuPickerStyle())
                                         
                                     Spacer()
                                 }
                             Button(action: {
                                 
-                                self.showTermsandConditions.toggle()
+                                
                                 self.send()
                             }) {
                                 
@@ -208,6 +231,9 @@ struct CustomSearchBar: View {
                                     .background(Color("pgradient1"))
                                     .clipShape(Capsule())
                             }
+                                if showError{
+                                    Text("Please Enter Your Unit Above")
+                                }
                             }.offset(y:15)
                             
                         }
