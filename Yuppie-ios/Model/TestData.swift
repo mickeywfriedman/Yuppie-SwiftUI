@@ -18,7 +18,9 @@ enum TestData {
         favorites: [],
         preferences: preferences(bedrooms: 0, bathrooms: 0, price: 10000.0, amenities: [], earliestMoveInDate: "2020-01-26", latestMoveInDate: "2021-01-26"),
         id: "a;dlsfkjs;dfda",
-        university: University(id: "5feb477f79adebb6cf4ea243", name: "University of Chicago", logo: "")
+        university: University(id: "5feb477f79adebb6cf4ea243", name: "University of Chicago", logo: ""),
+        email:"",
+        emailVerified: false
     )
     
     static let building = Building(

@@ -57,7 +57,6 @@ struct BuildingImages: View{
     @Binding var token: String
     @Binding var user : User
     @Binding var user_id: String
-    @State var isFavorite = true
     @State var showForm = false
     @State var height = UIScreen.main.bounds.height
     @State var width = UIScreen.main.bounds.width
@@ -67,7 +66,7 @@ struct BuildingImages: View{
     var building: Building
     var body: some View{
         ZStack{
-        ImageSlider(images: building.images, isFavorite: $isFavorite)
+            ImageSlider(images: building.images, height: 250)
             .frame(height: 250)
             .clipShape(CustomShape(corner: .bottomLeft, radii: self.height > 800 ? 65: 60))
         Button(action: {
@@ -85,6 +84,7 @@ struct BuildingImages: View{
             }
             .padding(.vertical,8)
             .padding(.horizontal,10)
+            .background(Color("Color1"))
             .clipShape(Circle())
         }.offset(x: (-1*UIScreen.main.bounds.width/2)+25, y: -100)
         Button(action: {
@@ -94,9 +94,10 @@ struct BuildingImages: View{
             }) {
                 Image(systemName: "square.and.arrow.up").foregroundColor(Color.gray)
             }
-            .padding(.vertical,8)
-            .padding(.horizontal,10)
-            .clipShape(Capsule())
+            .padding(.vertical,7)
+            .padding(.horizontal,8)
+            .background(Color("Color1"))
+            .clipShape(Circle())
         }.offset(x: (-1*UIScreen.main.bounds.width/2)+75, y: -100)
         .sheet(isPresented: $isShareSheetShowing){
             ActivityView(activityItems: [NSURL(string: "yuppie://id/\(building.id)")!] as [Any], applicationActivities: nil)
@@ -153,6 +154,7 @@ struct BuildingView: View {
     @Binding var token: String
     @Binding var user_id: String
     @State var expand = false
+    @State var readMore = false
     var building: Building
     func noUnits() -> Bool {
         var none = true
@@ -174,17 +176,19 @@ struct BuildingView: View {
             VStack{
                 
                 Text(building.name)
+                    .fontWeight(.heavy)
                     .foregroundColor(Color.gray)
-                    .font(.custom("Futura", size: 28))
+                    .font(.custom("Futura", size: 25))
                     .padding(.top, 15)
+                if (building.address.streetAddress != building.name) {
                 Text(building.address.streetAddress).multilineTextAlignment(.center).foregroundColor(Color.gray)
                     .font(.custom("Futura", size: 16))
-
+                }
                 VStack(alignment: .leading){
                     VStack(alignment: .leading){
                         Text("Chat With Our Residents").fontWeight(.heavy).padding(.top,15)
                             .foregroundColor(Color.gray)
-                            .font(.custom("Futura", size: 20))
+                            .font(.custom("Futura", size: 18))
                             .padding(.horizontal)
                             
                         HStack{
@@ -201,11 +205,21 @@ struct BuildingView: View {
                     VStack(alignment: .leading){
                         Text("Description").fontWeight(.heavy)
                             .foregroundColor(Color.gray)
-                            .font(.custom("Futura", size: 20))
+                            .font(.custom("Futura", size: 18))
                         Spacer()
                         Text(building.description).fixedSize(horizontal: false, vertical: true)
                             .foregroundColor(Color.gray)
                             .font(.custom("Futura", size: 14))
+                            .lineLimit(readMore ? nil : 5)
+                        Button(action: {
+                            readMore.toggle()
+                        }) {
+                            Text(readMore ? "See Less" : "See More")
+                                .fontWeight(.heavy)
+                                .foregroundColor(Color.gray)
+                                .font(.custom("Futura", size: 14))
+                            
+                        }
                         
                     }.padding()
                     VStack(alignment: .leading){
@@ -218,7 +232,7 @@ struct BuildingView: View {
                     VStack(alignment: .leading){
                         Text("Units").fontWeight(.heavy)
                             .foregroundColor(Color.gray)
-                            .font(.custom("Futura", size: 20))
+                            .font(.custom("Futura", size: 18))
                         Picker(selection: $Bedroom, label:
                                 Text(Bedrooms[Bedroom])
                         ){
@@ -262,9 +276,9 @@ struct BuildingView: View {
                         }
                     }.padding(.horizontal)
                 }
-                BuildingMapView(building:building).frame(width: UIScreen.main.bounds.width-40, height: 200)
+                BuildingMapView(building:building).frame(width: UIScreen.main.bounds.width-40, height: 200).cornerRadius(15)
                 
-            }
+            }.padding(.bottom)
         }.background(Color(.white))
         }.edgesIgnoringSafeArea([.top, .bottom])
             if $showPopUp.wrappedValue {
@@ -286,7 +300,6 @@ struct BuildingView: View {
                         })
                     }.padding()
                 }
-                .frame(width: 300, height: 200)
                 .cornerRadius(20).shadow(radius: 20)
             }
     }
@@ -305,15 +318,15 @@ struct CircleImage: View {
 
 struct ImageSlider: View {
     var images: [String]
-    @Binding var isFavorite: Bool
+    var height : Int
     var body: some View {
         ZStack{
         TabView {
                 ForEach(images, id: \.self) {image in
                     ImageView(url: image)
-                        .frame(width:UIScreen.main.bounds.width, height: 250)
+                        .frame(width:UIScreen.main.bounds.width, height: CGFloat(height))
                 }
-            }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
           
         }
         }
@@ -374,7 +387,6 @@ struct CustomShape : Shape {
 struct BuildingMapView: UIViewRepresentable {
     var building : Building
     func makeUIView(context: Context) -> MKMapView {
-    
         MKMapView(frame: .zero)
     }
 
@@ -402,7 +414,7 @@ struct BottomView : View {
             HStack{
                 
                 Text("Building Amenities").fontWeight(.heavy).foregroundColor(.gray)
-                    .font(.custom("Futura", size: 20))
+                    .font(.custom("Futura", size: 18))
                 Spacer()
 
                 
@@ -414,9 +426,19 @@ struct BottomView : View {
                         amenity in
                         VStack(spacing: 8){
                             VStack{
+                                if amenity == "Patio/Balcony"{
+                                    Image("Balcony")
+                                        .resizable()
+                                        .frame(width: 60, height: 60)
+                                } else if amenity == "Washer/Dryer"{
+                                    Image("Laundry Room")
+                                        .resizable()
+                                        .frame(width: 60, height: 60)
+                                } else {
                                 Image(amenity)
                                     .resizable()
                                     .frame(width: 60, height: 60)
+                                }
                             }
                                 
                                 .background(Color.white)
@@ -432,7 +454,7 @@ struct BottomView : View {
                         }.padding(.leading)
                         .offset(y: -15)
                     }
-                }
+                }.padding(.trailing)
             }
         }
     }

@@ -19,6 +19,7 @@ struct UserProfile : View {
     @State var minDate = Date()
     @State var maxDate = Date(timeInterval: 14*86400, since: Date())
     @State var index = 0
+    
     var profilePic : String
     func format(date : Date) -> String {
         let dateFormatter = DateFormatter()
@@ -65,9 +66,10 @@ struct UserProfile : View {
                 
                 Text("Preferences")
                     .foregroundColor(self.index == 0 ? .white : Color("Chat_color").opacity(0.7))
+                    .font(.custom("Futura", size: 16))
                     .fontWeight(.bold)
                     .padding(.vertical,10)
-                    .padding(.horizontal,35)
+                    .padding(.horizontal,30)
                     .background(Color("Chat_color").opacity(self.index == 0 ? 1 : 0))
                     .clipShape(Capsule())
                     .onTapGesture {
@@ -84,9 +86,10 @@ struct UserProfile : View {
                 
                 Text("My Building")
                     .foregroundColor(self.index == 1 ? .white : Color("Chat_color").opacity(0.7))
+                    .font(.custom("Futura", size: 16))
                     .fontWeight(.bold)
                     .padding(.vertical,10)
-                    .padding(.horizontal,35)
+                    .padding(.horizontal,30)
                     .background(Color("Chat_color").opacity(self.index == 1 ? 1 : 0))
                     .clipShape(Capsule())
                     .onTapGesture {
@@ -101,26 +104,23 @@ struct UserProfile : View {
             .clipShape(Capsule())
             .padding()
             
-            
-            TabView(selection: self.$index){
+            if (index == 0){
 
                 // week data..
-                FiltersView(token: $token, user: $user, user_id: $user_id, minDate: dateFormat(string: user.preferences.earliestMoveInDate), maxDate: dateFormat(string: user.preferences.latestMoveInDate))
-
+                FiltersView(token: $token, user: $user, user_id: $user_id, minDate: dateFormat(string: user.preferences.earliestMoveInDate), maxDate: dateFormat(string: user.preferences.latestMoveInDate)).tag(0)
+            } else if (index == 1){
                 // month data...
                 
-                BuildingGallery(buildings: buildings, user: user)
-
-              
+                BuildingGallery(buildings: buildings, user: $user, token: token).tag(1)
+            }
+            else if (index == 2){
 
                 VStack{
 
                     Text("Monthly Data")
                 }
-                .tag(2)
+
             }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            
             // Cards...
             
            

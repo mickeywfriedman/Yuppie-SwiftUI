@@ -3,67 +3,135 @@ import SwiftUI
 import Combine
 import UIKit
 
-class ImageCache {
-  enum Error: Swift.Error {
-    case dataConversionFailed
-    case sessionError(Swift.Error)
-  }
-  static let shared = ImageCache()
-  private let cache = NSCache<NSURL, UIImage>()
-  private init() { }
-  static func image(for url: URL) -> AnyPublisher<UIImage?, ImageCache.Error> {
-    guard let image = shared.cache.object(forKey: url as NSURL) else {
-      return URLSession
-        .shared
-        .dataTaskPublisher(for: url)
-        .tryMap { (tuple) -> UIImage in
-          let (data, _) = tuple
-          guard let image = UIImage(data: data) else {
-            throw Error.dataConversionFailed
-          }
-          shared.cache.setObject(image, forKey: url as NSURL)
-          return image
-        }
-        .mapError({ error in Error.sessionError(error) })
-        .eraseToAnyPublisher()
+struct AsyncImage<Placeholder: View>: View {
+    @StateObject private var loader: ImageLoader
+    private let placeholder: Placeholder
+    private let image: (UIImage) -> Image
+    
+    init(
+        url: URL,
+        @ViewBuilder placeholder: () -> Placeholder,
+        @ViewBuilder image: @escaping (UIImage) -> Image = Image.init(uiImage:)
+    ) {
+        self.placeholder = placeholder()
+        self.image = image
+        _loader = StateObject(wrappedValue: ImageLoader(url: url, cache: Environment(\.imageCache).wrappedValue))
     }
-    return Just(image)
-      .mapError({ _ in fatalError() })
-      .eraseToAnyPublisher()
-  }
+    
+    var body: some View {
+        content
+            .onAppear(perform: loader.load)
+    }
+    
+    private var content: some View {
+        Group {
+            if loader.image != nil {
+                image(loader.image!)
+            } else {
+                placeholder
+            }
+        }
+    }
+}
+struct ImageCacheKey: EnvironmentKey {
+    static let defaultValue: ImageCache = TemporaryImageCache()
 }
 
-class ImageModel: ObservableObject {
-  @Published var image: UIImage? = nil
-  var cacheSubscription: AnyCancellable?
-  init(url: URL) {
-    cacheSubscription = ImageCache
-      .image(for: url)
-      .replaceError(with: nil)
-      .receive(on: RunLoop.main, options: .none)
-      .assign(to: \.image, on: self)
-  }
+extension EnvironmentValues {
+    var imageCache: ImageCache {
+        get { self[ImageCacheKey.self] }
+        set { self[ImageCacheKey.self] = newValue }
+    }
+}
+protocol ImageCache {
+    subscript(_ url: URL) -> UIImage? { get set }
+}
+
+struct TemporaryImageCache: ImageCache {
+    private let cache: NSCache<NSURL, UIImage> = {
+        let cache = NSCache<NSURL, UIImage>()
+        cache.countLimit = 100 // 100 items
+        cache.totalCostLimit = 1024 * 1024 * 100 // 100 MB
+        return cache
+    }()
+    
+    subscript(_ key: URL) -> UIImage? {
+        get { cache.object(forKey: key as NSURL) }
+        set { newValue == nil ? cache.removeObject(forKey: key as NSURL) : cache.setObject(newValue!, forKey: key as NSURL) }
+    }
+}
+class ImageLoader: ObservableObject {
+    @Published var image: UIImage?
+    
+    private(set) var isLoading = false
+    
+    private let url: URL
+    private var cache: ImageCache?
+    private var cancellable: AnyCancellable?
+    
+    private static let imageProcessingQueue = DispatchQueue(label: "image-processing")
+    
+    init(url: URL, cache: ImageCache? = nil) {
+        self.url = url
+        self.cache = cache
+    }
+    
+    deinit {
+        cancel()
+    }
+    
+    func load() {
+        guard !isLoading else { return }
+
+        if let image = cache?[url] {
+            self.image = image
+            return
+        }
+        
+        cancellable = URLSession.shared.dataTaskPublisher(for: url)
+            .map { UIImage(data: $0.data) }
+            .replaceError(with: nil)
+            .handleEvents(receiveSubscription: { [weak self] _ in self?.onStart() },
+                          receiveOutput: { [weak self] in self?.cache($0) },
+                          receiveCompletion: { [weak self] _ in self?.onFinish() },
+                          receiveCancel: { [weak self] in self?.onFinish() })
+            .subscribe(on: Self.imageProcessingQueue)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in self?.image = $0 }
+    }
+    
+    func cancel() {
+        cancellable?.cancel()
+    }
+    
+    private func onStart() {
+        isLoading = true
+    }
+    
+    private func onFinish() {
+        isLoading = false
+    }
+    
+    private func cache(_ image: UIImage?) {
+        image.map { cache?[url] = $0 }
+    }
 }
 
 struct URLImage : View {
-  @ObservedObject var imageModel: ImageModel
-  init(url: String) {
-    let new_url = URL(string: url)
-    imageModel = ImageModel(url: new_url!)
-  }
+    var url: String
   var body: some View {
-    imageModel
-      .image
-      .map { Image(uiImage:$0).resizable() }
+    AsyncImage(
+        url: URL(string: url)!,
+        placeholder: { Image("Color1") },
+        image: { Image(uiImage: $0).resizable() }
+     )
   }
-}
-struct URLImage_Previews: PreviewProvider {
-    static var previews: some View {
-        URLImage(url:"http://18.218.78.71:8080/images/5fdb9a03ae921a507c9785d5")
-    }
 }
 
-class ImageLoader: ObservableObject {
+
+
+
+class ImageLoader1: ObservableObject {
     @Published var downloadedData: Data?
     
     func downloadImage(url: String) {
@@ -84,7 +152,7 @@ class ImageLoader: ObservableObject {
 struct ImageView: View {
     let url: String
     let placeholder: String
-    @ObservedObject var imageLoader = ImageLoader()
+    @ObservedObject var imageLoader = ImageLoader1()
     init(url:String, placeholder: String = "placeholder"){
         self.url = url
         self.placeholder = placeholder

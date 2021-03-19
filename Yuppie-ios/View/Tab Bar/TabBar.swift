@@ -108,7 +108,7 @@ struct TabBar: View {
     }
     func showBuildingCard () -> Void {
         if showCard {
-        let seconds = 1.0
+            let seconds = 0.1
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             self.showBuilding = true
             self.showCard = false

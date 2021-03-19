@@ -20,7 +20,6 @@ struct Building: Hashable, Decodable{
     var units: [Unit]
     var latitude: Float
     var longitude: Float
-
 }
 
 struct BuildingResponse: Decodable {
@@ -69,3 +68,6 @@ struct Lead: Codable {
     var moveInDate: String
 }
 
+struct Email: Codable {
+    var email: String
+}

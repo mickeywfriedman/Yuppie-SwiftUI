@@ -128,7 +128,7 @@ struct Terms_Conditions: View {
             }
             
             
-            VStack(spacing: 35){
+            VStack(){
                 
                
 
@@ -252,10 +252,9 @@ struct Terms_Conditions: View {
                                         
                                     }.padding(.horizontal, 25)
                                     .padding(.top, 25)
-                                    .padding(.bottom, 25)
                                 }.background(Color("Color").opacity(0.2))
                                 .clipShape(RoundedRectangle(cornerRadius:20))
-                                .frame(height: 500)
+                                .frame(height: UIScreen.main.bounds.height - 220)
                                 .padding()
                         
                                 }
@@ -310,7 +309,6 @@ struct Terms_Conditions: View {
                     }
                 }.frame(width: maxWidth, height: 65)
                 .padding(.bottom)
-                .padding(.top,60)
                 
 
             }

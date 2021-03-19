@@ -164,7 +164,7 @@ struct Birthday: View {
                             Spacer()
                         }.foregroundColor(.white)
                         .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
-                        .offset(x: -25, y: 30)
+                        .offset(x: -25)
                         Button(action: {
                             self.send((Any).self)
                             self.didLogin = false
@@ -183,7 +183,7 @@ struct Birthday: View {
                                 .clipShape(Capsule())
                         }
                         // disabling view when both textfields are empty...
-                        .offset(y: 70)
+                        .offset(y:  0)
                         .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
                         Spacer()
                         

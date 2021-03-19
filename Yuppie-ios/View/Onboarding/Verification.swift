@@ -19,7 +19,7 @@ struct Verification_Payload: Codable {
 
 
 struct Verification: View {
-    
+    @State var showError = false
     @State var code = ""
     @Binding var number: String
     @State var showBirthday = false
@@ -58,6 +58,7 @@ struct Verification: View {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
     func receiveAuthInfo (){
+        self.didLogin = false
         let payload = Verification_Payload(
             phone: self.number,
             passcode: self.code
@@ -83,7 +84,6 @@ struct Verification: View {
                 if let urlresponse = try? JSONDecoder().decode(authResponse.self, from: data) {
                     DispatchQueue.main.async {
                         let response = urlresponse.result
-                       
                         self.token = response.access_token
                         self.user_id = response.user_id
                         let filename = getDocumentsDirectory().appendingPathComponent("index.txt")
@@ -102,6 +102,7 @@ struct Verification: View {
                         }
                         
                         self.needsAccount = response.needsAccount
+                        self.showFirstLastName = response.needsAccount
                         print("success", self.token, self.user_id)
                         
                         let pushNotifications = PushNotifications.shared
@@ -127,7 +128,7 @@ struct Verification: View {
                     }
                     return
                 }
-                
+                self.showError = true
             }
         }.resume()
     }
@@ -290,9 +291,7 @@ struct Verification: View {
                         
                         Button(action: {
                             self.receiveAuthInfo()
-                            self.didLogin = false
-                            self.needsAccount = true
-                            self.showFirstLastName.toggle()
+                            
                             
                         }) {
                             
@@ -324,7 +323,9 @@ struct Verification: View {
                                 self.value = 0
                             }
                         }
-                        
+                        if showError{
+                            Text("Wrong Verification Code")
+                        }
                         Spacer()
                         
                         

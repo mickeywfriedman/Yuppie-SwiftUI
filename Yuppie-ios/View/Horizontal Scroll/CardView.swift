@@ -1,3 +1,4 @@
+
 import SwiftUI
 
 
@@ -40,22 +41,16 @@ struct CardView: View {
                 VStack{
                     VStack{
                         Text("   ")
-                        Text("   ")
                         VStack{
                             
                             HStack{
-
+                                Spacer()
                                 VStack{
                                     
-                                    Text("\(Bedrooms[minBeds()]) from").fontWeight(.heavy).font(.custom("Futura", size: 20))
-                                    Text("$\(minPrice(building:building))").font(.custom("Futura", size: 14))
+                                    Text(building.name).fontWeight(.heavy).font(.custom("Futura", size: 20)).lineLimit(1)
+                                    Text("\(Bedrooms[minBeds()]) from $\(minPrice(building:building))").font(.custom("Futura", size: 16))
                                 }.foregroundColor(.gray)
                                 Spacer()
-                                HStack{
-                                    VStack{
-                                        Text(building.name).fontWeight(.heavy).font(.custom("Futura", size: 20))
-                                        Text(building.address.streetAddress)}.font(.custom("Futura", size: 14))
-                                    }.foregroundColor(.gray)
                             }.padding(.top, 160)
                             .padding()
                         }.background(Color("Color"))
@@ -74,25 +69,11 @@ struct CardView: View {
                 .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
                 .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                 .animation(.spring(response: 0.8, dampingFraction: 0.7, blendDuration: 0.4))
-                    
-                    Button(action: {
-                        self.card = "building"
-                        self.showCard = true
-                        
-                    }, label: {
-                        
-                        Image(systemName: "arrow.up")
-                            .font(.system(size: 14, weight: .bold))
-                            .foregroundColor(.white)
-                            .padding(.all)
-                            .background(Color("Color-3"))
-                            .clipShape(Circle())
-                            
-                            
-                        // adding neuromorphic effect...
-                            
-                    }).offset(y:95)
-                }.offset(y:-40)
+
+                }.offset(y:-35)
+    }.onTapGesture {
+        self.card = "building"
+        self.showCard = true
     }
         }
     }
@@ -139,35 +120,8 @@ struct ImageScroll: View {
     @Binding var user_id: String
     var body: some View {
         ZStack{
-        GeometryReader { geometry in
-            HStack (spacing: 0){
-                ForEach(building.images, id: \.self) {image in
-                    URLImage(url:image)
-                        .frame(width:UIScreen.main.bounds.width-100, height: 200)
-                            .cornerRadius(20)
-                }
-            }
-           .frame(width: geometry.size.width, alignment: .leading)
-           .offset(x: -CGFloat(self.index) * geometry.size.width)
-           .animation(.interactiveSpring())
-           .gesture(
-              DragGesture()
-                 .updating(self.$translation) { gestureValue, gestureState, _ in
-                           gestureState = gestureValue.translation.width
-                  }
-                 .onEnded { value in
-                    var weakGesture : CGFloat = 0
-                         if value.translation.width < 0 {
-                            weakGesture = -100
-                         } else {
-                            weakGesture = 100
-                         }
-                    let offset = (value.translation.width + weakGesture) / geometry.size.width
-                            let newIndex = (CGFloat(self.index) - offset).rounded()
-                    self.index = min(max(Int(newIndex), 0), self.building.images.count - 1)
-                 }
-           )
-        }
+            ImageSlider(images: building.images, height: 200)
+                .frame(width: UIScreen.main.bounds.width-100, height: 200)
             Button(action: {
                     toggleFavorite()
                 }) {
@@ -188,7 +142,9 @@ struct ImageScroll: View {
                 }
                 .padding(.vertical,8)
                 .padding(.horizontal,10)
+                .background(Color("Color1"))
                 .clipShape(Circle())
+                
             }.offset(x: (-1*(UIScreen.main.bounds.width-40)/2)+50, y: -80)
     }
     }
