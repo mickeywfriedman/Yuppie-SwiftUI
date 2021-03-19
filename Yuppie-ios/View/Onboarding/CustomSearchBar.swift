@@ -21,22 +21,33 @@ struct CustomSearchBar: View {
     @State var buildingID = ""
     @State var Apartment = 0
     @State var showError = false
+    @State var Apartments = ["Enter Unit"]
     @Environment(\.colorScheme) var colorScheme
-    func Apartments (building: Building) -> [String]{
+    func findApartments (buildingId: String) -> [String]{
         var result = ["Enter Unit"]
-        for apartment in building.units {
-            result.append(apartment.number)
+        guard let url = URL(string: "http://18.218.78.71:8080/buildings/\(buildingId)/unit-numbers") else {
+            print("Your API end point is Invalid")
+            return result
         }
-        return result
-    }
-    func findBuilding() -> Building {
-        var filtered = TestData.buildings[0]
-        for building in buildings{
-            if (building.id == buildingID) {
-                filtered = building
+        var request = URLRequest(url: url)
+        request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                print(self.token)
+                if let urlresponse = try? JSONDecoder().decode(UnitResponse.self, from: data) {
+                    DispatchQueue.main.async {
+                        self.Apartments = urlresponse.result
+                        result = urlresponse.result
+                        print(Apartments)
+                        self.Apartments.insert("Enter Unit", at: 0)
+                        print("success")
+                    }
+                    return
+                }
+                
             }
-        }
-        return filtered
+        }.resume()
+        return result
     }
     func toString(_ value: Any?) -> String {
       return String(describing: value ?? "")
@@ -86,7 +97,7 @@ struct CustomSearchBar: View {
         }
         else{
             self.showTermsandConditions.toggle()
-        let parameters: [String: String] = ["user" : self.user_id, "unit": Apartments(building: findBuilding())[Apartment]]
+        let parameters: [String: String] = ["user" : self.user_id, "unit": Apartments[Apartment]]
                   
                 let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/buildings/\(buildingID)/tenants")! as URL)
                   request.httpMethod = "POST"
@@ -155,6 +166,8 @@ struct CustomSearchBar: View {
                         .onTapGesture {
                             showUnit = false
                             searchData.query = ""
+                            Apartment = 0
+                            Apartments = ["Enter Unit"]
                         }
                 }
             }.padding(.vertical, 10)
@@ -170,9 +183,10 @@ struct CustomSearchBar: View {
                                     .foregroundColor(Color.white)
                                     .font(.custom("Futura", size: 16))
                                     .onTapGesture{
-                                    searchData.query = user.name
-                                    self.buildingID = user.id
+                                        searchData.query = user.name
+                                        self.buildingID = user.id
                                         self.showUnit = true
+                                        findApartments(buildingId: buildingID)
                                 }
                                 Divider()
                             }.padding(.horizontal,35).offset(y: 20)
@@ -201,20 +215,23 @@ struct CustomSearchBar: View {
                         }
                         else {
                             VStack{
-                            
+                                if Apartments.count != 1{
                                 HStack(spacing: 15){
                                     Spacer()
                                     Picker(selection: $Apartment, label:
-                                            Text(Apartments(building: findBuilding())[Apartment])
+                                            Text(Apartments[Apartment])
                                 ) {
-                                    ForEach(0 ..< Apartments(building: findBuilding()).count) {
-                                        Text(self.Apartments(building: findBuilding())[$0])
+                                    ForEach(0 ..< Apartments.count) {
+                                        Text(self.Apartments[$0])
                                     }
                                     .padding(1.0)
                                     .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                     }.pickerStyle(MenuPickerStyle())
                                         
                                     Spacer()
+                                }
+                                } else {
+                                    Text("")
                                 }
                             Button(action: {
                                 

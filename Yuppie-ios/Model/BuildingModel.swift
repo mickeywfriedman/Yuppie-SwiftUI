@@ -26,6 +26,10 @@ struct BuildingResponse: Decodable {
     var data : Building
 }
 
+struct UnitResponse: Decodable {
+    var result : [String]
+}
+
 struct Unit: Hashable, Decodable{
     var number: String
     var bedrooms: Int

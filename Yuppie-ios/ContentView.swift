@@ -47,7 +47,7 @@ struct ContentView: View {
     func checkIfLoggedIn() {
         print("test")
         let auth_info = UserDefaultsService().getUserInfo()
-        if (auth_info.token != ""  && auth_info.id != "") {
+        if (auth_info.token != ""  && auth_info.id != "" && (auth_info.token != nil) && (auth_info.id != nil)) {
             let token = auth_info.token!
             let user_id = auth_info.id!
             guard let user_url = URL(string: "http://18.218.78.71:8080/authentication/token/\(user_id)") else {
