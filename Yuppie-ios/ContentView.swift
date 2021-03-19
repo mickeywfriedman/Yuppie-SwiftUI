@@ -40,9 +40,34 @@ struct ContentView: View {
 
                 }
             .edgesIgnoringSafeArea(.all)
+            .onAppear(perform: checkIfLoggedIn)
             
         }
     
+    func checkIfLoggedIn() {
+        print("test")
+        let auth_info = UserDefaultsService().getUserInfo()
+        if (auth_info.token != ""  && auth_info.id != "") {
+            let token = auth_info.token!
+            let user_id = auth_info.id!
+            guard let user_url = URL(string: "http://18.218.78.71:8080/authentication/token/\(user_id)") else {
+                print("Your API end point is Invalid")
+                return
+            }
+            var user_request = URLRequest(url: user_url)
+            user_request.httpMethod = "POST"
+            user_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            URLSession.shared.dataTask(with: user_request) { data, response, error in
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode == 200 {
+                        self.user_id = user_id
+                        self.token = token
+                        self.needsAccount = false
+                    }
+                }
+            }.resume()
+        }
+    }
    
 }
 

@@ -86,6 +86,7 @@ struct Verification: View {
                         let response = urlresponse.result
                         self.token = response.access_token
                         self.user_id = response.user_id
+                        UserDefaultsService().storeInfo(id: self.user_id, token: self.token)
                         let filename = getDocumentsDirectory().appendingPathComponent("index.txt")
                         do {
                             try (("userID:")+self.user_id).write(to: filename, atomically: true, encoding: String.Encoding.utf8)
