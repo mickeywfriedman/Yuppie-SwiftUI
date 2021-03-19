@@ -38,7 +38,7 @@ class UserDefaultsService {
         return (id, token)
     }
     
-    func removeUserInfo(forUserID userID: String) {
+    func removeUserInfo() {
         userDefaults.removeObject(forKey: defaultsKeys.idKey)
         userDefaults.removeObject(forKey: defaultsKeys.tokenKey)
     }

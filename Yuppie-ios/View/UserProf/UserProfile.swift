@@ -140,6 +140,7 @@ struct ProfileView : View {
     @Binding var user_id: String
     func logout() -> Void {
         self.user_id = ""
+        UserDefaultsService().removeUserInfo()
     }
 
     var body : some View{
