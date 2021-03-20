@@ -78,7 +78,7 @@
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIImageName</key>
-		<string>small</string>
+		<string>launch3</string>
 	</dict>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

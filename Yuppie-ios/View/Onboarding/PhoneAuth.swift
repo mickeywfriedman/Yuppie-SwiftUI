@@ -176,7 +176,7 @@ struct PhoneAuth: View {
                                 }
                             }
                         
-                        Text("Welcome To Yuppie")
+                        Text("Welcome To Nested")
                             .foregroundColor(Color("Color1"))
                             .font(.custom("Futura", size: 32))
                             .padding(.bottom,15)
