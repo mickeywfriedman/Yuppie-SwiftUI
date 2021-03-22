@@ -27,7 +27,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>yuppie</string>
+				<string>nested</string>
 			</array>
 		</dict>
 	</array>

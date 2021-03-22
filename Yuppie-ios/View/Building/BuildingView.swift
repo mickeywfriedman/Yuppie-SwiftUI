@@ -100,7 +100,7 @@ struct BuildingImages: View{
             .clipShape(Circle())
         }.offset(x: (-1*UIScreen.main.bounds.width/2)+75, y: -100)
         .sheet(isPresented: $isShareSheetShowing){
-            ActivityView(activityItems: [NSURL(string: "yuppie://id/\(building.id)")!] as [Any], applicationActivities: nil)
+            ActivityView(activityItems: [NSURL(string: "nested://id/\(building.id)")!] as [Any], applicationActivities: nil)
           }
         HStack{
             Spacer()
