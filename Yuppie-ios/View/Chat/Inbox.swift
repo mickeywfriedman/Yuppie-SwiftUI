@@ -29,7 +29,7 @@ struct Inbox : View {
     @State var convos : [FriendsChat] = []
     @Binding var user : User
     @State var searchQuery = ""
-    
+    @Environment(\.colorScheme) var colorScheme
     func loadMessageData() {
         
       
@@ -146,7 +146,8 @@ struct Inbox : View {
                                         .font(.system(size: 23, weight: .bold))
                                         .foregroundColor(.gray)
                                     
-                                    TextField("Seach", text: $searchQuery)
+                                    TextField("Search", text: $searchQuery)
+                                        .foregroundColor(colorScheme == .dark ? Color.black : Color.black)
                                 }
                                 .padding(.vertical,10)
                                 .padding(.horizontal)

@@ -176,11 +176,11 @@ struct Scroll: View {
                             .clipShape(Capsule())
                         }
                     }
-                    HStack (alignment: .center){
+                    HStack(spacing: 0){
                         ForEach(filteredBuildings(), id:\.name) {building in
                         ScrollView(.horizontal, showsIndicators: false) {
                             
-                            HStack(alignment: .center){
+                            HStack{
                                 
                                 ForEach(building.tenants,id: \.self){tenant in
                                     
@@ -219,7 +219,7 @@ struct Scroll: View {
                                             .clipShape(Capsule())
                                             .opacity(0.8)
                                             .offset(y: -6)
-                                        }.padding(10)
+                                        }.padding(5)
                                     }
                                 }
 
@@ -227,12 +227,12 @@ struct Scroll: View {
                                 .clipShape(shape())
                                 .animation(.default)
                                 
-                            }
-                            }.frame(minWidth:(UIScreen.main.bounds.width), maxWidth: .infinity)
+                            }.padding(.leading)
+                            }.frame(minWidth:(UIScreen.main.bounds.width), maxWidth: geometry.size.width)
                         }
                     }
-                   .frame(minWidth: geometry.size.width, maxWidth: .infinity, alignment: .leading)
-                    .offset(x: -CGFloat(self.index) * geometry.size.width)
+                   .frame(minWidth: geometry.size.width, maxWidth: geometry.size.width, alignment: .leading)
+                    .offset(x: -CGFloat(self.index) * (geometry.size.width))
                    .animation(.interactiveSpring())
                    
                 }.offset(y: -1*((UIScreen.main.bounds.height)/2)+140)

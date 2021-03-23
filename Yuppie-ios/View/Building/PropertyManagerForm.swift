@@ -179,7 +179,6 @@ struct PropertyManagerForm : View {
                         }
                         .offset(y:80)
                 }.padding()
-                .onAppear(perform: loadUser)
                 })
             } else {
                 ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
@@ -215,17 +214,17 @@ struct PropertyManagerForm : View {
                             loadUser()
                         }
                     
-//                    Text("Enter Another Email")
-//                        .foregroundColor(.white)
-//                        .padding()
-//                        .frame(width: (UIScreen.main.bounds.width/2), height: 50)
-//                        .background(Color("Chat_color"))
-//                        .cornerRadius(30.0)
-//                        .onTapGesture{
-//                            self.email = ""
-//                            self.user.email = ""
-//                        }
-//                        .offset(y: 80)
+                    Text("Enter Another Email")
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(width: (UIScreen.main.bounds.width/2), height: 50)
+                        .background(Color("Chat_color"))
+                        .cornerRadius(30.0)
+                        .onTapGesture{
+                            self.email = ""
+                            self.user.email = ""
+                        }
+                        .offset(y: 80)
                         
                 }.padding()
                 })}
