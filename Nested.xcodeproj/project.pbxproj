@@ -29,6 +29,8 @@
 		218364822609B3E000E0C9FD /* thankyou.json in Resources */ = {isa = PBXBuildFile; fileRef = 218364812609B3E000E0C9FD /* thankyou.json */; };
 		218364872609B86300E0C9FD /* texting.json in Resources */ = {isa = PBXBuildFile; fileRef = 218364862609B86300E0C9FD /* texting.json */; };
 		2183648C2609C30300E0C9FD /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2183648B2609C30300E0C9FD /* Settings.swift */; };
+		218364FF260A6FCE00E0C9FD /* map.json in Resources */ = {isa = PBXBuildFile; fileRef = 218364FE260A6FCD00E0C9FD /* map.json */; };
+		21836525260A80C200E0C9FD /* CentralHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21836524260A80C200E0C9FD /* CentralHomeView.swift */; };
 		21A7801F258E0A4A00DD6F70 /* PulseLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7801E258E0A4A00DD6F70 /* PulseLayer.swift */; };
 		21A78027258E0A6D00DD6F70 /* Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A78026258E0A6D00DD6F70 /* Pulse.swift */; };
 		21A7802C258E0A9000DD6F70 /* AnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7802B258E0A9000DD6F70 /* AnimationDelegate.swift */; };
@@ -96,7 +98,6 @@
 		37A6938525ED859200E45CEC /* Futura Std Light Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37A6937F25ED859200E45CEC /* Futura Std Light Condensed.ttf */; settings = {ASSET_TAGS = (CustomFonts, ); }; };
 		37BB945125B88DD300D1FC86 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945025B88DD300D1FC86 /* Login.swift */; };
 		37BB945B25B88E3700D1FC86 /* SelectAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945A25B88E3700D1FC86 /* SelectAddress.swift */; };
-		37BB946525B88F3E00D1FC86 /* CentralHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB946425B88F3E00D1FC86 /* CentralHomeView.swift */; };
 		37BB947925B8A19200D1FC86 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB947825B8A19200D1FC86 /* User.swift */; };
 		37BB94A025BB4AF800D1FC86 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB949F25BB4AF800D1FC86 /* Favorites.swift */; };
 		B970C2E054123DFCFDA91335 /* Pods_Yuppie_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB1B7BACC158DB592E7994 /* Pods_Yuppie_ios.framework */; };
@@ -144,6 +145,8 @@
 		218364812609B3E000E0C9FD /* thankyou.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = thankyou.json; path = "Animations/Lotttie Files/thankyou.json"; sourceTree = "<group>"; };
 		218364862609B86300E0C9FD /* texting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = texting.json; path = "Animations/Lotttie Files/texting.json"; sourceTree = "<group>"; };
 		2183648B2609C30300E0C9FD /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		218364FE260A6FCD00E0C9FD /* map.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = map.json; path = "../../../Desktop/Yuppie-SwiftUI/Yuppie-ios/Animations/Lotttie Files/map.json"; sourceTree = "<group>"; };
+		21836524260A80C200E0C9FD /* CentralHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CentralHomeView.swift; sourceTree = "<group>"; };
 		21A7801E258E0A4A00DD6F70 /* PulseLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseLayer.swift; sourceTree = "<group>"; };
 		21A78026258E0A6D00DD6F70 /* Pulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pulse.swift; sourceTree = "<group>"; };
 		21A7802B258E0A9000DD6F70 /* AnimationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationDelegate.swift; sourceTree = "<group>"; };
@@ -175,15 +178,15 @@
 		21C10CEB25957E830049531E /* ProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicture.swift; sourceTree = "<group>"; };
 		21C10CF025957EA20049531E /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		21C9B9B22596545C00ABF426 /* SelectUniversity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUniversity.swift; sourceTree = "<group>"; };
-		21CCF05D2572B9B100B22A75 /* Yuppie-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Yuppie-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		21CCF05D2572B9B100B22A75 /* Nested.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nested.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21CCF0622572B9B100B22A75 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		21CCF0642572B9B500B22A75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21CCF0672572B9B500B22A75 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		21CCF0692572B9B500B22A75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		21CCF06E2572B9B600B22A75 /* Yuppie-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Yuppie-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		21CCF06E2572B9B600B22A75 /* NestedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NestedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		21CCF0722572B9B600B22A75 /* Yuppie_iosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Yuppie_iosTests.swift; sourceTree = "<group>"; };
 		21CCF0742572B9B600B22A75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		21CCF0792572B9B600B22A75 /* Yuppie-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Yuppie-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		21CCF0792572B9B600B22A75 /* NestedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NestedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		21CCF07D2572B9B600B22A75 /* Yuppie_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Yuppie_iosUITests.swift; sourceTree = "<group>"; };
 		21CCF07F2572B9B600B22A75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21CCF09F2572BB7700B22A75 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -195,7 +198,7 @@
 		21F7A80F25D0F0C100113DAE /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		21F7A81725D0F0F800113DAE /* BuildingGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingGallery.swift; sourceTree = "<group>"; };
 		21F7A81C25D0F15200113DAE /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
-		21F7A84825D2306300113DAE /* Yuppie-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Yuppie-ios.entitlements"; sourceTree = "<group>"; };
+		21F7A84825D2306300113DAE /* Nested.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Nested.entitlements; sourceTree = "<group>"; };
 		21F7A86525D646A000113DAE /* Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inbox.swift; sourceTree = "<group>"; };
 		21F7A89B25DB540900113DAE /* CustomNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationView.swift; sourceTree = "<group>"; };
 		21F7A8B825DB77A400113DAE /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
@@ -230,7 +233,6 @@
 		37A6939D25ED8B2F00E45CEC /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
 		37BB945025B88DD300D1FC86 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		37BB945A25B88E3700D1FC86 /* SelectAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectAddress.swift; sourceTree = "<group>"; };
-		37BB946425B88F3E00D1FC86 /* CentralHomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CentralHomeView.swift; path = "Yuppie-ios/CentralHomeView.swift"; sourceTree = SOURCE_ROOT; };
 		37BB947825B8A19200D1FC86 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		37BB949F25BB4AF800D1FC86 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		37E5267FE1BB51E0E6092311 /* Pods-Yuppie-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-ios.debug.xcconfig"; path = "Target Support Files/Pods-Yuppie-ios/Pods-Yuppie-ios.debug.xcconfig"; sourceTree = "<group>"; };
@@ -364,7 +366,7 @@
 		21CCF0542572B9B100B22A75 = {
 			isa = PBXGroup;
 			children = (
-				21CCF05F2572B9B100B22A75 /* Yuppie-ios */,
+				21CCF05F2572B9B100B22A75 /* Nested */,
 				21CCF0712572B9B600B22A75 /* Yuppie-iosTests */,
 				21CCF07C2572B9B600B22A75 /* Yuppie-iosUITests */,
 				21CCF05E2572B9B100B22A75 /* Products */,
@@ -376,14 +378,14 @@
 		21CCF05E2572B9B100B22A75 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				21CCF05D2572B9B100B22A75 /* Yuppie-ios.app */,
-				21CCF06E2572B9B600B22A75 /* Yuppie-iosTests.xctest */,
-				21CCF0792572B9B600B22A75 /* Yuppie-iosUITests.xctest */,
+				21CCF05D2572B9B100B22A75 /* Nested.app */,
+				21CCF06E2572B9B600B22A75 /* NestedTests.xctest */,
+				21CCF0792572B9B600B22A75 /* NestedUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		21CCF05F2572B9B100B22A75 /* Yuppie-ios */ = {
+		21CCF05F2572B9B100B22A75 /* Nested */ = {
 			isa = PBXGroup;
 			children = (
 				218364402609927E00E0C9FD /* friends.json */,
@@ -393,6 +395,7 @@
 				218364542609944600E0C9FD /* city.json */,
 				218364632609976600E0C9FD /* location.json */,
 				218364722609978C00E0C9FD /* contact.json */,
+				218364FE260A6FCD00E0C9FD /* map.json */,
 				218364772609979600E0C9FD /* school.json */,
 				218364812609B3E000E0C9FD /* thankyou.json */,
 				2183645E2609945700E0C9FD /* cash.json */,
@@ -405,19 +408,19 @@
 				21FAED2A26094A240011FBF0 /* nobuildings.json */,
 				2710C6A42604F0B10046A3CA /* Services */,
 				37A6937925ED859200E45CEC /* Fonts */,
-				21F7A84825D2306300113DAE /* Yuppie-ios.entitlements */,
+				21F7A84825D2306300113DAE /* Nested.entitlements */,
 				21A7801D258E0A3B00DD6F70 /* Animations */,
 				21CCF0BF2572BBEF00B22A75 /* View */,
 				21CCF0A92572BBA900B22A75 /* Model */,
 				21CCF0622572B9B100B22A75 /* ContentView.swift */,
-				37BB946425B88F3E00D1FC86 /* CentralHomeView.swift */,
 				21CCF0642572B9B500B22A75 /* Assets.xcassets */,
 				21CCF0692572B9B500B22A75 /* Info.plist */,
 				21CCF0662572B9B500B22A75 /* Preview Content */,
 				21CCF0FC2572BE4100B22A75 /* AppDelegate.swift */,
 				21CCF1092572BE8300B22A75 /* SceneDelegate.swift */,
+				21836524260A80C200E0C9FD /* CentralHomeView.swift */,
 			);
-			path = "Yuppie-ios";
+			path = Nested;
 			sourceTree = "<group>";
 		};
 		21CCF0662572B9B500B22A75 /* Preview Content */ = {
@@ -571,9 +574,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		21CCF05C2572B9B100B22A75 /* Yuppie-ios */ = {
+		21CCF05C2572B9B100B22A75 /* Nested */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 21CCF0822572B9B600B22A75 /* Build configuration list for PBXNativeTarget "Yuppie-ios" */;
+			buildConfigurationList = 21CCF0822572B9B600B22A75 /* Build configuration list for PBXNativeTarget "Nested" */;
 			buildPhases = (
 				46333E2FB4CC07CB8EC5EDEE /* [CP] Check Pods Manifest.lock */,
 				21CCF0592572B9B100B22A75 /* Sources */,
@@ -585,14 +588,14 @@
 			);
 			dependencies = (
 			);
-			name = "Yuppie-ios";
+			name = Nested;
 			productName = "Yuppie-ios";
-			productReference = 21CCF05D2572B9B100B22A75 /* Yuppie-ios.app */;
+			productReference = 21CCF05D2572B9B100B22A75 /* Nested.app */;
 			productType = "com.apple.product-type.application";
 		};
-		21CCF06D2572B9B600B22A75 /* Yuppie-iosTests */ = {
+		21CCF06D2572B9B600B22A75 /* NestedTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 21CCF0852572B9B600B22A75 /* Build configuration list for PBXNativeTarget "Yuppie-iosTests" */;
+			buildConfigurationList = 21CCF0852572B9B600B22A75 /* Build configuration list for PBXNativeTarget "NestedTests" */;
 			buildPhases = (
 				46A6975EE236788D80DB84B5 /* [CP] Check Pods Manifest.lock */,
 				21CCF06A2572B9B600B22A75 /* Sources */,
@@ -604,14 +607,14 @@
 			dependencies = (
 				21CCF0702572B9B600B22A75 /* PBXTargetDependency */,
 			);
-			name = "Yuppie-iosTests";
+			name = NestedTests;
 			productName = "Yuppie-iosTests";
-			productReference = 21CCF06E2572B9B600B22A75 /* Yuppie-iosTests.xctest */;
+			productReference = 21CCF06E2572B9B600B22A75 /* NestedTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		21CCF0782572B9B600B22A75 /* Yuppie-iosUITests */ = {
+		21CCF0782572B9B600B22A75 /* NestedUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 21CCF0882572B9B600B22A75 /* Build configuration list for PBXNativeTarget "Yuppie-iosUITests" */;
+			buildConfigurationList = 21CCF0882572B9B600B22A75 /* Build configuration list for PBXNativeTarget "NestedUITests" */;
 			buildPhases = (
 				21CCF0752572B9B600B22A75 /* Sources */,
 				21CCF0762572B9B600B22A75 /* Frameworks */,
@@ -622,9 +625,9 @@
 			dependencies = (
 				21CCF07B2572B9B600B22A75 /* PBXTargetDependency */,
 			);
-			name = "Yuppie-iosUITests";
+			name = NestedUITests;
 			productName = "Yuppie-iosUITests";
-			productReference = 21CCF0792572B9B600B22A75 /* Yuppie-iosUITests.xctest */;
+			productReference = 21CCF0792572B9B600B22A75 /* NestedUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -665,9 +668,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				21CCF05C2572B9B100B22A75 /* Yuppie-ios */,
-				21CCF06D2572B9B600B22A75 /* Yuppie-iosTests */,
-				21CCF0782572B9B600B22A75 /* Yuppie-iosUITests */,
+				21CCF05C2572B9B100B22A75 /* Nested */,
+				21CCF06D2572B9B600B22A75 /* NestedTests */,
+				21CCF0782572B9B600B22A75 /* NestedUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -691,6 +694,7 @@
 				37A6938525ED859200E45CEC /* Futura Std Light Condensed.ttf in Resources */,
 				218364822609B3E000E0C9FD /* thankyou.json in Resources */,
 				2183644B2609943D00E0C9FD /* lease.json in Resources */,
+				218364FF260A6FCE00E0C9FD /* map.json in Resources */,
 				37A6938425ED859200E45CEC /* Futura Light.ttf in Resources */,
 				21CCF0682572B9B500B22A75 /* Preview Assets.xcassets in Resources */,
 				218364462609928900E0C9FD /* confirmation.json in Resources */,
@@ -790,6 +794,7 @@
 			files = (
 				21CCF0FD2572BE4100B22A75 /* AppDelegate.swift in Sources */,
 				21FAED1726092A940011FBF0 /* InstructionsApartmentSearcher.swift in Sources */,
+				21836525260A80C200E0C9FD /* CentralHomeView.swift in Sources */,
 				21A78041258E0EFF00DD6F70 /* Messages.swift in Sources */,
 				21F7A8B925DB77A400113DAE /* CustomSearchBar.swift in Sources */,
 				21F7A89C25DB540900113DAE /* CustomNavigationView.swift in Sources */,
@@ -808,7 +813,6 @@
 				21A7801F258E0A4A00DD6F70 /* PulseLayer.swift in Sources */,
 				21C10CC325957D380049531E /* CustomCornerOnboarding.swift in Sources */,
 				21F7A8C325DB885700113DAE /* SearchUser.swift in Sources */,
-				37BB946525B88F3E00D1FC86 /* CentralHomeView.swift in Sources */,
 				21C10CB125957BEE0049531E /* CardViewOnboarding.swift in Sources */,
 				2151A7B325D0CE1A007C9F90 /* ChatBubble.swift in Sources */,
 				21F7A92425DDDE1000113DAE /* BottomSheet.swift in Sources */,
@@ -878,12 +882,12 @@
 /* Begin PBXTargetDependency section */
 		21CCF0702572B9B600B22A75 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 21CCF05C2572B9B100B22A75 /* Yuppie-ios */;
+			target = 21CCF05C2572B9B100B22A75 /* Nested */;
 			targetProxy = 21CCF06F2572B9B600B22A75 /* PBXContainerItemProxy */;
 		};
 		21CCF07B2572B9B600B22A75 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 21CCF05C2572B9B100B22A75 /* Yuppie-ios */;
+			target = 21CCF05C2572B9B100B22A75 /* Nested */;
 			targetProxy = 21CCF07A2572B9B600B22A75 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1011,13 +1015,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Yuppie-ios/Yuppie-ios.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Nested/Nested.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.5;
-				DEVELOPMENT_ASSET_PATHS = "\"Yuppie-ios/Preview Content\"";
+				CURRENT_PROJECT_VERSION = 1.7;
+				DEVELOPMENT_ASSET_PATHS = "\"Nested/Preview Content\"";
 				DEVELOPMENT_TEAM = HZUB2QW2AG;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Yuppie-ios/Info.plist";
+				INFOPLIST_FILE = Nested/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1026,7 +1030,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuppie.space;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1036,13 +1040,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Yuppie-ios/Yuppie-ios.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Nested/Nested.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.5;
-				DEVELOPMENT_ASSET_PATHS = "\"Yuppie-ios/Preview Content\"";
+				CURRENT_PROJECT_VERSION = 1.7;
+				DEVELOPMENT_ASSET_PATHS = "\"Nested/Preview Content\"";
 				DEVELOPMENT_TEAM = HZUB2QW2AG;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Yuppie-ios/Info.plist";
+				INFOPLIST_FILE = Nested/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1051,7 +1055,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuppie.space;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1062,18 +1066,18 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "Yuppie-iosTests/Info.plist";
+				INFOPLIST_FILE = NestedTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dumb.mickey.Yuppie-iosTests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuppie.space.NestedTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Yuppie-ios.app/Yuppie-ios";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nested.app/Nested";
 			};
 			name = Debug;
 		};
@@ -1084,18 +1088,18 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "Yuppie-iosTests/Info.plist";
+				INFOPLIST_FILE = NestedTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dumb.mickey.Yuppie-iosTests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuppie.space.NestedTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Yuppie-ios.app/Yuppie-ios";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nested.app/Nested";
 			};
 			name = Release;
 		};
@@ -1104,17 +1108,17 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "Yuppie-iosUITests/Info.plist";
+				INFOPLIST_FILE = NestedUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dumb.mickey.Yuppie-iosUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuppie.space.NestedUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Yuppie-ios";
+				TEST_TARGET_NAME = Nested;
 			};
 			name = Debug;
 		};
@@ -1123,17 +1127,17 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "Yuppie-iosUITests/Info.plist";
+				INFOPLIST_FILE = NestedUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.dumb.mickey.Yuppie-iosUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuppie.space.NestedUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Yuppie-ios";
+				TEST_TARGET_NAME = Nested;
 			};
 			name = Release;
 		};
@@ -1149,7 +1153,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		21CCF0822572B9B600B22A75 /* Build configuration list for PBXNativeTarget "Yuppie-ios" */ = {
+		21CCF0822572B9B600B22A75 /* Build configuration list for PBXNativeTarget "Nested" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				21CCF0832572B9B600B22A75 /* Debug */,
@@ -1158,7 +1162,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		21CCF0852572B9B600B22A75 /* Build configuration list for PBXNativeTarget "Yuppie-iosTests" */ = {
+		21CCF0852572B9B600B22A75 /* Build configuration list for PBXNativeTarget "NestedTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				21CCF0862572B9B600B22A75 /* Debug */,
@@ -1167,7 +1171,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		21CCF0882572B9B600B22A75 /* Build configuration list for PBXNativeTarget "Yuppie-iosUITests" */ = {
+		21CCF0882572B9B600B22A75 /* Build configuration list for PBXNativeTarget "NestedUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				21CCF0892572B9B600B22A75 /* Debug */,
