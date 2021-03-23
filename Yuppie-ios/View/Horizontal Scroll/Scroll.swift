@@ -119,16 +119,25 @@ struct Scroll: View {
                     .aspectRatio(contentMode: .fit)
                 .offset(y:-310)
                     .frame(width:UIScreen.main.bounds.width)
+                    
+                    Image("bottomgradient")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    .offset(y:225)
+                        .frame(width:UIScreen.main.bounds.width)
+                        
+                    Image("arrows")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    .offset(y:225)
+                        .shadow(color: Color.black.opacity(0.90),radius: 7,x: -7,y: -7)
+                        .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
+                        .frame(width:UIScreen.main.bounds.width)
+                    
+                    
+                        .frame(width:UIScreen.main.bounds.width)
                 VStack{
                     HStack{
-                        Text("Chat With Our Residents")
-                            .foregroundColor(Color.black)
-                            .fontWeight(.bold)
-                            .padding(.vertical,4)
-                        .padding(.horizontal,10)
-                        .background(Color.white)
-                        .clipShape(Capsule())
-                        .opacity(0.7)
                         Button(action: {
                             self.card = "filter"
                             self.showCard = true
@@ -140,53 +149,39 @@ struct Scroll: View {
                             }
                             .padding(.vertical,8)
                             .padding(.horizontal,10)
-                            .background(Color("Chat_color").opacity(0.5))
+                            .background(Color("Chat_color").opacity(0.75))
+                            .clipShape(Capsule())
+                        }
+                        
+                        Text("Chat With Our Residents")
+                            .foregroundColor(Color.black)
+                            .fontWeight(.bold)
+                            .padding(.vertical,4)
+                        .padding(.horizontal,10)
+                        .background(Color.white)
+                        .clipShape(Capsule())
+                        .opacity(0.7)
+                        Button(action: {
+                            self.showCard.toggle()
+                            self.card = "inbox"
+                        }) {
+                            Label(title: {
+                            }) {
+                            Image(systemName: "message")
+                                .foregroundColor(Color.white)
+                            }
+                            .padding(.vertical,8)
+                            .padding(.horizontal,10)
+                            .background(Color("Chat_color").opacity(0.75))
                             .clipShape(Capsule())
                         }
                     }
-                    HStack (spacing: 0){
+                    HStack (alignment: .center){
                         ForEach(filteredBuildings(), id:\.name) {building in
                         ScrollView(.horizontal, showsIndicators: false) {
                             
-                            HStack(spacing: 0){
+                            HStack(alignment: .center){
                                 
-                                VStack{
-                                    
-                                    ZStack{
-                                
-                                Button(action: {
-                                    self.showCard.toggle()
-                                    self.card = "inbox"
-                                    
-                                }) { Image(systemName: "message")
-                                    .resizable()
-                                    .frame(width: 25, height: 25)
-                                        .foregroundColor(Color.white)
-                                    .padding(18)
-                                }.background(Color("blueshadow").opacity(0.5))
-                                .clipShape(Circle())
-                                    
-                                    Circle()
-                                    .trim(from: 0, to: 1)
-                                        .stroke(AngularGradient(gradient: .init(colors: [.purple,.blue,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [false ? 7 : 0]))
-                                    .frame(width: 68, height: 68)
-                                    .rotationEffect(.init(degrees: true ? 360 : 0))
-                                        
-                                        
-                                    }
-                                
-                                    Label(title: {
-                                    }) {Text("Inbox")
-                                        .foregroundColor(Color.black)
-                                        .lineLimit(1)
-                                        .font(.custom("Futura", size: 14))
-                                    } .padding(.vertical,4)
-                                    .padding(.horizontal,10)
-                                    .background(Color.white)
-                                    .clipShape(Capsule())
-                                    .opacity(0.8)
-                                    
-                                }.padding(10)
                                 ForEach(building.tenants,id: \.self){tenant in
                                     
                                     Button(action: {
@@ -199,7 +194,7 @@ struct Scroll: View {
                                     }) {
                                         VStack(spacing: 8){
                                         ZStack{
-                                        URLImage(url: tenant.profilePicture)
+                                        ImageView(url: tenant.profilePicture)
                                         .frame(width: 60, height: 60)
                                             .cornerRadius(30)
                                             .padding(.bottom, 10)
@@ -207,7 +202,7 @@ struct Scroll: View {
                                             
                                         Circle()
                                         .trim(from: 0, to: 1)
-                                            .stroke(AngularGradient(gradient: .init(colors: [.purple,.orange,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [showChatUI ? 3 : 0]))
+                                            .stroke(AngularGradient(gradient: .init(colors: [.purple,Color("orange"),.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [showChatUI ? 3 : 0]))
                                         .frame(width: 68, height: 68)
                                         .rotationEffect(.init(degrees: showChatUI ? 360 : 0))
                                             
@@ -227,6 +222,7 @@ struct Scroll: View {
                                         }.padding(10)
                                     }
                                 }
+
                                 .background(Color.clear)
                                 .clipShape(shape())
                                 .animation(.default)
@@ -238,12 +234,12 @@ struct Scroll: View {
                    .frame(minWidth: geometry.size.width, maxWidth: .infinity, alignment: .leading)
                     .offset(x: -CGFloat(self.index) * geometry.size.width)
                    .animation(.interactiveSpring())
-                    
+                   
                 }.offset(y: -1*((UIScreen.main.bounds.height)/2)+140)
             HStack (spacing: 0){
                 ForEach(filteredBuildings(), id:\.name) {building in
                         CardView(token: $token, user: $user, user_id: $user_id, building:building, showCard: $showCard, card: $card)
-                            .padding(.horizontal, 20)
+                            .padding(.horizontal, 30)
                     }
                 }
            .frame(minWidth: geometry.size.width, maxWidth: .infinity, alignment: .leading)
@@ -258,9 +254,9 @@ struct Scroll: View {
                  .onEnded { value in
                     var weakGesture : CGFloat = 0
                          if value.translation.width < 0 {
-                            weakGesture = -100
+                            weakGesture = -120
                          } else {
-                            weakGesture = 100
+                            weakGesture = 120
                          }
                     let offset = (value.translation.width + weakGesture) / geometry.size.width
                     let newIndex = (CGFloat(self.index) - offset).rounded()
@@ -270,7 +266,7 @@ struct Scroll: View {
                     self.first = false
                  }
            )
-                }
+                     }
         }.sheet(isPresented: $showCard) {
             sheets(card: $card, showCard: $showCard, user: $user, buildings: filteredBuildings(), user_id: $user_id, token:$token, index: $index, tenant_id : $tenant_id, tenant_prof: $tenant_prof, tenant_name:$tenant_name)
         }.onAppear(perform: moveMap)

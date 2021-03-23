@@ -128,14 +128,10 @@ struct ProfilePicture: View {
                             
                             VStack(spacing: 45){
                                 
-                                Image(systemName: "camera")
-                                    .font(.system(size: 70))
-                                    .foregroundColor(serverData.isConnected ? Color.red.opacity(0.6) : Color("power"))
-                                    .shadow(color: Color("Chat_color").opacity(0.2), radius: 6, x:3, y: 5)
-                                    .frame(height: UIScreen.main.bounds.height / 9)
+                                LottieView(name: "selfie", loopMode: .loop)
+                                            .frame(width: 200, height: 200)
 
                             }
-                            .padding(50)
                             .background(
                             
                                 LinearGradient(gradient: .init(colors: [Color("pgradient1"),Color("pgradient2")]), startPoint: .top, endPoint: .bottom)

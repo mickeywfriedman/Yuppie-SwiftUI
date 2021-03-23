@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Lottie
 
 struct Favorites: View {
     @Binding var token: String
@@ -15,7 +16,7 @@ struct Favorites: View {
     @Binding var minBedrooms : Int
     @Binding var minBathrooms : Int
     var Tabs = ["Favorites", "Contacted"]
-    var gradient = [Color("Color-3"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
+    var gradient = [Color("Color-3"),Color("gradient2"),Color("gradient4"),Color("tabbar")]
     func findFavorites () -> [Building] {
         var filteredBuildings = [Building]()
         for building in buildings{
@@ -62,11 +63,12 @@ struct Favorites: View {
                     Text("You have not liked any buildings")
                         .foregroundColor(Color.white)
                         .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                        .offset(y: 50)
+                        .offset(y: 100)
+
                         
-                        Image("buildings")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
+                        LottieView(name: "nobuildings", loopMode: .loop)
+                                    .frame(width: 500, height: 500)
+                            .offset(y: 50)
                     }
                 }
                 
@@ -83,11 +85,12 @@ struct Favorites: View {
                     Text("You have not contacted any buildings")
                         .foregroundColor(Color.white)
                         .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                        .offset(y: 50)
+                        .offset(y: 100)
+
                         
-                    Image("buildings")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
+                        LottieView(name: "contact", loopMode: .loop)
+                                    .frame(width: 400, height: 400)
+                            .offset(y: 70)
                 }
             }
             Spacer()
@@ -161,6 +164,7 @@ struct BuildingRow: View {
                         .frame(width:UIScreen.main.bounds.width-40)
                         .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
                         .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
+                        .padding(.bottom, 25)
                     }
                 }.onTapGesture {
                     self.showCard = true
@@ -171,6 +175,7 @@ struct BuildingRow: View {
                 ZStack{
                     FavoritesImageScroll(building: building, user: $user, token: $token, user_id: $user_id)
                 .frame(width:UIScreen.main.bounds.width-40, height: 200)
+                        .padding(.bottom, 10)
                     .cornerRadius(20)
                 }.offset(y:-40)
     }

@@ -155,6 +155,10 @@ struct BuildingView: View {
     @Binding var user_id: String
     @State var expand = false
     @State var readMore = false
+    @State var offset: CGFloat = 0
+    // Start Offset...
+    @State var startOffset: CGFloat = 0
+    
     var building: Building
     func noUnits() -> Bool {
         var none = true
@@ -172,6 +176,31 @@ struct BuildingView: View {
             Color.white
         VStack{
             BuildingImages(token: $token, user : $user, user_id: $user_id, building: building).background(Color.white).padding(.bottom, -10)
+                .overlay(
+                
+                    GeometryReader{proxy -> Color in
+                        
+                        let minY = proxy.frame(in: .global).minY
+                        
+                        DispatchQueue.main.async {
+                            
+                            // to get original offset
+                            // ie from 0
+                            // just minus start offset...
+                            if startOffset == 0{
+                                startOffset = minY
+                            }
+                            
+                            offset = startOffset - minY
+                            print(offset)
+                        }
+                        
+                        return Color.clear
+                    }
+                    .frame(width: 0, height: 0)
+                    
+                    ,alignment: .top
+                )
         ScrollView(showsIndicators: false){
             VStack{
                 
@@ -420,7 +449,7 @@ struct BottomView : View {
                 
             }.padding(.horizontal)
             
-            ScrollView(.horizontal, showsIndicators: true) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top){
                     ForEach(amenities, id:\.self){
                         amenity in

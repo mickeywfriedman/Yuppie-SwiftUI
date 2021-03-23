@@ -71,8 +71,9 @@ struct LoadingScreen: View {
             }
             
             
-            Image("small")
-                .frame(width: 150)
+            Image("nestedlogo")
+                .resizable()
+                .frame(width: 200, height: 200)
                 .scaleEffect(animateLogo ? 1 : 1.4, anchor: .center)
                 .animation(Animation.easeOut(duration: 1).repeatForever(autoreverses: true))
                 .onAppear() {
@@ -164,7 +165,7 @@ struct TabBar: View {
             .padding(.bottom,30)
             .padding(.horizontal,25)
             .font(.custom("Futura Light", size: 18))
-            .background(Color("pgradient1"))
+            .background(Color("tabbar"))
             .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
             .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
             
@@ -175,3 +176,20 @@ struct TabBar: View {
     }
 
 }
+
+struct BlurViewTab : UIViewRepresentable {
+    
+    var style : UIBlurEffect.Style
+    
+    func makeUIView(context: Context) -> UIVisualEffectView {
+     
+        let view = UIVisualEffectView(effect: UIBlurEffect(style: style))
+        
+        return view
+    }
+    
+    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
+        
+    }
+}
+

@@ -150,7 +150,7 @@ struct ProfilePictureChat : View {
     
     var body: some View{
         
-        URLImage(url: self.tenant_prof)
+        ImageView(url: self.tenant_prof)
             .frame(width: 40, height: 40)
                 .cornerRadius(20)
 

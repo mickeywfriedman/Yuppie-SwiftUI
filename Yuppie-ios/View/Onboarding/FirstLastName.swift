@@ -147,14 +147,10 @@ struct FirstLastName: View {
                             
                             VStack(spacing: 45){
                                 
-                                Image(systemName: "person")
-                                    .font(.system(size: 70))
-                                    .shadow(color: Color("Chat_color").opacity(0.2), radius: 6, x:3, y: 5)
-                                    .foregroundColor(serverData.isConnected ? Color.white.opacity(0.6) : Color("power"))
-                                    .frame(height: UIScreen.main.bounds.height / 9)
+                                LottieView(name: "firstlastname", loopMode: .loop)
+                                            .frame(width: 200, height: 200)
 
                             }
-                            .padding(50)
                             .background(
                             
                                 LinearGradient(gradient: .init(colors: [Color("pgradient1"),Color("pgradient2")]), startPoint: .top, endPoint: .bottom)

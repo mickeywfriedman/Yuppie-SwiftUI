@@ -28,6 +28,7 @@ struct Inbox : View {
     @Binding var user_id: String
     @State var convos : [FriendsChat] = []
     @Binding var user : User
+    @State var searchQuery = ""
     
     func loadMessageData() {
         
@@ -108,28 +109,82 @@ struct Inbox : View {
                     
                     VStack(spacing: 20){
                         
-                        HStack{
+                      
+                        
+                        if convos.isEmpty{
+                            VStack(alignment: .center) {
+                            LottieView(name: "texting", loopMode: .loop)
+                                        .frame(width: 300, height: 300)
+                                .offset(y:75)
+                        
+
                             
-                            Text("All Chats")
-                                .font(.title2)
-                                .fontWeight(.bold)
+                                
+                               
+                                    Text("No Messages Yet")
+                                        .font(.custom("Futura", size: 18))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(Color("pgradient1"))
+                                        .offset(y: 30)
+                                    
+                                    Text("Start chatting with your friends to get nested.")
+                                        .frame(width: 400, alignment: .center)
+                                        .foregroundColor(.gray)
+                                        .multilineTextAlignment(.center)
+                                        .padding(.horizontal, 30)
+                                        .font(.custom("Futura", size: 18))
+                                        .offset(y: 30)
+                                        
+                                }
                             
-                            Spacer(minLength: 0)
-                            
-                           
                         }
-                        .padding([.horizontal,.top])
+                        else{
+                            VStack{
+                                HStack(spacing: 15){
+                                    
+                                    Image(systemName: "magnifyingglass")
+                                        .font(.system(size: 23, weight: .bold))
+                                        .foregroundColor(.gray)
+                                    
+                                    TextField("Seach", text: $searchQuery)
+                                }
+                                .padding(.vertical,10)
+                                .padding(.horizontal)
+                                .background(Color.primary.opacity(0.05))
+                                .cornerRadius(8)
+                                .padding()
+                                
+                                if searchQuery == ""{
+                                    
+                                    // Divider Line...
+                                    
+                                }
+                                
+                                Text("RECENTS")
+                                    .font(.caption)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.gray)
+                                
+                                Rectangle()
+                                    .fill(Color.gray.opacity(0.6))
+                                    .frame(height: 0.5)
+                            }
+                            .padding()
+                            .animation(.easeInOut,value: searchQuery != "")
+                        
+                        ScrollView{
                         
                       
-                            
                             // Group Data....
                             
                             ForEach(convos){FriendsChat in
                                 
                                 // Chat View...
                                 
-                                ChatView(chatData: FriendsChat, token: $token, user_id: $user_id)
+                                ChatView(chatData: FriendsChat, token: $token, user_id: $user_id).padding(.bottom, 5)
                             }
+                    }
+                    }
                     }
                     .padding(.vertical)
                     
@@ -255,7 +310,7 @@ struct ChatView : View {
         HStack(spacing: 10){
             
             
-            URLImage(url: tenants.profilePicture)
+            ImageView(url: tenants.profilePicture)
                 .frame(width: 55, height: 55)
                 .cornerRadius(27)
                 .onAppear(perform: {writeTenant(tenant_id: tenants.id)})

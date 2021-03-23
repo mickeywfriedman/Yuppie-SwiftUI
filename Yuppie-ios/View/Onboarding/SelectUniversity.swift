@@ -112,14 +112,10 @@ struct SelectUniversity: View {
                             
                             VStack(spacing: 15){
                                 
-                                Image(systemName: "studentdesk")
-                                    .font(.system(size: 70))
-                                    .foregroundColor(universityData.isConnected ? Color.red.opacity(0.6) : Color("power"))
-                                    .shadow(color: Color("Chat_color").opacity(0.6), radius: 5, x:5, y: 5)
-                                    .frame(height: UIScreen.main.bounds.height / 9)
+                                LottieView(name: "school", loopMode: .loop)
+                                            .frame(width: 200, height: 200)
 
                             }
-                            .padding(50)
                             .background(
                             
                                 LinearGradient(gradient: .init(colors: [Color("pgradient1"),Color("pgradient2")]), startPoint: .top, endPoint: .bottom)

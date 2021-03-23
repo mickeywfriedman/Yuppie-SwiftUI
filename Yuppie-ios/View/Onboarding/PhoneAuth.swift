@@ -140,13 +140,13 @@ struct PhoneAuth: View {
                             
                             VStack(spacing: 45){
                                 
-                                Image("small")
-                                    .font(.system(size: 70))
+                                Image("nestedlogo")
+                                    .resizable()
+                                    .frame(width: 200, height: 200)
                                     .shadow(color: Color("Chat_color").opacity(0.4), radius: 6, x:3, y: 5)
                                     .foregroundColor(universityData.isConnected ? Color.white.opacity(0.6) : Color("power"))
-                                    .frame(height: UIScreen.main.bounds.height / 9)
+                                    //.frame(height: UIScreen.main.bounds.height / 9)
                             }
-                            .padding(50)
                             .background(
                             
                                 LinearGradient(gradient: .init(colors: [Color("pgradient1"),Color("pgradient2")]), startPoint: .top, endPoint: .bottom)
@@ -176,7 +176,9 @@ struct PhoneAuth: View {
                                 }
                             }
                         
-                        Text("Welcome To Nested")
+
+                        Text("Welcome to Nested")
+
                             .foregroundColor(Color("Color1"))
                             .font(.custom("Futura", size: 32))
                             .padding(.bottom,15)

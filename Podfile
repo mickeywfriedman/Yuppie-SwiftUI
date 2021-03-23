@@ -8,6 +8,7 @@ target 'Yuppie-ios' do
   # Pods for Yuppie-ios
   pod 'Mapbox-iOS-SDK', '~> 6.3.0'
   pod 'PushNotifications', '~> 3.0.4'
+  pod 'lottie-ios'
 
   target 'Yuppie-iosTests' do
     inherit! :search_paths

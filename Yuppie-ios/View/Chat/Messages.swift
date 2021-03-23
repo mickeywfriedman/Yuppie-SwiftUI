@@ -125,43 +125,7 @@ struct TopView : View {
                     
                     HStack(spacing: 0){
                         
-                        VStack{
-                            
-                            ZStack{
-                        
-                        Button(action: {
-                                self.showInbox.toggle()
-                            
-                        }) { Image(systemName: "message")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                                .foregroundColor(Color.white)
-                            .padding(18)
-                        }.sheet(isPresented: $showInbox) {
-                            Inbox(token: $token, user_id: $user_id, user: $user)}.background(Color("blueshadow").opacity(0.5))
-                        .clipShape(Circle())
-                            
-                            Circle()
-                            .trim(from: 0, to: 1)
-                                .stroke(AngularGradient(gradient: .init(colors: [.purple,.blue,.purple]), center: .center), style: StrokeStyle(lineWidth: 4, dash: [false ? 7 : 0]))
-                            .frame(width: 68, height: 68)
-                            .rotationEffect(.init(degrees: true ? 360 : 0))
-                            }
-                        
-                            Label(title: {
-                            }) {Text("Inbox")
-                                .font(.custom("Futura", size: 14))
-                                .foregroundColor(Color.black)
-                                .lineLimit(1)
-                                
-                            } .padding(.vertical,4)
-                            .padding(.horizontal,10)
-                            .background(Color.white)
-                            .clipShape(Capsule())
-                            .opacity(0.8)
-                            
-                        }.padding(10)
-                        .padding(.leading, -7)
+                       
                         ForEach(building.tenants,id: \.self){tenant in
                             
                             Button(action: {

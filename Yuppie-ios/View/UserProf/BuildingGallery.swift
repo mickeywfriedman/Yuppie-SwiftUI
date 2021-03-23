@@ -304,10 +304,11 @@ struct BuildingGallery: View {
                 
                 Text("Remove Residency")
                     .font(.custom("Futura", size: 18))
-                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                    .foregroundColor(Color.white)
                     .padding(.vertical, 10)
                     .padding(.horizontal, 45)
-                    .background(Color("pgradient1"))
+                    
+                    .background(Color("tabbar"))
                     .clipShape(Capsule())
             }
             VStack(spacing: 18){

@@ -21,6 +21,10 @@ struct PropertyManagerForm : View {
     @State private var email = ""
     @State var message = ""
     @Environment(\.colorScheme) var colorScheme
+    
+    var gradient1 = [Color("gradient2"),Color("gradient3"),Color.white]
+    var gradient2 = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
+    var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
     func verifyEmail (){
         self.user.email = email
         let post_request = Email(
@@ -122,9 +126,37 @@ struct PropertyManagerForm : View {
     var body : some View{
         if user.emailVerified == false {
             if user.email == ""{
+                ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
+                    
+                    LinearGradient(gradient: .init(colors: gradient1), startPoint: .top, endPoint: .bottom)
                 VStack(alignment: .center){
+                    
+                    VStack(spacing: 45){
+                        
+                        LottieView(name: "lease", loopMode: .loop)
+                                    .frame(width: 200, height: 200)
+
+                    }
+                    
+                    .background(
+                    
+                        LinearGradient(gradient: .init(colors: [Color("pgradient1"),Color("pgradient2")]), startPoint: .top, endPoint: .bottom)
+                    )
+                    .clipShape(Circle())
+                    .padding(15)
+                    .background(Color("power1").opacity(0.7))
+                    .clipShape(Circle())
+                    .padding(15)
+                    .padding(.bottom, 15)
+                    .shadow(color: Color("Chat_color").opacity(0.2), radius: 6, x:3, y: 5)
+                    .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
+                    .offset(y: 80)
+                    .padding(.bottom, 20)
                 Text("Enter your email to begin messaging with Porperty Managers.")
-                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                    .foregroundColor(Color.white)
+                    .offset(y:80)
+                    .multilineTextAlignment(.center)
+                    .padding(.bottom, 20)
                 TextField("Email", text: self.$email )
                     .autocapitalization(.none)
                     .foregroundColor(.white)
@@ -133,32 +165,70 @@ struct PropertyManagerForm : View {
                     .background(Color("pgradient1"))
                     .clipShape(Capsule())
                     .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 0.5))
+                    .offset(y:80)
+                    .padding(.bottom, 20)
+                    Text("Submit")
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
+                        .background(Color("Chat_color"))
+                        .cornerRadius(30.0)
+                        .padding(.bottom, 20)
+                        .onTapGesture {
+                            verifyEmail()
+                        }
+                        .offset(y:80)
                 }.padding()
                 .onAppear(perform: loadUser)
-                Text("Submit")
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                    .background(Color.purple)
-                    .cornerRadius(30.0)
-                    .onTapGesture {
-                        verifyEmail()
-                    }
+                })
             } else {
+                ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
+                    
+                    LinearGradient(gradient: .init(colors: gradient1), startPoint: .top, endPoint: .bottom)
                 VStack(alignment: .center){
+                    
+                    VStack(spacing: 45){
+                        
+                        LottieView(name: "thankyou", loopMode: .loop)
+                                    .frame(width: 200, height: 200)
+                                    
+
+                    }.padding(.bottom, 20)
+                    .offset(y: 80)
+                    
                     Text("Please click on the email verification link we sent to your email.")
-                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                        .foregroundColor(Color.white)
+                        .multilineTextAlignment(.center)
+                        .offset(y: 80)
+                        .padding(.bottom, 20)
+                        .font(.custom("Futura", size: 18))
                     Text("Refresh")
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
-                        .background(Color.purple)
+                        .background(Color("Chat_color"))
                         .cornerRadius(30.0)
+                        .padding(.bottom, 20)
+                        .offset(y: 80)
+                        .font(.custom("Futura", size: 18))
                         .onTapGesture {
                             loadUser()
                         }
+                    
+//                    Text("Enter Another Email")
+//                        .foregroundColor(.white)
+//                        .padding()
+//                        .frame(width: (UIScreen.main.bounds.width/2), height: 50)
+//                        .background(Color("Chat_color"))
+//                        .cornerRadius(30.0)
+//                        .onTapGesture{
+//                            self.email = ""
+//                            self.user.email = ""
+//                        }
+//                        .offset(y: 80)
+                        
                 }.padding()
-            }
+                })}
         } else {
         VStack(alignment: .center){
             Text("Contact Property").fontWeight(.heavy).font(.largeTitle)

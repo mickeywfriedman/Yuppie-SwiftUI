@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Yuppie-ios.xcodeproj">
+      location = "group:/Users/mickeyfriedman/Desktop/Yuppie-SwiftUI/Nested.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

@@ -49,13 +49,13 @@ struct CardView: View {
                                     
                                     Text(building.name).fontWeight(.heavy).font(.custom("Futura", size: 20)).lineLimit(1)
                                     Text("\(Bedrooms[minBeds()]) from $\(minPrice(building:building))").font(.custom("Futura", size: 16))
-                                }.foregroundColor(.gray)
+                                }.foregroundColor(.black).opacity(0.7)
                                 Spacer()
                             }.padding(.top, 160)
                             .padding()
-                        }.background(Color("Color"))
+                        }.background(Color("Color")).opacity(0.7)
                         .cornerRadius(14)
-                        .frame(width:UIScreen.main.bounds.width-40)
+                        .frame(width:UIScreen.main.bounds.width-60)
                         .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
                         .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                         .animation(.spring())
@@ -64,7 +64,7 @@ struct CardView: View {
                 
                 ZStack{
                     ImageScroll(building: building, user : $user, token: $token, user_id: $user_id)
-                .frame(width:UIScreen.main.bounds.width-100, height: 200)
+                .frame(width:UIScreen.main.bounds.width-120, height: 190)
                     .cornerRadius(20)
                 .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
                 .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
@@ -120,8 +120,8 @@ struct ImageScroll: View {
     @Binding var user_id: String
     var body: some View {
         ZStack{
-            ImageSlider(images: building.images, height: 200)
-                .frame(width: UIScreen.main.bounds.width-100, height: 200)
+            ImageSlider(images: building.images, height: 190)
+                .frame(width: UIScreen.main.bounds.width-120, height: 190)
             Button(action: {
                     toggleFavorite()
                 }) {
@@ -133,19 +133,35 @@ struct ImageScroll: View {
                     
                     
                     if (user.favorites.contains(building.id)) {
+                        ZStack{
                                             Image(systemName: "heart.fill")
                                                 .foregroundColor(Color("Chat_color"))
+                            Image(systemName: "heart")
+                                .foregroundColor(Color.white)
+                                .shadow(color: Color.black.opacity(0.90),radius: 7,x: -7,y: -7)
+                                .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
+                            
+                        }
+                                                
                                             } else {
-                                                Image(systemName: "heart")
-                                                    .foregroundColor(Color.gray)
+                                                ZStack{
+                                                Image(systemName: "heart.fill")
+                                                    .foregroundColor(Color.black).opacity(0.4)
+                                                    
+                                                    Image(systemName: "heart")
+                                                        .foregroundColor(Color.white)
+                                                        .shadow(color: Color.black.opacity(0.90),radius: 1,x: -1,y: -1)
+                                                        .shadow(color: Color.gray.opacity(0.86),radius: 1,x: 1,y: 1)
+                                                    
+                                                    
+                                                }
                                             }
                 }
                 .padding(.vertical,8)
                 .padding(.horizontal,10)
-                .background(Color("Color1"))
                 .clipShape(Circle())
                 
-            }.offset(x: (-1*(UIScreen.main.bounds.width-40)/2)+50, y: -80)
+            }.offset(x: (-1*(UIScreen.main.bounds.width-40)/2)+60, y: -80)
     }
     }
 }

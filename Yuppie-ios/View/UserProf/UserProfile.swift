@@ -137,35 +137,33 @@ struct ProfileView : View {
     var profilePic: String
     var firstName: String
     var university: University
+    @State var showSettings = false
     @Binding var user_id: String
     func logout() -> Void {
         self.user_id = ""
         UserDefaultsService().removeUserInfo()
     }
-
     var body : some View{
         HStack(spacing: 15){
-            
-           
-            
+
             Text("Profile")
                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundColor(Color("Chat_color"))
-            
+                .sheet(isPresented: $showSettings) {
+                    Settings(user_id : $user_id, showSettings: $showSettings)
+            }
             Spacer(minLength: 0)
             
-            Button(action: {
-                logout()
-            }) {
-                
-                Text("Logout")
-                    .foregroundColor(.white)
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 25)
+                Image(systemName: "gear")
+                    .foregroundColor(Color.white)
+                    .padding(.vertical,8)
+                    .padding(.horizontal,10)
                     .background(Color("Chat_color"))
-                    .cornerRadius(10)
-            }
+                    .clipShape(Circle())
+                    .onTapGesture {
+                        showSettings = true
+                    }
         }
         .padding()
         HStack{
