@@ -141,16 +141,14 @@ struct InstructionsView: View {
                 ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
                     
                     
-                    
+                    ScrollView{
                     
                     VStack{
                         
                         LottieView(name: "city", loopMode: .loop)
                                     .frame(width: 750, height: 750)
                             .offset(y: -100)
-                    
 
-                        
                             
                             VStack(alignment: .center) {
                                 Text("Welcome to Nested!")
@@ -170,18 +168,14 @@ struct InstructionsView: View {
                             .offset(y: -300)
                             .multilineTextAlignment(.center)
                         
-                                }
-                        
-                        
-                        
-                       
-                       
-                       
-                       
+                                }.background(Color("Color").opacity(0.2))
+                    .clipShape(RoundedRectangle(cornerRadius:20))
+                    .frame(height: UIScreen.main.bounds.height - 220)
+
                         Spacer()
                     
                     
-                        
+                    }
                         
                     }
                     
@@ -222,7 +216,6 @@ struct InstructionsView: View {
                     }
                 }.frame(width: maxWidth, height: 65)
                 .padding(.bottom)
-                .offset(y: -100)
                 
 
             }

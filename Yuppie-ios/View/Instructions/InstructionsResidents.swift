@@ -130,8 +130,6 @@ struct InstructionsResidents: View {
 
                 Text("")
             }
-            
-            
             VStack(){
                 
                
@@ -143,7 +141,7 @@ struct InstructionsResidents: View {
                 ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
                     
                     
-                    
+                    ScrollView{
                     
                     VStack{
                         
@@ -217,7 +215,9 @@ struct InstructionsResidents: View {
                        
                         Spacer()
                     
-                    
+                    }.background(Color("Color").opacity(0.2))
+                    .clipShape(RoundedRectangle(cornerRadius:20))
+                    .frame(height: UIScreen.main.bounds.height - 220)
                         
                         
                     }
@@ -259,7 +259,6 @@ struct InstructionsResidents: View {
                     }
                 }.frame(width: maxWidth, height: 65)
                 .padding(.bottom)
-                .offset(y: 50)
                 
 
             }

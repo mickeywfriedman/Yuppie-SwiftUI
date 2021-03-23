@@ -129,7 +129,7 @@ struct Scroll: View {
                     Image("arrows")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                    .offset(y:225)
+                    .offset(y: ((UIScreen.main.bounds.height)/2)-220)
                         .shadow(color: Color.black.opacity(0.90),radius: 7,x: -7,y: -7)
                         .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                         .frame(width:UIScreen.main.bounds.width)

@@ -131,18 +131,9 @@ struct InstructionsApartmentSearcher: View {
             
             
             VStack(){
-                
-               
 
-           
-                
-                // Button.....
-                
                 ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
-                    
-                    
-                    
-                    
+                    ScrollView{
                     VStack{
                         
                         Text("For Apartment Searchers ...")
@@ -151,11 +142,7 @@ struct InstructionsApartmentSearcher: View {
                             .foregroundColor(.white)
                         
                         HStack{
-                       
-                            
-                    
 
-                        
                             
                             VStack(alignment: .leading, spacing: 10, content: {
                               
@@ -178,11 +165,7 @@ struct InstructionsApartmentSearcher: View {
                         HStack{
                         LottieView(name: "chat", loopMode: .loop)
                                     .frame(width: 200, height: 200)
-                            
-                    
 
-                        
-                            
                             VStack(alignment: .leading, spacing: 10, content: {
                               
                                 
@@ -200,11 +183,6 @@ struct InstructionsApartmentSearcher: View {
                         
                         HStack{
                        
-                            
-                    
-
-                        
-                            
                             VStack(alignment: .leading, spacing: 10, content: {
                               
                                 
@@ -222,27 +200,15 @@ struct InstructionsApartmentSearcher: View {
                             LottieView(name: "lease", loopMode: .loop)
                                         .frame(width: 200, height: 200)
                         }
-                        
-                        
-                        
-                        
-                        
-                        
+
                                 }
-                        
-                        
-                        
-                       
-                       
-                       
-                       
+
                         Spacer()
-                    
-                    
-                        
-                        
-                    }
-                    
+
+                    }.background(Color("Color").opacity(0.2))
+                    .clipShape(RoundedRectangle(cornerRadius:20))
+                    .frame(height: UIScreen.main.bounds.height - 220)
+                }
                 )
                 ZStack{
                     Capsule()

@@ -139,7 +139,7 @@ struct Inbox : View {
                             
                         }
                         else{
-                            VStack{
+                            /*VStack{
                                 HStack(spacing: 15){
                                     
                                     Image(systemName: "magnifyingglass")
@@ -172,7 +172,7 @@ struct Inbox : View {
                             }
                             .padding()
                             .animation(.easeInOut,value: searchQuery != "")
-                        
+                        */
                         ScrollView{
                         
                       
