@@ -215,11 +215,12 @@ struct BuildingView: View {
                 }
                 VStack(alignment: .leading){
                     VStack(alignment: .leading){
+                        if building.tenants.count != 0 {
                         Text("Chat With Our Residents").fontWeight(.heavy).padding(.top,15)
                             .foregroundColor(Color.gray)
                             .font(.custom("Futura", size: 18))
                             .padding(.horizontal)
-                            
+                        }
                         HStack{
                             
                             ScrollView(.horizontal, showsIndicators: false) {

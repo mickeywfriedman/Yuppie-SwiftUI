@@ -183,7 +183,7 @@ struct InstructionsView: View {
                     Capsule()
                         .fill(Color.white.opacity(0.1))
                     
-                    Text("Here's how the App Works")
+                    Text("How the App Works")
                         .foregroundColor(Color.white)
                         .font(.custom("Futura", size: 18))
                         .padding(.leading, 30)

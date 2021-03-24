@@ -288,6 +288,7 @@ struct Verification: View {
                         }
                         
                         Button(action: {
+                            hideKeyboard()
                             self.receiveAuthInfo()
                             
                             

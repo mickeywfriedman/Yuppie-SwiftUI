@@ -173,7 +173,7 @@ struct BuildingRow: View {
                 ZStack{
                     FavoritesImageScroll(building: building, user: $user, token: $token, user_id: $user_id)
                 .frame(width:UIScreen.main.bounds.width-40, height: 200)
-                        .padding(.bottom, 10)
+                        .padding(.bottom, 20)
                     .cornerRadius(20)
                 }.offset(y:-40)
     }.onTapGesture {
@@ -235,16 +235,32 @@ struct FavoritesImageScroll: View {
                     
                 }) {
                     if (user.favorites.contains(building.id)) {
-                        Image(systemName: "heart.fill")
-                            .foregroundColor(Color("Chat_color"))
-                        } else {
+                        ZStack{
+                                            Image(systemName: "heart.fill")
+                                                .foregroundColor(Color("Chat_color"))
                             Image(systemName: "heart")
-                                .foregroundColor(Color.gray)
+                                .foregroundColor(Color.white)
+                                .shadow(color: Color.black.opacity(0.90),radius: 7,x: -7,y: -7)
+                                .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
+                            
                         }
+                                                
+                                            } else {
+                                                ZStack{
+                                                Image(systemName: "heart.fill")
+                                                    .foregroundColor(Color.black).opacity(0.4)
+                                                    
+                                                    Image(systemName: "heart")
+                                                        .foregroundColor(Color.white)
+                                                        .shadow(color: Color.black.opacity(0.90),radius: 1,x: -1,y: -1)
+                                                        .shadow(color: Color.gray.opacity(0.86),radius: 1,x: 1,y: 1)
+                                                    
+                                                    
+                                                }
+                                            }
                 }
                 .padding(.vertical,8)
                 .padding(.horizontal,10)
-                .background(Color("Color1"))
                 .clipShape(Circle())
                 
             }.offset(x: (-1*(UIScreen.main.bounds.width-40)/2)+20, y: -80)

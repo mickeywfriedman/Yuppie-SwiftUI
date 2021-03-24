@@ -29,7 +29,6 @@
 		218364822609B3E000E0C9FD /* thankyou.json in Resources */ = {isa = PBXBuildFile; fileRef = 218364812609B3E000E0C9FD /* thankyou.json */; };
 		218364872609B86300E0C9FD /* texting.json in Resources */ = {isa = PBXBuildFile; fileRef = 218364862609B86300E0C9FD /* texting.json */; };
 		2183648C2609C30300E0C9FD /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2183648B2609C30300E0C9FD /* Settings.swift */; };
-		218364FF260A6FCE00E0C9FD /* map.json in Resources */ = {isa = PBXBuildFile; fileRef = 218364FE260A6FCD00E0C9FD /* map.json */; };
 		21836525260A80C200E0C9FD /* CentralHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21836524260A80C200E0C9FD /* CentralHomeView.swift */; };
 		21A7801F258E0A4A00DD6F70 /* PulseLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7801E258E0A4A00DD6F70 /* PulseLayer.swift */; };
 		21A78027258E0A6D00DD6F70 /* Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A78026258E0A6D00DD6F70 /* Pulse.swift */; };
@@ -88,7 +87,6 @@
 		21FAED1C26092AAE0011FBF0 /* InstructionsResidents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FAED1B26092AAE0011FBF0 /* InstructionsResidents.swift */; };
 		2710C6A62604F0CD0046A3CA /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710C6A52604F0CD0046A3CA /* UserDefaultsService.swift */; };
 		2710C6A72604F0CD0046A3CA /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710C6A52604F0CD0046A3CA /* UserDefaultsService.swift */; };
-		363DD9B869B0CEB162D02138 /* Pods_Yuppie_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99F83670E0F2DABA87D28533 /* Pods_Yuppie_iosTests.framework */; };
 		370E680725A7F9FE00EA597C /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370E680625A7F9FE00EA597C /* URLImage.swift */; };
 		376D0E1425EACDD10087B91F /* Sheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376D0E1325EACDD10087B91F /* Sheets.swift */; };
 		37A6938025ED859200E45CEC /* Futura Std Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37A6937A25ED859200E45CEC /* Futura Std Light.ttf */; settings = {ASSET_TAGS = (CustomFonts, ); }; };
@@ -100,7 +98,8 @@
 		37BB945B25B88E3700D1FC86 /* SelectAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945A25B88E3700D1FC86 /* SelectAddress.swift */; };
 		37BB947925B8A19200D1FC86 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB947825B8A19200D1FC86 /* User.swift */; };
 		37BB94A025BB4AF800D1FC86 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB949F25BB4AF800D1FC86 /* Favorites.swift */; };
-		B970C2E054123DFCFDA91335 /* Pods_Yuppie_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB1B7BACC158DB592E7994 /* Pods_Yuppie_ios.framework */; };
+		62B44ECF7937E9287AE44546 /* Pods_NestedTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF99AB4BF62BE6237F48FBF /* Pods_NestedTests.framework */; };
+		FC1FEE09D826BB722B6728C0 /* Pods_Nested.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 854D8E689D31302494EEF19E /* Pods_Nested.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,7 +144,6 @@
 		218364812609B3E000E0C9FD /* thankyou.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = thankyou.json; path = "Animations/Lotttie Files/thankyou.json"; sourceTree = "<group>"; };
 		218364862609B86300E0C9FD /* texting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = texting.json; path = "Animations/Lotttie Files/texting.json"; sourceTree = "<group>"; };
 		2183648B2609C30300E0C9FD /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		218364FE260A6FCD00E0C9FD /* map.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = map.json; path = "../../../Desktop/Yuppie-SwiftUI/Yuppie-ios/Animations/Lotttie Files/map.json"; sourceTree = "<group>"; };
 		21836524260A80C200E0C9FD /* CentralHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CentralHomeView.swift; sourceTree = "<group>"; };
 		21A7801E258E0A4A00DD6F70 /* PulseLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseLayer.swift; sourceTree = "<group>"; };
 		21A78026258E0A6D00DD6F70 /* Pulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pulse.swift; sourceTree = "<group>"; };
@@ -223,6 +221,7 @@
 		21FAED3126094A3D0011FBF0 /* friends.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = friends.json; sourceTree = "<group>"; };
 		21FAED3226094A5C0011FBF0 /* city.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = city.json; sourceTree = "<group>"; };
 		2710C6A52604F0CD0046A3CA /* UserDefaultsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
+		36DC9ECEEA00C6A676BEBDC5 /* Pods-NestedTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestedTests.debug.xcconfig"; path = "Target Support Files/Pods-NestedTests/Pods-NestedTests.debug.xcconfig"; sourceTree = "<group>"; };
 		370E680625A7F9FE00EA597C /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
 		376D0E1325EACDD10087B91F /* Sheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheets.swift; sourceTree = "<group>"; };
 		37A6937A25ED859200E45CEC /* Futura Std Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Futura Std Light.ttf"; sourceTree = "<group>"; };
@@ -236,10 +235,13 @@
 		37BB947825B8A19200D1FC86 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		37BB949F25BB4AF800D1FC86 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		37E5267FE1BB51E0E6092311 /* Pods-Yuppie-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-ios.debug.xcconfig"; path = "Target Support Files/Pods-Yuppie-ios/Pods-Yuppie-ios.debug.xcconfig"; sourceTree = "<group>"; };
+		3A28F0195C3B8FF6850FB13A /* Pods-Nested.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nested.release.xcconfig"; path = "Target Support Files/Pods-Nested/Pods-Nested.release.xcconfig"; sourceTree = "<group>"; };
+		6DDD7C60ECCB2802A154A314 /* Pods-Nested.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nested.debug.xcconfig"; path = "Target Support Files/Pods-Nested/Pods-Nested.debug.xcconfig"; sourceTree = "<group>"; };
 		7C4EF42C6F27A086805D57F2 /* Pods-Yuppie-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-iosTests.release.xcconfig"; path = "Target Support Files/Pods-Yuppie-iosTests/Pods-Yuppie-iosTests.release.xcconfig"; sourceTree = "<group>"; };
+		854D8E689D31302494EEF19E /* Pods_Nested.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nested.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8673E826B6F245D7EFB96610 /* Pods-Yuppie-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yuppie-iosTests.debug.xcconfig"; path = "Target Support Files/Pods-Yuppie-iosTests/Pods-Yuppie-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
-		8BDB1B7BACC158DB592E7994 /* Pods_Yuppie_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Yuppie_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		99F83670E0F2DABA87D28533 /* Pods_Yuppie_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Yuppie_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		957C8713E0EB02833A964C0C /* Pods-NestedTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestedTests.release.xcconfig"; path = "Target Support Files/Pods-NestedTests/Pods-NestedTests.release.xcconfig"; sourceTree = "<group>"; };
+		DCF99AB4BF62BE6237F48FBF /* Pods_NestedTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NestedTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,7 +249,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B970C2E054123DFCFDA91335 /* Pods_Yuppie_ios.framework in Frameworks */,
+				FC1FEE09D826BB722B6728C0 /* Pods_Nested.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,7 +257,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				363DD9B869B0CEB162D02138 /* Pods_Yuppie_iosTests.framework in Frameworks */,
+				62B44ECF7937E9287AE44546 /* Pods_NestedTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +278,10 @@
 				0F58E1E3230A7656E830254D /* Pods-Yuppie-ios.release.xcconfig */,
 				8673E826B6F245D7EFB96610 /* Pods-Yuppie-iosTests.debug.xcconfig */,
 				7C4EF42C6F27A086805D57F2 /* Pods-Yuppie-iosTests.release.xcconfig */,
+				6DDD7C60ECCB2802A154A314 /* Pods-Nested.debug.xcconfig */,
+				3A28F0195C3B8FF6850FB13A /* Pods-Nested.release.xcconfig */,
+				36DC9ECEEA00C6A676BEBDC5 /* Pods-NestedTests.debug.xcconfig */,
+				957C8713E0EB02833A964C0C /* Pods-NestedTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -395,7 +401,6 @@
 				218364542609944600E0C9FD /* city.json */,
 				218364632609976600E0C9FD /* location.json */,
 				218364722609978C00E0C9FD /* contact.json */,
-				218364FE260A6FCD00E0C9FD /* map.json */,
 				218364772609979600E0C9FD /* school.json */,
 				218364812609B3E000E0C9FD /* thankyou.json */,
 				2183645E2609945700E0C9FD /* cash.json */,
@@ -565,8 +570,8 @@
 		BE128756A457E01474E39134 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8BDB1B7BACC158DB592E7994 /* Pods_Yuppie_ios.framework */,
-				99F83670E0F2DABA87D28533 /* Pods_Yuppie_iosTests.framework */,
+				854D8E689D31302494EEF19E /* Pods_Nested.framework */,
+				DCF99AB4BF62BE6237F48FBF /* Pods_NestedTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -694,7 +699,6 @@
 				37A6938525ED859200E45CEC /* Futura Std Light Condensed.ttf in Resources */,
 				218364822609B3E000E0C9FD /* thankyou.json in Resources */,
 				2183644B2609943D00E0C9FD /* lease.json in Resources */,
-				218364FF260A6FCE00E0C9FD /* map.json in Resources */,
 				37A6938425ED859200E45CEC /* Futura Light.ttf in Resources */,
 				21CCF0682572B9B500B22A75 /* Preview Assets.xcassets in Resources */,
 				218364462609928900E0C9FD /* confirmation.json in Resources */,
@@ -739,7 +743,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Yuppie-ios-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Nested-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -761,7 +765,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Yuppie-iosTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-NestedTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -774,15 +778,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Yuppie-ios/Pods-Yuppie-ios-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Nested/Pods-Nested-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Yuppie-ios/Pods-Yuppie-ios-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Nested/Pods-Nested-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Yuppie-ios/Pods-Yuppie-ios-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Nested/Pods-Nested-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1011,7 +1015,7 @@
 		};
 		21CCF0832572B9B600B22A75 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 37E5267FE1BB51E0E6092311 /* Pods-Yuppie-ios.debug.xcconfig */;
+			baseConfigurationReference = 6DDD7C60ECCB2802A154A314 /* Pods-Nested.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1036,7 +1040,7 @@
 		};
 		21CCF0842572B9B600B22A75 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0F58E1E3230A7656E830254D /* Pods-Yuppie-ios.release.xcconfig */;
+			baseConfigurationReference = 3A28F0195C3B8FF6850FB13A /* Pods-Nested.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1061,7 +1065,7 @@
 		};
 		21CCF0862572B9B600B22A75 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8673E826B6F245D7EFB96610 /* Pods-Yuppie-iosTests.debug.xcconfig */;
+			baseConfigurationReference = 36DC9ECEEA00C6A676BEBDC5 /* Pods-NestedTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1083,7 +1087,7 @@
 		};
 		21CCF0872572B9B600B22A75 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7C4EF42C6F27A086805D57F2 /* Pods-Yuppie-iosTests.release.xcconfig */;
+			baseConfigurationReference = 957C8713E0EB02833A964C0C /* Pods-NestedTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
