@@ -16,11 +16,14 @@ struct BuildingGallery: View {
     @State var filter = ""
     var token : String
     @State var Apartment = 0
-    @State var Apartments = ["Enter Unit"]
+    @State var Apartments = ["Enter Unit (Optional)"]
     @State var showError = false
     @Environment(\.colorScheme) var colorScheme
+    func hideKeyboard() {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
     func findApartments (buildingId: String) -> [String]{
-        var result = ["Enter Unit"]
+        var result = ["Enter Unit (Optional)"]
         guard let url = URL(string: "http://18.218.78.71:8080/buildings/\(buildingId)/unit-numbers") else {
             print("Your API end point is Invalid")
             return result
@@ -35,7 +38,7 @@ struct BuildingGallery: View {
                         self.Apartments = urlresponse.result
                         result = urlresponse.result
                         print(Apartments)
-                        self.Apartments.insert("Enter Unit", at: 0)
+                        self.Apartments.insert("Enter Unit (Optional)", at: 0)
                         print("success")
                     }
                     return
@@ -47,12 +50,8 @@ struct BuildingGallery: View {
     }
 
     public func send() {
-        if Apartment == 0{
-            showError = true
-        }
-        else{
         user.building = filterBuildings()[0].id
-        let parameters: [String: String] = ["user" : self.user.id, "unit": Apartments[Apartment]]
+        let parameters: [String: String] = ["user" : self.user.id, "unit": "\((Apartment == 0) ? "": Apartments[Apartment])"]
                   
                 let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/buildings/\(buildingID)/tenants")! as URL)
                   request.httpMethod = "POST"
@@ -96,12 +95,12 @@ struct BuildingGallery: View {
                     }
                     task.resume()
                 
-        }
+
              }
     public func removeResidency() {
         showUnit = false
         query = ""
-        Apartments = ["Enter Unit"]
+        Apartments = ["Enter Unit (Optional)"]
         Apartment = 0
         let parameters: [String: String] = ["user" : self.user.id]
                   
@@ -195,7 +194,7 @@ struct BuildingGallery: View {
                             .onTapGesture {
                                 showUnit = false
                                 query = ""
-                                Apartments = ["Enter Unit"]
+                                Apartments = ["Enter Unit (Optional)"]
                                 Apartment = 0
                             }
                     }
@@ -211,6 +210,7 @@ struct BuildingGallery: View {
                                     Text("\(building.name)"+" - "+"\(building.address.streetAddress)")
                                         .font(.custom("Futura", size: 16))
                                         .onTapGesture{
+                                            hideKeyboard()
                                             query = building.name
                                             self.buildingID = building.id
                                             findApartments(buildingId: building.id)

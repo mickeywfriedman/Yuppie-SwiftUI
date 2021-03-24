@@ -23,6 +23,9 @@ struct CustomSearchBar: View {
     @State var showError = false
     @State var Apartments = ["Enter Unit (Optional)"]
     @Environment(\.colorScheme) var colorScheme
+    func hideKeyboard() {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
     func findApartments (buildingId: String) -> [String]{
         var result = ["Enter Unit (Optional)"]
         guard let url = URL(string: "http://18.218.78.71:8080/buildings/\(buildingId)/unit-numbers") else {
@@ -179,6 +182,7 @@ struct CustomSearchBar: View {
                                     .foregroundColor(Color.white)
                                     .font(.custom("Futura", size: 16))
                                     .onTapGesture{
+                                        hideKeyboard()
                                         searchData.query = user.name
                                         self.buildingID = user.id
                                         self.showUnit = true
