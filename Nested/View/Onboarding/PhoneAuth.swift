@@ -295,7 +295,7 @@ struct PhoneAuth: View {
                             self.didLogin = false
                             self.needsAccount = true
                             self.showVerification.toggle()
-                            hideKeyboard()
+                            
                             
                         }) {
                             

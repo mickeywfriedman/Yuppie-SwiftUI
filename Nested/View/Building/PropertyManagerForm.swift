@@ -25,6 +25,9 @@ struct PropertyManagerForm : View {
     var gradient1 = [Color("gradient2"),Color("gradient3"),Color.white]
     var gradient2 = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
+    func hideKeyboard() {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
     func verifyEmail (){
         self.user.email = email
         let post_request = Email(
@@ -229,6 +232,10 @@ struct PropertyManagerForm : View {
                 }.padding()
                 })}
         } else {
+            if user.contacted.contains(building.id){
+                Text("Message sent. The Property Manager should reach out to you shortly.")
+                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+            } else {
         VStack(alignment: .center){
             Text("Contact Property").fontWeight(.heavy).font(.largeTitle)
                 .padding(.vertical)
@@ -340,6 +347,7 @@ struct PropertyManagerForm : View {
                 self.showPopUp = true
                 sendEmail(Message: message, Apartment: Apartments()[Apartment], userID: user_id, building: building, moveIn: MoveIn)
                 self.endTextEditing()
+                hideKeyboard()
             }) {
                 Text("Send Message").font(.headline)
                     .foregroundColor(.white)
@@ -348,8 +356,11 @@ struct PropertyManagerForm : View {
                     .background(Color.blue)
                     .cornerRadius(15.0)
             }
-        }.padding().padding(.bottom, keyboardHeight).edgesIgnoringSafeArea([.top, .bottom])
-    }
+        }
+        .padding().padding(.bottom, keyboardHeight).edgesIgnoringSafeArea([.top, .bottom])
+
+            }
+        }
 }
 }
 
