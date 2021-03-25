@@ -27,6 +27,30 @@ struct Scroll: View {
     @State var showInbox = false
     @State var first = true
     var gradient = [Color("Color-3"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
+    func loadData() {
+        if (self.token != "") {
+            print(self.token, "SUHSHHHS")
+            guard let url = URL(string: "http://18.218.78.71:8080/buildings") else {
+                print("Your API end point is Invalid")
+                return
+            }
+            var request = URLRequest(url: url)
+            request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+            print(self.token)
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let data = data {
+                    if let response = try? JSONDecoder().decode(Response.self, from: data) {
+                        DispatchQueue.main.async {
+                            self.buildings = response.data
+                            print("hello")
+                            print(user_id)
+                        }
+                        return
+                    }
+                }
+            }.resume()
+        }
+        }
     func moveMap () -> Void {
         let seconds = 0.1
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
@@ -161,6 +185,7 @@ struct Scroll: View {
                         .background(Color.white)
                         .clipShape(Capsule())
                         .opacity(0.7)
+                            .onAppear(perform: loadData)
                         Button(action: {
                             self.showCard.toggle()
                             self.card = "inbox"
@@ -175,6 +200,21 @@ struct Scroll: View {
                             .background(Color("Chat_color").opacity(0.75))
                             .clipShape(Capsule())
                         }
+                        /*Button(action: {
+                            self.showCard.toggle()
+                            self.card = "invite"
+                        }) {
+                            Label(title: {
+                            }) {
+                            Image(systemName: "person.badge.plus")
+                                .foregroundColor(Color.white)
+                            }
+                            .padding(.vertical,8)
+                            .padding(.horizontal,10)
+                            .background(Color("Chat_color").opacity(0.75))
+                            .clipShape(Capsule())
+                        }
+ */
                     }
                     HStack(spacing: 0){
                         ForEach(filteredBuildings(), id:\.name) {building in

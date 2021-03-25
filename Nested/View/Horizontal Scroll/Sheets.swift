@@ -53,8 +53,13 @@ struct sheets: View {
         return dateFormatter.string(from: date)
     }
     func updateFilters() -> Void {
-        self.user.preferences.earliestMoveInDate = "\(format(date: minDate))"
-        self.user.preferences.latestMoveInDate = "\(format(date: maxDate))"
+        if maxDate < Date(){
+        self.user.preferences.earliestMoveInDate = "\(format(date: Date()))"
+        self.user.preferences.latestMoveInDate = "\(format(date: Date(timeInterval: 14*86400, since: Date())))"
+        } else {
+            self.user.preferences.earliestMoveInDate = "\(format(date: minDate))"
+            self.user.preferences.latestMoveInDate = "\(format(date:maxDate))"
+        }
         guard let filter_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)") else {
             print("Your API end point is Invalid")
             return
@@ -96,7 +101,7 @@ struct sheets: View {
         if (card == "filter"){
         VStack{
             Text("Update Preferences").font(.largeTitle).fontWeight(.heavy)
-        FiltersView(token: $token, user: $user, user_id: $user_id, minDate: dateFormat(string: user.preferences.earliestMoveInDate), maxDate: dateFormat(string: user.preferences.latestMoveInDate)).onDisappear(perform: updateFilters)
+        FiltersView(token: $token, user: $user, user_id: $user_id, minDate: $minDate, maxDate: $maxDate).onDisappear(perform: updateFilters)
         }.padding().onDisappear(perform: {
             reset()
         })
@@ -106,6 +111,9 @@ struct sheets: View {
         }
         else if (card == "inbox") {
             Inbox(token: $token, user_id: $user_id, user: $user)
+        }
+        else if (card == "invite") {
+            Contacts(user: user)
         }
         else if (card == "chat") {
             ChatUI(token: $token, user_id: $user_id, tenant_id: $tenant_id, tenant_prof: $tenant_prof, tenant_name: $tenant_name, showChatUI: $showCard)

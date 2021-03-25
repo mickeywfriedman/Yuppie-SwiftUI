@@ -32,8 +32,13 @@ struct UserProfile : View {
         return dateFormatter.date(from: string) ?? Date()
     }
     func updateFilters() -> Void {
-        self.user.preferences.earliestMoveInDate = "\(format(date: minDate))"
-        self.user.preferences.latestMoveInDate = "\(format(date: maxDate))"
+        if maxDate < Date(){
+        self.user.preferences.earliestMoveInDate = "\(format(date: Date()))"
+        self.user.preferences.latestMoveInDate = "\(format(date: Date(timeInterval: 14*86400, since: Date())))"
+        } else {
+            self.user.preferences.earliestMoveInDate = "\(format(date: minDate))"
+            self.user.preferences.latestMoveInDate = "\(format(date:maxDate))"
+        }
         guard let filter_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)") else {
             print("Your API end point is Invalid")
             return
@@ -107,7 +112,7 @@ struct UserProfile : View {
             if (index == 0){
 
                 // week data..
-                FiltersView(token: $token, user: $user, user_id: $user_id, minDate: dateFormat(string: user.preferences.earliestMoveInDate), maxDate: dateFormat(string: user.preferences.latestMoveInDate)).tag(0)
+                FiltersView(token: $token, user: $user, user_id: $user_id, minDate: $minDate, maxDate: $maxDate).tag(0)
             } else if (index == 1){
                 // month data...
                 

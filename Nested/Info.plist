@@ -39,6 +39,8 @@
 	<string>pk.eyJ1IjoibGVvbnl1cHBpZSIsImEiOiJja2Z0eG5qN2kwdXMwMnJxZ3VyZ3FxdjhlIn0.B4CoD568cuDcv1Z7EpnGvQ</string>
 	<key>MGLMapboxMetricsEnabledSettingShownInApp</key>
 	<string>YES</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Invite friends to app</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Montserrat-Medium.ttf</string>

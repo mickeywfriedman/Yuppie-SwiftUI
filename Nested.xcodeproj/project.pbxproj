@@ -88,6 +88,7 @@
 		2710C6A62604F0CD0046A3CA /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710C6A52604F0CD0046A3CA /* UserDefaultsService.swift */; };
 		2710C6A72604F0CD0046A3CA /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710C6A52604F0CD0046A3CA /* UserDefaultsService.swift */; };
 		370E680725A7F9FE00EA597C /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370E680625A7F9FE00EA597C /* URLImage.swift */; };
+		374B9796260C218600CDB3E6 /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B9795260C218600CDB3E6 /* Contacts.swift */; };
 		376D0E1425EACDD10087B91F /* Sheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376D0E1325EACDD10087B91F /* Sheets.swift */; };
 		37A6938025ED859200E45CEC /* Futura Std Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37A6937A25ED859200E45CEC /* Futura Std Light.ttf */; settings = {ASSET_TAGS = (CustomFonts, ); }; };
 		37A6938225ED859200E45CEC /* Futura.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 37A6937C25ED859200E45CEC /* Futura.ttc */; settings = {ASSET_TAGS = (CustomFonts, ); }; };
@@ -223,6 +224,7 @@
 		2710C6A52604F0CD0046A3CA /* UserDefaultsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		36DC9ECEEA00C6A676BEBDC5 /* Pods-NestedTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestedTests.debug.xcconfig"; path = "Target Support Files/Pods-NestedTests/Pods-NestedTests.debug.xcconfig"; sourceTree = "<group>"; };
 		370E680625A7F9FE00EA597C /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
+		374B9795260C218600CDB3E6 /* Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
 		376D0E1325EACDD10087B91F /* Sheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheets.swift; sourceTree = "<group>"; };
 		37A6937A25ED859200E45CEC /* Futura Std Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Futura Std Light.ttf"; sourceTree = "<group>"; };
 		37A6937C25ED859200E45CEC /* Futura.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Futura.ttc; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				21CCF0C82572BC1300B22A75 /* CardView.swift */,
 				21A7804F258E112100DD6F70 /* FiltersView.swift */,
 				376D0E1325EACDD10087B91F /* Sheets.swift */,
+				374B9795260C218600CDB3E6 /* Contacts.swift */,
 			);
 			path = "Horizontal Scroll";
 			sourceTree = "<group>";
@@ -846,6 +849,7 @@
 				21CCF0632572B9B100B22A75 /* ContentView.swift in Sources */,
 				21C10CB625957C660049531E /* BlurView.swift in Sources */,
 				21F7A81D25D0F15200113DAE /* UserProfile.swift in Sources */,
+				374B9796260C218600CDB3E6 /* Contacts.swift in Sources */,
 				37BB945B25B88E3700D1FC86 /* SelectAddress.swift in Sources */,
 				21A78036258E0AC300DD6F70 /* CALayer+Extensions.swift in Sources */,
 				21F7A81825D0F0F800113DAE /* BuildingGallery.swift in Sources */,
@@ -1020,10 +1024,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Nested/Nested.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.7;
 				DEVELOPMENT_ASSET_PATHS = "\"Nested/Preview Content\"";
-				DEVELOPMENT_TEAM = HZUB2QW2AG;
+				DEVELOPMENT_TEAM = 39QK36JNAM;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Nested/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1033,6 +1038,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuppie.space;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1045,10 +1051,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Nested/Nested.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.7;
 				DEVELOPMENT_ASSET_PATHS = "\"Nested/Preview Content\"";
-				DEVELOPMENT_TEAM = HZUB2QW2AG;
+				DEVELOPMENT_TEAM = 39QK36JNAM;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Nested/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1058,6 +1065,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuppie.space;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

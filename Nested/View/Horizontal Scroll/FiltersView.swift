@@ -6,8 +6,8 @@ struct FiltersView: View {
     @Binding var token: String
     @Binding var user : User
     @Binding var user_id: String
-    @State var minDate: Date
-    @State var maxDate: Date
+    @Binding var minDate: Date
+    @Binding var maxDate: Date
     var Bathrooms = ["1", "2", "3"]
     @State var animals = false
     @State var gym = false
@@ -16,6 +16,15 @@ struct FiltersView: View {
     @State var airConditioning = false
     @State var doorman = false
     @Environment(\.colorScheme) var colorScheme
+    func dateFormat(string : String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: string) ?? Date()
+    }
+    func updateDates() -> Void {
+        self.maxDate = dateFormat(string:user.preferences.latestMoveInDate)
+        self.minDate = dateFormat(string:user.preferences.earliestMoveInDate)
+    }
     var isExceeded = false
     var chipStack = [["Doorman","Pool","Gym","Rooftop"], ["Laundry", "Elevator"]]
     func dateFormat(date : Date) -> String {
@@ -41,6 +50,7 @@ struct FiltersView: View {
                 Text("Number of Bedrooms").fontWeight(.heavy)
                 Spacer()
             }.padding(.horizontal,25)
+            .onAppear(perform: updateDates)
             Picker(selection: $user.preferences.bedrooms, label:
                     Text(Bedrooms[user.preferences.bedrooms])
             ) {

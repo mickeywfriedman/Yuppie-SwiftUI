@@ -67,8 +67,8 @@ struct Favorites: View {
 
                         
                         LottieView(name: "nobuildings", loopMode: .loop)
-                                    .frame(width: 500, height: 500)
-                            .offset(y: 50)
+                                    .frame(width: 400, height: 400)
+                            .offset(y: 70)
                     }
                 }
                 

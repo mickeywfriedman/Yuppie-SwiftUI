@@ -20,6 +20,7 @@ struct Settings: View {
     var body: some View {
         NavigationView{
             VStack{
+                List{
             NavigationLink(destination: Terms()) {
                 Text("Terms and Conditions").foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                 }
@@ -29,7 +30,10 @@ struct Settings: View {
             NavigationLink(destination: Text("Contact Leon@NestedApp.com with any questions!")) {
                 Text("Contact Us").foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                 }
-            Text("Logout").onTapGesture {
+            HStack{
+                Text("Logout")
+                Text("                                                                                                                                     ")
+            }.onTapGesture {
                 showSettings = false
                 presentationMode.wrappedValue.dismiss()
                 let seconds = 0.1
@@ -37,6 +41,7 @@ struct Settings: View {
                     logout()
                 }
             }
+            }.navigationBarTitle(Text("Settings"))
             }
         }
 
