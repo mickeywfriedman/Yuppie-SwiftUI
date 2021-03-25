@@ -15,6 +15,7 @@ struct FiltersView: View {
     @State var balcony = false
     @State var airConditioning = false
     @State var doorman = false
+    @State var appeared = false
     @Environment(\.colorScheme) var colorScheme
     func dateFormat(string : String) -> Date {
         let dateFormatter = DateFormatter()
@@ -22,8 +23,12 @@ struct FiltersView: View {
         return dateFormatter.date(from: string) ?? Date()
     }
     func updateDates() -> Void {
-        self.maxDate = dateFormat(string:user.preferences.latestMoveInDate)
-        self.minDate = dateFormat(string:user.preferences.earliestMoveInDate)
+        if !appeared{
+            self.maxDate = dateFormat(string:user.preferences.latestMoveInDate)
+            self.minDate = dateFormat(string:user.preferences.earliestMoveInDate)
+            self.appeared = true
+        }
+        
     }
     var isExceeded = false
     var chipStack = [["Doorman","Pool","Gym","Rooftop"], ["Laundry", "Elevator"]]

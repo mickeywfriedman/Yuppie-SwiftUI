@@ -148,7 +148,7 @@ struct Contacts: View {
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
                                 .onTapGesture {
-                                    invite(number: contact.phoneNumbers.first!.value.stringValue)
+                                    invite(number: contact.phoneNumbers.first?.value.stringValue ?? "")
                                 }
                         }
                         
