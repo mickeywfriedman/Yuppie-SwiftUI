@@ -311,6 +311,7 @@ struct BuildingGallery: View {
                     .background(Color("tabbar"))
                     .clipShape(Capsule())
             }
+            Text("$200 total distributed to the tenant(s) spoken with in a successful move in")
             VStack(spacing: 18){
                 LazyVGrid(columns: columns,spacing: 20){
                     ForEach(getImages(), id: \.self) {image in
