@@ -130,7 +130,7 @@ struct FiltersView: View {
                         }
                         }
                     }
-                }
+                }.animation(.spring())
             }//
         }
             
