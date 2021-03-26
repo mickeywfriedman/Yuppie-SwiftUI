@@ -111,7 +111,7 @@ struct sheets: View {
         }
         else if (card == "inbox") {
             Inbox(token: $token, user_id: $user_id, user: $user)
-        }
+        } 
         else if (card == "invite") {
             Contacts(user: user)
         }

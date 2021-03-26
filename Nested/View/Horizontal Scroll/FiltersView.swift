@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct FiltersView: View {
@@ -16,6 +15,7 @@ struct FiltersView: View {
     @State var airConditioning = false
     @State var doorman = false
     @State var appeared = false
+    @State var showAmenities = false
     @Environment(\.colorScheme) var colorScheme
     func dateFormat(string : String) -> Date {
         let dateFormatter = DateFormatter()
@@ -31,7 +31,7 @@ struct FiltersView: View {
         
     }
     var isExceeded = false
-    var chipStack = [["Doorman","Pool","Gym","Rooftop"], ["Laundry", "Elevator"]]
+    var amenities = ["Bike Racks","Furnished","Controlled Access","Washer/Dryer", "Laundry Room", "Elevator"]
     func dateFormat(date : Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -54,7 +54,7 @@ struct FiltersView: View {
             HStack{
                 Text("Number of Bedrooms").fontWeight(.heavy)
                 Spacer()
-            }.padding(.horizontal,25)
+            }
             .onAppear(perform: updateDates)
             Picker(selection: $user.preferences.bedrooms, label:
                     Text(Bedrooms[user.preferences.bedrooms])
@@ -64,12 +64,11 @@ struct FiltersView: View {
                 }
                 .padding(1.0)
                 }.pickerStyle(SegmentedPickerStyle())
-            .padding(.horizontal,25)
         
             HStack{
                 Text("Number of Bathrooms").fontWeight(.heavy)
                 Spacer()
-            }.padding(.horizontal,25)
+            }
             Picker(selection: $user.preferences.bathrooms, label:
                     Text(Bathrooms[user.preferences.bathrooms])
             ) {
@@ -78,69 +77,61 @@ struct FiltersView: View {
                 }
                 .padding(1.0)
             }.pickerStyle(SegmentedPickerStyle())
-            .padding(.horizontal,25)
             
             HStack{
                 Text("The most I will pay is $\(priceFormat(price:user.preferences.price))").fontWeight(.heavy)
                 Spacer()
-            }.padding(.horizontal,25)
+            }
             Slider(value: $user.preferences.price, in: 1000...10000)
-                .padding(.horizontal,25)
             VStack{
                 HStack{
                     Text("Anticipated Move In Date").fontWeight(.heavy)
                     Spacer()
                     
-                }.padding(.horizontal,25)
+                }
                 DatePicker("Earliest Move In", selection: $minDate, displayedComponents: .date)
-                .datePickerStyle(DefaultDatePickerStyle()).padding(.horizontal,25)
+                .datePickerStyle(DefaultDatePickerStyle())
             DatePicker("Latest Move In", selection: $maxDate, displayedComponents: .date)
-                .datePickerStyle(DefaultDatePickerStyle()).padding(.horizontal,25)
-            HStack{
-                Text("I can't live without").fontWeight(.heavy)
-                Spacer()
-            }.padding(.horizontal,25)
-            }
-            ScrollView{
-                // Chips View...
-                LazyVStack(alignment: .leading,spacing: 10){
-                    
-                    // Since Were Using Indices So WE Need To Specify Id....
-                    ForEach(chipStack, id: \.self){
-                        chips in
+                .datePickerStyle(DefaultDatePickerStyle())
+                VStack(spacing:0){
                     HStack{
-                            ForEach(chips.indices,id: \.self){index in
-                                Button(action:{
-                                    if user.preferences.amenities.contains(chips[index]){
-                                        user.preferences.amenities = user.preferences.amenities.filter {$0 != chips[index]}
-                                    } else {
-                                    user.preferences.amenities.append(chips[index])
-                                    }
-                                }){
-                                Text(chips[index])
-                                    .font(.custom("Futura", size: 13))
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-                                    .padding(.vertical,10)
-                                    .padding(.horizontal)
-                                    .background(Capsule().stroke(colorScheme == .dark ? Color.white : Color.black,lineWidth: 1))
-                                    .background(Capsule().fill(user.preferences.amenities.contains(chips[index]) ? Color.purple: (colorScheme == .dark ? Color.black : Color.white)))
-                                    .lineLimit(1)
+                    Text("I can't live without").fontWeight(.heavy)
+                    Spacer()
+                    Image(systemName: "arrowtriangle.down.fill")
+                        .rotationEffect(.degrees(showAmenities ? 180 : 0))
+                        .animation(.easeInOut)
+                }.padding()
+                .border(Color.black)
+                .contentShape(Rectangle())
+                .onTapGesture {showAmenities.toggle()}
+                    if showAmenities{
+                        VStack(spacing:0){
+                        ForEach(amenities, id:\.self){
+                            amenity in
+                            HStack{
+                                Text(amenity)
+                                Spacer()
+                                if user.preferences.amenities.contains(amenity){
+                                    Image(systemName: "checkmark.square")
+                                } else {
+                                    Image(systemName: "square")
+                                }
+                            }.padding()
+                            .border(width: 1, edges: [.leading, .trailing, .bottom], color: .black)
+                            .contentShape(Rectangle())
+                            .onTapGesture{
+                                if user.preferences.amenities.contains(amenity){
+                                    user.preferences.amenities = user.preferences.amenities.filter {$0 != amenity}
+                                } else {
+                                    user.preferences.amenities.append(amenity)
                                 }
                             }
-                    }
+                            
+                        }
+                        }
                     }
                 }
-            }
-            .frame(width: UIScreen.main.bounds.width - 30, height: UIScreen.main.bounds.height / 3)
-            // Border...
-            .background(RoundedRectangle(cornerRadius: 15).stroke(Color.gray.opacity(0.0),lineWidth: 1.5))
-            // TextEditor....
-            
-            
-
-        .padding(.horizontal,25)
-//
+            }//
         }
             
             
@@ -150,4 +141,55 @@ struct FiltersView: View {
         
         }
 }
+}
+extension AnyTransition {
+    static func moveAndScale(edge: Edge) -> AnyTransition {
+        AnyTransition.move(edge: edge)
+    }
+}
+
+extension View {
+    func border(width: CGFloat, edges: [Edge], color: Color) -> some View {
+        overlay(EdgeBorder(width: width, edges: edges).foregroundColor(color))
+    }
+}
+struct EdgeBorder: Shape {
+
+    var width: CGFloat
+    var edges: [Edge]
+
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        for edge in edges {
+            var x: CGFloat {
+                switch edge {
+                case .top, .bottom, .leading: return rect.minX
+                case .trailing: return rect.maxX - width
+                }
+            }
+
+            var y: CGFloat {
+                switch edge {
+                case .top, .leading, .trailing: return rect.minY
+                case .bottom: return rect.maxY - width
+                }
+            }
+
+            var w: CGFloat {
+                switch edge {
+                case .top, .bottom: return rect.width
+                case .leading, .trailing: return self.width
+                }
+            }
+
+            var h: CGFloat {
+                switch edge {
+                case .top, .bottom: return self.width
+                case .leading, .trailing: return rect.height
+                }
+            }
+            path.addPath(Path(CGRect(x: x, y: y, width: w, height: h)))
+        }
+        return path
+    }
 }

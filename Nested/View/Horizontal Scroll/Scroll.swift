@@ -176,7 +176,6 @@ struct Scroll: View {
                             .background(Color("Chat_color").opacity(0.75))
                             .clipShape(Capsule())
                         }
-                        
                         Text("Chat With Our Residents")
                             .foregroundColor(Color.black)
                             .fontWeight(.bold)
@@ -200,7 +199,7 @@ struct Scroll: View {
                             .background(Color("Chat_color").opacity(0.75))
                             .clipShape(Capsule())
                         }
-                        /*Button(action: {
+                        Button(action: {
                             self.showCard.toggle()
                             self.card = "invite"
                         }) {
@@ -214,14 +213,16 @@ struct Scroll: View {
                             .background(Color("Chat_color").opacity(0.75))
                             .clipShape(Capsule())
                         }
- */
+ 
                     }
                     HStack(spacing: 0){
                         ForEach(filteredBuildings(), id:\.name) {building in
                         ScrollView(.horizontal, showsIndicators: false) {
                             
                             HStack{
-                                
+                                if building.tenants.count == 0 {
+                                    Text("").frame(width: 68, height: 100)
+                                }
                                 ForEach(building.tenants,id: \.self){tenant in
                                     
                                     Button(action: {

@@ -24,7 +24,6 @@ struct SearchBarView: UIViewRepresentable {
         searchBar.placeholder = placeholder
         searchBar.searchBarStyle = .minimal
         searchBar.autocapitalizationType = .none
-        searchBar.showsCancelButton = true
         return searchBar
     }
 
@@ -72,24 +71,67 @@ class ViewController: UIViewController, MFMessageComposeViewControllerDelegate {
     }
 
 }
+struct MessageComposeView: UIViewControllerRepresentable {
+    typealias Completion = (_ messageSent: Bool) -> Void
+
+    static var canSendText: Bool { MFMessageComposeViewController.canSendText() }
+        
+    let recipients: [String]?
+    let body: String?
+    let completion: Completion?
+    
+    func makeUIViewController(context: Context) -> UIViewController {
+        guard Self.canSendText else {
+            let errorView = MessagesUnavailableView()
+            return UIHostingController(rootView: errorView)
+        }
+        
+        let controller = MFMessageComposeViewController()
+        controller.messageComposeDelegate = context.coordinator
+        controller.recipients = recipients
+        controller.body = body
+        
+        return controller
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(completion: self.completion)
+    }
+    
+    class Coordinator: NSObject, MFMessageComposeViewControllerDelegate {
+        private let completion: Completion?
+
+        public init(completion: Completion?) {
+            self.completion = completion
+        }
+        
+        public func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+            controller.dismiss(animated: true, completion: nil)
+            completion?(result == .sent)
+        }
+    }
+}
+
+struct MessagesUnavailableView: View {
+    var body: some View {
+        VStack {
+            Image(systemName: "xmark.octagon")
+                .font(.system(size: 64))
+                .foregroundColor(.red)
+            Text("Messages is unavailable")
+                .font(.system(size: 24))
+        }
+    }
+}
 struct Contacts: View {
     @State var user : User
     @State var contacts: [CNContact] = []
     @State var error: Error? = nil
-    func messageComposeViewController(controller: MFMessageComposeViewController,
-                                      didFinishWithResult result: MessageComposeResult) {
-        // Check the result or perform other tasks.
-        
-        // Dismiss the message compose view controller.
-        controller.dismiss(animated: true, completion: nil)}
-    func invite(number: String) {
-        print(number)
-        let composeVC = MFMessageComposeViewController()
-        // Configure the fields of the interface.
-        composeVC.recipients = [number]
-        composeVC.body = "https://apps.apple.com/app/id1556148411?fbclid=IwAR3UoH0Tz8A9EiPGvaFIZwqZxRdevMQKYaL5JFvh-bzWe1yzRhM2FBmNOWk"
-        composeVC.present(composeVC, animated: true, completion: nil)
-    }
+    @State private var isShowingMessages = false
+    @State var recipients: [String] = []
+    let message = "https://apps.apple.com/app/id1556148411?fbclid=IwAR3UoH0Tz8A9EiPGvaFIZwqZxRdevMQKYaL5JFvh-bzWe1yzRhM2FBmNOWk"
      func fetchContacts() {
         
         let store = CNContactStore()
@@ -131,6 +173,11 @@ struct Contacts: View {
         NavigationView {
             VStack {
                 SearchBarView(text: $searchText, placeholder: "Type here")
+                    .sheet(isPresented: self.$isShowingMessages) {
+                                MessageComposeView(recipients: recipients, body: message) { messageSent in
+                                    print("MessageComposeView with message sent? \(messageSent)")
+                                }
+                    }
                 List{
                     
                     ForEach(self.contacts.filter{
@@ -148,7 +195,8 @@ struct Contacts: View {
                                 .background(Color("pgradient1"))
                                 .clipShape(Capsule())
                                 .onTapGesture {
-                                    invite(number: contact.phoneNumbers.first?.value.stringValue ?? "")
+                                    self.recipients = [contact.phoneNumbers.first?.value.stringValue ?? ""]
+                                    self.isShowingMessages = true
                                 }
                         }
                         
@@ -158,7 +206,7 @@ struct Contacts: View {
                         fetchContacts()
                     }
                 }
-                .navigationBarTitle(Text("SwiftUI Contacts"))
+                .navigationBarTitle(Text("Invite Contacts"))
             }
         }
     }
