@@ -76,13 +76,14 @@ struct MessageComposeView: UIViewControllerRepresentable {
 
     static var canSendText: Bool { MFMessageComposeViewController.canSendText() }
         
-    let recipients: [String]?
-    let body: String?
-    let completion: Completion?
+    @Binding var recipients: [String]
+    @State var body: String
+    @State var completion: Completion?
     
     func makeUIViewController(context: Context) -> UIViewController {
+        print(recipients)
         guard Self.canSendText else {
-            let errorView = MessagesUnavailableView()
+            let errorView = MessagesUnavailableView(recipients: recipients)
             return UIHostingController(rootView: errorView)
         }
         
@@ -115,12 +116,13 @@ struct MessageComposeView: UIViewControllerRepresentable {
 }
 
 struct MessagesUnavailableView: View {
+    @State var recipients : [String]
     var body: some View {
         VStack {
             Image(systemName: "xmark.octagon")
                 .font(.system(size: 64))
                 .foregroundColor(.red)
-            Text("Messages is unavailable")
+            Text(recipients[0] ?? "")
                 .font(.system(size: 24))
         }
     }
@@ -131,7 +133,7 @@ struct Contacts: View {
     @State var error: Error? = nil
     @State private var isShowingMessages = false
     @State var recipients: [String] = []
-    let message = "https://apps.apple.com/app/id1556148411?fbclid=IwAR3UoH0Tz8A9EiPGvaFIZwqZxRdevMQKYaL5JFvh-bzWe1yzRhM2FBmNOWk"
+    let message = "https://apps.apple.com/app/id1556148411"
      func fetchContacts() {
         
         let store = CNContactStore()
@@ -174,7 +176,7 @@ struct Contacts: View {
             VStack {
                 SearchBarView(text: $searchText, placeholder: "Type here")
                     .sheet(isPresented: self.$isShowingMessages) {
-                                MessageComposeView(recipients: recipients, body: message) { messageSent in
+                        MessageComposeView(recipients: $recipients, body: message) { messageSent in
                                     print("MessageComposeView with message sent? \(messageSent)")
                                 }
                     }
@@ -196,7 +198,11 @@ struct Contacts: View {
                                 .clipShape(Capsule())
                                 .onTapGesture {
                                     self.recipients = [contact.phoneNumbers.first?.value.stringValue ?? ""]
-                                    self.isShowingMessages = true
+                                    let seconds = 0.1
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                                        self.isShowingMessages = true
+                                    }
+                                    
                                 }
                         }
                         

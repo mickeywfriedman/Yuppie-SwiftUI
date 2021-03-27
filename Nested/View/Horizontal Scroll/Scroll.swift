@@ -176,7 +176,7 @@ struct Scroll: View {
                             .background(Color("Chat_color").opacity(0.75))
                             .clipShape(Capsule())
                         }
-                        Text("Chat With Our Residents")
+                        Text("Our Residents")
                             .foregroundColor(Color.black)
                             .fontWeight(.bold)
                             .padding(.vertical,4)

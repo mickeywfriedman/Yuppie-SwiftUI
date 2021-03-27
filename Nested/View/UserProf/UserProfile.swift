@@ -113,6 +113,7 @@ struct UserProfile : View {
 
                 // week data..
                 FiltersView(token: $token, user: $user, user_id: $user_id, minDate: $minDate, maxDate: $maxDate).tag(0)
+                    .padding(.horizontal)
             } else if (index == 1){
                 // month data...
                 
