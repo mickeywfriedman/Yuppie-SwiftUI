@@ -162,20 +162,6 @@ struct Scroll: View {
                         .frame(width:UIScreen.main.bounds.width)
                 VStack{
                     HStack{
-                        Button(action: {
-                            self.card = "filter"
-                            self.showCard = true
-                        }) {
-                            Label(title: {
-                            }) {
-                            Image(systemName: "slider.horizontal.3")
-                                .foregroundColor(Color.white)
-                            }
-                            .padding(.vertical,8)
-                            .padding(.horizontal,10)
-                            .background(Color("Chat_color").opacity(0.75))
-                            .clipShape(Capsule())
-                        }
                         Text("Our Residents")
                             .foregroundColor(Color.black)
                             .fontWeight(.bold)
@@ -185,20 +171,7 @@ struct Scroll: View {
                         .clipShape(Capsule())
                         .opacity(0.7)
                             .onAppear(perform: loadData)
-                        Button(action: {
-                            self.showCard.toggle()
-                            self.card = "inbox"
-                        }) {
-                            Label(title: {
-                            }) {
-                            Image(systemName: "message")
-                                .foregroundColor(Color.white)
-                            }
-                            .padding(.vertical,8)
-                            .padding(.horizontal,10)
-                            .background(Color("Chat_color").opacity(0.75))
-                            .clipShape(Capsule())
-                        }
+                        Spacer()
                         Button(action: {
                             self.showCard.toggle()
                             self.card = "invite"
@@ -213,8 +186,37 @@ struct Scroll: View {
                             .background(Color("Chat_color").opacity(0.75))
                             .clipShape(Capsule())
                         }
+                        Button(action: {
+                            self.card = "filter"
+                            self.showCard = true
+                        }) {
+                            Label(title: {
+                            }) {
+                            Image(systemName: "slider.horizontal.3")
+                                .foregroundColor(Color.white)
+                            }
+                            .padding(.vertical,8)
+                            .padding(.horizontal,10)
+                            .background(Color("Chat_color").opacity(0.75))
+                            .clipShape(Capsule())
+                        }
+                        Button(action: {
+                            self.showCard.toggle()
+                            self.card = "inbox"
+                        }) {
+                            Label(title: {
+                            }) {
+                            Image(systemName: "message")
+                                .foregroundColor(Color.white)
+                            }
+                            .padding(.vertical,8)
+                            .padding(.horizontal,10)
+                            .background(Color("Chat_color").opacity(0.75))
+                            .clipShape(Capsule())
+                        }
+                        
  
-                    }
+                    }.padding(.horizontal)
                     HStack(spacing: 0){
                         ForEach(filteredBuildings(), id:\.name) {building in
                         ScrollView(.horizontal, showsIndicators: false) {
