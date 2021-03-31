@@ -49,7 +49,7 @@ struct CardView: View {
                                     
                                     Text(building.name).fontWeight(.heavy).font(.custom("Futura", size: 20)).lineLimit(1)
                                     Text("\(Bedrooms[minBeds()]) from $\(minPrice(building:building))").font(.custom("Futura", size: 16))
-                                }.foregroundColor(.black).opacity(0.7)
+                                }.foregroundColor(.black).opacity(0.8)
                                 Spacer()
                             }.padding(.top, 160)
                             .padding()

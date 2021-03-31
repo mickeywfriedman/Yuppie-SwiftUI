@@ -183,6 +183,7 @@ struct PropertyManagerForm : View {
                 }.padding()
                 })
             } else {
+                
                 ZStack(alignment: Alignment(horizontal: .center, vertical: .top), content: {
                     
                     LinearGradient(gradient: .init(colors: gradient1), startPoint: .top, endPoint: .bottom)
@@ -231,6 +232,9 @@ struct PropertyManagerForm : View {
                 }.padding()
                 })}
         } else {
+            if user.contacted.contains(building.id){
+                Text("Message sent. The Property Manager should reach out to you shortly.").padding().foregroundColor(.black)
+            } else {
         VStack(alignment: .center){
             Text("Contact Property").fontWeight(.heavy).font(.largeTitle)
                 .padding(.vertical)
@@ -356,7 +360,7 @@ struct PropertyManagerForm : View {
         .onTapGesture {
             hideKeyboard()
         }
-    }
+            }}
 }
 }
 

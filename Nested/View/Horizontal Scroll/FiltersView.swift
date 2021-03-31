@@ -48,11 +48,11 @@ struct FiltersView: View {
         return result
     }
     var body: some View {
-        ScrollView{
+        ScrollView(showsIndicators: false){
         VStack{
         VStack{
             HStack{
-                Text("Number of Bedrooms").fontWeight(.heavy)
+                Text("Number of bedrooms").fontWeight(.heavy)
                 Spacer()
             }
             .onAppear(perform: updateDates)
@@ -66,7 +66,7 @@ struct FiltersView: View {
                 }.pickerStyle(SegmentedPickerStyle())
         
             HStack{
-                Text("Number of Bathrooms").fontWeight(.heavy)
+                Text("Number of bathrooms").fontWeight(.heavy)
                 Spacer()
             }
             Picker(selection: $user.preferences.bathrooms, label:
@@ -93,31 +93,44 @@ struct FiltersView: View {
                 .datePickerStyle(DefaultDatePickerStyle())
             DatePicker("Latest Move In", selection: $maxDate, displayedComponents: .date)
                 .datePickerStyle(DefaultDatePickerStyle())
+                HStack{
+                    Text("I can't live without").fontWeight(.heavy)
+                    Spacer()
+                }
                 VStack(spacing:0){
                     HStack{
-                    Text("I can't live without").fontWeight(.heavy)
+                        if user.preferences.amenities.count == 0 {
+                            Text("No Features Preference")
+                        } else {
+                            Text(user.preferences.amenities.joined(separator:", ")).lineLimit(1)
+                        }
                     Spacer()
                     Image(systemName: "arrowtriangle.down.fill")
                         .rotationEffect(.degrees(showAmenities ? 180 : 0))
                         .animation(.easeInOut)
                 }.padding()
-                .border(Color.black)
-                .contentShape(Rectangle())
+                .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(Color.black, lineWidth: 1)
+                        )
+                    .contentShape(Rectangle())
+                    .padding(.horizontal, 1)
                 .onTapGesture {showAmenities.toggle()}
                     if showAmenities{
                         VStack(spacing:0){
                         ForEach(amenities, id:\.self){
                             amenity in
                             HStack{
+                                if user.preferences.amenities.contains(amenity){
+                                    Image(systemName: "checkmark.square").padding(.trailing)
+                                } else {
+                                    Image(systemName: "square").padding(.trailing)
+                                }
                                 Text(amenity)
                                 Spacer()
-                                if user.preferences.amenities.contains(amenity){
-                                    Image(systemName: "checkmark.square")
-                                } else {
-                                    Image(systemName: "square")
-                                }
-                            }.padding()
-                            .border(width: 1, edges: [.leading, .trailing, .bottom], color: .black)
+                                
+                            }.padding(.horizontal)
+                            .padding(.top)
                             .contentShape(Rectangle())
                             .onTapGesture{
                                 if user.preferences.amenities.contains(amenity){

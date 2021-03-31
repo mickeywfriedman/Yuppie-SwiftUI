@@ -143,6 +143,7 @@ struct BuildingView: View {
     @State var showForm = false
     @State var isFavorite = true
     var Bedrooms = ["Studio", "1 Br", "2 Br", "3+ Br"]
+    var unitBedrooms = ["Studio", "1 Bed", "2 Bed", "3+ Bed"]
     @State var Bedroom : Int
     @Binding var user : User
     @State private var showPopUp = false
@@ -277,31 +278,27 @@ struct BuildingView: View {
                         }
                         ForEach(building.units, id:\.number){unit in
                             if (convertBedrooms(bedrooms:unit.bedrooms) == Bedroom) {
-                                Button(action: {
-                                    self.showPopUp = true
-                                    self.floorplanURL = unit.floorPlan
-                                    }, label: {
                                         HStack{
-                                            Text("\(unit.number)").font(.custom("Futura", size: 15))
-                                            Spacer()
-                                            HStack{
-                                            Text("\(unit.bedrooms)").font(.custom("Futura", size: 15))
-                                                Image("Bed").resizable().frame(width: 25, height: 25).foregroundColor(.purple)
+                                            Image("floorplan")
+                                                .resizable()
+                                                .frame(width: 20, height: 20)
+                                                .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
+                                                .padding(.horizontal, 5)
+                                                .onTapGesture {
+                                                self.showPopUp = true
+                                                self.floorplanURL = unit.floorPlan
                                             }
-                                            Spacer()
-                                            HStack{
-                                            Text("\(unit.bathrooms)").font(.custom("Futura", size: 15))
-                                                Image("Bath").resizable().frame(width: 35, height: 35).foregroundColor(.purple)
-                                            }
-                                            Spacer()
-                                            HStack{
-                                            Text("\(unit.squareFeet)").font(.custom("Futura", size: 15))
-                                                Image("Square").resizable().frame(width: 25, height: 20).foregroundColor(.purple)
+                                            VStack {
+                                                Text("Unit \(unit.number) • Avail Now").font(.custom("Futura", size: 15))
+                                                Text("\(unitBedrooms[unit.bedrooms]) • \(unit.bathrooms) Bath • \(unit.squareFeet) sqft").font(.custom("Futura", size: 12))
                                             }
                                             Spacer()
                                             Text("$\(Int(unit.price))").font(.custom("Futura", size: 15))
-                                        }.padding(.horizontal)
-                                    }).foregroundColor(.black)
+                                        }.padding(5)
+                                        .overlay(
+                                                    RoundedRectangle(cornerRadius: 5)
+                                                        .stroke(Color.gray, lineWidth: 1)
+                                                )
                             }
                         }
                     }.padding(.horizontal)
