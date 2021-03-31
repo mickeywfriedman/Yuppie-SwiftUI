@@ -8,7 +8,6 @@ import Foundation
 import SwiftUI
 
 struct UserProfile : View {
-    
     @Binding var token: String
     @Binding var user_id: String
     @Binding var buildings : [Building]
@@ -19,127 +18,84 @@ struct UserProfile : View {
     @State var minDate = Date()
     @State var maxDate = Date(timeInterval: 14*86400, since: Date())
     @State var index = 0
-    
+    @State var showSheet = false
+    @State var sheet = ""
     var profilePic : String
-    func format(date : Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.string(from: date)
+    func logout() -> Void {
+        self.user_id = ""
+        UserDefaultsService().removeUserInfo()
     }
     func dateFormat(string : String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.date(from: string) ?? Date()
     }
-    func updateFilters() -> Void {
-        if maxDate < Date(){
-        self.user.preferences.earliestMoveInDate = "\(format(date: Date()))"
-        self.user.preferences.latestMoveInDate = "\(format(date: Date(timeInterval: 14*86400, since: Date())))"
-        } else {
-            self.user.preferences.earliestMoveInDate = "\(format(date: minDate))"
-            self.user.preferences.latestMoveInDate = "\(format(date:maxDate))"
-        }
-        guard let filter_url = URL(string: "http://18.218.78.71:8080/users/\(user_id)") else {
-            print("Your API end point is Invalid")
-            return
-        }
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        guard let data = try? encoder.encode(update(preferences: user.preferences)) else {
-            print("Failed to encode order")
-            return
-        }
-        var filter_request = URLRequest(url: filter_url)
-        filter_request.httpMethod = "PATCH"
-        filter_request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        filter_request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        filter_request.httpBody = data
-        print("updated")
-        URLSession.shared.dataTask(with: filter_request) { data, response, error in
-            return
-            
-        }.resume()
-    }
-    
-    var body: some View{
-        
-        VStack{
-            
-            ProfileView(profilePic: profilePic, firstName: user.firstName, university: user.university, user_id: $user_id).padding()
-            
-            HStack(spacing: 0){
-                
-                Text("Preferences")
-                    .foregroundColor(self.index == 0 ? .white : Color("Chat_color").opacity(0.7))
-                    .font(.custom("Futura", size: 16))
-                    .fontWeight(.bold)
-                    .padding(.vertical,10)
-                    .padding(.horizontal,30)
-                    .background(Color("Chat_color").opacity(self.index == 0 ? 1 : 0))
-                    .clipShape(Capsule())
-                    .onTapGesture {
-                        
-                        withAnimation(.default){
-                        
-                            self.index = 0
-                        }
+    func filter(units: [Unit], buildingAmenities: [String]) -> Bool{
+        for unit in units{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let date_avail = dateFormatter.date(from: unit.dateAvailable)
+            if (unit.bedrooms >= user.preferences.bedrooms && unit.bathrooms-1 >= user.preferences.bathrooms && Int(unit.price) <= Int(user.preferences.price) && date_avail ?? Date() < dateFormat(string: user.preferences.latestMoveInDate)){
+                for amenity in user.preferences.amenities {
+                    if (!buildingAmenities.contains(amenity)){
+                        return false
                     }
-                
-                Spacer(minLength: 0)
-                
-                
-                
-                Text("My Building")
-                    .foregroundColor(self.index == 1 ? .white : Color("Chat_color").opacity(0.7))
-                    .font(.custom("Futura", size: 16))
-                    .fontWeight(.bold)
-                    .padding(.vertical,10)
-                    .padding(.horizontal,30)
-                    .background(Color("Chat_color").opacity(self.index == 1 ? 1 : 0))
-                    .clipShape(Capsule())
-                    .onTapGesture {
-                        
-                        withAnimation(.default){
-                        
-                            self.index = 1
-                        }
-                    }
-            }
-            .background(Color.black.opacity(0.06))
-            .clipShape(Capsule())
-            .padding()
-            
-            if (index == 0){
-
-                // week data..
-                FiltersView(token: $token, user: $user, user_id: $user_id, minDate: $minDate, maxDate: $maxDate).tag(0)
-                    .padding(.horizontal)
-            } else if (index == 1){
-                // month data...
-                
-                BuildingGallery(buildings: buildings, user: $user, token: token).tag(1)
-            }
-            else if (index == 2){
-
-                VStack{
-
-                    Text("Monthly Data")
                 }
-
+                return true
             }
-            // Cards...
-            
-           
-            
-            Spacer(minLength: 0)
         }
-        .onDisappear(perform: updateFilters)
+        return false
+    }
+    func filteredBuildings() -> [Building]{
+        return buildings.filter({filter(units: $0.units, buildingAmenities:$0.amenities)})
+    }
+    var body: some View{
+        VStack(spacing: 0){
+            HStack{
+                Text("Profile")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(Color("Chat_color"))
+                Spacer()
+            }.padding()
+            .sheet(isPresented: $showSheet) {
+                profileSheets(card: $sheet, showCard: $showSheet, user: $user, buildings: buildings, user_id: $user_id, token:$token, index: $index)
+            }
+            profileView(profilePic: profilePic, firstName: user.firstName, university: user.university, user_id: $user_id).padding(.vertical)
+            Divider().padding(.top)
+            VStack(spacing: 0){
+                profileRow(text: "My Building").onTapGesture {
+                    sheet = "building"
+                    showSheet = true
+                }
+                profileRow(text: "Building Preferences").onTapGesture {
+                    sheet = "filter"
+                    showSheet = true
+                }
+                profileRow(text: "Terms and Conditions").onTapGesture {
+                    sheet = "terms"
+                    showSheet = true
+                }
+                profileRow(text: "Privacy Policy").onTapGesture {
+                    sheet = "privacy"
+                    showSheet = true
+                }
+                profileRow(text: "Contact Us").onTapGesture {
+                    sheet = "contact"
+                    showSheet = true
+                }
+                profileRow(text: "Logout").onTapGesture {
+                    logout()
+                }
+            }
+            Divider()
+            Spacer()
+        }
     }
 }
 
 
-
-struct ProfileView : View {
+struct profileView : View {
     var profilePic: String
     var firstName: String
     var university: University
@@ -150,28 +106,6 @@ struct ProfileView : View {
         UserDefaultsService().removeUserInfo()
     }
     var body : some View{
-        HStack(spacing: 15){
-
-            Text("Profile")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(Color("Chat_color"))
-                .sheet(isPresented: $showSettings) {
-                    Settings(user_id : $user_id, showSettings: $showSettings)
-            }
-            Spacer(minLength: 0)
-            
-                Image(systemName: "gear")
-                    .foregroundColor(Color.white)
-                    .padding(.vertical,8)
-                    .padding(.horizontal,10)
-                    .background(Color("Chat_color"))
-                    .clipShape(Circle())
-                    .onTapGesture {
-                        showSettings = true
-                    }
-        }
-        .padding()
         HStack{
             
             VStack(spacing: 0){
@@ -186,28 +120,38 @@ struct ProfileView : View {
                 
                 ImageView(url: "\(profilePic)")
                 .frame(width: 100, height: 100)
-                .padding(.top, 6)
-                .padding(.bottom, 4)
-                .padding(.horizontal, 8)
                 .background(Color("Color1"))
                 .cornerRadius(10)
                 .shadow(color: Color.black.opacity(0.1), radius: 5, x: 8, y: 8)
                 .shadow(color: Color.white.opacity(0.5), radius: 5, x: -8, y: -8)
             }
-            
+            Spacer()
             VStack(alignment: .leading, spacing: 12){
                 
                 Text("Hello, \(firstName)")
                     .font(.title)
                 Text("\(university.name)")
             }
-            .padding(.leading, 20)
             
             Spacer(minLength: 0)
         }
-        .padding(.horizontal, 20)
-        .padding(.top, 10)
+        .padding(.horizontal)
 
         // Tab Items...
         // Tab View...
     }}
+
+struct profileRow: View {
+    var text: String
+    var body: some View {
+        Divider()
+        HStack{
+            Text(text)
+            Spacer()
+            Image(systemName: "chevron.right")
+        }.padding(.vertical)
+        .padding(.horizontal)
+        .contentShape(Rectangle())
+        Divider()
+    }
+}

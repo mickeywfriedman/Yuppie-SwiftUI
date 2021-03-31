@@ -179,6 +179,7 @@ struct BuildingGallery: View {
     var body: some View {
         if getImages().count == 0 {
             VStack(spacing: 0){
+                Text("Add your building")
                 VStack(spacing: 0){
                 HStack(spacing: 12){
                     

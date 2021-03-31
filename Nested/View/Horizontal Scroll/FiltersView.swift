@@ -105,7 +105,7 @@ struct FiltersView: View {
                             Text(user.preferences.amenities.joined(separator:", ")).lineLimit(1)
                         }
                     Spacer()
-                    Image(systemName: "arrowtriangle.down.fill")
+                    Image(systemName: "chevron.down")
                         .rotationEffect(.degrees(showAmenities ? 180 : 0))
                         .animation(.easeInOut)
                 }.padding()
