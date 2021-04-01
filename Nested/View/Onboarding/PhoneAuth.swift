@@ -221,7 +221,6 @@ struct PhoneAuth: View {
                             
                        
                         HStack(spacing: 15){
-                            Spacer()
                             ZStack(alignment: .trailing) {
                             TextField("Mobile Number", text: self.$number)
                                 .keyboardType(.numberPad)
@@ -287,8 +286,7 @@ struct PhoneAuth: View {
                                 }
                             }
                             }
-                            Spacer()
-                        }
+                        }.padding(.horizontal)
                         .offset(y: 30)
                         Button(action: {
                             self.send((Any).self)

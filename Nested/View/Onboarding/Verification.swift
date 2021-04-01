@@ -210,7 +210,6 @@ struct Verification: View {
                                 }
                             }
                         HStack(spacing: 15){
-                            Spacer()
                             ZStack(alignment: .trailing){
                             TextField("Code", text: self.$code)
                                 .keyboardType(.numberPad)
@@ -285,7 +284,7 @@ struct Verification: View {
                             }
                         }
                             }
-                        }
+                        }.padding(.horizontal)
                         
                         Button(action: {
                             hideKeyboard()
@@ -325,7 +324,7 @@ struct Verification: View {
                         if showError{
                             Text("Wrong Verification Code")
                         }
-                        Spacer()
+                        
                         
                         
                     }
@@ -335,7 +334,6 @@ struct Verification: View {
                 
 
             }
-            
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
