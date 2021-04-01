@@ -68,7 +68,7 @@ struct UserProfile : View {
                     sheet = "building"
                     showSheet = true
                 }
-                profileRow(text: "Building Preferences").onTapGesture {
+                profileRow(text: "Search Preferences").onTapGesture {
                     sheet = "filter"
                     showSheet = true
                 }
