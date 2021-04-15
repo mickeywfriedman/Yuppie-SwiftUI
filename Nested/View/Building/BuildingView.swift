@@ -284,10 +284,7 @@ struct BuildingView: View {
                                                 .frame(width: 20, height: 20)
                                                 .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
                                                 .padding(.horizontal, 5)
-                                                .onTapGesture {
-                                                self.showPopUp = true
-                                                self.floorplanURL = unit.floorPlan
-                                            }
+                                                
                                             VStack {
                                                 Text("Unit \(unit.number) • Avail Now").font(.custom("Futura", size: 15))
                                                 Text("\(unitBedrooms[unit.bedrooms]) • \(unit.bathrooms) Bath • \(unit.squareFeet) sqft").font(.custom("Futura", size: 12))
@@ -295,6 +292,11 @@ struct BuildingView: View {
                                             Spacer()
                                             Text("$\(Int(unit.price))").font(.custom("Futura", size: 15))
                                         }.padding(5)
+                                        .contentShape(Rectangle())
+                                        .onTapGesture {
+                                        self.showPopUp = true
+                                        self.floorplanURL = unit.floorPlan
+                                    }
                                         .overlay(
                                                     RoundedRectangle(cornerRadius: 5)
                                                         .stroke(Color.gray, lineWidth: 1)

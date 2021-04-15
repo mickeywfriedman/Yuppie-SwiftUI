@@ -182,7 +182,7 @@ struct Scroll: View {
                                 .foregroundColor(Color.white)
                             }
                             .padding(.vertical,8)
-                            .padding(.horizontal,10)
+                            .padding(.horizontal,9)
                             .background(Color("Chat_color").opacity(0.75))
                             .clipShape(Capsule())
                         }
@@ -195,8 +195,8 @@ struct Scroll: View {
                             Image(systemName: "slider.horizontal.3")
                                 .foregroundColor(Color.white)
                             }
-                            .padding(.vertical,8)
-                            .padding(.horizontal,10)
+                            .padding(.vertical,10)
+                            .padding(.horizontal,8)
                             .background(Color("Chat_color").opacity(0.75))
                             .clipShape(Capsule())
                         }
@@ -210,7 +210,7 @@ struct Scroll: View {
                                 .foregroundColor(Color.white)
                             }
                             .padding(.vertical,8)
-                            .padding(.horizontal,10)
+                            .padding(.horizontal,7)
                             .background(Color("Chat_color").opacity(0.75))
                             .clipShape(Capsule())
                         }

@@ -32,21 +32,14 @@ struct ChatUI: View {
                             .foregroundColor(.white)
                     })
                     Spacer()
-                    Button(action: {}, label: {
-                        
-                        Image(systemName: "video")
-                            .font(.system(size: 22))
-                            .foregroundColor(.white)
-                    })
+
                 }
                 
                 VStack(spacing: 5){
                     
                     Text("\(tenant_name)")
                         .fontWeight(.bold)
-        
-                    Text("Active")
-                        .font(.caption)
+
                 }
                 .foregroundColor(.white)
             }

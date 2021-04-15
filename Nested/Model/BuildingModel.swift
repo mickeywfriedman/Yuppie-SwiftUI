@@ -61,7 +61,14 @@ struct propertyManager: Hashable, Codable{
 struct Response: Decodable {
     var data : [Building]
 }
+struct contactsResponse: Decodable {
+    var result : Contact
+}
 
+struct Contact: Decodable {
+    var registered : [String]
+    var unregistered : [String]
+}
 struct Lead: Codable {
     var message: String
     var buildingId: String

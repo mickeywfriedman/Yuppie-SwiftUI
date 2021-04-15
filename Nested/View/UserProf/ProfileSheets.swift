@@ -112,6 +112,10 @@ struct profileSheets: View {
         else if (card == "contact") {
             Text("Contact Leon@NestedApp.com with any questions!")
         }
+        else if (card == "feedback") {
+            Feedback()
+        }
+
         else if (card == "privacy") {
             Privacy().padding(.top)
         } else {

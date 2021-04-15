@@ -10,7 +10,7 @@ import SwiftUI
 struct CustomSearchBar: View {
     @ObservedObject var searchData: SearchUsers
     @State var rec = ""
-    @State var show = false
+    @State var showForm = false
     @State var showTermsandConditions = false
     @Binding var didLogin: Bool
     @Binding var needsAccount: Bool
@@ -194,23 +194,19 @@ struct CustomSearchBar: View {
                         if filterBuildings().count == 0 {
                             VStack(alignment: .center){
                             Text("We couldn't find your building😔")
-                                .foregroundColor(Color.white)
-                            Text("Submit your property manager below:")
-                                .foregroundColor(Color.white)}
+                            Text("Submit your property manager")
+                                .padding()
+                                .background(Color("pgradient1"))
+                                .clipShape(Capsule())
+                                .onTapGesture {
+                                    self.showForm = true
+                                }
+                                }
+                            .sheet(isPresented: $showForm) {
+                                SubmitPropertyManager()
+                        }
                                 .offset(y: 35)
-                            HStack(spacing: 15){
-                                Spacer()
-                                TextField("Code", text: self.$rec)
-                                    .foregroundColor(.white)
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal, 10)
-                                    .background(Color("pgradient1"))
-                                    .clipShape(Capsule())
-                                    
-                                Spacer()
-                            }
-                            .frame(height: 100)
-                            .offset(y: 15)
+    
                         }
                         }
                         else {

@@ -92,6 +92,8 @@
 		374B97F82612593300CDB3E6 /* LocalActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B97F72612593300CDB3E6 /* LocalActivities.swift */; };
 		374B980F2614DE9300CDB3E6 /* ProfileSheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B980E2614DE9300CDB3E6 /* ProfileSheets.swift */; };
 		376D0E1425EACDD10087B91F /* Sheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376D0E1325EACDD10087B91F /* Sheets.swift */; };
+		37830E302628CC81001787F7 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37830E2F2628CC81001787F7 /* Feedback.swift */; };
+		37830E352628D789001787F7 /* SubmitPropertyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37830E342628D789001787F7 /* SubmitPropertyManager.swift */; };
 		37A6938025ED859200E45CEC /* Futura Std Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37A6937A25ED859200E45CEC /* Futura Std Light.ttf */; settings = {ASSET_TAGS = (CustomFonts, ); }; };
 		37A6938225ED859200E45CEC /* Futura.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 37A6937C25ED859200E45CEC /* Futura.ttc */; settings = {ASSET_TAGS = (CustomFonts, ); }; };
 		37A6938325ED859200E45CEC /* Futura SCTOT Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37A6937D25ED859200E45CEC /* Futura SCTOT Light.ttf */; settings = {ASSET_TAGS = (CustomFonts, ); }; };
@@ -230,6 +232,8 @@
 		374B97F72612593300CDB3E6 /* LocalActivities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalActivities.swift; sourceTree = "<group>"; };
 		374B980E2614DE9300CDB3E6 /* ProfileSheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSheets.swift; sourceTree = "<group>"; };
 		376D0E1325EACDD10087B91F /* Sheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheets.swift; sourceTree = "<group>"; };
+		37830E2F2628CC81001787F7 /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
+		37830E342628D789001787F7 /* SubmitPropertyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitPropertyManager.swift; sourceTree = "<group>"; };
 		37A6937A25ED859200E45CEC /* Futura Std Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Futura Std Light.ttf"; sourceTree = "<group>"; };
 		37A6937C25ED859200E45CEC /* Futura.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Futura.ttc; sourceTree = "<group>"; };
 		37A6937D25ED859200E45CEC /* Futura SCTOT Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Futura SCTOT Light.ttf"; sourceTree = "<group>"; };
@@ -503,6 +507,8 @@
 				21F7A81C25D0F15200113DAE /* UserProfile.swift */,
 				2183648B2609C30300E0C9FD /* Settings.swift */,
 				374B980E2614DE9300CDB3E6 /* ProfileSheets.swift */,
+				37830E2F2628CC81001787F7 /* Feedback.swift */,
+				37830E342628D789001787F7 /* SubmitPropertyManager.swift */,
 			);
 			path = UserProf;
 			sourceTree = "<group>";
@@ -823,6 +829,7 @@
 				21A78027258E0A6D00DD6F70 /* Pulse.swift in Sources */,
 				21A78060258E11A100DD6F70 /* Scroll.swift in Sources */,
 				21C9B9B32596545C00ABF426 /* SelectUniversity.swift in Sources */,
+				37830E352628D789001787F7 /* SubmitPropertyManager.swift in Sources */,
 				21A7801F258E0A4A00DD6F70 /* PulseLayer.swift in Sources */,
 				21C10CC325957D380049531E /* CustomCornerOnboarding.swift in Sources */,
 				21F7A8C325DB885700113DAE /* SearchUser.swift in Sources */,
@@ -873,6 +880,7 @@
 				2151A7AE25D0CDE1007C9F90 /* ChatRow.swift in Sources */,
 				21CCF0BB2572BBDF00B22A75 /* TestData.swift in Sources */,
 				374B980F2614DE9300CDB3E6 /* ProfileSheets.swift in Sources */,
+				37830E302628CC81001787F7 /* Feedback.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1034,9 +1042,9 @@
 				CODE_SIGN_ENTITLEMENTS = Nested/Nested.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7;
+				CURRENT_PROJECT_VERSION = 1.12;
 				DEVELOPMENT_ASSET_PATHS = "\"Nested/Preview Content\"";
-				DEVELOPMENT_TEAM = 39QK36JNAM;
+				DEVELOPMENT_TEAM = HZUB2QW2AG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Nested/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1044,6 +1052,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.21;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuppie.space;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1061,9 +1070,9 @@
 				CODE_SIGN_ENTITLEMENTS = Nested/Nested.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.7;
+				CURRENT_PROJECT_VERSION = 1.12;
 				DEVELOPMENT_ASSET_PATHS = "\"Nested/Preview Content\"";
-				DEVELOPMENT_TEAM = 39QK36JNAM;
+				DEVELOPMENT_TEAM = HZUB2QW2AG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Nested/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1071,6 +1080,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.21;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuppie.space;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

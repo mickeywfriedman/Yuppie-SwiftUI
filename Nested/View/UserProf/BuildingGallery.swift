@@ -18,6 +18,7 @@ struct BuildingGallery: View {
     @State var Apartment = 0
     @State var Apartments = ["Enter Unit (Optional)"]
     @State var showError = false
+    @State var showForm = false
     @Environment(\.colorScheme) var colorScheme
     func hideKeyboard() {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -223,21 +224,19 @@ struct BuildingGallery: View {
                             if filterBuildings().count == 0 {
                                 VStack(alignment: .center){
                                 Text("We couldn't find your building😔")
-                                Text("Submit your property manager below:")
+                                Text("Submit your property manager")
+                                    .padding()
+                                    .background(Color("pgradient1"))
+                                    .clipShape(Capsule())
+                                    .onTapGesture {
+                                        self.showForm = true
                                     }
+                                    }
+                                .sheet(isPresented: $showForm) {
+                                    SubmitPropertyManager()
+                            }
                                     .offset(y: 35)
-                                HStack(spacing: 15){
-                                    Spacer()
-                                    TextField("Code", text: self.$rec)
-                                        .padding(.vertical, 10)
-                                        .padding(.horizontal, 10)
-                                        .background(Color("pgradient1"))
-                                        .clipShape(Capsule())
-                                        
-                                    Spacer()
-                                }
-                                .frame(height: 100)
-                                .offset(y: 15)
+                                
                             }
                             }
                             else {

@@ -67,7 +67,7 @@ struct Favorites: View {
 
                         
                         LottieView(name: "nobuildings", loopMode: .loop)
-                                    .frame(width: 400, height: 400)
+                                    .frame(width: UIScreen.main.bounds.width-50, height: UIScreen.main.bounds.width-50)
                             .offset(y: 70)
                     }
                 }
@@ -89,7 +89,7 @@ struct Favorites: View {
 
                         
                         LottieView(name: "contact", loopMode: .loop)
-                                    .frame(width: 400, height: 400)
+                                    .frame(width: UIScreen.main.bounds.width-50, height: UIScreen.main.bounds.width-50)
                             .offset(y: 70)
                 }
             }

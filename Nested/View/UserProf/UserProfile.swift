@@ -80,6 +80,10 @@ struct UserProfile : View {
                     sheet = "privacy"
                     showSheet = true
                 }
+                profileRow(text: "Submit Feedback").onTapGesture {
+                    sheet = "feedback"
+                    showSheet = true
+                }
                 profileRow(text: "Contact Us").onTapGesture {
                     sheet = "contact"
                     showSheet = true

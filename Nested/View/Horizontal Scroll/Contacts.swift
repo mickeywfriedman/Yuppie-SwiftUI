@@ -59,6 +59,13 @@ extension CNContact: Identifiable {
 class ViewController: UIViewController, MFMessageComposeViewControllerDelegate {
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        switch (result) {
+            case .cancelled:
+                print("Message was cancelled")
+                dismiss(animated: true, completion: nil)
+            default:
+            break
+        }
     }
 
     override func viewDidLoad() {
@@ -108,11 +115,15 @@ struct MessageComposeView: UIViewControllerRepresentable {
             self.completion = completion
         }
         
-        public func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-            controller.dismiss(animated: true, completion: nil)
-            completion?(result == .sent)
-        }
-    }
+        func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+            switch (result) {
+                case .cancelled:
+                    print("Message was cancelled")
+                    controller.dismiss(animated: true, completion: nil)
+                default:
+                break
+            }
+        }    }
 }
 
 struct MessagesUnavailableView: View {
@@ -176,7 +187,7 @@ struct Contacts: View {
             VStack {
                 SearchBarView(text: $searchText, placeholder: "Type here")
                     .sheet(isPresented: self.$isShowingMessages) {
-                        MessageComposeView(recipients: $recipients, body: message) { messageSent in
+                        MessageComposeView(recipients: $recipients, body: "https://apps.apple.com/app/id1556148411") { messageSent in
                                     print("MessageComposeView with message sent? \(messageSent)")
                                 }
                     }
