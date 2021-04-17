@@ -203,7 +203,7 @@ struct CustomSearchBar: View {
                                 }
                                 }
                             .sheet(isPresented: $showForm) {
-                                SubmitPropertyManager()
+                                SubmitPropertyManager(token: token)
                         }
                                 .offset(y: 35)
     

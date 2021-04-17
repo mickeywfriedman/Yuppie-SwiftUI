@@ -113,7 +113,7 @@ struct profileSheets: View {
             Text("Contact Leon@NestedApp.com with any questions!")
         }
         else if (card == "feedback") {
-            Feedback()
+            Feedback(token: token)
         }
 
         else if (card == "privacy") {

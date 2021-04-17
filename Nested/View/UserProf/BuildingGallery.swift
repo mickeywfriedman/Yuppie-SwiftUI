@@ -53,13 +53,9 @@ struct BuildingGallery: View {
     public func send() {
         user.building = filterBuildings()[0].id
         let parameters: [String: String] = ["user" : self.user.id, "unit": "\((Apartment == 0) ? "": Apartments[Apartment])"]
-                  
-                let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/buildings/\(buildingID)/tenants")! as URL)
-                  request.httpMethod = "POST"
-            request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
-        
-               
-        print("http://18.218.78.71:8080/users/"+self.user.id)
+        let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/buildings/\(buildingID)/tenants")! as URL)
+        request.httpMethod = "POST"
+        request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
              
                 do {
                     request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
@@ -154,7 +150,6 @@ struct BuildingGallery: View {
             }
         }
         filtered.removeFirst()
-        print(filter)
         return filtered
     }
     func toString(_ value: Any?) -> String {
@@ -233,7 +228,7 @@ struct BuildingGallery: View {
                                     }
                                     }
                                 .sheet(isPresented: $showForm) {
-                                    SubmitPropertyManager()
+                                    SubmitPropertyManager(token: token)
                             }
                                     .offset(y: 35)
                                 

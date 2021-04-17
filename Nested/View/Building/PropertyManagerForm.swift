@@ -207,7 +207,6 @@ struct PropertyManagerForm : View {
                     Text("Refresh")
                         .foregroundColor(.white)
                         .padding()
-                        .frame(width: (UIScreen.main.bounds.width/2) - 10, height: 50)
                         .background(Color("Chat_color"))
                         .cornerRadius(30.0)
                         .padding(.bottom, 20)
@@ -220,7 +219,6 @@ struct PropertyManagerForm : View {
                     Text("Enter Another Email")
                         .foregroundColor(.white)
                         .padding()
-                        .frame(width: (UIScreen.main.bounds.width/2), height: 50)
                         .background(Color("Chat_color"))
                         .cornerRadius(30.0)
                         .onTapGesture{

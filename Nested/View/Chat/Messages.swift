@@ -19,11 +19,9 @@ struct Home : View {
     @State var showInbox = false
     @State var index = 0
     @State var expand = false
-    
     var body : some View{
         ZStack{
             VStack{
-                
                 Color.clear
             }
             VStack{
@@ -34,6 +32,7 @@ struct Home : View {
     }
 }
 
+
 struct Chats : View {
     @Binding var token: String
     @Binding var user : User
@@ -41,11 +40,8 @@ struct Chats : View {
     @State var building: Building
     @Binding var expand : Bool
     var body : some View{
-        
         VStack(spacing: 0){
-            
             TopView(token: $token, user: $user, user_id: $user_id, building:building, expand: self.$expand).zIndex(0)
-            
             Centerview(expand: self.$expand).offset(y: -1250)
         }.frame(minWidth:(UIScreen.main.bounds.width), maxWidth: .infinity)
     }
