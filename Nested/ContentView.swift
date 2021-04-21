@@ -45,7 +45,6 @@ struct ContentView: View {
         }
     
     func checkIfLoggedIn() {
-        print("test")
         let auth_info = UserDefaultsService().getUserInfo()
         if (auth_info.token != ""  && auth_info.id != "" && (auth_info.token != nil) && (auth_info.id != nil)) {
             let token = auth_info.token!

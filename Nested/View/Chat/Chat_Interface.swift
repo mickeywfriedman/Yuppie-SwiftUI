@@ -15,8 +15,19 @@ struct ChatUI: View {
     @StateObject var allMessages = Messages_image()
     @Binding var showChatUI : Bool
     var gradient = [Color("gradient1"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
-    func initiatefirstView() {
-    if homeData.msgs.isEmpty{print("f")}
+    func readMessages() {
+        guard let url = URL(string: "http://18.218.78.71:8080/conversations/users/\(tenant_id)/read") else {
+            print("Your API end point is Invalid")
+            return
+        }
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(token)
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            print(response)
+        }.resume()
     }
     
     var body: some View {
@@ -39,6 +50,7 @@ struct ChatUI: View {
                     
                     Text("\(tenant_name)")
                         .fontWeight(.bold)
+                        .onAppear(perform: readMessages)
 
                 }
                 .foregroundColor(.white)

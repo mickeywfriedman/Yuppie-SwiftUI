@@ -26,7 +26,35 @@ struct Scroll: View {
     @State var search = ""
     @State var showInbox = false
     @State var first = true
+    @State var convos : [FriendsChat] = []
+    @State var unread = 0
     var gradient = [Color("Color-3"),Color("gradient2"),Color("gradient3"),Color("gradient4")]
+    func loadMessageData() {
+        guard let url = URL(string: "http://18.218.78.71:8080/conversations2") else {
+            print("Your API end point is Invalid")
+            return
+        }
+                var request = URLRequest(url: url)
+                request.setValue("application/json", forHTTPHeaderField: "Accept")
+                request.httpMethod = "GET"
+                request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+                    URLSession.shared.dataTask(with: request) { data, response, error in
+                        if let data = data {
+                            //print(data)
+                            let dataString = String(data: data, encoding: .utf8)
+                            print(dataString)
+                            if let response = try? JSONDecoder().decode(convoResponse.self, from: data) {
+                                DispatchQueue.main.async {
+                                    self.convos = response.data.conversations
+                                    self.unread = response.data.unread
+
+                                }
+                                return
+                            }
+                        }
+                    }.resume()
+                
+        }
     func loadData() {
         if (self.token != "") {
             print(self.token, "SUHSHHHS")
@@ -36,14 +64,11 @@ struct Scroll: View {
             }
             var request = URLRequest(url: url)
             request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
-            print(self.token)
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let data = data {
                     if let response = try? JSONDecoder().decode(Response.self, from: data) {
                         DispatchQueue.main.async {
                             self.buildings = response.data
-                            print("hello")
-                            print(user_id)
                         }
                         return
                     }
@@ -171,6 +196,7 @@ struct Scroll: View {
                         .clipShape(Capsule())
                         .opacity(0.7)
                             .onAppear(perform: loadData)
+                            .onAppear(perform: loadMessageData)
                         Spacer()
                         Button(action: {
                             self.showCard.toggle()
@@ -206,14 +232,35 @@ struct Scroll: View {
                         }) {
                             Label(title: {
                             }) {
-                            Image(systemName: "message")
-                                .foregroundColor(Color.white)
+                                if unread == 0 {
+                                    Image(systemName: "message")
+                                        .foregroundColor(Color.white)
+                                        .padding(.vertical,8)
+                                        .padding(.horizontal,7)
+                                        .background(Color("Chat_color").opacity(0.75))
+                                        .clipShape(Capsule())
+
+                                } else {
+                                    ZStack{
+                                        Image(systemName: "message")
+                                            .foregroundColor(Color.white)
+                                            .padding(.vertical,8)
+                                            .padding(.horizontal,7)
+                                            .background(Color("Chat_color").opacity(0.75))
+                                            .clipShape(Capsule())
+
+                                        Text("\(unread)")
+                                            .font(.custom("Futura", size: 12))
+                                            .padding(5)
+                                            .foregroundColor(Color.white)
+                                            .background(Color.red)
+                                            .clipShape(Circle())
+                                            .offset(x:12, y: -12)
+                                            
+                                    }
+                                }
                             }
-                            .padding(.vertical,8)
-                            .padding(.horizontal,7)
-                            .background(Color("Chat_color").opacity(0.75))
-                            .clipShape(Capsule())
-                        }
+                                                    }
                         
  
                     }.padding(.horizontal)
@@ -311,7 +358,7 @@ struct Scroll: View {
            )
                      }
         }.sheet(isPresented: $showCard) {
-            sheets(card: $card, showCard: $showCard, user: $user, buildings: filteredBuildings(), user_id: $user_id, token:$token, index: $index, tenant_id : $tenant_id, tenant_prof: $tenant_prof, tenant_name:$tenant_name)
+            sheets(card: $card, showCard: $showCard, user: $user, buildings: filteredBuildings(), user_id: $user_id, token:$token, index: $index, tenant_id : $tenant_id, tenant_prof: $tenant_prof, tenant_name:$tenant_name, convos: $convos)
         }.onAppear(perform: moveMap)
         }
             

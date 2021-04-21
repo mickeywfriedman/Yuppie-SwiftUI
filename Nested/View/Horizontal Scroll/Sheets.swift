@@ -20,6 +20,7 @@ struct sheets: View {
     @Binding var tenant_id : String
     @Binding var tenant_prof : String
     @Binding var tenant_name : String
+    @Binding var convos : [FriendsChat]
     func filter(units: [Unit], buildingAmenities: [String]) -> Bool{
         for unit in units{
             let dateFormatter = DateFormatter()
@@ -110,7 +111,7 @@ struct sheets: View {
             BuildingView(Bedroom: minBeds(), user : $user, token: $token, user_id: $user_id, building:filteredBuildings()[index])
         }
         else if (card == "inbox") {
-            Inbox(token: $token, user_id: $user_id, user: $user)
+            Inbox(token: $token, user_id: $user_id, convos: $convos, user: $user)
         } 
         else if (card == "invite") {
             Contacts(user: user)

@@ -90,11 +90,7 @@ struct TopView : View {
                 
                 Text("")
             }
-            
-            NavigationLink(destination: Inbox(token: $token, user_id: $user_id, user: $user), isActive: self.$showInbox) {
-                
-                Text("")
-            }
+
             
             
         VStack{

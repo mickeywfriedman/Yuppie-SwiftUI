@@ -10,8 +10,8 @@ import UIKit
 
 enum TestData {
     static let user = User(
-        firstName: "Test",
-        lastName: "User",
+        firstName: "",
+        lastName: "",
         building: "5fdae6afedf9ef3d1f7c215c",
         profilePicture: "asdlfkdslf.com",
         contacted: [],
@@ -57,10 +57,8 @@ enum TestData {
         ],
         latitude: 0.0,
         longitude: 0.0
-    
     )
 
-    
     static let buildings = [
         Building(
             id: "1",
@@ -101,8 +99,7 @@ enum TestData {
 }
 
 enum InitialData {
-    
-    
+
     static let buildings = [
         Building(
             id: "1",

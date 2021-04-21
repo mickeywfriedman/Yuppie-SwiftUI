@@ -6,17 +6,7 @@
 //
 import SwiftUI
 
-struct convoResponse: Decodable {
-    var data : [FriendsChat]
-}
 
-
-struct FriendsChat: Hashable, Decodable, Identifiable{
-    var user1 : String
-    var user2: String
-    var modifiedDate: String
-    var id : String
-}
 
 
 struct Inbox : View {
@@ -26,36 +16,10 @@ struct Inbox : View {
     @Namespace var animation
     @Binding var token: String
     @Binding var user_id: String
-    @State var convos : [FriendsChat] = []
+    @Binding var convos : [FriendsChat]
     @Binding var user : User
     @State var searchQuery = ""
     @Environment(\.colorScheme) var colorScheme
-    func loadMessageData() {
-        
-      
-        guard let url = URL(string: "http://18.218.78.71:8080/conversations") else {
-            print("Your API end point is Invalid")
-            return
-        }
-                var request = URLRequest(url: url)
-                request.setValue("application/json", forHTTPHeaderField: "Accept")
-                request.httpMethod = "GET"
-                request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-                    URLSession.shared.dataTask(with: request) { data, response, error in
-                        if let data = data {
-                            //print(data)
-                            let dataString = String(data: data, encoding: .utf8)
-                            print(dataString)
-                            if let response = try? JSONDecoder().decode(convoResponse.self, from: data) {
-                                DispatchQueue.main.async {
-                                    self.convos = response.data
-                                }
-                                return
-                            }
-                        }
-                    }.resume()
-                
-        }
     
     var body: some View{
         
@@ -196,7 +160,6 @@ struct Inbox : View {
         }
         .background(Color(.white).ignoresSafeArea(.all, edges: .all))
         .ignoresSafeArea(.all, edges: .top)
-        .onAppear(perform: loadMessageData)
     }
 }
 
@@ -217,7 +180,7 @@ struct CurvedCorner : Shape {
 
 struct ChatView : View {
     
-    var chatData : FriendsChat
+    @State var chatData : FriendsChat
     @Binding var token: String
     @State var tenants = TestData.user
     @Binding var user_id: String
@@ -241,8 +204,6 @@ struct ChatView : View {
                     if let urlresponse = try? JSONDecoder().decode(userResponse.self, from: data) {
                         DispatchQueue.main.async {
                             self.tenants = urlresponse.data
-                            print("success")
-                            print(self.tenants, "here")
                         }
                         return
                     }
@@ -304,23 +265,14 @@ struct ChatView : View {
         Button(action: {
             writeTenant(tenant_id: tenants.id)
             self.showChatUI.toggle()
-            
+            chatData.unread = 0
             
         }){
-        
         HStack(spacing: 10){
-            
-            
             ImageView(url: tenants.profilePicture)
                 .frame(width: 55, height: 55)
                 .cornerRadius(27)
-                .onAppear(perform: {writeTenant(tenant_id: tenants.id)})
-                .sheet(isPresented: $showChatUI) {
-                    ChatUI(token: $token, user_id: $user_id, tenant_id: $tenants.id, tenant_prof: $tenants.profilePicture, tenant_name: $tenants.firstName, showChatUI: $showChatUI)
-                }
-            
             VStack(alignment: .leading, spacing: 8, content: {
-                
                 Text(tenants.firstName)
                     .fontWeight(.bold)
                     .lineLimit(1)
@@ -332,22 +284,18 @@ struct ChatView : View {
                     }
                 
                // name
-                
                 Text("from your circle at UChicago")
                     .font(.caption)
                     .lineLimit(1)
                     .foregroundColor(.gray)
-                    .onAppear(perform: {writeTenant(tenant_id: tenants.id)})
-                    .sheet(isPresented: $showChatUI) {
-                        ChatUI(token: $token, user_id: $user_id, tenant_id: $tenants.id, tenant_prof: $tenants.profilePicture, tenant_name: $tenants.firstName, showChatUI: $showChatUI)
-                    }
+
             })
             
             Spacer(minLength: 0)
-            
-            Text(dateFormat(string: chatData.modifiedDate), style: .time)
-                .font(.system(size: 15))
-                .foregroundColor(.black)
+            if chatData.unread > 0 {
+                Text("•").foregroundColor(Color.blue)
+                    .font(.custom("Futura", size: 30))
+            }
         }
         .padding(.horizontal)
         }

@@ -6,6 +6,25 @@
 //
 import SwiftUI
 
+
+struct convoResponse: Decodable {
+    var data : convoResponse1
+}
+
+struct convoResponse1: Decodable {
+    var conversations : [FriendsChat]
+    var unread : Int
+}
+
+
+struct FriendsChat: Hashable, Decodable, Identifiable{
+    var user1 : String
+    var user2: String
+    var modifiedDate: String
+    var id : String
+    var unread : Int
+}
+
 class ChatModel: ObservableObject{
     var user_id: String!
     var tenant_id: String!

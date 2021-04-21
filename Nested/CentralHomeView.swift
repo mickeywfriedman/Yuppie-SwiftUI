@@ -26,14 +26,11 @@ struct CentralHomeView: View {
             }
             var request = URLRequest(url: url)
             request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
-            print(self.token)
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let data = data {
                     if let response = try? JSONDecoder().decode(Response.self, from: data) {
                         DispatchQueue.main.async {
                             self.buildingsData = response.data
-                            print("hello")
-                            print(user_id)
                         }
                         return
                     }
@@ -51,13 +48,9 @@ struct CentralHomeView: View {
             user_request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
             URLSession.shared.dataTask(with: user_request) { data, response, error in
                 if let data = data {
-                    print(self.token)
-                    print(self.user_id)
                     if let urlresponse = try? JSONDecoder().decode(userResponse.self, from: data) {
                         DispatchQueue.main.async {
                             self.user = urlresponse.data
-                            print("success")
-                            print(self.user)
                         }
                         return
                     }
