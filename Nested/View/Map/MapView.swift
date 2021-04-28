@@ -33,7 +33,6 @@ struct MapView: UIViewRepresentable {
                 favorites.append(MGLPointAnnotation(coordinate: .init(latitude: Double(building.latitude), longitude: Double(building.longitude))))
             }
         }
-        
         result.removeFirst(1)
         favorites.removeFirst(1)
         return result
@@ -81,7 +80,7 @@ struct MapView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> MapView.Coordinator {
-        Coordinator(self)
+        Coordinator(self, index: $index, buildings: filteredBuildings())
     }
     
 
@@ -119,7 +118,6 @@ struct MapView: UIViewRepresentable {
         let lon = Double(longitude) as! CLLocationDegrees
         return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
-
     private func updateAnnotations() {
         if let currentAnnotations = mapView.annotations {
             mapView.removeAnnotations(currentAnnotations)
@@ -132,8 +130,12 @@ struct MapView: UIViewRepresentable {
     
     final class Coordinator: NSObject, MGLMapViewDelegate {
         var control: MapView
-        init(_ control: MapView) {
+        var index: Binding<Int>
+        var buildings: [Building]
+        init(_ control: MapView, index : Binding<Int>, buildings: [Building]) {
             self.control = control
+            self.index = index
+            self.buildings = buildings
         }
         
         func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
@@ -175,17 +177,28 @@ struct MapView: UIViewRepresentable {
              
             return annotationView
         }
-         
         func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
             return true
         }
-        
-        
+        func getCurrentIndex(latitude: Double, longitude: Double) -> Int {
+            var currentIndex = 0
+            var index = 0
+            for building in buildings {
+                if Double(building.latitude) != latitude || Double(building.longitude) != longitude{
+                    currentIndex += 1
+                } else{
+                    index = currentIndex
+                    print(index)
+                }
+            }
+            return index
+        }
         
         func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
-        let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, fromDistance: 4500, pitch: 15, heading: 0)
-        mapView.fly(to: camera, withDuration: 4,
-        peakAltitude: 3000, completionHandler: nil)
+            self.index.wrappedValue = getCurrentIndex(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
+            let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, fromDistance: 4500, pitch: 15, heading: 0)
+            mapView.fly(to: camera, withDuration: 4,
+            peakAltitude: 3000, completionHandler: nil)
             mapView.selectAnnotation(annotation, animated: true, completionHandler: nil)
         }
         
