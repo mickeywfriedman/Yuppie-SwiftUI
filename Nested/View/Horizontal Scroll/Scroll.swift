@@ -47,7 +47,6 @@ struct Scroll: View {
                                 DispatchQueue.main.async {
                                     self.convos = response.data.conversations
                                     self.unread = response.data.unread
-
                                 }
                                 return
                             }
@@ -125,11 +124,13 @@ struct Scroll: View {
     func filteredBuildings() -> [Building]{
         return buildings.filter({filter(units: $0.units, buildingAmenities:$0.amenities)})
     }
+    
     func dateFormat(string : String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.date(from: string) ?? Date()
     }
+    
     @State var offset : CGFloat = UIScreen.main.bounds.height
     @State var buildings: [Building]
     var body: some View {

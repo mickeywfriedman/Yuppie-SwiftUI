@@ -41,48 +41,34 @@ struct ProfilePicture: View {
       }
       
      public func send(_ sender: Any) {
-
         let profile = UIImage(data: self.images[0])!
         let imageData: Data = profile.jpegData(compressionQuality: 0.1) ?? Data()
         let imageStr: String = imageData.base64EncodedString()
         let paramStr: String = "images2=\(imageStr)"
         let paramData: Data = paramStr.data(using: .utf8) ?? Data()
         let parameters: [String: String] = ["image": imageStr]
-          
         let request = NSMutableURLRequest(url: NSURL(string: "http://18.218.78.71:8080/images2")! as URL)
           request.httpMethod = "POST"
-        
-        
         request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
-        
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
-
-
            } catch let error {
                print(error)
            }
-        
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
         let task = URLSession.shared.dataTask(with: request as URLRequest) {
             data, response, error in
-            
               guard error == nil else {
                       return
                   }
-
                   guard let data = data else {
                       return
                   }
-
                   do {
                       //create json object from data
                       if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] {
                          print(json)
-                       
                       }
-
                      let responseString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
                            responseString as! String
                   } catch let error {
@@ -91,8 +77,6 @@ struct ProfilePicture: View {
         }
         print(self.token)
         task.resume()
-
-            
         }
 
 

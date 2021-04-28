@@ -99,6 +99,7 @@
 		37A6938325ED859200E45CEC /* Futura SCTOT Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37A6937D25ED859200E45CEC /* Futura SCTOT Light.ttf */; settings = {ASSET_TAGS = (CustomFonts, ); }; };
 		37A6938425ED859200E45CEC /* Futura Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37A6937E25ED859200E45CEC /* Futura Light.ttf */; settings = {ASSET_TAGS = (CustomFonts, ); }; };
 		37A6938525ED859200E45CEC /* Futura Std Light Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37A6937F25ED859200E45CEC /* Futura Std Light Condensed.ttf */; settings = {ASSET_TAGS = (CustomFonts, ); }; };
+		37B494ED2637A59500E328C3 /* EditProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B494EC2637A59400E328C3 /* EditProfile.swift */; };
 		37BB945125B88DD300D1FC86 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945025B88DD300D1FC86 /* Login.swift */; };
 		37BB945B25B88E3700D1FC86 /* SelectAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB945A25B88E3700D1FC86 /* SelectAddress.swift */; };
 		37BB947925B8A19200D1FC86 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB947825B8A19200D1FC86 /* User.swift */; };
@@ -240,6 +241,7 @@
 		37A6937E25ED859200E45CEC /* Futura Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Futura Light.ttf"; sourceTree = "<group>"; };
 		37A6937F25ED859200E45CEC /* Futura Std Light Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Futura Std Light Condensed.ttf"; sourceTree = "<group>"; };
 		37A6939D25ED8B2F00E45CEC /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
+		37B494EC2637A59400E328C3 /* EditProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfile.swift; sourceTree = "<group>"; };
 		37BB945025B88DD300D1FC86 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		37BB945A25B88E3700D1FC86 /* SelectAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectAddress.swift; sourceTree = "<group>"; };
 		37BB947825B8A19200D1FC86 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -509,6 +511,7 @@
 				374B980E2614DE9300CDB3E6 /* ProfileSheets.swift */,
 				37830E2F2628CC81001787F7 /* Feedback.swift */,
 				37830E342628D789001787F7 /* SubmitPropertyManager.swift */,
+				37B494EC2637A59400E328C3 /* EditProfile.swift */,
 			);
 			path = UserProf;
 			sourceTree = "<group>";
@@ -866,6 +869,7 @@
 				374B9796260C218600CDB3E6 /* Contacts.swift in Sources */,
 				37BB945B25B88E3700D1FC86 /* SelectAddress.swift in Sources */,
 				21A78036258E0AC300DD6F70 /* CALayer+Extensions.swift in Sources */,
+				37B494ED2637A59500E328C3 /* EditProfile.swift in Sources */,
 				21F7A81825D0F0F800113DAE /* BuildingGallery.swift in Sources */,
 				21A7802C258E0A9000DD6F70 /* AnimationDelegate.swift in Sources */,
 				2183648C2609C30300E0C9FD /* Settings.swift in Sources */,

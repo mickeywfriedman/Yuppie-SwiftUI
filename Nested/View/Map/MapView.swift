@@ -29,7 +29,6 @@ struct MapView: UIViewRepresentable {
         var favorites = [MGLPointAnnotation(coordinate: .init(latitude: 40.761295318603516, longitude: -73.99922180175781))]
         for building in filteredBuildings() {
             result.append(MGLPointAnnotation(coordinate: .init(latitude: Double(building.latitude), longitude: Double(building.longitude))))
-            
             if user.favorites.contains(building.id){
                 favorites.append(MGLPointAnnotation(coordinate: .init(latitude: Double(building.latitude), longitude: Double(building.longitude))))
             }
@@ -39,7 +38,6 @@ struct MapView: UIViewRepresentable {
         favorites.removeFirst(1)
         return result
         return favorites
-        
     }
     
     func filter(units: [Unit], buildingAmenities: [String]) -> Bool{
@@ -103,8 +101,6 @@ struct MapView: UIViewRepresentable {
         updateAnnotations()
         if (index < filteredBuildings().count && (first == false)) {
             moveToCoordinate(mapView, to: CLLocationCoordinate2D(latitude: Double(filteredBuildings()[index].latitude), longitude: Double(filteredBuildings()[index].longitude)))
-            
-            
         }
     }
     func moveToCoordinate(_ mapView: MGLMapView, to point: CLLocationCoordinate2D) {

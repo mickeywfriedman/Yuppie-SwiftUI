@@ -106,6 +106,9 @@ struct profileSheets: View {
         else if (card == "building") {
             BuildingGallery(buildings: buildings, user: $user, token: token)
         }
+        else if (card == "edit") {
+            EditProfile(user: $user, token: token, firstName: user.firstName, lastName: user.lastName, email: user.email, profilePicture: user.profilePicture)
+        }
         else if (card == "terms") {
             Terms().padding(.top)
         }
@@ -115,7 +118,6 @@ struct profileSheets: View {
         else if (card == "feedback") {
             Feedback(token: token)
         }
-
         else if (card == "privacy") {
             Privacy().padding(.top)
         } else {

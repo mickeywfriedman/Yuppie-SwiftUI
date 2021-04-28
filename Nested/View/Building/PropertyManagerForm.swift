@@ -45,7 +45,6 @@ struct PropertyManagerForm : View {
         request.httpMethod = "POST"
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.httpBody = encoded
-        print(token)
         URLSession.shared.dataTask(with: request) { data, response, error in
             print(response)
         }.resume()
@@ -89,17 +88,12 @@ struct PropertyManagerForm : View {
             user_request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
             URLSession.shared.dataTask(with: user_request) { data, response, error in
                 if let data = data {
-                    print(self.token)
-                    print(self.user_id)
                     if let urlresponse = try? JSONDecoder().decode(userResponse.self, from: data) {
                         DispatchQueue.main.async {
                             self.user = urlresponse.data
-                            print("success")
-                            print(self.user)
                         }
                         return
                     }
-                    
                 }
             }.resume()
         }

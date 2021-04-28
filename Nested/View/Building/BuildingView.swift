@@ -53,6 +53,27 @@ struct BuildingImages: View{
             addFavorite()
         }
     }
+    func loadUser() {
+        if (self.token != "") {
+            guard let user_url = URL(string: "http://18.218.78.71:8080/users/\(self.user_id)") else {
+                print("Your API end point is Invalid")
+                return
+            }
+            var user_request = URLRequest(url: user_url)
+            user_request.addValue("Bearer \(self.token)", forHTTPHeaderField: "Authorization")
+            URLSession.shared.dataTask(with: user_request) { data, response, error in
+                if let data = data {
+                    if let urlresponse = try? JSONDecoder().decode(userResponse.self, from: data) {
+                        DispatchQueue.main.async {
+                            self.user = urlresponse.data
+                        }
+                        return
+                    }
+                }
+            }.resume()
+        }
+        }
+
     @State private var isShareSheetShowing = false
     @Binding var token: String
     @Binding var user : User
@@ -106,7 +127,6 @@ struct BuildingImages: View{
             Spacer()
             Button(action: {
                 self.showForm.toggle()
-                
             }) {
                 HStack{
                 Text("    Contact Property Manager")
@@ -116,6 +136,7 @@ struct BuildingImages: View{
                     .foregroundColor(.white)
                     .sheet(isPresented: $showForm) {
                         PropertyManagerForm(token: $token, user_id: $user_id, user : $user, building: building, showForm:self.$showForm)
+                            .onAppear(perform: loadUser)
                 }
             }
             .padding(.horizontal, 10)

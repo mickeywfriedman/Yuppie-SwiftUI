@@ -64,6 +64,10 @@ struct UserProfile : View {
             profileView(profilePic: profilePic, firstName: user.firstName, university: user.university, user_id: $user_id).padding(.vertical)
             Divider().padding(.top)
             VStack(spacing: 0){
+                profileRow(text: "Edit Profile").onTapGesture {
+                    sheet = "edit"
+                    showSheet = true
+                }
                 profileRow(text: "My Building").onTapGesture {
                     sheet = "building"
                     showSheet = true
