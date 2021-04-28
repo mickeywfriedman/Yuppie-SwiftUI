@@ -133,6 +133,7 @@ struct EditProfile: View {
             .shadow(color: Color.white.opacity(0.5), radius: 5, x: -8, y: -8)
             }
             Text("Edit Profile Picture")
+                .foregroundColor(Color.blue)
                 .onTapGesture {
                     self.imagePicker.toggle()
                 }
