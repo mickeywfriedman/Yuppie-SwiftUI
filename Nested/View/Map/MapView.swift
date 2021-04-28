@@ -98,6 +98,7 @@ struct MapView: UIViewRepresentable {
     }
     func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<MapView>) {
         updateAnnotations()
+        makeCoordinator()
         if (index < filteredBuildings().count && (first == false)) {
             moveToCoordinate(mapView, to: CLLocationCoordinate2D(latitude: Double(filteredBuildings()[index].latitude), longitude: Double(filteredBuildings()[index].longitude)))
         }
