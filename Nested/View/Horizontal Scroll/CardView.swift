@@ -38,7 +38,6 @@ struct CardView: View {
     @Binding var card: String
     var body: some View {
             ZStack{
-                VStack{
                     VStack{
                         Text("   ")
                         VStack{
@@ -60,20 +59,13 @@ struct CardView: View {
                         .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                         .animation(.spring())
                     }
-                }
-                
-                ZStack{
                     ImageScroll(building: building, user : $user, token: $token, user_id: $user_id)
                 .frame(width:UIScreen.main.bounds.width-120, height: 190)
                     .cornerRadius(20)
                 .shadow(color: Color("blueshadow").opacity(0.1),radius: 5,x: -5,y: -5)
                 .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
                 .animation(.spring(response: 0.8, dampingFraction: 0.7, blendDuration: 0.4))
-
-                }.offset(y:-35)
-    }.onTapGesture {
-        self.card = "building"
-        self.showCard = true
+                .offset(y:-35)
     }
         }
     }

@@ -164,28 +164,6 @@ struct Scroll: View {
                         }
                     }
                 } else{
-                Image("topgradient")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                .offset(y:-310)
-                    .frame(width:UIScreen.main.bounds.width)
-                    
-                    Image("bottomgradient")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                    .offset(y:225)
-                        .frame(width:UIScreen.main.bounds.width)
-                        
-                    Image("arrows")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                    .offset(y: ((UIScreen.main.bounds.height)/2)-220)
-                        .shadow(color: Color.black.opacity(0.90),radius: 7,x: -7,y: -7)
-                        .shadow(color: Color.gray.opacity(0.86),radius: 7,x: 5,y: 5)
-                        .frame(width:UIScreen.main.bounds.width)
-                    
-                    
-                        .frame(width:UIScreen.main.bounds.width)
                 VStack{
                     HStack{
                         Text("Our Residents")
@@ -298,7 +276,6 @@ struct Scroll: View {
                                         .rotationEffect(.init(degrees: showChatUI ? 360 : 0))
                                             
                                         }
-                                            
                                             Label(title: {
                                             }) {Text(tenant.firstName)
                                                 .font(.custom("Futura", size: 14))
@@ -313,11 +290,9 @@ struct Scroll: View {
                                         }.padding(5)
                                     }
                                 }
-
                                 .background(Color.clear)
                                 .clipShape(shape())
                                 .animation(.default)
-                                
                             }.padding(.leading)
                             }.frame(minWidth:(UIScreen.main.bounds.width), maxWidth: geometry.size.width)
                         }
@@ -329,14 +304,44 @@ struct Scroll: View {
                 }.offset(y: -1*((UIScreen.main.bounds.height)/2)+140)
             HStack (spacing: 0){
                 ForEach(filteredBuildings(), id:\.name) {building in
+                    ZStack{
                         CardView(token: $token, user: $user, user_id: $user_id, building:building, showCard: $showCard, card: $card)
                             .padding(.horizontal, 30)
+                            .animation(.interactiveSpring())
+                                .onTapGesture {
+                                    self.card = "building"
+                                    self.showCard = true
+                                }
+                        HStack(spacing: UIScreen.main.bounds.width - 60){
+                        Image(systemName: "chevron.left")
+                            .frame(width: 30, height: 30)
+                            .background(Color("Color1").opacity(0.01))
+                            .clipShape(Capsule())
+                            .onTapGesture {
+                                if index == 0 {
+                                    self.index = filteredBuildings().count-1
+                                } else {
+                                    self.index = index - 1
+                                }
+                            }
+                        Image(systemName: "chevron.right")
+                            .frame(width: 30, height:30)
+                            .background(Color("Color1").opacity(0.01))
+                            .clipShape(Capsule())
+                            .onTapGesture{
+                                if index == filteredBuildings().count-1{
+                                    self.index = 0
+                                } else{
+                                    self.index = index + 1
+                                }
+                            }
+                        }
                     }
-                }
+                    }
+            }
            .frame(minWidth: geometry.size.width, maxWidth: .infinity, alignment: .leading)
             .offset(x: -CGFloat(self.index) * geometry.size.width, y: ((UIScreen.main.bounds.height)/2)-240)
-           .animation(.interactiveSpring())
-            
+           
            .gesture(
               DragGesture()
                  .updating(self.$translation) { gestureValue, gestureState, _ in
@@ -362,6 +367,5 @@ struct Scroll: View {
             sheets(card: $card, showCard: $showCard, user: $user, buildings: filteredBuildings(), user_id: $user_id, token:$token, index: $index, tenant_id : $tenant_id, tenant_prof: $tenant_prof, tenant_name:$tenant_name, convos: $convos)
         }.onAppear(perform: moveMap)
         }
-            
 }
 }
