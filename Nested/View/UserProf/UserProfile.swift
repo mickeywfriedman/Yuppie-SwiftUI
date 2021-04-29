@@ -62,8 +62,9 @@ struct UserProfile : View {
                 profileSheets(card: $sheet, showCard: $showSheet, user: $user, buildings: buildings, user_id: $user_id, token:$token, index: $index)
             }
             profileView(profilePic: profilePic, firstName: user.firstName, university: user.university, user_id: $user_id).padding(.vertical)
-            Divider().padding(.top)
+            ScrollView{
             VStack(spacing: 0){
+                Divider()
                 profileRow(text: "Edit Profile").onTapGesture {
                     sheet = "edit"
                     showSheet = true
@@ -95,8 +96,9 @@ struct UserProfile : View {
                 profileRow(text: "Logout").onTapGesture {
                     logout()
                 }
+                Divider()
             }
-            Divider()
+            }.padding(.top)
             Spacer()
         }
     }
