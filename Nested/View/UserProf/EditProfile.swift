@@ -62,6 +62,7 @@ struct EditProfile: View {
         self.user.profilePicture = profilePicture
         if email != user.email{
             user.email = email
+            print("diff")
             let parameters: [String: Any] = ["firstName": self.user.firstName, "lastName": self.user.lastName, "email": self.user.email]
         } else {
             let parameters: [String: String] = ["firstName": self.user.firstName, "lastName": self.user.lastName]

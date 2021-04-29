@@ -314,7 +314,7 @@ struct Scroll: View {
                                 }
                         HStack(spacing: UIScreen.main.bounds.width - 60){
                         Image(systemName: "chevron.left")
-                            .frame(width: 30, height: 30)
+                            .frame(width: 30, height: 90)
                             .background(Color("Color1").opacity(0.01))
                             .clipShape(Capsule())
                             .onTapGesture {
@@ -325,7 +325,7 @@ struct Scroll: View {
                                 }
                             }
                         Image(systemName: "chevron.right")
-                            .frame(width: 30, height:30)
+                            .frame(width: 30, height:90)
                             .background(Color("Color1").opacity(0.01))
                             .clipShape(Capsule())
                             .onTapGesture{

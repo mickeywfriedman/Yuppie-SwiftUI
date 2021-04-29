@@ -80,7 +80,8 @@ struct MapView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> MapView.Coordinator {
-        Coordinator(self, index: $index, buildings: filteredBuildings())
+        print("hi")
+        return Coordinator(self, index: $index, buildings: buildings, user: $user)
     }
     
 
@@ -97,13 +98,14 @@ struct MapView: UIViewRepresentable {
         return self
     }
     func updateUIView(_ uiView: MGLMapView, context: UIViewRepresentableContext<MapView>) {
-        makeCoordinator()
         updateAnnotations()
+        makeCoordinator()
         if (index < filteredBuildings().count && (first == false)) {
             moveToCoordinate(mapView, to: CLLocationCoordinate2D(latitude: Double(filteredBuildings()[index].latitude), longitude: Double(filteredBuildings()[index].longitude)))
         }
     }
     func moveToCoordinate(_ mapView: MGLMapView, to point: CLLocationCoordinate2D) {
+        makeCoordinator()
         let camera = MGLMapCamera(lookingAtCenter: point, fromDistance: 4500, pitch: 15, heading: 0)
         mapView.fly(to: camera, withDuration: 4,
                     peakAltitude: 3000, completionHandler: nil)
@@ -123,6 +125,7 @@ struct MapView: UIViewRepresentable {
         if let currentAnnotations = mapView.annotations {
             mapView.removeAnnotations(currentAnnotations)
         }
+        makeCoordinator()
         mapView.addAnnotations(annotations())
         
     }
@@ -133,10 +136,12 @@ struct MapView: UIViewRepresentable {
         var control: MapView
         var index: Binding<Int>
         var buildings: [Building]
-        init(_ control: MapView, index : Binding<Int>, buildings: [Building]) {
+        var user: Binding<User>
+        init(_ control: MapView, index : Binding<Int>, buildings: [Building], user: Binding<User>) {
             self.control = control
             self.index = index
             self.buildings = buildings
+            self.user = user
         }
         
         func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
@@ -181,10 +186,35 @@ struct MapView: UIViewRepresentable {
         func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
             return true
         }
+        func dateFormat(string : String) -> Date {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.date(from: string) ?? Date()
+        }
+        func filter(units: [Unit], buildingAmenities: [String]) -> Bool{
+            for unit in units{
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let date_avail = dateFormatter.date(from: unit.dateAvailable)
+                if (unit.bedrooms >= user.preferences.bedrooms.wrappedValue && unit.bathrooms-1 >= user.preferences.bathrooms.wrappedValue && Int(unit.price) <= Int(user.preferences.price.wrappedValue) && date_avail ?? Date() < dateFormat(string: user.preferences.latestMoveInDate.wrappedValue)){
+                    for amenity in user.preferences.amenities.wrappedValue {
+                        if (!buildingAmenities.contains(amenity)){
+                            return false
+                        }
+                    }
+                    return true
+                }
+            }
+            return false
+        }
+        func filteredBuildings() -> [Building]{
+            return buildings.filter({filter(units: $0.units, buildingAmenities:$0.amenities)})
+        }
         func getCurrentIndex(latitude: Double, longitude: Double) -> Int {
             var currentIndex = 0
             var index = 0
-            for building in buildings {
+            for building in filteredBuildings() {
+                
                 if Double(building.latitude) != latitude || Double(building.longitude) != longitude{
                     currentIndex += 1
                 } else{
