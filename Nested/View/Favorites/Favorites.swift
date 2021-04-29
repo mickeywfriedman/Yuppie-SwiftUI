@@ -50,7 +50,7 @@ struct Favorites: View {
             .padding()
             if (Tabs[Tab] == "Favorites") {
                 if (findFavorites().count>0){
-                    ScrollView{
+                    ScrollView(showsIndicators: false){
                         VStack{
                             ForEach(buildings.filter({user.favorites.contains($0.id)}), id:\.name) { building in
                                 BuildingRow(token: $token, user: $user, user_id: $user_id, building: building, minBedrooms: minBedrooms, minBathrooms: minBathrooms)
@@ -74,7 +74,7 @@ struct Favorites: View {
                 
             } else {
                 if (findContacted().count>0){
-                    ScrollView{
+                    ScrollView(showsIndicators: false){
                         VStack{
                             ForEach(findContacted(), id:\.name) { building in
                                 BuildingRow(token: $token, user: $user, user_id: $user_id, building: building, minBedrooms: minBedrooms, minBathrooms: minBathrooms)
