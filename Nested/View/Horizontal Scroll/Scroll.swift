@@ -356,8 +356,12 @@ struct Scroll: View {
                          }
                     let offset = (value.translation.width + weakGesture) / geometry.size.width
                     let newIndex = (CGFloat(self.index) - offset).rounded()
-                    if (min(max(Int(newIndex), 0), filteredBuildings().count - 1) != index){
-                    self.index = min(max(Int(newIndex), 0), filteredBuildings().count - 1)
+                    if newIndex < 0 {
+                        self.index = filteredBuildings().count - 1
+                    } else if Int(newIndex) > filteredBuildings().count - 1{
+                        self.index = 0
+                    } else {
+                        self.index = Int(newIndex)
                     }
                     self.first = false
                  }

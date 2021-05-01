@@ -80,7 +80,6 @@ struct MapView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> MapView.Coordinator {
-        print("hi")
         return Coordinator(self, index: $index, buildings: buildings, user: $user)
     }
     
@@ -219,7 +218,6 @@ struct MapView: UIViewRepresentable {
                     currentIndex += 1
                 } else{
                     index = currentIndex
-                    print(index)
                 }
             }
             return index
