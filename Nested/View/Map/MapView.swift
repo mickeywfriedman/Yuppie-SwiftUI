@@ -106,7 +106,7 @@ struct MapView: UIViewRepresentable {
     func moveToCoordinate(_ mapView: MGLMapView, to point: CLLocationCoordinate2D) {
         makeCoordinator()
         let camera = MGLMapCamera(lookingAtCenter: point, fromDistance: 4500, pitch: 15, heading: 0)
-        mapView.fly(to: camera, withDuration: 4,
+        mapView.fly(to: camera, withDuration: 2,
                     peakAltitude: 3000, completionHandler: nil)
         let annotation = MGLPointAnnotation()
         annotation.coordinate = point
@@ -226,7 +226,7 @@ struct MapView: UIViewRepresentable {
         func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
             self.index.wrappedValue = getCurrentIndex(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
             let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, fromDistance: 4500, pitch: 15, heading: 0)
-            mapView.fly(to: camera, withDuration: 4,
+            mapView.fly(to: camera, withDuration: 2,
             peakAltitude: 3000, completionHandler: nil)
             mapView.selectAnnotation(annotation, animated: true, completionHandler: nil)
         }
